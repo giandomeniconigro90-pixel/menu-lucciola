@@ -1,58 +1,78 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+    <!-- 
+        META TAG ESSENZIALI
+        - viewport: Assicura che il sito si veda bene su tutti i cellulari
+        - charset: Imposta la codifica caratteri corretta per l'italiano (accenti)
+    -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bar La Lucciola - Menù</title>
     
-    <!-- IMPORT FONTS GOOGLE -->
+    <!-- 
+        IMPORTAZIONE FONT (Google Fonts)
+        - Playfair Display: Per i titoli eleganti (Stile classico)
+        - Inter: Per il testo leggibile (Stile moderno)
+    -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Importo Playfair Display per il titolo e Inter per il testo -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 
     <style>
-        /* --- VARIABILI & RESET --- */
+        /* 
+           1. VARIABILI GLOBALI (CSS Variables)
+           Permettono di cambiare i colori principali in un solo punto.
+        */
         :root {
-            --primary-color: #3e5c45;
-            --accent-color: #d4af37;
-            --bg-warm: #f8f9fa;
-            --text-dark: #2c2c2c;
-            --text-gray: #666666; /* Nuovo grigio per le categorie */
-            --shadow-soft: 0 10px 25px rgba(0,0,0,0.06);
-            --shadow-active: 0 4px 15px rgba(62, 92, 69, 0.3);
+            --primary-color: #3e5c45; /* Verde Abete (Colore principale) */
+            --accent-color: #d4af37;  /* Oro (Per dettagli di lusso) */
+            --bg-warm: #f8f9fa;       /* Bianco Ghiaccio caldo (Sfondo pagina) */
+            --text-dark: #2c2c2c;     /* Testo scuro principale */
+            --text-gray: #333333;     /* MODIFICA: Grigio più scuro per le categorie inattive */
+            --shadow-soft: 0 10px 25px rgba(0,0,0,0.06); /* Ombra leggera */
+            --shadow-active: 0 4px 15px rgba(62, 92, 69, 0.3); /* Ombra verde quando attivo */
         }
 
+        /* 
+           2. RESET & BODY
+           Impostazioni base per pulire lo stile del browser.
+        */
         body {
-            /* Uso 'Inter' per il corpo del testo, più moderno e leggibile */
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-warm);
             color: var(--text-dark);
             margin: 0; padding: 0;
-            overscroll-behavior-y: none; 
-            -webkit-tap-highlight-color: transparent;
+            overscroll-behavior-y: none; /* Evita il rimbalzo elastico su iOS */
+            -webkit-tap-highlight-color: transparent; /* Rimuove il flash blu al tocco su Android */
             transition: background-color 0.3s ease;
         }
         
-        /* --- ANIMAZIONI --- */
+        /* 
+           3. ANIMAZIONI KEYFRAMES
+           Definizione dei movimenti (zoom foto, entrata prodotti).
+        */
         @keyframes kenBurns {
             0% { transform: scale(1); }
-            100% { transform: scale(1.15); }
+            100% { transform: scale(1.15); } /* Lento zoom in avanti */
         }
         
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(20px); } /* Parte da sotto invisibile */
+            to { opacity: 1; transform: translateY(0); } /* Arriva al posto giusto */
         }
 
-        /* --- HEADER --- */
+        /* 
+           4. HEADER (Testata con Foto)
+        */
         header {
             position: relative;
             height: 240px;
             overflow: hidden;
-            background-color: #2c2c2c;
+            background-color: #2c2c2c; /* Colore di fallback se l'immagine non carica */
             transition: height 0.3s ease;
         }
+        /* Immagine di sfondo gestita via CSS */
         header::before {
             content: '';
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
@@ -60,14 +80,16 @@
             background-size: cover;
             background-position: center;
             z-index: 0;
-            animation: kenBurns 20s infinite alternate ease-in-out;
+            animation: kenBurns 20s infinite alternate ease-in-out; /* Animazione zoom */
         }
+        /* Velo scuro sopra la foto per leggere il testo */
         header::after {
             content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.7) 100%);
             z-index: 1;
         }
 
+        /* Contenitore Titolo e Sottotitolo */
         .header-content {
             position: absolute; 
             bottom: 25px; 
@@ -78,18 +100,17 @@
             width: auto;
             max-width: 80%;
         }
-        
-        /* MODIFICA FONT TITOLO */
+        /* Titolo Principale */
         .header-content h1 {
             font-family: 'Playfair Display', serif; /* Font elegante */
-            font-size: 34px; /* Leggermente più grande per questo font */
+            font-size: 34px; 
             margin-bottom: 2px; 
             font-weight: 700; 
-            font-style: italic; /* Un tocco di stile in più */
-            text-transform: none; /* Lasciamo Maiuscole/Minuscole naturali o forziamo se vuoi */
+            font-style: italic; 
             letter-spacing: 0.5px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.6); /* Ombra nera dietro il testo */
         }
+        /* Sottotitolo */
         .subtitle { 
             font-family: 'Inter', sans-serif;
             font-size: 13px; 
@@ -100,36 +121,40 @@
             text-shadow: 0 1px 5px rgba(0,0,0,0.5);
         }
 
-        /* --- STICKY NAV --- */
+        /* 
+           5. NAVIGAZIONE STICKY (Quella che rimane fissa)
+        */
         .sticky-nav-container {
             position: sticky;
             top: 0;
             z-index: 100;
-            margin-top: -50px; 
+            margin-top: -50px; /* Margine negativo per sovrapporsi all'header */
             padding: 10px 0;
             display: flex;
             justify-content: center;
-            pointer-events: none; 
+            pointer-events: none; /* Lascia passare i click ai lati */
             transition: all 0.3s ease;
         }
         
+        /* Contenitore che raggruppa Logo e Menu */
         .nav-cluster {
             display: flex;
             align-items: center;
-            gap: 10px;
-            pointer-events: auto;
+            gap: 10px; /* Spazio tra logo e menu */
+            pointer-events: auto; /* Riattiva i click qui dentro */
             width: 92%;
             justify-content: center;
             max-width: 800px;
         }
         
+        /* Cerchio del Logo (Separato) */
         .logo-circle {
             width: 60px; height: 60px;
             border-radius: 50%;
             flex-shrink: 0;
             display: flex; align-items: center; justify-content: center;
             
-            /* Trasparenza Fissa */
+            /* Sfondo Trasparente Vetro */
             background-color: rgba(255, 255, 255, 0.4);
             backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             
@@ -142,15 +167,16 @@
             border-radius: 50%; object-fit: cover;
         }
 
+        /* Pillola dei Bottoni (Separata) */
         .nav-pill-wrapper {
             display: flex;
             align-items: center;
             height: 60px;
             border-radius: 50px;
-            flex-grow: 1;
+            flex-grow: 1; /* Si allarga per occupare spazio */
             overflow: hidden; 
             
-            /* Trasparenza Fissa */
+            /* Sfondo Trasparente Vetro */
             background-color: rgba(255, 255, 255, 0.4);
             backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             
@@ -159,23 +185,26 @@
             transition: all 0.4s ease;
         }
         
+        /* Area scorrevole orizzontale */
         .nav-scroll-area {
             display: flex; align-items: center;
             overflow-x: auto; height: 100%; width: 100%;
             padding: 0 20px; 
-            scroll-snap-type: x mandatory;
-            scrollbar-width: none;
+            scroll-snap-type: x mandatory; /* Scatto magnetico */
+            scrollbar-width: none; /* Nasconde barra scroll (Firefox) */
         }
-        .nav-scroll-area::-webkit-scrollbar { display: none; }
+        .nav-scroll-area::-webkit-scrollbar { display: none; } /* Nasconde barra scroll (Chrome) */
 
-        /* --- ELEMENTI MENU --- */
+        /* 
+           6. STILE DEI BOTTONI CATEGORIA
+        */
         .tab-btn {
             background: transparent; border: none; padding: 10px 16px;
             font-size: 15px; 
             
-            /* MODIFICA COLORE TESTO CATEGORIE */
-            color: #555555; /* Grigio medio invece di nero */
-            font-weight: 500; /* Un po' meno grassetto per eleganza */
+            /* MODIFICA: Colore scuro (#333) per le categorie non attive */
+            color: #333333; 
+            font-weight: 600; /* Leggermente marcato per leggibilità */
             
             border-radius: 30px; cursor: pointer; 
             transition: all 0.2s ease;
@@ -183,26 +212,30 @@
             scroll-snap-align: center; margin-right: 5px; flex: 0 0 auto; 
         }
         
+        /* Stile Icone SVG */
         .tab-btn svg {
             width: 20px; height: 20px;
             stroke: currentColor; stroke-width: 2; fill: none;
             stroke-linecap: round; stroke-linejoin: round;
             transition: transform 0.2s ease;
-            opacity: 0.8; /* Icone leggermente più soft */
+            opacity: 0.85; /* Leggera trasparenza per icone inattive */
         }
 
-        /* Stato Attivo */
+        /* STATO ATTIVO (Bottone Verde) */
         .tab-btn.active {
             background-color: var(--primary-color); 
-            color: white; /* Torna bianco quando attivo */
+            color: white; /* Testo bianco su verde */
             font-weight: 600;
             box-shadow: var(--shadow-active);
         }
         .tab-btn.active svg { 
-            transform: scale(1.15); 
+            transform: scale(1.15); /* Zoom icona */
             opacity: 1;
         }
 
+        /* 
+           7. CONTENUTO MENU E PRODOTTI
+        */
         .menu-container { 
             max-width: 800px; margin: 0 auto; padding: 20px; padding-bottom: 100px; 
             min-height: 600px; 
@@ -210,7 +243,7 @@
         
         h3 { 
             color: var(--primary-color); 
-            font-family: 'Playfair Display', serif; /* Anche i titoli delle sezioni eleganti */
+            font-family: 'Playfair Display', serif;
             margin: 10px 0 25px 0; font-size: 24px; font-weight: 700;
             display: flex; align-items: center;
         }
@@ -220,12 +253,13 @@
             opacity: 0.2; margin-left: 15px;
         }
 
+        /* Card Prodotto */
         .menu-item { 
             display: flex; justify-content: space-between; align-items: center; 
             background: white; padding: 16px; margin-bottom: 15px; border-radius: 16px; 
             box-shadow: var(--shadow-soft); border: 1px solid rgba(0,0,0,0.01);
             opacity: 0; 
-            animation: fadeInUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            animation: fadeInUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; /* Entrata a cascata */
         }
         
         .item-info h4 { margin: 0; font-size: 17px; color: var(--text-dark); font-weight: 600; }
@@ -237,6 +271,9 @@
             border-radius: 10px; font-size: 15px; white-space: nowrap; margin-left: 15px;
         }
 
+        /* 
+           8. FOOTER E SOCIAL
+        */
         footer {
             background-color: white; text-align: center; padding: 50px 20px; 
             margin-top: 40px; border-top-left-radius: 30px; border-top-right-radius: 30px;
@@ -251,36 +288,40 @@
             box-shadow: 0 8px 20px rgba(24, 119, 242, 0.25);
         }
 
-        /* =========================================
-           LITE MODE
-           ========================================= */
+        /* 
+           9. LITE MODE (Modalità "Montagna" Leggera)
+           Si attiva automaticamente su connessioni lente o manualmente.
+        */
         body.lite-mode {
-            background-color: #f9f7f2; 
+            background-color: #f9f7f2; /* Sfondo caldo "carta" */
         }
 
         body.lite-mode header {
             height: 130px; 
-            background: linear-gradient(135deg, #2d4030 0%, #3e5c45 100%);
-            border-bottom: 4px solid #d4af37; 
+            background: linear-gradient(135deg, #2d4030 0%, #3e5c45 100%); /* Gradiente verde */
+            border-bottom: 4px solid #d4af37; /* Bordo Oro */
             display: flex; align-items: center; justify-content: center;
         }
+        /* Nasconde immagine pesante */
         body.lite-mode header::before { display: none; animation: none; }
         
+        /* Centra il testo in modalità Lite */
         body.lite-mode .header-content { 
             position: static; transform: none; 
             margin-top: 10px; text-align: center;
             bottom: auto; left: auto; max-width: 100%;
         }
         body.lite-mode .header-content h1 { 
-            font-size: 28px; text-shadow: none; font-style: normal; /* Meno elaborato in lite */
+            font-size: 28px; text-shadow: none; font-style: normal;
         }
         body.lite-mode .subtitle { opacity: 0.8; font-size: 14px; text-shadow: none; }
 
+        /* Barra Solida (No Vetro) per performance */
         body.lite-mode .sticky-nav-container {
             position: sticky;
             top: 0;
             z-index: 100;
-            margin-top: 0; 
+            margin-top: 0; /* Reset margine sovrapposizione */
             padding-top: 15px;
             background-color: #f9f7f2; 
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
@@ -291,7 +332,7 @@
         body.lite-mode .logo-circle,
         body.lite-mode .nav-pill-wrapper {
             background-color: #ffffff !important; 
-            border: 2px solid #e6e6e6; 
+            border: 2px solid #e6e6e6; /* Bordo visibile */
             box-shadow: 0 2px 6px rgba(0,0,0,0.05); 
             backdrop-filter: none !important; 
         }
@@ -314,6 +355,7 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
+        /* Fix per orientamento orizzontale */
         @media (orientation: landscape) {
             .nav-cluster { width: auto; max-width: 90%; } 
         }
@@ -321,7 +363,10 @@
 </head>
 <body>
 
-<!-- SWITCH LITE MODE -->
+<!-- 
+    BOTTONE SWITCH LITE MODE
+    Permette di passare manualmente alla modalità leggera
+-->
 <button id="lite-switch" onclick="toggleLiteMode()" style="
     position: fixed; top: 15px; right: 15px; z-index: 9999; 
     background: rgba(0,0,0,0.6); color: white; 
@@ -333,37 +378,45 @@
     ⚡ Lite
 </button>
 
+<!-- HEADER -->
 <header>
     <div class="header-content">
-        <h1>Bar La Lucciola</h1> <!-- Scritto in Minuscolo/Maiuscolo per sfruttare il font italic -->
+        <h1>Bar La Lucciola</h1> 
         <div class="subtitle">Laceno - Bagnoli Irpino</div>
     </div>
 </header>
 
-<!-- NAVIGAZIONE -->
+<!-- NAVIGAZIONE STICKY -->
 <div class="sticky-nav-container">
     <div class="nav-cluster">
+        <!-- Logo -->
         <div class="logo-circle">
             <img src="images/icon_app.png" alt="Logo" class="nav-mini-logo">
         </div>
+        <!-- Menu a Scorrimento -->
         <div class="nav-pill-wrapper">
             <div class="nav-scroll-area">
+                <!-- Categoria 1: Calde -->
                 <button class="tab-btn active" onclick="showCategory('calde', this)">
                     <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
                     Calde
                 </button>
+                <!-- Categoria 2: Fredde -->
                 <button class="tab-btn" onclick="showCategory('fredde', this)">
                     <svg viewBox="0 0 24 24"><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><path d="m20 16-4-4 4-4"></path><path d="m4 8 4 4-4 4"></path><path d="m16 4-4 4-4-4"></path><path d="m8 20 4-4 4 4"></path></svg>
                     Fredde
                 </button>
+                <!-- Categoria 3: Cocktail -->
                 <button class="tab-btn" onclick="showCategory('cocktail', this)">
                     <svg viewBox="0 0 24 24"><path d="M8 22h8"></path><path d="M12 15v7"></path><path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"></path></svg>
                     Cocktail
                 </button>
+                <!-- Categoria 4: Food -->
                 <button class="tab-btn" onclick="showCategory('food', this)">
                     <svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><path d="M9 3v2a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V3"></path><circle cx="12" cy="12" r="1"></circle></svg>
                     Food
                 </button>
+                <!-- Categoria 5: Dolci -->
                 <button class="tab-btn" onclick="showCategory('dolci', this)">
                     <svg viewBox="0 0 24 24"><path d="m4.5 13.5 3-3"/><path d="m19.5 13.5-3-3"/><path d="M12 9c-4.5-2-8 1-9.5 4.5 2.5 4 6 5 9.5 5s7-1 9.5-5c-1.5-3.5-5-6.5-9.5-4.5Z"/></svg>
                     Dolci
@@ -373,8 +426,10 @@
     </div>
 </div>
 
+<!-- CONTAINER MENU DINAMICO -->
 <div id="menu-container" class="menu-container"></div>
 
+<!-- FOOTER -->
 <footer>
     <div style="font-size: 1.2rem; font-weight: 700; color: var(--text-dark); margin-bottom: 5px; font-family: 'Playfair Display', serif;">
         Bar La Lucciola
@@ -393,8 +448,10 @@
     </div>
 </footer>
 
+<!-- SCRIPT -->
 <script>
-    // --- DATI MENU ---
+    // 1. DATABASE PRODOTTI
+    // Struttura JSON contenente tutte le categorie e i prodotti
     const menuData = {
         calde: {
             title: "Caffetteria Calda",
@@ -428,35 +485,50 @@
         }
     };
 
+    // 2. INIZIALIZZAZIONE
+    // Si avvia quando la pagina è pronta
     document.addEventListener('DOMContentLoaded', () => {
         const savedMode = localStorage.getItem('siteMode');
-        if (savedMode) { if (savedMode === 'lite') toggleLiteMode(); } 
-        else { checkConnectionSpeed(); }
+        if (savedMode) { 
+            // Se c'è una preferenza salvata, la rispetta
+            if (savedMode === 'lite') toggleLiteMode(); 
+        } else { 
+            // Altrimenti controlla la velocità della rete
+            checkConnectionSpeed(); 
+        }
+        // Carica la prima categoria
         showCategory('calde', document.querySelector('.tab-btn.active'));
     });
 
+    // 3. GESTIONE VELOCITÀ RETE (Network API)
     function checkConnectionSpeed() {
         const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
         if (connection) {
+            // Se è 2G, 3G o Risparmio Dati attivo -> Lite Mode
             const isSlow = connection.saveData || connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g' || connection.effectiveType === '3g';
             if (isSlow) { toggleLiteMode(); }
         }
     }
 
+    // 4. SWITCH MODALITÀ (Normal / Lite)
     function toggleLiteMode() {
         const body = document.body;
         const btn = document.getElementById('lite-switch');
         if(!btn) return;
+        
         body.classList.toggle('lite-mode');
         const isLite = body.classList.contains('lite-mode');
+        
         btn.innerHTML = isLite ? "🚀 Normal" : "⚡ Lite";
         localStorage.setItem('siteMode', isLite ? 'lite' : 'normal');
     }
 
+    // 5. FUNZIONE PRINCIPALE: MOSTRA CATEGORIA
     function showCategory(catId, btnElement) {
         const body = document.body;
         const isLite = body.classList.contains('lite-mode');
 
+        // Scroll fluido in alto (solo Normal Mode)
         if (!isLite) {
             setTimeout(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }, 50);
             if (btnElement) {
@@ -465,20 +537,28 @@
                 }, 150);
             }
         } else {
+             // Scroll istantaneo in Lite Mode
              window.scrollTo(0,0);
         }
 
         const container = document.getElementById('menu-container');
         const data = menuData[catId];
+        
+        // Aggiorna stato bottoni
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         if(btnElement) btnElement.classList.add('active');
 
         if(data) {
             container.innerHTML = `<h3>${data.title}</h3>`;
+            
+            // Genera HTML prodotti
             data.items.forEach((item, index) => {
                 const price = item.price.toFixed(2).replace('.', ',');
                 const descHTML = item.description ? `<p>${item.description}</p>` : '';
+                
+                // Calcola ritardo animazione (solo Normal Mode)
                 const delay = isLite ? 0 : index * 0.05;
+                
                 const itemHTML = `
                     <div class="menu-item" style="animation-delay: ${delay}s">
                         <div class="item-info">
