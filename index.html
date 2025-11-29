@@ -48,6 +48,7 @@
         header::before {
             content: '';
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            /* FILE IMMAGINE */
             background-image: url('images/la-lucciola-fronte.png'); 
             background-size: cover;
             background-position: center;
@@ -70,7 +71,7 @@
         }
         .subtitle { font-size: 15px; font-weight: 400; letter-spacing: 0.5px; opacity: 0.95; }
 
-        /* --- 4. STICKY NAV (MODIFICATA: SFONDO SOLIDO) --- */
+        /* --- 4. STICKY NAV DINAMICA --- */
         .sticky-nav-container {
             position: sticky; top: 0; z-index: 100;
             padding-top: 15px; padding-bottom: 25px; margin-top: -50px;
@@ -80,30 +81,50 @@
 
         .nav-pill-wrapper {
             pointer-events: auto; position: relative;
-            /* MODIFICA: Sfondo Bianco Solido per evitare sovrapposizione testo */
-            background-color: #ffffff; 
-            /* Rimosso backdrop-filter */
             
-            border: 1px solid rgba(0,0,0,0.05);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.12); /* Ombra più definita */
+            /* STATO INIZIALE (Quando sei in cima): TRASPARENTE/VETRO */
+            background-color: rgba(255, 255, 255, 0.7); 
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            
+            border: 1px solid rgba(255,255,255,0.4);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
             
             border-radius: 50px; max-width: 92%; margin: 0 auto; height: 65px;
             overflow: hidden; display: flex; align-items: center;
-            transition: all 0.3s ease;
+            
+            /* Transizione fluida tra trasparente e solido */
+            transition: background-color 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+        }
+
+        /* STATO SCROLLED (Attivato via JS): BIANCO SOLIDO */
+        .nav-pill-wrapper.scrolled {
+            background-color: #ffffff; /* Diventa bianca per coprire il testo sotto */
+            border-color: rgba(0,0,0,0.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); /* Ombra un po' più forte */
+            backdrop-filter: none; /* Rimuove il blur per performance */
         }
 
         .nav-logo-fixed {
             position: absolute; left: 0; top: 0; bottom: 0; width: 75px;
-            background-color: #ffffff; /* Sfondo bianco solido */
+            
+            /* Anche il logo parte trasparente */
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            
             z-index: 10; display: flex; align-items: center; justify-content: center;
             border-top-left-radius: 50px; border-bottom-left-radius: 50px;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+            box-shadow: 4px 0 15px rgba(0,0,0,0.03);
             border-right: 1px solid rgba(0,0,0,0.03);
+            transition: background-color 0.4s ease;
+        }
+        /* Quando scrolli, anche lo sfondo del logo diventa solido */
+        .nav-pill-wrapper.scrolled .nav-logo-fixed {
+            background-color: #ffffff;
         }
 
         .nav-mini-logo {
             width: 44px; height: 44px; border-radius: 50%; object-fit: cover;
-            border: 2px solid #eee; box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
 
         .nav-scroll-area {
@@ -112,6 +133,12 @@
             scroll-snap-type: x mandatory; scrollbar-width: none;
         }
         .nav-scroll-area::-webkit-scrollbar { display: none; }
+
+        /* FIX LANDSCAPE */
+        @media (orientation: landscape) {
+            .nav-pill-wrapper { width: fit-content; width: -moz-fit-content; max-width: 85%; padding-right: 15px; }
+            .sticky-nav-container { display: flex; justify-content: center; }
+        }
 
         /* STILE BOTTONI & ICONE SVG */
         .tab-btn {
@@ -192,12 +219,9 @@
             background-color: #ffffff;
         }
         body.lite-mode header {
-            height: 100px;
-            background: var(--primary-color);
+            height: 100px; background: var(--primary-color);
         }
-        body.lite-mode header::before {
-            display: none; animation: none;
-        }
+        body.lite-mode header::before { display: none; animation: none; }
         body.lite-mode .header-content h1 { font-size: 22px; }
         body.lite-mode .subtitle { font-size: 13px; }
 
@@ -205,37 +229,22 @@
             position: static; margin-top: 0; padding: 10px 0; background: #f1f1f1;
         }
         body.lite-mode .nav-pill-wrapper {
+            /* In lite mode sempre solida per performance */
             backdrop-filter: none; background: #fff; box-shadow: none;
             border: 1px solid #ddd; border-radius: 8px; height: 55px;
-            max-width: 95%; /* Reset larghezza landscape in lite mode */
+            max-width: 95%;
         }
-        body.lite-mode .nav-logo-fixed { display: none; }
+        body.lite-mode .nav-logo-fixed { display: none; } 
         body.lite-mode .nav-scroll-area { padding-left: 10px; }
         
         body.lite-mode .menu-item {
             animation: none !important; opacity: 1 !important;
             box-shadow: none; border: 1px solid #eee; margin-bottom: 8px;
         }
-        body.lite-mode .item-price {
-            background-color: #eee; color: #333;
-        }
+        body.lite-mode .item-price { background-color: #eee; color: #333; }
         
         body.lite-mode #lite-switch {
             background: #d4af37 !important; color: #000 !important; border: none !important;
-        }
-
-        /* --- FIX LANDSCAPE (Modalità Orizzontale) --- */
-        @media (orientation: landscape) {
-            .nav-pill-wrapper {
-                width: fit-content; 
-                width: -moz-fit-content;
-                max-width: 85%;
-                padding-right: 15px; 
-            }
-            .sticky-nav-container {
-                display: flex;
-                justify-content: center;
-            }
         }
     </style>
 </head>
@@ -348,6 +357,22 @@
         if (savedMode) { if (savedMode === 'lite') toggleLiteMode(); } 
         else { checkConnectionSpeed(); }
         showCategory('calde', document.querySelector('.tab-btn.active'));
+    });
+
+    // --- NUOVO: Gestione Scroll per Trasparenza ---
+    window.addEventListener('scroll', () => {
+        const nav = document.querySelector('.nav-pill-wrapper');
+        const body = document.body;
+        
+        // Disabilita effetto se siamo in Lite Mode
+        if (body.classList.contains('lite-mode')) return;
+
+        // Quando scendi di 100px (la barra arriva quasi in cima), diventa solida
+        if (window.scrollY > 100) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
     });
 
     function checkConnectionSpeed() {
