@@ -7,9 +7,9 @@
     <style>
         /* --- 1. VARIABILI & RESET --- */
         :root {
-            --primary-color: #3e5c45; /* Verde Abete */
-            --accent-color: #d4af37;  /* Oro */
-            --bg-warm: #f8f9fa;       /* Bianco Ghiaccio caldo */
+            --primary-color: #3e5c45;
+            --accent-color: #d4af37;
+            --bg-warm: #f8f9fa;
             --text-dark: #2c2c2c;
             --text-light: #666666;
             --shadow-soft: 0 10px 25px rgba(0,0,0,0.06);
@@ -70,7 +70,7 @@
         }
         .subtitle { font-size: 15px; font-weight: 400; letter-spacing: 0.5px; opacity: 0.95; }
 
-        /* --- 4. STICKY NAV --- */
+        /* --- 4. STICKY NAV (STRUTTURA UNIFICATA) --- */
         .sticky-nav-container {
             position: sticky; top: 0; z-index: 100;
             padding-top: 15px; padding-bottom: 25px; margin-top: -50px;
@@ -78,55 +78,47 @@
             transition: all 0.3s ease;
         }
 
-        /* -- STATO 1: FERMO (BIANCO SOLIDO 100%) -- */
         .nav-pill-wrapper {
             pointer-events: auto; position: relative;
             
-            /* QUI LA CORREZIONE: #ffffff SENZA TRASPARENZE */
+            /* UNICO SFONDO BIANCO PER TUTTO */
             background-color: #ffffff; 
-            backdrop-filter: none; -webkit-backdrop-filter: none; /* Disabilito filtri */
+            backdrop-filter: none;
             
             border: 1px solid rgba(0,0,0,0.05);
             box-shadow: 0 8px 30px rgba(0,0,0,0.12);
             
             border-radius: 50px; max-width: 92%; margin: 0 auto; height: 65px;
-            overflow: hidden; display: flex; align-items: center;
+            overflow: hidden; 
+            
+            /* FLEXBOX PER METTERE LOGO E BOTTONI SULLA STESSA RIGA SENZA SOVRAPPOSIZIONI */
+            display: flex; align-items: center;
             
             transition: background-color 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease;
         }
 
-        /* -- STATO 2: SCROLL (TRASPARENTE) -- */
+        /* QUANDO SCORRI DIVENTA TRASPARENTE */
         .nav-pill-wrapper.scrolled {
             background-color: rgba(255, 255, 255, 0.3) !important; 
             backdrop-filter: blur(15px) !important; -webkit-backdrop-filter: blur(15px) !important;
+            border-color: rgba(255,255,255,0.2);
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border: 1px solid rgba(255,255,255,0.2);
         }
 
-        /* -- LOGO: STATO FERMO (BIANCO SOLIDO 100%) -- */
-        .nav-logo-fixed {
-            position: absolute; left: 0; top: 0; bottom: 0; width: 75px;
-            
-            /* QUI LA CORREZIONE: #ffffff IDENTICO ALLA BARRA */
-            background-color: #ffffff;
-            backdrop-filter: none; -webkit-backdrop-filter: none;
-            
-            z-index: 10; display: flex; align-items: center; justify-content: center;
-            border-top-left-radius: 50px; border-bottom-left-radius: 50px;
-            
-            /* Rimuovo l'ombra interna che poteva sembrare grigia */
-            box-shadow: 2px 0 10px rgba(0,0,0,0.05); 
-            border-right: 1px solid rgba(0,0,0,0.03);
-            
-            transition: background-color 0.4s ease;
+        /* LOGO NON PIU' ASSOLUTO MA PARTE DEL FLUSSO */
+        .nav-logo-section {
+            /* Nessuno sfondo separato qui! */
+            width: 75px;
+            height: 100%;
+            display: flex; align-items: center; justify-content: center;
+            border-right: 1px solid rgba(0,0,0,0.05);
+            flex-shrink: 0; /* Non si schiaccia */
+            z-index: 2;
         }
-
-        /* -- LOGO: STATO SCROLL (TRASPARENTE) -- */
-        .nav-pill-wrapper.scrolled .nav-logo-fixed {
-            background-color: rgba(255, 255, 255, 0.3) !important; /* Stesso colore della barra scrolled */
-            backdrop-filter: blur(15px);
-            border-right: none; 
-            box-shadow: none;
+        
+        /* Rimuovo il bordo divisore quando scorri per pulizia */
+        .nav-pill-wrapper.scrolled .nav-logo-section {
+            border-right: 1px solid rgba(255,255,255,0.1);
         }
 
         .nav-mini-logo {
@@ -136,7 +128,8 @@
 
         .nav-scroll-area {
             display: flex; align-items: center; overflow-x: auto; height: 100%; width: 100%;
-            padding-left: 85px; padding-right: 20px; 
+            padding-left: 10px; /* Meno padding perché ora il logo è nel flusso */
+            padding-right: 20px; 
             scroll-snap-type: x mandatory; scrollbar-width: none;
         }
         .nav-scroll-area::-webkit-scrollbar { display: none; }
@@ -223,7 +216,7 @@
         body.lite-mode .subtitle { font-size: 13px; }
         body.lite-mode .sticky-nav-container { position: static; margin-top: 0; padding: 10px 0; background: #f1f1f1; }
         body.lite-mode .nav-pill-wrapper { backdrop-filter: none; background: #fff; box-shadow: none; border: 1px solid #ddd; border-radius: 8px; height: 55px; max-width: 95%; }
-        body.lite-mode .nav-logo-fixed { display: none; } 
+        body.lite-mode .nav-logo-section { display: none; } 
         body.lite-mode .nav-scroll-area { padding-left: 10px; }
         body.lite-mode .menu-item { animation: none !important; opacity: 1 !important; box-shadow: none; border: 1px solid #eee; margin-bottom: 8px; }
         body.lite-mode .item-price { background-color: #eee; color: #333; }
@@ -243,9 +236,11 @@
 
 <div class="sticky-nav-container">
     <div class="nav-pill-wrapper">
-        <div class="nav-logo-fixed">
+        <!-- LOGO ORA PARTE INTEGRANTE DEL FLUSSO (Non più assoluto) -->
+        <div class="nav-logo-section">
             <img src="images/icon_app.png" alt="Logo" class="nav-mini-logo">
         </div>
+
         <div class="nav-scroll-area">
             <button class="tab-btn active" onclick="showCategory('calde', this)"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>Calde</button>
             <button class="tab-btn" onclick="showCategory('fredde', this)"><svg viewBox="0 0 24 24"><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><path d="m20 16-4-4 4-4"></path><path d="m4 8 4 4-4 4"></path><path d="m16 4-4 4-4-4"></path><path d="m8 20 4-4 4 4"></path></svg>Fredde</button>
@@ -308,7 +303,6 @@
         showCategory('calde', document.querySelector('.tab-btn.active'));
     });
 
-    // --- SCROLL TRIGGER ---
     window.addEventListener('scroll', () => {
         const nav = document.querySelector('.nav-pill-wrapper');
         const body = document.body;
