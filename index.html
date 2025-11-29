@@ -7,9 +7,9 @@
     <style>
         /* --- 1. VARIABILI & RESET --- */
         :root {
-            --primary-color: #3e5c45; /* Verde Abete */
-            --accent-color: #d4af37;  /* Oro */
-            --bg-warm: #f8f9fa;       /* Bianco Ghiaccio caldo */
+            --primary-color: #3e5c45;
+            --accent-color: #d4af37;
+            --bg-warm: #f8f9fa;
             --text-dark: #2c2c2c;
             --text-light: #666666;
             --shadow-soft: 0 10px 25px rgba(0,0,0,0.06);
@@ -37,7 +37,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- 3. HEADER CON ZOOM --- */
+        /* --- 3. HEADER --- */
         header {
             position: relative;
             height: 240px;
@@ -70,7 +70,7 @@
         }
         .subtitle { font-size: 15px; font-weight: 400; letter-spacing: 0.5px; opacity: 0.95; }
 
-        /* --- 4. STICKY NAV DINAMICA (INVERTITA) --- */
+        /* --- 4. STICKY NAV --- */
         .sticky-nav-container {
             position: sticky; top: 0; z-index: 100;
             padding-top: 15px; padding-bottom: 25px; margin-top: -50px;
@@ -78,52 +78,53 @@
             transition: all 0.3s ease;
         }
 
+        /* -- STATO 1: FERMO (BIANCO SOLIDO) -- */
         .nav-pill-wrapper {
             pointer-events: auto; position: relative;
             
-            /* STATO INIZIALE (FERMO IN ALTO): BIANCO SOLIDO */
+            /* BIANCO PURO */
             background-color: #ffffff; 
+            backdrop-filter: none;
+            
             border: 1px solid rgba(0,0,0,0.05);
             box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-            backdrop-filter: none;
             
             border-radius: 50px; max-width: 92%; margin: 0 auto; height: 65px;
             overflow: hidden; display: flex; align-items: center;
             
-            /* Transizione fluida */
-            transition: background-color 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease;
+            /* Transizione rapida */
+            transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
         }
 
-        /* STATO SCROLLED (QUANDO SCENDI): DIVENTA TRASPARENTE/VETRO */
+        /* -- STATO 2: SCROLL (TRASPARENTE) -- */
         .nav-pill-wrapper.scrolled {
-            background-color: rgba(255, 255, 255, 0.85); /* Vetro semitrasparente */
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border-color: rgba(255,255,255,0.5);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            /* MOLTO TRASPARENTE (0.6) PER VEDERE LA DIFFERENZA */
+            background-color: rgba(255, 255, 255, 0.6) !important; 
+            backdrop-filter: blur(10px) !important; -webkit-backdrop-filter: blur(10px) !important;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border: 1px solid rgba(255,255,255,0.3);
         }
 
-        /* GESTIONE LOGO FISSO */
+        /* -- LOGO: STATO FERMO (BIANCO SOLIDO) -- */
         .nav-logo-fixed {
             position: absolute; left: 0; top: 0; bottom: 0; width: 75px;
             
-            /* STATO INIZIALE: BIANCO SOLIDO (Come la barra) */
             background-color: #ffffff;
-            backdrop-filter: none;
             
             z-index: 10; display: flex; align-items: center; justify-content: center;
             border-top-left-radius: 50px; border-bottom-left-radius: 50px;
             box-shadow: 2px 0 10px rgba(0,0,0,0.05);
             border-right: 1px solid rgba(0,0,0,0.03);
             
-            /* Transizione fluida */
-            transition: background-color 0.4s ease, backdrop-filter 0.4s ease;
+            transition: background-color 0.3s ease;
         }
-        
-        /* STATO SCROLLED: ANCHE IL LOGO DIVENTA TRASPARENTE */
+
+        /* -- LOGO: STATO SCROLL (TRASPARENTE) -- */
+        /* Importante: uso !important per forzare il cambio */
         .nav-pill-wrapper.scrolled .nav-logo-fixed {
-            background-color: rgba(255, 255, 255, 0.85); /* Stessa opacità della barra */
-            backdrop-filter: blur(12px); /* Stesso blur della barra */
-            border-right: 1px solid rgba(255,255,255,0.3); /* Separatore più leggero */
+            background-color: rgba(255, 255, 255, 0.6) !important;
+            backdrop-filter: blur(10px);
+            border-right: 1px solid rgba(255,255,255,0.2);
         }
 
         .nav-mini-logo {
@@ -138,13 +139,11 @@
         }
         .nav-scroll-area::-webkit-scrollbar { display: none; }
 
-        /* FIX LANDSCAPE */
         @media (orientation: landscape) {
             .nav-pill-wrapper { width: fit-content; width: -moz-fit-content; max-width: 85%; padding-right: 15px; }
             .sticky-nav-container { display: flex; justify-content: center; }
         }
 
-        /* STILE BOTTONI & ICONE SVG */
         .tab-btn {
             background: transparent; border: none; padding: 10px 16px;
             font-size: 14px; color: var(--text-light); font-weight: 600;
@@ -167,7 +166,6 @@
         }
         .tab-btn.active svg { transform: scale(1.15); }
 
-        /* --- 5. CONTENUTO MENU --- */
         .menu-container { 
             max-width: 800px; margin: 0 auto; padding: 20px; padding-bottom: 100px; 
             min-height: 600px; 
@@ -201,7 +199,6 @@
             border-radius: 10px; font-size: 15px; white-space: nowrap; margin-left: 15px;
         }
 
-        /* --- 6. FOOTER --- */
         footer {
             background-color: white; text-align: center; padding: 50px 20px; 
             margin-top: 40px; border-top-left-radius: 30px; border-top-right-radius: 30px;
@@ -216,55 +213,24 @@
             box-shadow: 0 8px 20px rgba(24, 119, 242, 0.25);
         }
 
-        /* =========================================
-           LITE MODE (Per connessioni lente)
-           ========================================= */
-        body.lite-mode {
-            background-color: #ffffff;
-        }
-        body.lite-mode header {
-            height: 100px; background: var(--primary-color);
-        }
+        /* LITE MODE */
+        body.lite-mode { background-color: #ffffff; }
+        body.lite-mode header { height: 100px; background: var(--primary-color); }
         body.lite-mode header::before { display: none; animation: none; }
         body.lite-mode .header-content h1 { font-size: 22px; }
         body.lite-mode .subtitle { font-size: 13px; }
-
-        body.lite-mode .sticky-nav-container {
-            position: static; margin-top: 0; padding: 10px 0; background: #f1f1f1;
-        }
-        body.lite-mode .nav-pill-wrapper {
-            /* In lite mode sempre solida */
-            backdrop-filter: none; background: #fff; box-shadow: none;
-            border: 1px solid #ddd; border-radius: 8px; height: 55px;
-            max-width: 95%;
-        }
+        body.lite-mode .sticky-nav-container { position: static; margin-top: 0; padding: 10px 0; background: #f1f1f1; }
+        body.lite-mode .nav-pill-wrapper { backdrop-filter: none; background: #fff; box-shadow: none; border: 1px solid #ddd; border-radius: 8px; height: 55px; max-width: 95%; }
         body.lite-mode .nav-logo-fixed { display: none; } 
         body.lite-mode .nav-scroll-area { padding-left: 10px; }
-        
-        body.lite-mode .menu-item {
-            animation: none !important; opacity: 1 !important;
-            box-shadow: none; border: 1px solid #eee; margin-bottom: 8px;
-        }
+        body.lite-mode .menu-item { animation: none !important; opacity: 1 !important; box-shadow: none; border: 1px solid #eee; margin-bottom: 8px; }
         body.lite-mode .item-price { background-color: #eee; color: #333; }
-        
-        body.lite-mode #lite-switch {
-            background: #d4af37 !important; color: #000 !important; border: none !important;
-        }
+        body.lite-mode #lite-switch { background: #d4af37 !important; color: #000 !important; border: none !important; }
     </style>
 </head>
 <body>
 
-<!-- SWITCH LITE MODE (FISSO) -->
-<button id="lite-switch" onclick="toggleLiteMode()" style="
-    position: fixed; top: 15px; right: 15px; z-index: 9999; 
-    background: rgba(0,0,0,0.6); color: white; 
-    border: 1px solid rgba(255,255,255,0.3); 
-    padding: 8px 15px; border-radius: 20px; 
-    font-size: 12px; font-weight: bold; 
-    backdrop-filter: blur(5px); cursor: pointer;
-    display: flex; align-items: center; gap: 5px;">
-    ⚡ Lite
-</button>
+<button id="lite-switch" onclick="toggleLiteMode()" style="position: fixed; top: 15px; right: 15px; z-index: 9999; background: rgba(0,0,0,0.6); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 8px 15px; border-radius: 20px; font-size: 12px; font-weight: bold; backdrop-filter: blur(5px); cursor: pointer; display: flex; align-items: center; gap: 5px;">⚡ Lite</button>
 
 <header>
     <div class="header-content">
@@ -275,38 +241,15 @@
 
 <div class="sticky-nav-container">
     <div class="nav-pill-wrapper">
-        
         <div class="nav-logo-fixed">
             <img src="images/icon_app.png" alt="Logo" class="nav-mini-logo">
         </div>
-
         <div class="nav-scroll-area">
-            
-            <button class="tab-btn active" onclick="showCategory('calde', this)">
-                <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
-                Calde
-            </button>
-
-            <button class="tab-btn" onclick="showCategory('fredde', this)">
-                <svg viewBox="0 0 24 24"><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><path d="m20 16-4-4 4-4"></path><path d="m4 8 4 4-4 4"></path><path d="m16 4-4 4-4-4"></path><path d="m8 20 4-4 4 4"></path></svg>
-                Fredde
-            </button>
-
-            <button class="tab-btn" onclick="showCategory('cocktail', this)">
-                <svg viewBox="0 0 24 24"><path d="M8 22h8"></path><path d="M12 15v7"></path><path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"></path></svg>
-                Cocktail
-            </button>
-
-            <button class="tab-btn" onclick="showCategory('food', this)">
-                <svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><path d="M9 3v2a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V3"></path><circle cx="12" cy="12" r="1"></circle></svg>
-                Food
-            </button>
-
-            <button class="tab-btn" onclick="showCategory('dolci', this)">
-                <svg viewBox="0 0 24 24"><path d="m4.5 13.5 3-3"/><path d="m19.5 13.5-3-3"/><path d="M12 9c-4.5-2-8 1-9.5 4.5 2.5 4 6 5 9.5 5s7-1 9.5-5c-1.5-3.5-5-6.5-9.5-4.5Z"/></svg>
-                Dolci
-            </button>
-
+            <button class="tab-btn active" onclick="showCategory('calde', this)"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>Calde</button>
+            <button class="tab-btn" onclick="showCategory('fredde', this)"><svg viewBox="0 0 24 24"><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><path d="m20 16-4-4 4-4"></path><path d="m4 8 4 4-4 4"></path><path d="m16 4-4 4-4-4"></path><path d="m8 20 4-4 4 4"></path></svg>Fredde</button>
+            <button class="tab-btn" onclick="showCategory('cocktail', this)"><svg viewBox="0 0 24 24"><path d="M8 22h8"></path><path d="M12 15v7"></path><path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"></path></svg>Cocktail</button>
+            <button class="tab-btn" onclick="showCategory('food', this)"><svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><path d="M9 3v2a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V3"></path><circle cx="12" cy="12" r="1"></circle></svg>Food</button>
+            <button class="tab-btn" onclick="showCategory('dolci', this)"><svg viewBox="0 0 24 24"><path d="m4.5 13.5 3-3"/><path d="m19.5 13.5-3-3"/><path d="M12 9c-4.5-2-8 1-9.5 4.5 2.5 4 6 5 9.5 5s7-1 9.5-5c-1.5-3.5-5-6.5-9.5-4.5Z"/></svg>Dolci</button>
         </div>
     </div>
 </div>
@@ -363,15 +306,14 @@
         showCategory('calde', document.querySelector('.tab-btn.active'));
     });
 
-    // --- GESTIONE SCROLL ---
+    // --- MODIFICATO: SOGLIA BASSISSIMA (10px) ---
     window.addEventListener('scroll', () => {
         const nav = document.querySelector('.nav-pill-wrapper');
         const body = document.body;
-        
         if (body.classList.contains('lite-mode')) return;
 
-        // Se scendi più di 100px, aggiungi classe "scrolled" (che ora rende trasparente tutto, logo incluso)
-        if (window.scrollY > 100) {
+        // Appena muovi lo schermo di 10px, attiva la trasparenza
+        if (window.scrollY > 10) {
             nav.classList.add('scrolled');
         } else {
             nav.classList.remove('scrolled');
