@@ -7,95 +7,45 @@
     <style>
         /* --- VARIABILI & RESET --- */
         :root {
-            --primary-color: #3e5c45; /* Verde scuro elegante */
-            --accent-color: #d4af37;  /* Oro soft */
-            --bg-warm: #fbfbfb;       /* Sfondo panna chiaro */
+            --primary-color: #3e5c45;
+            --accent-color: #d4af37;
+            --bg-warm: #fbfbfb;
             --text-dark: #2c2c2c;
             --card-bg: #ffffff;
             --shadow-soft: 0 8px 20px rgba(0,0,0,0.06);
         }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-warm);
             color: var(--text-dark);
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             overscroll-behavior-y: none; 
         }
-
-        /* --- SLIDER HEADER CSS --- */
+        
+        /* HEADER ORIGINALE */
         header {
             position: relative;
+            height: 220px;
+            background-image: url('images/header.jpg'); /* Tua immagine */
+            background-size: cover;
+            background-position: center;
             overflow: hidden;
-            background: #333;
-            height: 250px; 
         }
-        .slider-container {
-            display: flex;
-            width: 300%; 
-            height: 100%;
-            transition: transform 0.5s ease-in-out;
-        }
-        .slide {
-            width: 100%;
-            flex-shrink: 0;
-            height: 100%;
-        }
-        .slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .slider-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0,0,0,0.4);
-            color: white;
-            border: none;
-            padding: 15px;
-            font-size: 24px;
-            cursor: pointer;
-            z-index: 3;
-            border-radius: 50%;
-            margin: 0 10px;
-        }
-        .slider-btn.prev { left: 0; }
-        .slider-btn.next { right: 0; }
-
         header::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.3); 
-            z-index: 1;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.4); z-index: 1;
         }
         .header-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            text-align: center;
-            z-index: 2;
-            width: 100%;
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            color: white; text-align: center; z-index: 2; width: 100%;
         }
         .header-content h1 {
-            font-size: 28px;
-            margin-bottom: 5px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            font-size: 28px; margin-bottom: 5px; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 1px; text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
-        .subtitle {
-            font-size: 14px;
-            font-weight: 300;
-            opacity: 0.9;
-        }
+        .subtitle { font-size: 14px; font-weight: 300; opacity: 0.9; }
 
-        /* --- MENU STICKY & CLEAN MARGINS CSS --- */
+        /* --- STICKY MENU CON SCROLL SNAP --- */
         .sticky-nav-container {
             position: sticky;
             top: 0;
@@ -103,7 +53,7 @@
             background: linear-gradient(to bottom, #fbfbfb 60%, rgba(251, 251, 251, 0) 100%);
             padding-top: 10px;
             padding-bottom: 30px;
-            margin-top: -45px; 
+            margin-top: -45px;
             border: none;
             box-shadow: none;
             pointer-events: none; 
@@ -112,13 +62,16 @@
         .nav-tabs {
             pointer-events: auto;
             background-color: #fff; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             overflow-x: auto; 
             white-space: nowrap; 
-            padding: 8px 20px; 
+            
+            /* PADDING E SCROLL SNAP */
+            padding: 6px 25px; 
             scroll-snap-type: x mandatory; 
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none; 
+            
             border-radius: 50px;
             max-width: 95%;
             margin: 0 auto;
@@ -128,145 +81,42 @@
         .nav-tabs::-webkit-scrollbar { display: none; }
 
         .nav-logo-wrapper {
-            flex-shrink: 0;
-            margin-right: 15px;
-            padding-right: 15px;
-            border-right: 1px solid #eee;
-            display: flex;
-            align-items: center;
+            flex-shrink: 0; margin-right: 15px; padding-right: 15px; border-right: 1px solid #eee;
+            display: flex; align-items: center;
         }
-        .nav-mini-logo {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
+        .nav-mini-logo { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
 
         .tab-btn {
-            background: none;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #666;
-            font-weight: 600;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            background: none; border: none; padding: 10px 20px;
+            font-size: 16px; color: #666; font-weight: 600;
+            border-radius: 25px; cursor: pointer; transition: all 0.3s ease;
+            display: flex; align-items: center; gap: 8px;
             
+            /* SNAP ALIGN */
             scroll-snap-align: center;
-            margin: 0 25px; /* SPAZIO AMPIO */
+            margin: 0 5px; 
             flex: 0 0 auto; 
         }
         .tab-btn span { font-size: 18px; }
-        
         .tab-btn.active {
-            background-color: var(--primary-color);
-            color: white;
-            box-shadow: 0 4px 12px rgba(62, 92, 69, 0.3);
-            transform: scale(1.05);
+            background-color: var(--primary-color); color: white;
+            box-shadow: 0 4px 12px rgba(62, 92, 69, 0.3); transform: scale(1.05);
         }
 
-        /* --- GRIGLIA PRODOTTI --- */
-        .menu-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            padding-bottom: 100px; 
-            min-height: 600px; 
-        }
-
-        h3 {
-            color: var(--primary-color);
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            font-size: 22px;
-        }
-
-        .menu-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: white;
-            padding: 16px;
-            margin-bottom: 16px;
-            border-radius: 12px;
-            box-shadow: var(--shadow-soft);
-            transition: transform 0.2s ease;
-        }
-        
+        /* STILI GENERICI */
+        .menu-container { max-width: 800px; margin: 0 auto; padding: 20px; padding-bottom: 100px; min-height: 600px; }
+        h3 { color: var(--primary-color); border-bottom: 2px solid #eee; padding-bottom: 10px; margin: 20px 0; font-size: 22px; }
+        .menu-item { display: flex; justify-content: space-between; align-items: center; background: white; padding: 16px; margin-bottom: 16px; border-radius: 12px; box-shadow: var(--shadow-soft); transition: transform 0.2s ease; }
         .menu-item:active { transform: scale(0.98); }
-
-        .item-info h4 {
-            margin: 0;
-            font-size: 17px;
-            color: var(--text-dark);
-            font-weight: 700;
-        }
-        .item-info p {
-            margin: 4px 0 0 0;
-            font-size: 13px;
-            color: #888;
-            font-style: italic;
-        }
-
-        .item-price {
-            font-weight: 700;
-            color: var(--text-dark);
-            background-color: #eef5e5;
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-size: 15px;
-            white-space: nowrap;
-            margin-left: 12px;
-        }
-
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 40px 20px;
-            margin-top: 40px;
-            font-size: 14px;
-        }
-        .footer-logo {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            margin-bottom: 15px;
-            border: 2px solid var(--accent-color);
-        }
-        .footer-info p {
-            margin: 5px 0;
-            opacity: 0.8;
-        }
-        .social-links {
-            margin-top: 20px;
-        }
-        .social-links a {
-            color: var(--accent-color);
-            text-decoration: none;
-            margin: 0 10px;
-            font-size: 16px;
-        }
+        .item-info h4 { margin: 0; font-size: 17px; color: var(--text-dark); font-weight: 700; }
+        .item-info p { margin: 4px 0 0 0; font-size: 13px; color: #888; font-style: italic; }
+        .item-price { font-weight: 700; color: var(--text-dark); background-color: #eef5e5; padding: 8px 14px; border-radius: 8px; font-size: 15px; white-space: nowrap; margin-left: 12px; }
+        footer { background-color: #333; color: #aaa; text-align: center; padding: 50px 20px; font-size: 13px; margin-top: 40px; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="slider-container">
-        <!-- RICORDATI DI CAMBIARE I NOMI DELLE IMMAGINI SE SERVONO -->
-        <div class="slide"><img src="images/header.jpg" alt="Immagine 1"></div>
-        <div class="slide"><img src="images/header2.jpg" alt="Immagine 2"></div>
-        <div class="slide"><img src="images/header3.jpg" alt="Immagine 3"></div>
-    </div>
-    <button class="slider-btn prev">&#10094;</button>
-    <button class="slider-btn next">&#10095;</button>
-
     <div class="header-content">
         <h1>BAR LA LUCCIOLA</h1>
         <div class="subtitle">Laceno - Bagnoli Irpino</div>
@@ -296,140 +146,103 @@
     </div>
 </div>
 
-<div id="menu-container" class="menu-container">
-    <!-- Contenuto generato via JS -->
-</div>
+<div id="menu-container" class="menu-container"></div>
 
 <footer>
-    <img src="images/icon_app.png" alt="Logo La Lucciola" class="footer-logo">
-    <div class="footer-info">
-        <p><strong>Bar La Lucciola</strong></p>
-        <p>Via dei Prati, Laceno (AV)</p>
-        <p>Tel: +39 0827 123456</p>
-    </div>
-    <div class="social-links">
-        <a href="#">Instagram</a> • <a href="#">Facebook</a>
-    </div>
-    <p style="margin-top: 30px; font-size: 12px; opacity: 0.5;">© 2025 Tutti i diritti riservati</p>
+    <p>© 2025 Bar La Lucciola - Laceno</p>
 </footer>
 
 <script>
-    // --- DATI ORIGINALI RECUPERATI ---
     const menuData = {
-    calde: {
-        title: "Caffetteria Calda",
-        items: [
-            { name: "Caffè Espresso", description: "", price: 1.30 },
-            { name: "Caffè Decaffeinato", description: "", price: 1.50 },
-            { name: "Caffè D'Orzo", description: "Piccolo / Grande", price: 1.50 },
-            { name: "Caffè Ginseng", description: "Piccolo / Grande", price: 1.50 },
-            { name: "Caffè Macchiato", description: "", price: 1.50 },
-            { name: "Caffè Schiumato", description: "", price: 1.50 },
-            { name: "Caffè Corretto", description: "Grappa, Sambuca, Anice, etc.", price: 1.80 },
-            { name: "Cappuccino", description: "Latte fresco alta qualità", price: 2.00 },
-            { name: "Latte Bianco", description: "", price: 1.50 },
-            { name: "Latte Macchiato", description: "", price: 2.00 },
-            { name: "Cioccolata Calda", description: "Classica o Fondente", price: 3.50 },
-            { name: "Cioccolata con Panna", description: "", price: 4.00 },
-            { name: "Tè e Tisane", description: "Vari gusti (Scegli al banco)", price: 2.50 },
-            { name: "Camomilla", description: "", price: 2.00 },
-            { name: "Punch", description: "Mandarino, Arancio, Rum", price: 3.00 },
-            { name: "Bombardino", description: "Con panna", price: 4.00 }
-        ]
-    },
-    fredde: {
-        title: "Bibite & Freddi",
-        items: [
-            { name: "Acqua Minerale 50cl", description: "Naturale o Frizzante", price: 1.00 },
-            { name: "Acqua Minerale 1L", description: "Vetro (al tavolo)", price: 2.50 },
-            { name: "Coca Cola / Zero", description: "33cl Vetro", price: 3.00 },
-            { name: "Fanta / Sprite", description: "33cl Vetro", price: 3.00 },
-            { name: "Estathé", description: "Limone o Pesca (Vetro)", price: 3.00 },
-            { name: "Succhi di Frutta", description: "Pera, Pesca, Ace, Albicocca", price: 2.50 },
-            { name: "Crodino / Sanbittèr", description: "", price: 3.00 },
-            { name: "Red Bull", description: "", price: 4.00 },
-            { name: "Schweppes Tonica", description: "", price: 3.00 },
-            { name: "Schweppes Lemon", description: "", price: 3.00 },
-            { name: "Caffè Shakerato", description: "", price: 3.50 },
-            { name: "Crema Caffè", description: "Artigianale", price: 3.00 }
-        ]
-    },
-    cocktail: {
-        title: "Aperitivi & Cocktail",
-        items: [
-            { name: "Aperol Spritz", description: "Prosecco, Aperol, Soda", price: 5.00 },
-            { name: "Campari Spritz", description: "Prosecco, Bitter Campari, Soda", price: 5.00 },
-            { name: "Hugo Spritz", description: "Prosecco, Sciroppo Sambuco, Menta", price: 6.00 },
-            { name: "Gin Tonic", description: "Gin Gordon's/Tanqueray + Tonica", price: 6.00 },
-            { name: "Gin Tonic Premium", description: "Hendrick's / Malfy + Tonica Premium", price: 9.00 },
-            { name: "Negroni", description: "Gin, Vermouth Rosso, Campari", price: 7.00 },
-            { name: "Negroni Sbagliato", description: "Prosecco, Vermouth Rosso, Campari", price: 7.00 },
-            { name: "Americano", description: "Vermouth Rosso, Campari, Soda", price: 6.00 },
-            { name: "Mojito", description: "Rum, Lime, Zucchero canna, Menta", price: 7.00 },
-            { name: "Calice Vino Rosso", description: "Aglianico locale", price: 4.00 },
-            { name: "Calice Vino Bianco", description: "Fiano / Greco", price: 4.00 },
-            { name: "Prosecco (Calice)", description: "Valdobbiadene DOCG", price: 4.00 }
-        ]
-    },
-    food: {
-        title: "Food & Snack",
-        items: [
-            { name: "Panino Prosciutto Crudo", description: "Crudo di Parma", price: 5.00 },
-            { name: "Panino Cotto e Formaggio", description: "", price: 4.50 },
-            { name: "Panino Salame", description: "Salame Napoli", price: 4.50 },
-            { name: "Panino Caprese", description: "Mozzarella, Pomodoro, Origano", price: 5.00 },
-            { name: "Toast Classico", description: "Cotto e Sottiletta", price: 3.50 },
-            { name: "Toast Farcito", description: "Cotto, Formaggio, Insalata", price: 4.50 },
-            { name: "Patatine in busta", description: "Vari gusti", price: 1.50 },
-            { name: "Tagliere Irpino (2 pax)", description: "Salumi e formaggi locali + miele", price: 15.00 }
-        ]
-    },
-    dolci: {
-        title: "Dolci & Gelati",
-        items: [
-            { name: "Cornetto Vuoto", description: "Artigianale", price: 1.20 },
-            { name: "Cornetto Farcito", description: "Crema, Cioccolato, Marmellata", price: 1.50 },
-            { name: "Graffa", description: "Zuccherata", price: 2.00 },
-            { name: "Muffin", description: "Cioccolato o Mirtilli", price: 2.50 },
-            { name: "Torta Caprese", description: "Fetta", price: 3.50 },
-            { name: "Torta della Nonna", description: "Fetta", price: 3.50 },
-            { name: "Gelato Confezionato", description: "Vari (Vedi frigo)", price: 2.00 },
-            { name: "Tartufo Gelato", description: "Bianco o Nero", price: 4.00 }
-        ]
-    }
+        calde: {
+            title: "Caffetteria Calda",
+            items: [
+                { name: "Caffè Espresso", description: "", price: 1.30 },
+                { name: "Caffè Decaffeinato", description: "", price: 1.50 },
+                { name: "Caffè D'Orzo", description: "Piccolo / Grande", price: 1.50 },
+                { name: "Caffè Ginseng", description: "Piccolo / Grande", price: 1.50 },
+                { name: "Caffè Macchiato", description: "", price: 1.50 },
+                { name: "Caffè Schiumato", description: "", price: 1.50 },
+                { name: "Caffè Corretto", description: "Grappa, Sambuca, Anice, etc.", price: 1.80 },
+                { name: "Cappuccino", description: "Latte fresco alta qualità", price: 2.00 },
+                { name: "Latte Bianco", description: "", price: 1.50 },
+                { name: "Latte Macchiato", description: "", price: 2.00 },
+                { name: "Cioccolata Calda", description: "Classica o Fondente", price: 3.50 },
+                { name: "Cioccolata con Panna", description: "", price: 4.00 },
+                { name: "Tè e Tisane", description: "Vari gusti (Scegli al banco)", price: 2.50 },
+                { name: "Camomilla", description: "", price: 2.00 },
+                { name: "Punch", description: "Mandarino, Arancio, Rum", price: 3.00 },
+                { name: "Bombardino", description: "Con panna", price: 4.00 }
+            ]
+        },
+        fredde: {
+            title: "Bibite & Freddi",
+            items: [
+                { name: "Acqua Minerale 50cl", description: "Naturale o Frizzante", price: 1.00 },
+                { name: "Acqua Minerale 1L", description: "Vetro (al tavolo)", price: 2.50 },
+                { name: "Coca Cola / Zero", description: "33cl Vetro", price: 3.00 },
+                { name: "Fanta / Sprite", description: "33cl Vetro", price: 3.00 },
+                { name: "Estathé", description: "Limone o Pesca (Vetro)", price: 3.00 },
+                { name: "Succhi di Frutta", description: "Pera, Pesca, Ace, Albicocca", price: 2.50 },
+                { name: "Crodino / Sanbittèr", description: "", price: 3.00 },
+                { name: "Red Bull", description: "", price: 4.00 },
+                { name: "Schweppes Tonica", description: "", price: 3.00 },
+                { name: "Schweppes Lemon", description: "", price: 3.00 },
+                { name: "Caffè Shakerato", description: "", price: 3.50 },
+                { name: "Crema Caffè", description: "Artigianale", price: 3.00 }
+            ]
+        },
+        cocktail: {
+            title: "Aperitivi & Cocktail",
+            items: [
+                { name: "Aperol Spritz", description: "Prosecco, Aperol, Soda", price: 5.00 },
+                { name: "Campari Spritz", description: "Prosecco, Bitter Campari, Soda", price: 5.00 },
+                { name: "Hugo Spritz", description: "Prosecco, Sciroppo Sambuco, Menta", price: 6.00 },
+                { name: "Gin Tonic", description: "Gin Gordon's/Tanqueray + Tonica", price: 6.00 },
+                { name: "Gin Tonic Premium", description: "Hendrick's / Malfy + Tonica Premium", price: 9.00 },
+                { name: "Negroni", description: "Gin, Vermouth Rosso, Campari", price: 7.00 },
+                { name: "Negroni Sbagliato", description: "Prosecco, Vermouth Rosso, Campari", price: 7.00 },
+                { name: "Americano", description: "Vermouth Rosso, Campari, Soda", price: 6.00 },
+                { name: "Mojito", description: "Rum, Lime, Zucchero canna, Menta", price: 7.00 },
+                { name: "Calice Vino Rosso", description: "Aglianico locale", price: 4.00 },
+                { name: "Calice Vino Bianco", description: "Fiano / Greco", price: 4.00 },
+                { name: "Prosecco (Calice)", description: "Valdobbiadene DOCG", price: 4.00 }
+            ]
+        },
+        food: {
+            title: "Food & Snack",
+            items: [
+                { name: "Panino Prosciutto Crudo", description: "Crudo di Parma", price: 5.00 },
+                { name: "Panino Cotto e Formaggio", description: "", price: 4.50 },
+                { name: "Panino Salame", description: "Salame Napoli", price: 4.50 },
+                { name: "Panino Caprese", description: "Mozzarella, Pomodoro, Origano", price: 5.00 },
+                { name: "Toast Classico", description: "Cotto e Sottiletta", price: 3.50 },
+                { name: "Toast Farcito", description: "Cotto, Formaggio, Insalata", price: 4.50 },
+                { name: "Patatine in busta", description: "Vari gusti", price: 1.50 },
+                { name: "Tagliere Irpino (2 pax)", description: "Salumi e formaggi locali + miele", price: 15.00 }
+            ]
+        },
+        dolci: {
+            title: "Dolci & Gelati",
+            items: [
+                { name: "Cornetto Vuoto", description: "Artigianale", price: 1.20 },
+                { name: "Cornetto Farcito", description: "Crema, Cioccolato, Marmellata", price: 1.50 },
+                { name: "Graffa", description: "Zuccherata", price: 2.00 },
+                { name: "Muffin", description: "Cioccolato o Mirtilli", price: 2.50 },
+                { name: "Torta Caprese", description: "Fetta", price: 3.50 },
+                { name: "Torta della Nonna", description: "Fetta", price: 3.50 },
+                { name: "Gelato Confezionato", description: "Vari (Vedi frigo)", price: 2.00 },
+                { name: "Tartufo Gelato", description: "Bianco o Nero", price: 4.00 }
+            ]
+        }
     };
 
-    // --- INITIALIZATION & LOGIC ---
     document.addEventListener('DOMContentLoaded', () => {
-        // 1. Avvia lo slider
-        const slider = document.querySelector('.slider-container');
-        const slides = document.querySelectorAll('.slide');
-        const nextBtn = document.querySelector('.slider-btn.next');
-        const prevBtn = document.querySelector('.slider-btn.prev');
-        let currentIndex = 0;
-        const totalSlides = slides.length;
-
-        function goToSlide(index) {
-            slider.style.transform = 'translateX(-' + (index * (100 / totalSlides)) + '%)';
-        }
-
-        if(nextBtn && prevBtn) {
-            nextBtn.addEventListener('click', () => {
-                currentIndex = (currentIndex + 1) % totalSlides;
-                goToSlide(currentIndex);
-            });
-            prevBtn.addEventListener('click', () => {
-                currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-                goToSlide(currentIndex);
-            });
-        }
-
-        // 2. Mostra la prima categoria
         showCategory('calde', document.querySelector('.tab-btn.active'));
     });
 
     function showCategory(catId, btnElement) {
-        // SCROLL AUTOMATICO: Pagina su, Menu centrato
+        // SCROLL LOGIC
         setTimeout(() => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }, 50);
@@ -440,7 +253,7 @@
             }, 150);
         }
 
-        // GESTIONE ATTIVAZIONE
+        // RENDER LOGIC
         const container = document.getElementById('menu-container');
         const data = menuData[catId];
 
@@ -449,10 +262,8 @@
             btnElement.classList.add('active');
         }
 
-        // RENDER HTML
         if(data) {
             container.innerHTML = `<h3>${data.title}</h3>`;
-            // Fade effect
             container.style.opacity = 0;
             setTimeout(() => container.style.opacity = 1, 50);
             container.style.transition = 'opacity 0.3s ease';
