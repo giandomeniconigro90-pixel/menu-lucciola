@@ -48,7 +48,6 @@
         header::before {
             content: '';
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            /* FILE IMMAGINE */
             background-image: url('images/la-lucciola-fronte.png'); 
             background-size: cover;
             background-position: center;
@@ -71,7 +70,7 @@
         }
         .subtitle { font-size: 15px; font-weight: 400; letter-spacing: 0.5px; opacity: 0.95; }
 
-        /* --- 4. STICKY NAV DINAMICA --- */
+        /* --- 4. STICKY NAV DINAMICA (INVERTITA) --- */
         .sticky-nav-container {
             position: sticky; top: 0; z-index: 100;
             padding-top: 15px; padding-bottom: 25px; margin-top: -50px;
@@ -82,49 +81,54 @@
         .nav-pill-wrapper {
             pointer-events: auto; position: relative;
             
-            /* STATO INIZIALE (Quando sei in cima): TRASPARENTE/VETRO */
-            background-color: rgba(255, 255, 255, 0.7); 
-            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-            
-            border: 1px solid rgba(255,255,255,0.4);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            /* STATO INIZIALE (FERMO IN ALTO): BIANCO SOLIDO */
+            background-color: #ffffff; 
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            backdrop-filter: none;
             
             border-radius: 50px; max-width: 92%; margin: 0 auto; height: 65px;
             overflow: hidden; display: flex; align-items: center;
             
-            /* Transizione fluida tra trasparente e solido */
-            transition: background-color 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            /* Transizione fluida */
+            transition: background-color 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease;
         }
 
-        /* STATO SCROLLED (Attivato via JS): BIANCO SOLIDO */
+        /* STATO SCROLLED (QUANDO SCENDI): DIVENTA TRASPARENTE/VETRO */
         .nav-pill-wrapper.scrolled {
-            background-color: #ffffff; /* Diventa bianca per coprire il testo sotto */
-            border-color: rgba(0,0,0,0.05);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1); /* Ombra un po' più forte */
-            backdrop-filter: none; /* Rimuove il blur per performance */
+            background-color: rgba(255, 255, 255, 0.85); /* Vetro semitrasparente */
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-color: rgba(255,255,255,0.5);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
         }
 
+        /* GESTIONE LOGO FISSO */
         .nav-logo-fixed {
             position: absolute; left: 0; top: 0; bottom: 0; width: 75px;
             
-            /* Anche il logo parte trasparente */
-            background-color: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
+            /* STATO INIZIALE: BIANCO SOLIDO (Come la barra) */
+            background-color: #ffffff;
+            backdrop-filter: none;
             
             z-index: 10; display: flex; align-items: center; justify-content: center;
             border-top-left-radius: 50px; border-bottom-left-radius: 50px;
-            box-shadow: 4px 0 15px rgba(0,0,0,0.03);
+            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
             border-right: 1px solid rgba(0,0,0,0.03);
-            transition: background-color 0.4s ease;
+            
+            /* Transizione fluida */
+            transition: background-color 0.4s ease, backdrop-filter 0.4s ease;
         }
-        /* Quando scrolli, anche lo sfondo del logo diventa solido */
+        
+        /* STATO SCROLLED: ANCHE IL LOGO DIVENTA TRASPARENTE */
         .nav-pill-wrapper.scrolled .nav-logo-fixed {
-            background-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.85); /* Stessa opacità della barra */
+            backdrop-filter: blur(12px); /* Stesso blur della barra */
+            border-right: 1px solid rgba(255,255,255,0.3); /* Separatore più leggero */
         }
 
         .nav-mini-logo {
             width: 44px; height: 44px; border-radius: 50%; object-fit: cover;
-            border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            border: 2px solid #eee; box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
 
         .nav-scroll-area {
@@ -229,7 +233,7 @@
             position: static; margin-top: 0; padding: 10px 0; background: #f1f1f1;
         }
         body.lite-mode .nav-pill-wrapper {
-            /* In lite mode sempre solida per performance */
+            /* In lite mode sempre solida */
             backdrop-filter: none; background: #fff; box-shadow: none;
             border: 1px solid #ddd; border-radius: 8px; height: 55px;
             max-width: 95%;
@@ -359,15 +363,14 @@
         showCategory('calde', document.querySelector('.tab-btn.active'));
     });
 
-    // --- NUOVO: Gestione Scroll per Trasparenza ---
+    // --- GESTIONE SCROLL ---
     window.addEventListener('scroll', () => {
         const nav = document.querySelector('.nav-pill-wrapper');
         const body = document.body;
         
-        // Disabilita effetto se siamo in Lite Mode
         if (body.classList.contains('lite-mode')) return;
 
-        // Quando scendi di 100px (la barra arriva quasi in cima), diventa solida
+        // Se scendi più di 100px, aggiungi classe "scrolled" (che ora rende trasparente tutto, logo incluso)
         if (window.scrollY > 100) {
             nav.classList.add('scrolled');
         } else {
