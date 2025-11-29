@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <!--
+        METADATI DI BASE
+        Queste righe servono al browser per capire come mostrare correttamente il sito.
+        "viewport" è fondamentale per far sì che il sito si veda bene sui cellulari (responsive).
+    -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bar La Lucciola</title>
+
+    <!--
+        ICONE PER APP E BROWSER (FAVICON)
+        Quando un utente salva il sito sulla schermata Home del telefono o lo vede nelle schede del browser,
+        userà questa immagine (icon_app.png).
+        "theme-color" colora la barra degli indirizzi del browser mobile di verde scuro.
+    -->
+    <link rel="icon" href="images/icon_app.png">
+    <link rel="apple-touch-icon" href="images/icon_app.png">
+    <meta name="theme-color" content="#3A5A40">
+
+    <!--
+        CARICAMENTO FONT GOOGLE
+        Colleghiamo Google Fonts per scaricare i caratteri personalizzati:
+        - 'Cinzel': elegante e classico, usato per i titoli principali.
+        - 'Montserrat': moderno e leggibile, usato per tutto il resto del testo.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /*
+           --- VARIABILI CSS (TAVOLOZZA COLORI) ---
+           Qui definiamo i colori una volta sola. Se vuoi cambiare il verde in tutto il sito,
+           ti basta cambiarlo qui nella variabile --primary.
+        */
+        :root {
+            /* Colori principali del brand */
+            --primary: #3A5A40; /* Verde Pino scuro (usato per pulsanti attivi e titoli) */
+            --accent: #BC4749;  /* Rosso Bacca (usato per accenti e telefono) */
+
+            /* Colori di Sfondo (Tema "Rifugio Caldo") */
+            --bg-warm: #F9F5EB; /* Colore Crema/Latte per lo sfondo generale della pagina */
+            --card-bg: #FFFFFF; /* Bianco puro per le schede dei prodotti */
+
+            /* Colori del Testo */
+            --text-dark: #4A3B32;  /* Marrone Caffè (più morbido del nero) */
+            --text-light: #8D7B6F; /* Marrone Tortora (per descrizioni e dettagli secondari) */
+
+            /* Sfondo del prezzo */
+            --price-bg: #E6F0E1; /* Verdino Salvia chiaro per evidenziare il prezzo */
+        }
+
+        /*
+           --- REGOLE DI BASE ---
+        */
+        * {
+            box-sizing: border-box; /* Gestione intuitiva delle dimensioni (padding non allarga l'elemento) */
+            -webkit-tap-highlight-color: transparent; /* Rimuove il fastidioso flash blu al tocco su Android */
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif; /* Font di default */
+            background-color: var(--bg-warm);      /* Colore sfondo crema */
+            color: var(--text-dark);               /* Colore testo base */
+
+            /* Texture "Carta Ruvida": aggiunge una leggera granulosità allo sfondo per un effetto materiale */
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* Impedisce lo scroll orizzontale indesiderato */
+        }
+
+        /*
+           --- HEADER (TESTATA PRINCIPALE) ---
+           La parte alta del sito con l'immagine grande.
+        */
+        header {
+            height: 28vh;     /* Altezza dinamica: occupa il 28% dello schermo */
+            min-height: 220px; /* Altezza minima fissa per non schiacciarsi troppo */
+
+            /* Immagine di sfondo (la foto del bar). 'cover' la adatta senza deformarla */
+            background: url('images/la-lucciola-fronte.png') center/cover no-repeat;
+
+            position: relative; /* Serve per posizionare gli elementi "assoluti" al suo interno */
+            display: flex;
+            align-items: flex-end; /* Allinea il contenuto in basso */
+            justify-content: center; /* Centra il contenuto orizzontalmente */
+            padding-bottom: 80px; /* Lascia spazio sotto per non far sovrapporre il menu flottante */
+
+            /* Ombra morbida sotto l'header */
+            box-shadow: 0 10px 30px -10px rgba(58, 90, 64, 0.3);
+        }
+
+        /* Filtro scuro sopra la foto (Overlay) per rendere leggibile il testo bianco */
+        header::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            /* Gradiente che va dal trasparente al marrone scuro */
+            background: linear-gradient(to bottom, rgba(74, 59, 50, 0.1), rgba(74, 59, 50, 0.6));
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2; /* Assicura che il testo stia SOPRA il filtro scuro */
+            text-align: center;
+            color: #FFFBF2; /* Bianco panna per il testo */
+            text-shadow: 0 2px 10px rgba(0,0,0,0.6); /* Ombra dietro le lettere per leggibilità */
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif; /* Font elegante per il nome del bar */
+            font-size: 2.1rem;
+            margin: 0;
+            letter-spacing: 1px; /* Leggera spaziatura tra le lettere */
+        }
+
+        .subtitle {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 6px;
+            color: #EADCC5; /* Color biscotto */
+        }
+
+        /*
+           --- NAVIGAZIONE FLUTTUANTE (STICKY MENU) ---
+           Il menu bianco con i pulsanti che rimane incollato in alto.
+        */
+        .sticky-nav-container {
+            position: sticky; /* Diventa adesivo quando scrolli */
+            top: 15px;        /* Si ferma a 15px dal bordo superiore */
+            z-index: 100;     /* Sta sopra a tutto il resto */
+            margin-top: -45px; /* Margine negativo per farlo "salire" sopra l'header */
+            display: flex;
+            justify-content: center;
+            padding: 0 15px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            align-items: center; /* Allinea verticalmente icone e testo */
+            gap: 5px; /* Spazio tra i pulsanti */
+            padding: 6px;
+
+            /* Abilita lo scroll orizzontale per i menu lunghi */
+            overflow-x: auto;
+            scrollbar-width: none; /* Nasconde scrollbar Firefox */
+            -ms-overflow-style: none; /* Nasconde scrollbar IE */
+
+            /* Stile "Pillola" bianca */
+            background: #FFFDF9;
+            border: 1px solid #E6DACC;
+            border-radius: 50px;
+            box-shadow: 0 8px 20px rgba(74, 59, 50, 0.1); /* Ombra elegante */
+            max-width: 100%; /* Non esce mai dallo schermo */
+        }
+
+        /* Nasconde scrollbar Chrome/Safari */
+        .nav-tabs::-webkit-scrollbar { display: none; }
+
+        /* Contenitore per il mini-logo dentro la barra */
+        .nav-logo-wrapper {
+            padding-left: 8px;
+            padding-right: 8px;
+            display: flex;
+            align-items: center;
+            border-right: 1px solid #E6DACC; /* Lineetta divisoria verticale */
+            margin-right: 2px;
+            flex-shrink: 0; /* Impedisce al logo di schiacciarsi */
+        }
+
+        /* Immagine del mini-logo */
+        .nav-mini-logo {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%; /* Cerchio perfetto */
+            object-fit: cover;
+            border: 1px solid #E6DACC;
+        }
+
+        /* Pulsanti delle categorie (es. Calde, Fredde) */
+        .tab-btn {
+            border: none;
+            background: transparent; /* Sfondo trasparente di base */
+            color: var(--text-light);
+            padding: 10px 16px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            white-space: nowrap; /* Testo su una sola riga */
+            transition: all 0.2s ease; /* Animazione fluida al cambio stato */
+            cursor: pointer;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 6px; /* Spazio tra icona (☕) e testo */
+        }
+
+        /* Stile del pulsante ATTIVO (cliccato) */
+        .tab-btn.active {
+            background-color: var(--primary); /* Verde scuro */
+            color: #FFFDF9; /* Testo bianco */
+            box-shadow: 0 2px 8px rgba(58, 90, 64, 0.25);
+        }
+
+        /*
+           --- AREA CONTENUTI (LISTA PRODOTTI) ---
+        */
+        .content-area {
+            min-height: 60vh; /* Altezza minima */
+            padding: 30px 20px 20px;
+            max-width: 600px;
+            margin: 0 auto; /* Centrato orizzontalmente */
+        }
+
+        /* Titolo della sezione (es. "Bevande Calde") */
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            /* Animazione di comparsa */
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Lineette decorative ai lati del titolo */
+        .section-title::before, .section-title::after {
+            content: "";
+            display: block;
+            width: 30px;
+            height: 1px;
+            background-color: #DCC9A9;
+        }
+
+        /* Scheda del singolo prodotto */
+        .item {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+
+            /* Layout flessibile: nome a sinistra, prezzo a destra */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            border: 1px solid #EDE0D4;
+            box-shadow: 0 2px 4px rgba(74, 59, 50, 0.03);
+
+            /* Animazioni iniziali (invisibile e spostato giù) */
+            opacity: 0;
+            transform: translateY(10px);
+            animation: slideUp 0.4s forwards; /* Esegue l'animazione slideUp */
+        }
+
+        /* Effetto quando si tocca un prodotto */
+        .item:active {
+            transform: scale(0.98); /* Si rimpicciolisce leggermente */
+            background-color: #FDFBF7;
+        }
+
+        .item-info h3 {
+            margin: 0;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .item-desc {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 4px;
+            font-style: italic;
+        }
+
+        /* Etichetta del prezzo */
+        .price {
+            background-color: var(--price-bg);
+            color: var(--primary);
+            font-weight: 700;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            margin-left: 12px;
+            border: 1px solid #D4E0CF;
+        }
+
+        /*
+           --- FOOTER (PIÈ DI PAGINA) ---
+        */
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            background: transparent;
+            color: var(--text-light);
+            margin-top: 20px;<
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            margin-top: 15px;
+            color: #FFFDF9;
+            background-color: #4267B2; /* Blu Facebook */
+            font-weight: 600;
+            text-decoration: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 10px rgba(66, 103, 178, 0.2);
+        }
+
+        /*
+           --- DEFINIZIONE ANIMAZIONI ---
+        */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    
+/* --- FIX DISAPPROVED OVERLAP: SOFT GRADIENT MENU --- */
+.sticky-nav-container {
+    /* Position sticky active */
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    /* Gradient background: Solid at top, fading to transparent at bottom */
+    /* This creates a safe area for the menu while letting content fade in smoothly */
+    background: linear-gradient(to bottom, #fbfbfb 60%, rgba(251, 251, 251, 0) 100%);
+
+    /* Adjust padding to accommodate the gradient fade */
+    padding-top: 10px;
+    padding-bottom: 30px; /* Extra space for the fade effect */
+    margin-top: -45px; /* Keep original positioning logic */
+
+    /* Remove hard borders/shadows from container */
+    border: none;
+    box-shadow: none;
+
+    /* Allow clicks to pass through the transparent part */
+    pointer-events: none; 
+}
+
+.nav-tabs {
+    /* Re-enable clicks on the buttons themselves */
+    pointer-events: auto;
+    /* Ensure the pill itself is solid and visible */
+    background-color: #fff; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+</style>
+</head>
+<body>
+
+<!-- HEADER: Contiene titolo e immagine di sfondo -->
+<header>
+    <div class="header-content">
+        <h1>BAR LA LUCCIOLA</h1>
+        <div class="subtitle">Laceno - Bagnoli Irpino</div>
+    </div>
+</header>
+
+<!-- NAVIGAZIONE FLUTTUANTE -->
+<div class="sticky-nav-container">
+    <div class="nav-tabs">
+
+        <!-- Mini Logo a sinistra -->
+        <div class="nav-logo-wrapper">
+            <img src="images/icon_app.png" alt="Logo" class="nav-mini-logo">
+        </div>
+
+        <!-- Pulsanti Categorie.
+             onclick="showCategory('...')" chiama la funzione Javascript in basso
+        -->
+        <button class="tab-btn active" onclick="showCategory('calde', this)">
+            <span>☕</span> Calde
+        </button>
+        <button class="tab-btn" onclick="showCategory('fredde', this)">
+            <span>❄️</span> Fredde
+        </button>
+        <button class="tab-btn" onclick="showCategory('cocktail', this)">
+            <span>🍹</span> Cocktail
+        </button>
+        <button class="tab-btn" onclick="showCategory('food', this)">
+            <span>🥪</span> Food
+        </button>
+        <button class="tab-btn" onclick="showCategory('dolci', this)">
+            <span>🍰</span> Dolci
+        </button>
+    </div>
+</div>
+
+<!-- CONTENITORE DINAMICO: Qui Javascript inserirà i prodotti -->
+<div class="content-area" id="menu-container"></div>
+
+<!-- FOOTER: Info contatti e link social -->
+<footer>
+    <div style="font-size: 1rem; font-weight: 500; color: var(--text-dark);">
+        Bar La Lucciola<br>
+        <span style="font-size: 0.9rem; color: var(--text-light);">Via Dei Prati, 2 - Laceno</span>
+    </div>
+
+    <!-- Link Telefono (funziona su mobile) -->
+    <a href="tel:082768069" style="display:block; margin-top:15px; color:var(--accent); text-decoration:none; font-weight:bold; font-size:1.2rem;">
+        📞 0827 68069
+    </a>
+
+    <a href="https://www.facebook.com/barlalucciolaLACENO" target="_blank" class="social-link">
+        Seguici su Facebook
+    </a>
+
+    <div style="margin-top: 30px; font-size: 0.75rem; opacity: 0.7;">
+        Coperto e Servizio inclusi<br>
+        © 2025
+    </div>
+</footer>
+
+<!--
+    --- JAVASCRIPT (LOGICA DEL SITO) ---
+    Qui gestiamo i dati e l'interattività.
+-->
+<script>
+    /*
+       DATABASE PRODOTTI
+       Qui puoi modificare prezzi e descrizioni facilmente.
+    */
+    const menuData = {
+        calde: {
+            title: "Bevande Calde",
+            items: [
+                { name: "Caffè Espresso", price: "1.30", desc: "" },
+                { name: "Cappuccino", price: "2.00", desc: "Latte fresco di montagna" },
+                { name: "Cioccolata Calda", price: "3.50", desc: "Classica o Fondente" },
+                { name: "Bombardino", price: "4.50", desc: "Con panna montata" },
+                { name: "Calimero", price: "4.50", desc: "Bombardino + Espresso" },
+                { name: "Tè e Infusi", price: "2.50", desc: "Erbe alpine" },
+                { name: "Ginseng / Orzo", price: "1.50", desc: "Tazza piccola" }
+            ]
+        },
+        fredde: {
+            title: "Bevande Fredde",
+            items: [
+                { name: "Acqua 50cl", price: "1.00", desc: "Naturale / Frizzante" },
+                { name: "Bibite Lattina", price: "3.00", desc: "Coca, Fanta, Sprite" },
+                { name: "Birra Peroni", price: "2.50", desc: "33cl" },
+                { name: "Birra Tennent's", price: "3.50", desc: "Doppio Malto" },
+                { name: "Birra Corona", price: "4.00", desc: "Con Lime" },
+                { name: "Birra Artigianale", price: "6.00", desc: "Locale Irpina" },
+                { name: "Vino Calice", price: "4.00", desc: "Rosso / Bianco" }
+            ]
+        },
+        cocktail: {
+            title: "Cocktail & Aperitivi",
+            items: [
+                { name: "Aperol Spritz", price: "5.00", desc: "Prosecco, Aperol, Soda" },
+                { name: "Campari Spritz", price: "5.00", desc: "" },
+                { name: "Hugo", price: "6.00", desc: "Sambuco, Menta, Lime" },
+                { name: "Gin Tonic", price: "7.00", desc: "Gin Premium" },
+                { name: "Americano", price: "7.00", desc: "Campari, Vermouth, Soda" }
+            ]
+        },
+        food: {
+            title: "Spuntini Salati",
+            items: [
+                { name: "Calzone", price: "4.00", desc: "Pomodoro e Mozzarella" },
+                { name: "Toast", price: "3.50", desc: "Cotto e Formaggio" },
+                { name: "Panino Montanaro", price: "5.00", desc: "Salame e Formaggio" },
+                { name: "Patatine", price: "1.50", desc: "San Carlo" },
+                { name: "Tagliere (x2)", price: "15.00", desc: "Salumi e formaggi locali" }
+            ]
+        },
+        dolci: {
+            title: "I Nostri Dolci",
+            items: [
+                { name: "Cornetto", price: "1.50", desc: "Vari gusti" },
+                { name: "Torta Ricotta e Pera", price: "5.00", desc: "Artigianale" },
+                { name: "Cheesecake", price: "5.00", desc: "Frutti di bosco" },
+                { name: "Torta Cocco/Nutella", price: "4.50", desc: "" },
+                { name: "Strudel", price: "5.00", desc: "Con cannella" }
+            ]
+        }
+    };
+
+    /*
+       FUNZIONE PRINCIPALE: showCategory
+       Prende l'ID della categoria (es. 'calde') e l'elemento bottone cliccato.
+       1. Aggiorna la grafica dei pulsanti (rende attivo quello cliccato).
+       2. Genera l'HTML dei prodotti prendendoli dal database sopra.
+       3. Inserisce l'HTML nella pagina.
+    */
+    function showCategory(catId, btnElement) {
+        const container = document.getElementById('menu-container');
+        const data = menuData[catId];
+
+        // 1. Disattiva tutti i pulsanti e attiva quello corrente
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        if(btnElement) {
+            btnElement.classList.add('active');
+            // Scroll automatico orizzontale per centrare il pulsante (utile su mobile)
+            btnElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+
+        // 2. Costruzione HTML
+        let html = `<h2 class="section-title">${data.title}</h2>`;
+
+        data.items.forEach((item, index) => {
+            // Calcolo ritardo per effetto cascata (delay animation)
+            const delay = index * 0.05;
+            html += `
+            <div class="item" style="animation-delay: ${delay}s">
+                <div class="item-info">
+                    <h3>${item.name}</h3>
+                    ${item.desc ? `<div class="item-desc">${item.desc}</div>` : ''}
+                </div>
+                <div class="price">€ ${item.price}</div>
+            </div>`;
+        });
+
+        // 3. Inserimento nella pagina
+        container.innerHTML = html;
+
+        // Se l'utente ha scrollato molto in basso, riportalo su delicatamente
+        if(window.scrollY > 200) {
+            window.scrollTo({ top: 160, behavior: 'smooth' });
+        }
+    }
+
+    // AVVIO AUTOMATICO: Al caricamento della pagina, mostra le bevande calde
+    document.addEventListener('DOMContentLoaded', () => {
+        const firstBtn = document.querySelector('.tab-btn');
+        showCategory('calde', firstBtn);
+    });
+
+</script>
+
+</body>
+</html>
