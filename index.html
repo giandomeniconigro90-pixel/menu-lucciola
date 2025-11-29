@@ -2,7 +2,6 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <!-- Viewport ottimizzato per mobile (impedisce lo zoom accidentale) -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bar La Lucciola - Menù</title>
     <style>
@@ -22,7 +21,6 @@
             color: var(--text-dark);
             margin: 0;
             padding: 0;
-            /* Evita il rimbalzo elastico su iOS che può rompere l'effetto sticky */
             overscroll-behavior-y: none; 
         }
 
@@ -31,7 +29,7 @@
             position: relative;
             overflow: hidden;
             background: #333;
-            height: 250px; /* Altezza fissa */
+            height: 250px; 
         }
         .slider-container {
             display: flex;
@@ -70,7 +68,7 @@
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.3); /* Velo scuro */
+            background: rgba(0,0,0,0.3); 
             z-index: 1;
         }
         .header-content {
@@ -105,7 +103,7 @@
             background: linear-gradient(to bottom, #fbfbfb 60%, rgba(251, 251, 251, 0) 100%);
             padding-top: 10px;
             padding-bottom: 30px;
-            margin-top: -45px; /* Overlay effect */
+            margin-top: -45px; 
             border: none;
             box-shadow: none;
             pointer-events: none; 
@@ -117,7 +115,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
             overflow-x: auto; 
             white-space: nowrap; 
-            padding: 8px 20px; /* Padding interno */
+            padding: 8px 20px; 
             scroll-snap-type: x mandatory; 
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none; 
@@ -136,8 +134,6 @@
             border-right: 1px solid #eee;
             display: flex;
             align-items: center;
-            position: sticky; /* Logo resta fisso a sinistra se vuoi, ma qui scorre */
-            left: 0;
         }
         .nav-mini-logo {
             width: 40px;
@@ -161,7 +157,7 @@
             gap: 8px;
             
             scroll-snap-align: center;
-            margin: 0 25px; /* AMPIO SPAZIO TRA I BOTTONI */
+            margin: 0 25px; /* SPAZIO AMPIO */
             flex: 0 0 auto; 
         }
         .tab-btn span { font-size: 18px; }
@@ -229,25 +225,44 @@
             margin-left: 12px;
         }
 
-        /* FOOTER */
         footer {
             background-color: #333;
-            color: #aaa;
+            color: #fff;
             text-align: center;
-            padding: 50px 20px;
-            font-size: 13px;
+            padding: 40px 20px;
             margin-top: 40px;
+            font-size: 14px;
+        }
+        .footer-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            border: 2px solid var(--accent-color);
+        }
+        .footer-info p {
+            margin: 5px 0;
+            opacity: 0.8;
+        }
+        .social-links {
+            margin-top: 20px;
+        }
+        .social-links a {
+            color: var(--accent-color);
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
 
-<!-- HEADER CON SLIDER -->
 <header>
     <div class="slider-container">
-        <!-- Sostituisci con le tue immagini -->
-        <div class="slide"><img src="images/la-lucciola-neve.jpg" alt="Immagine 1"></div>
-        <div class="slide"><img src="images/la-lucciola-fronte.png" alt="Immagine 2"></div>
+        <!-- RICORDATI DI CAMBIARE I NOMI DELLE IMMAGINI SE SERVONO -->
+        <div class="slide"><img src="images/header.jpg" alt="Immagine 1"></div>
+        <div class="slide"><img src="images/header2.jpg" alt="Immagine 2"></div>
+        <div class="slide"><img src="images/header3.jpg" alt="Immagine 3"></div>
     </div>
     <button class="slider-btn prev">&#10094;</button>
     <button class="slider-btn next">&#10095;</button>
@@ -258,7 +273,6 @@
     </div>
 </header>
 
-<!-- NAVIGAZIONE FLUTTUANTE -->
 <div class="sticky-nav-container">
     <div class="nav-tabs">
         <div class="nav-logo-wrapper">
@@ -282,70 +296,112 @@
     </div>
 </div>
 
-<!-- CONTENITORE PRODOTTI -->
 <div id="menu-container" class="menu-container">
-    <!-- Qui verrà iniettato il contenuto Javascript -->
+    <!-- Contenuto generato via JS -->
 </div>
 
 <footer>
-    <p>© 2025 Bar La Lucciola - Laceno</p>
-    <p>Aperto tutti i giorni</p>
+    <img src="images/icon_app.png" alt="Logo La Lucciola" class="footer-logo">
+    <div class="footer-info">
+        <p><strong>Bar La Lucciola</strong></p>
+        <p>Via dei Prati, Laceno (AV)</p>
+        <p>Tel: +39 0827 123456</p>
+    </div>
+    <div class="social-links">
+        <a href="#">Instagram</a> • <a href="#">Facebook</a>
+    </div>
+    <p style="margin-top: 30px; font-size: 12px; opacity: 0.5;">© 2025 Tutti i diritti riservati</p>
 </footer>
 
 <script>
-    // --- DATI MENU (Qui puoi modificare i prezzi) ---
+    // --- DATI ORIGINALI RECUPERATI ---
     const menuData = {
-        calde: {
-            title: "Caffetteria Calda",
-            items: [
-                { name: "Caffè Espresso", description: "Miscela pregiata", price: 1.50 },
-                { name: "Cappuccino", description: "Latte fresco di montagna", price: 2.00 },
-                { name: "Cioccolata Calda", description: "Densa e cremosa", price: 3.50 },
-                { name: "Tè e Infusi", description: "Selezione biologica", price: 2.50 },
-                { name: "Ginseng", description: "Grande", price: 2.00 }
-            ]
-        },
-        fredde: {
-            title: "Bibite & Freddi",
-            items: [
-                { name: "Caffè Shakerato", description: "Con zucchero di canna", price: 3.00 },
-                { name: "Coca Cola", description: "33cl vetro", price: 3.00 },
-                { name: "Acqua Minerale", description: "50cl", price: 1.00 },
-                { name: "Succo di Frutta", description: "Vari gusti", price: 2.50 }
-            ]
-        },
-        cocktail: {
-            title: "Aperitivi & Cocktail",
-            items: [
-                { name: "Aperol Spritz", description: "Prosecco, Aperol, Soda", price: 5.00 },
-                { name: "Gin Tonic", description: "Gin premium, tonica", price: 7.00 },
-                { name: "Negroni", description: "Gin, Vermouth, Campari", price: 7.00 },
-                { name: "Mojito", description: "Rum, Menta, Lime", price: 8.00 }
-            ]
-        },
-        food: {
-            title: "Food & Snack",
-            items: [
-                { name: "Panino Crudo", description: "Prosciutto crudo, mozzarella", price: 5.00 },
-                { name: "Toast Classico", description: "Prosciutto cotto, formaggio", price: 4.00 },
-                { name: "Tagliere Misto", description: "Salumi e formaggi locali", price: 12.00 }
-            ]
-        },
-        dolci: {
-            title: "Dolci",
-            items: [
-                { name: "Cornetto", description: "Vuoto, crema o cioccolato", price: 1.50 },
-                { name: "Torta del Giorno", description: "Fatta in casa", price: 4.00 },
-                { name: "Gelato Artigianale", description: "Coppa 2 gusti", price: 3.00 }
-            ]
-        }
+    calde: {
+        title: "Caffetteria Calda",
+        items: [
+            { name: "Caffè Espresso", description: "", price: 1.30 },
+            { name: "Caffè Decaffeinato", description: "", price: 1.50 },
+            { name: "Caffè D'Orzo", description: "Piccolo / Grande", price: 1.50 },
+            { name: "Caffè Ginseng", description: "Piccolo / Grande", price: 1.50 },
+            { name: "Caffè Macchiato", description: "", price: 1.50 },
+            { name: "Caffè Schiumato", description: "", price: 1.50 },
+            { name: "Caffè Corretto", description: "Grappa, Sambuca, Anice, etc.", price: 1.80 },
+            { name: "Cappuccino", description: "Latte fresco alta qualità", price: 2.00 },
+            { name: "Latte Bianco", description: "", price: 1.50 },
+            { name: "Latte Macchiato", description: "", price: 2.00 },
+            { name: "Cioccolata Calda", description: "Classica o Fondente", price: 3.50 },
+            { name: "Cioccolata con Panna", description: "", price: 4.00 },
+            { name: "Tè e Tisane", description: "Vari gusti (Scegli al banco)", price: 2.50 },
+            { name: "Camomilla", description: "", price: 2.00 },
+            { name: "Punch", description: "Mandarino, Arancio, Rum", price: 3.00 },
+            { name: "Bombardino", description: "Con panna", price: 4.00 }
+        ]
+    },
+    fredde: {
+        title: "Bibite & Freddi",
+        items: [
+            { name: "Acqua Minerale 50cl", description: "Naturale o Frizzante", price: 1.00 },
+            { name: "Acqua Minerale 1L", description: "Vetro (al tavolo)", price: 2.50 },
+            { name: "Coca Cola / Zero", description: "33cl Vetro", price: 3.00 },
+            { name: "Fanta / Sprite", description: "33cl Vetro", price: 3.00 },
+            { name: "Estathé", description: "Limone o Pesca (Vetro)", price: 3.00 },
+            { name: "Succhi di Frutta", description: "Pera, Pesca, Ace, Albicocca", price: 2.50 },
+            { name: "Crodino / Sanbittèr", description: "", price: 3.00 },
+            { name: "Red Bull", description: "", price: 4.00 },
+            { name: "Schweppes Tonica", description: "", price: 3.00 },
+            { name: "Schweppes Lemon", description: "", price: 3.00 },
+            { name: "Caffè Shakerato", description: "", price: 3.50 },
+            { name: "Crema Caffè", description: "Artigianale", price: 3.00 }
+        ]
+    },
+    cocktail: {
+        title: "Aperitivi & Cocktail",
+        items: [
+            { name: "Aperol Spritz", description: "Prosecco, Aperol, Soda", price: 5.00 },
+            { name: "Campari Spritz", description: "Prosecco, Bitter Campari, Soda", price: 5.00 },
+            { name: "Hugo Spritz", description: "Prosecco, Sciroppo Sambuco, Menta", price: 6.00 },
+            { name: "Gin Tonic", description: "Gin Gordon's/Tanqueray + Tonica", price: 6.00 },
+            { name: "Gin Tonic Premium", description: "Hendrick's / Malfy + Tonica Premium", price: 9.00 },
+            { name: "Negroni", description: "Gin, Vermouth Rosso, Campari", price: 7.00 },
+            { name: "Negroni Sbagliato", description: "Prosecco, Vermouth Rosso, Campari", price: 7.00 },
+            { name: "Americano", description: "Vermouth Rosso, Campari, Soda", price: 6.00 },
+            { name: "Mojito", description: "Rum, Lime, Zucchero canna, Menta", price: 7.00 },
+            { name: "Calice Vino Rosso", description: "Aglianico locale", price: 4.00 },
+            { name: "Calice Vino Bianco", description: "Fiano / Greco", price: 4.00 },
+            { name: "Prosecco (Calice)", description: "Valdobbiadene DOCG", price: 4.00 }
+        ]
+    },
+    food: {
+        title: "Food & Snack",
+        items: [
+            { name: "Panino Prosciutto Crudo", description: "Crudo di Parma", price: 5.00 },
+            { name: "Panino Cotto e Formaggio", description: "", price: 4.50 },
+            { name: "Panino Salame", description: "Salame Napoli", price: 4.50 },
+            { name: "Panino Caprese", description: "Mozzarella, Pomodoro, Origano", price: 5.00 },
+            { name: "Toast Classico", description: "Cotto e Sottiletta", price: 3.50 },
+            { name: "Toast Farcito", description: "Cotto, Formaggio, Insalata", price: 4.50 },
+            { name: "Patatine in busta", description: "Vari gusti", price: 1.50 },
+            { name: "Tagliere Irpino (2 pax)", description: "Salumi e formaggi locali + miele", price: 15.00 }
+        ]
+    },
+    dolci: {
+        title: "Dolci & Gelati",
+        items: [
+            { name: "Cornetto Vuoto", description: "Artigianale", price: 1.20 },
+            { name: "Cornetto Farcito", description: "Crema, Cioccolato, Marmellata", price: 1.50 },
+            { name: "Graffa", description: "Zuccherata", price: 2.00 },
+            { name: "Muffin", description: "Cioccolato o Mirtilli", price: 2.50 },
+            { name: "Torta Caprese", description: "Fetta", price: 3.50 },
+            { name: "Torta della Nonna", description: "Fetta", price: 3.50 },
+            { name: "Gelato Confezionato", description: "Vari (Vedi frigo)", price: 2.00 },
+            { name: "Tartufo Gelato", description: "Bianco o Nero", price: 4.00 }
+        ]
+    }
     };
 
-    // Inizializzazione
+    // --- INITIALIZATION & LOGIC ---
     document.addEventListener('DOMContentLoaded', () => {
-        showCategory('calde', document.querySelector('.tab-btn.active'));
-        
-        // --- SLIDER LOGIC ---
+        // 1. Avvia lo slider
         const slider = document.querySelector('.slider-container');
         const slides = document.querySelectorAll('.slide');
         const nextBtn = document.querySelector('.slider-btn.next');
@@ -358,55 +414,57 @@
         }
 
         if(nextBtn && prevBtn) {
-            nextBtn.addEventListener('click', function() {
+            nextBtn.addEventListener('click', () => {
                 currentIndex = (currentIndex + 1) % totalSlides;
                 goToSlide(currentIndex);
             });
-
-            prevBtn.addEventListener('click', function() {
+            prevBtn.addEventListener('click', () => {
                 currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
                 goToSlide(currentIndex);
             });
         }
+
+        // 2. Mostra la prima categoria
+        showCategory('calde', document.querySelector('.tab-btn.active'));
     });
 
     function showCategory(catId, btnElement) {
-        // 1. Scroll Top (ritardato per fluidità)
+        // SCROLL AUTOMATICO: Pagina su, Menu centrato
         setTimeout(() => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }, 50);
 
-        // 2. Scroll Orizzontale del Menu (centra il bottone)
         if (btnElement) {
             setTimeout(() => {
                 btnElement.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
             }, 150);
         }
 
+        // GESTIONE ATTIVAZIONE
         const container = document.getElementById('menu-container');
         const data = menuData[catId];
 
-        // Gestione classi Active
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         if(btnElement) {
             btnElement.classList.add('active');
         }
 
-        // Render Items
+        // RENDER HTML
         if(data) {
             container.innerHTML = `<h3>${data.title}</h3>`;
-            // Animazione Fade-in semplice
+            // Fade effect
             container.style.opacity = 0;
             setTimeout(() => container.style.opacity = 1, 50);
             container.style.transition = 'opacity 0.3s ease';
 
             data.items.forEach(item => {
                 const price = item.price.toFixed(2).replace('.', ',');
+                const descHTML = item.description ? `<p>${item.description}</p>` : '';
                 const itemHTML = `
                     <div class="menu-item">
                         <div class="item-info">
                             <h4>${item.name}</h4>
-                            <p>${item.description}</p>
+                            ${descHTML}
                         </div>
                         <div class="item-price">€ ${price}</div>
                     </div>
