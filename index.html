@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bar La Lucciola - Menù</title>
     <style>
-        /* --- 1. VARIABILI & RESET --- */
+        /* =========================================
+           1. VARIABILI & RESET
+           ========================================= */
         :root {
-            --primary-color: #3e5c45;
-            --accent-color: #d4af37;
-            --bg-warm: #f8f9fa;
+            --primary-color: #3e5c45; /* Verde Abete */
+            --accent-color: #d4af37;  /* Oro */
+            --bg-warm: #f8f9fa;       /* Bianco Ghiaccio caldo */
             --text-dark: #2c2c2c;
             --text-light: #666666;
             --shadow-soft: 0 10px 25px rgba(0,0,0,0.06);
@@ -23,9 +25,12 @@
             margin: 0; padding: 0;
             overscroll-behavior-y: none; 
             -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.3s ease;
         }
         
-        /* --- 2. ANIMAZIONI --- */
+        /* =========================================
+           2. ANIMAZIONI (Solo Normal Mode)
+           ========================================= */
         @keyframes kenBurns {
             0% { transform: scale(1); }
             100% { transform: scale(1.15); }
@@ -36,12 +41,15 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- 3. HEADER --- */
+        /* =========================================
+           3. HEADER (Normal Mode)
+           ========================================= */
         header {
             position: relative;
             height: 240px;
             overflow: hidden;
             background-color: #2c2c2c;
+            transition: height 0.3s ease;
         }
         header::before {
             content: '';
@@ -68,7 +76,9 @@
         }
         .subtitle { font-size: 15px; font-weight: 400; letter-spacing: 0.5px; opacity: 0.95; }
 
-        /* --- 4. NUOVA STICKY NAV (LOGO SEPARATO) --- */
+        /* =========================================
+           4. STICKY NAV (Normal Mode)
+           ========================================= */
         .sticky-nav-container {
             position: sticky;
             top: 0;
@@ -81,29 +91,25 @@
             transition: all 0.3s ease;
         }
         
-        /* Gruppo Logo + Pillola */
         .nav-cluster {
             display: flex;
             align-items: center;
-            gap: 10px; /* Spazio tra il cerchio del logo e la barra */
+            gap: 10px;
             pointer-events: auto;
             width: 92%;
             justify-content: center;
             max-width: 800px;
         }
         
-        /* CERCHIO LOGO SEPARATO */
+        /* CERCHIO LOGO */
         .logo-circle {
             width: 60px; height: 60px;
             border-radius: 50%;
             flex-shrink: 0;
             display: flex; align-items: center; justify-content: center;
-            
-            /* BIANCO SOLIDO INIZIALE */
             background-color: #ffffff;
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
             border: 1px solid rgba(0,0,0,0.05);
-            
             transition: all 0.4s ease;
         }
         .nav-mini-logo {
@@ -111,20 +117,17 @@
             border-radius: 50%; object-fit: cover;
         }
 
-        /* PILLOLA BOTTONI SEPARATA */
+        /* PILLOLA MENU */
         .nav-pill-wrapper {
             display: flex;
             align-items: center;
             height: 60px;
             border-radius: 50px;
-            flex-grow: 1; /* Occupa lo spazio rimanente */
+            flex-grow: 1;
             overflow: hidden; 
-            
-            /* BIANCO SOLIDO INIZIALE */
             background-color: #ffffff;
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
             border: 1px solid rgba(0,0,0,0.05);
-            
             transition: all 0.4s ease;
         }
         
@@ -137,22 +140,18 @@
         }
         .nav-scroll-area::-webkit-scrollbar { display: none; }
 
-        /* -- EFFETTO SCROLL SINCRONIZZATO -- */
-        /* Quando aggiungiamo la classe .scrolled al padre container... */
+        /* EFFETTO SCROLL (Trasparenza) */
         .sticky-nav-container.scrolled .logo-circle,
         .sticky-nav-container.scrolled .nav-pill-wrapper {
-            background-color: rgba(255, 255, 255, 0.4) !important; /* Entrambi trasparenti */
+            background-color: rgba(255, 255, 255, 0.4) !important;
             backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             border-color: rgba(255,255,255,0.3);
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
 
-
-        /* --- ALTRI STILI --- */
-        @media (orientation: landscape) {
-            .nav-cluster { width: auto; max-width: 90%; } 
-        }
-
+        /* =========================================
+           5. BOTTONI E MENU
+           ========================================= */
         .tab-btn {
             background: transparent; border: none; padding: 10px 16px;
             font-size: 14px; color: var(--text-light); font-weight: 600;
@@ -222,28 +221,94 @@
             box-shadow: 0 8px 20px rgba(24, 119, 242, 0.25);
         }
 
-        /* LITE MODE */
-        body.lite-mode { background-color: #ffffff; }
-        body.lite-mode header { height: 100px; background: var(--primary-color); }
-        body.lite-mode header::before { display: none; animation: none; }
-        body.lite-mode .sticky-nav-container { position: static; margin-top: 0; padding: 10px 0; background: #f1f1f1; }
-        body.lite-mode .nav-cluster { display: block; width: 100%; padding: 0 10px; } /* Reset cluster */
-        body.lite-mode .logo-circle { display: none; } /* Via il logo separato */
-        body.lite-mode .nav-pill-wrapper { 
-            backdrop-filter: none; background: #fff; box-shadow: none; 
-            border: 1px solid #ddd; border-radius: 8px; height: 55px; 
-            width: 100%; margin: 0;
+        /* =========================================
+           6. LITE MODE (Tema Montagna Leggero)
+           ========================================= */
+        body.lite-mode {
+            /* Colore carta/neve sporca per riposare gli occhi */
+            background-color: #f9f7f2; 
         }
-        body.lite-mode .nav-scroll-area { padding-left: 10px; }
-        body.lite-mode .menu-item { animation: none !important; opacity: 1 !important; box-shadow: none; border: 1px solid #eee; margin-bottom: 8px; }
-        body.lite-mode .item-price { background-color: #eee; color: #333; }
-        body.lite-mode #lite-switch { background: #d4af37 !important; color: #000 !important; border: none !important; }
 
+        /* Header Lite: Gradiente Verde Montagna invece della foto pesante */
+        body.lite-mode header {
+            height: 130px; /* Un po' più alto per eleganza */
+            background: linear-gradient(135deg, #2d4030 0%, #3e5c45 100%);
+            border-bottom: 4px solid #d4af37; /* Linea oro di stacco */
+            display: flex; align-items: center; justify-content: center;
+        }
+        /* Nasconde l'immagine e l'animazione */
+        body.lite-mode header::before { display: none; animation: none; }
+        body.lite-mode .header-content { position: static; transform: none; margin-top: 10px;}
+        body.lite-mode .header-content h1 { font-size: 26px; text-shadow: none; }
+        body.lite-mode .subtitle { opacity: 0.8; font-size: 14px; }
+
+        /* Navigazione Lite: Mantiene la struttura ma Solida e Definita */
+        body.lite-mode .sticky-nav-container {
+            position: static; /* Non sticky per performance massime */
+            margin-top: -25px; /* Leggera sovrapposizione estetica */
+            padding-bottom: 10px;
+        }
+        
+        body.lite-mode .nav-cluster {
+            /* Manteniamo il layout separato anche in Lite */
+            display: flex; 
+        }
+
+        body.lite-mode .logo-circle,
+        body.lite-mode .nav-pill-wrapper {
+            background-color: #ffffff; /* Bianco Solido */
+            border: 2px solid #e6e6e6; /* Bordo più visibile "tattile" */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08); /* Ombra statica */
+            backdrop-filter: none; /* Niente effetto vetro */
+        }
+
+        /* Disabilita l'effetto trasparenza allo scroll in Lite */
+        body.lite-mode .sticky-nav-container.scrolled .logo-circle,
+        body.lite-mode .sticky-nav-container.scrolled .nav-pill-wrapper {
+            background-color: #ffffff !important;
+        }
+
+        /* Lista Prodotti Lite */
+        body.lite-mode .menu-item {
+            animation: none !important; /* Niente cascata */
+            opacity: 1 !important;
+            box-shadow: none; 
+            border: 1px solid #e0dec0; /* Bordo leggermente caldo */
+            background: #fff;
+            margin-bottom: 10px;
+        }
+        body.lite-mode .item-price {
+            background-color: #f4f1ea; /* Sfondo prezzo più caldo */
+            color: #3e5c45;
+        }
+
+        /* Bottone Switch */
+        body.lite-mode #lite-switch {
+            background: #d4af37 !important; 
+            color: #000 !important; 
+            border: 2px solid white !important;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* Fix Landscape */
+        @media (orientation: landscape) {
+            .nav-cluster { width: auto; max-width: 90%; } 
+        }
     </style>
 </head>
 <body>
 
-<button id="lite-switch" onclick="toggleLiteMode()" style="position: fixed; top: 15px; right: 15px; z-index: 9999; background: rgba(0,0,0,0.6); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 8px 15px; border-radius: 20px; font-size: 12px; font-weight: bold; backdrop-filter: blur(5px); cursor: pointer; display: flex; align-items: center; gap: 5px;">⚡ Lite</button>
+<!-- SWITCH LITE MODE -->
+<button id="lite-switch" onclick="toggleLiteMode()" style="
+    position: fixed; top: 15px; right: 15px; z-index: 9999; 
+    background: rgba(0,0,0,0.6); color: white; 
+    border: 1px solid rgba(255,255,255,0.3); 
+    padding: 8px 15px; border-radius: 20px; 
+    font-size: 12px; font-weight: bold; 
+    backdrop-filter: blur(5px); cursor: pointer;
+    display: flex; align-items: center; gap: 5px;">
+    ⚡ Lite
+</button>
 
 <header>
     <div class="header-content">
@@ -252,21 +317,36 @@
     </div>
 </header>
 
-<!-- NUOVA STRUTTURA NAV -->
+<!-- NAVIGAZIONE (Logo Separato + Pillola) -->
 <div class="sticky-nav-container">
     <div class="nav-cluster">
-        <!-- CERCHIO LOGO SINISTRA -->
+        <!-- LOGO -->
         <div class="logo-circle">
             <img src="images/icon_app.png" alt="Logo" class="nav-mini-logo">
         </div>
-        <!-- PILLOLA MENU DESTRA -->
+        <!-- MENU -->
         <div class="nav-pill-wrapper">
             <div class="nav-scroll-area">
-                <button class="tab-btn active" onclick="showCategory('calde', this)"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>Calde</button>
-                <button class="tab-btn" onclick="showCategory('fredde', this)"><svg viewBox="0 0 24 24"><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><path d="m20 16-4-4 4-4"></path><path d="m4 8 4 4-4 4"></path><path d="m16 4-4 4-4-4"></path><path d="m8 20 4-4 4 4"></path></svg>Fredde</button>
-                <button class="tab-btn" onclick="showCategory('cocktail', this)"><svg viewBox="0 0 24 24"><path d="M8 22h8"></path><path d="M12 15v7"></path><path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"></path></svg>Cocktail</button>
-                <button class="tab-btn" onclick="showCategory('food', this)"><svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><path d="M9 3v2a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V3"></path><circle cx="12" cy="12" r="1"></circle></svg>Food</button>
-                <button class="tab-btn" onclick="showCategory('dolci', this)"><svg viewBox="0 0 24 24"><path d="m4.5 13.5 3-3"/><path d="m19.5 13.5-3-3"/><path d="M12 9c-4.5-2-8 1-9.5 4.5 2.5 4 6 5 9.5 5s7-1 9.5-5c-1.5-3.5-5-6.5-9.5-4.5Z"/></svg>Dolci</button>
+                <button class="tab-btn active" onclick="showCategory('calde', this)">
+                    <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+                    Calde
+                </button>
+                <button class="tab-btn" onclick="showCategory('fredde', this)">
+                    <svg viewBox="0 0 24 24"><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><path d="m20 16-4-4 4-4"></path><path d="m4 8 4 4-4 4"></path><path d="m16 4-4 4-4-4"></path><path d="m8 20 4-4 4 4"></path></svg>
+                    Fredde
+                </button>
+                <button class="tab-btn" onclick="showCategory('cocktail', this)">
+                    <svg viewBox="0 0 24 24"><path d="M8 22h8"></path><path d="M12 15v7"></path><path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"></path></svg>
+                    Cocktail
+                </button>
+                <button class="tab-btn" onclick="showCategory('food', this)">
+                    <svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><path d="M9 3v2a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V3"></path><circle cx="12" cy="12" r="1"></circle></svg>
+                    Food
+                </button>
+                <button class="tab-btn" onclick="showCategory('dolci', this)">
+                    <svg viewBox="0 0 24 24"><path d="m4.5 13.5 3-3"/><path d="m19.5 13.5-3-3"/><path d="M12 9c-4.5-2-8 1-9.5 4.5 2.5 4 6 5 9.5 5s7-1 9.5-5c-1.5-3.5-5-6.5-9.5-4.5Z"/></svg>
+                    Dolci
+                </button>
             </div>
         </div>
     </div>
@@ -275,12 +355,21 @@
 <div id="menu-container" class="menu-container"></div>
 
 <footer>
-    <div style="font-size: 1.2rem; font-weight: 700; color: var(--text-dark); margin-bottom: 5px;">Bar La Lucciola</div>
+    <div style="font-size: 1.2rem; font-weight: 700; color: var(--text-dark); margin-bottom: 5px;">
+        Bar La Lucciola
+    </div>
     <div style="font-size: 0.9rem; color: var(--text-light);">Via Dei Prati, 2 - Laceno</div>
-    <a href="tel:082768069" style="display:inline-block; margin-top:25px; padding: 12px 24px; background: #f1f8f3; border-radius: 15px; color:var(--primary-color); text-decoration:none; font-weight:bold; font-size:1.1rem;">📞 0827 68069</a>
+    <a href="tel:082768069" style="display:inline-block; margin-top:25px; padding: 12px 24px; background: #f1f8f3; border-radius: 15px; color:var(--primary-color); text-decoration:none; font-weight:bold; font-size:1.1rem;">
+        📞 0827 68069
+    </a>
     <br>
-    <a href="https://www.facebook.com/barlalucciolaLACENO" target="_blank" class="social-link">Seguici su Facebook</a>
-    <div style="margin-top: 40px; font-size: 0.75rem; opacity: 0.6;">Coperto e Servizio inclusi<br>© 2025 Designed for Laceno</div>
+    <a href="https://www.facebook.com/barlalucciolaLACENO" target="_blank" class="social-link">
+        Seguici su Facebook
+    </a>
+    <div style="margin-top: 40px; font-size: 0.75rem; opacity: 0.6;">
+        Coperto e Servizio inclusi<br>
+        © 2025 Designed for Laceno
+    </div>
 </footer>
 
 <script>
@@ -318,18 +407,23 @@
         }
     };
 
-    // --- LOGICA ---
+    // --- LOGICA JAVASCRIPT ---
     document.addEventListener('DOMContentLoaded', () => {
         const savedMode = localStorage.getItem('siteMode');
-        if (savedMode) { if (savedMode === 'lite') toggleLiteMode(); } 
-        else { checkConnectionSpeed(); }
+        if (savedMode) { 
+            if (savedMode === 'lite') toggleLiteMode(); 
+        } else { 
+            checkConnectionSpeed(); 
+        }
         showCategory('calde', document.querySelector('.tab-btn.active'));
     });
 
-    // GESTIONE SCROLL (Sulla nuova struttura)
+    // GESTIONE SCROLL
     window.addEventListener('scroll', () => {
         const navContainer = document.querySelector('.sticky-nav-container');
         const body = document.body;
+        
+        // In Lite Mode non attiviamo la trasparenza allo scroll per mantenere leggibilità
         if (body.classList.contains('lite-mode')) return;
 
         if (window.scrollY > 200) {
@@ -339,10 +433,14 @@
         }
     });
 
+    // CONTROLLO VELOCITÀ (Solo Android/Chrome)
     function checkConnectionSpeed() {
         const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
         if (connection) {
-            const isSlow = connection.saveData || connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g' || connection.effectiveType === '3g';
+            const isSlow = connection.saveData || 
+                           connection.effectiveType === 'slow-2g' || 
+                           connection.effectiveType === '2g' || 
+                           connection.effectiveType === '3g';
             if (isSlow) {
                 console.log("Rete lenta rilevata: Attivazione Lite Mode");
                 toggleLiteMode();
@@ -350,16 +448,20 @@
         }
     }
 
+    // SWITCH MODE
     function toggleLiteMode() {
         const body = document.body;
         const btn = document.getElementById('lite-switch');
         if(!btn) return;
+
         body.classList.toggle('lite-mode');
         const isLite = body.classList.contains('lite-mode');
+        
         btn.innerHTML = isLite ? "🚀 Normal" : "⚡ Lite";
         localStorage.setItem('siteMode', isLite ? 'lite' : 'normal');
     }
 
+    // RENDER MENU
     function showCategory(catId, btnElement) {
         const body = document.body;
         const isLite = body.classList.contains('lite-mode');
@@ -386,6 +488,7 @@
                 const price = item.price.toFixed(2).replace('.', ',');
                 const descHTML = item.description ? `<p>${item.description}</p>` : '';
                 const delay = isLite ? 0 : index * 0.05;
+                
                 const itemHTML = `
                     <div class="menu-item" style="animation-delay: ${delay}s">
                         <div class="item-info">
