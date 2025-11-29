@@ -337,32 +337,20 @@
     
 /* --- FIX DISAPPROVED OVERLAP: SOFT GRADIENT MENU --- */
 .sticky-nav-container {
-    /* Position sticky active */
     position: sticky;
     top: 0;
     z-index: 100;
-
-    /* Gradient background: Solid at top, fading to transparent at bottom */
-    /* This creates a safe area for the menu while letting content fade in smoothly */
     background: linear-gradient(to bottom, #fbfbfb 60%, rgba(251, 251, 251, 0) 100%);
-
-    /* Adjust padding to accommodate the gradient fade */
     padding-top: 10px;
-    padding-bottom: 30px; /* Extra space for the fade effect */
-    margin-top: -45px; /* Keep original positioning logic */
-
-    /* Remove hard borders/shadows from container */
+    padding-bottom: 30px;
+    margin-top: -45px;
     border: none;
     box-shadow: none;
-
-    /* Allow clicks to pass through the transparent part */
     pointer-events: none; 
 }
 
 .nav-tabs {
-    /* Re-enable clicks on the buttons themselves */
     pointer-events: auto;
-    /* Ensure the pill itself is solid and visible */
     background-color: #fff; 
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
@@ -508,6 +496,9 @@
        3. Inserisce l'HTML nella pagina.
     */
     function showCategory(catId, btnElement) {
+    // SCROLL TO TOP FIX: Riporta su la pagina quando cambi categoria
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
         const container = document.getElementById('menu-container');
         const data = menuData[catId];
 
