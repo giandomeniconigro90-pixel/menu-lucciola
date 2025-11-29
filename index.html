@@ -335,7 +335,6 @@
         }
 
     
-/* --- FIX DISAPPROVED OVERLAP: SOFT GRADIENT MENU --- */
 .sticky-nav-container {
     position: sticky;
     top: 0;
@@ -348,7 +347,6 @@
     box-shadow: none;
     pointer-events: none; 
 }
-
 .nav-tabs {
     pointer-events: auto;
     background-color: #fff; 
@@ -496,8 +494,10 @@
        3. Inserisce l'HTML nella pagina.
     */
     function showCategory(catId, btnElement) {
-    // SCROLL TO TOP FIX: Riporta su la pagina quando cambi categoria
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // SCROLL FIX: Timeout per garantire che l'azione avvenga dopo eventuali rendering o altri scroll
+    setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
 
         const container = document.getElementById('menu-container');
         const data = menuData[catId];
@@ -507,7 +507,7 @@
         if(btnElement) {
             btnElement.classList.add('active');
             // Scroll automatico orizzontale per centrare il pulsante (utile su mobile)
-            btnElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            // btnElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
         }
 
         // 2. Costruzione HTML
