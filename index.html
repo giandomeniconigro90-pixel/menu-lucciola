@@ -11,8 +11,10 @@
             --accent-color: #d4af37;
             --bg-warm: #fbfbfb;
             --text-dark: #2c2c2c;
+            --text-light: #666666;
             --card-bg: #ffffff;
             --shadow-soft: 0 8px 20px rgba(0,0,0,0.06);
+            --accent: #e67e22; /* Colore accento originale per link */
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -26,7 +28,7 @@
         header {
             position: relative;
             height: 220px;
-            background-image: url('images/header.jpg'); /* Tua immagine */
+            background-image: url('images/la-lucciola-fronte.png'); /* Assicurati che il file esista */
             background-size: cover;
             background-position: center;
             overflow: hidden;
@@ -65,13 +67,10 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             overflow-x: auto; 
             white-space: nowrap; 
-            
-            /* PADDING E SCROLL SNAP */
             padding: 6px 25px; 
             scroll-snap-type: x mandatory; 
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none; 
-            
             border-radius: 50px;
             max-width: 95%;
             margin: 0 auto;
@@ -91,8 +90,6 @@
             font-size: 16px; color: #666; font-weight: 600;
             border-radius: 25px; cursor: pointer; transition: all 0.3s ease;
             display: flex; align-items: center; gap: 8px;
-            
-            /* SNAP ALIGN */
             scroll-snap-align: center;
             margin: 0 5px; 
             flex: 0 0 auto; 
@@ -111,7 +108,27 @@
         .item-info h4 { margin: 0; font-size: 17px; color: var(--text-dark); font-weight: 700; }
         .item-info p { margin: 4px 0 0 0; font-size: 13px; color: #888; font-style: italic; }
         .item-price { font-weight: 700; color: var(--text-dark); background-color: #eef5e5; padding: 8px 14px; border-radius: 8px; font-size: 15px; white-space: nowrap; margin-left: 12px; }
-        footer { background-color: #333; color: #aaa; text-align: center; padding: 50px 20px; font-size: 13px; margin-top: 40px; }
+
+        /* --- FOOTER ORIGINALE RIPRISTINATO --- */
+        footer {
+            background-color: #fff; 
+            text-align: center; 
+            padding: 40px 20px; 
+            margin-top: 40px; 
+            border-top: 1px solid #eee;
+        }
+        .social-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #1877f2; /* Colore Facebook */
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 10px rgba(24, 119, 242, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -148,8 +165,26 @@
 
 <div id="menu-container" class="menu-container"></div>
 
+<!-- FOOTER COMPLETO ORIGINALE -->
 <footer>
-    <p>© 2025 Bar La Lucciola - Laceno</p>
+    <div style="font-size: 1rem; font-weight: 500; color: var(--text-dark);">
+        Bar La Lucciola<br>
+        <span style="font-size: 0.9rem; color: var(--text-light);">Via Dei Prati, 2 - Laceno</span>
+    </div>
+
+    <!-- Link Telefono (funziona su mobile) -->
+    <a href="tel:082768069" style="display:block; margin-top:15px; color:var(--accent); text-decoration:none; font-weight:bold; font-size:1.2rem;">
+        📞 0827 68069
+    </a>
+
+    <a href="https://www.facebook.com/barlalucciolaLACENO" target="_blank" class="social-link">
+        Seguici su Facebook
+    </a>
+
+    <div style="margin-top: 30px; font-size: 0.75rem; opacity: 0.7;">
+        Coperto e Servizio inclusi<br>
+        © 2025
+    </div>
 </footer>
 
 <script>
