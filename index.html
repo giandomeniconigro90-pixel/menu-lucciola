@@ -7,9 +7,9 @@
     <style>
         /* --- 1. VARIABILI & RESET --- */
         :root {
-            --primary-color: #3e5c45;
-            --accent-color: #d4af37;
-            --bg-warm: #f8f9fa;
+            --primary-color: #3e5c45; /* Verde Abete */
+            --accent-color: #d4af37;  /* Oro */
+            --bg-warm: #f8f9fa;       /* Bianco Ghiaccio caldo */
             --text-dark: #2c2c2c;
             --text-light: #666666;
             --shadow-soft: 0 10px 25px rgba(0,0,0,0.06);
@@ -93,16 +93,16 @@
             overflow: hidden; display: flex; align-items: center;
             
             /* Transizione rapida */
-            transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+            transition: background-color 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease;
         }
 
-        /* -- STATO 2: SCROLL (TRASPARENTE) -- */
+        /* -- STATO 2: SCROLL (MOLTO TRASPARENTE) -- */
         .nav-pill-wrapper.scrolled {
-            /* MOLTO TRASPARENTE (0.6) PER VEDERE LA DIFFERENZA */
-            background-color: rgba(255, 255, 255, 0.6) !important; 
-            backdrop-filter: blur(10px) !important; -webkit-backdrop-filter: blur(10px) !important;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            border: 1px solid rgba(255,255,255,0.3);
+            /* 0.3 significa 30% di opacità (molto trasparente) */
+            background-color: rgba(255, 255, 255, 0.3) !important; 
+            backdrop-filter: blur(15px) !important; -webkit-backdrop-filter: blur(15px) !important;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
         /* -- LOGO: STATO FERMO (BIANCO SOLIDO) -- */
@@ -116,15 +116,16 @@
             box-shadow: 2px 0 10px rgba(0,0,0,0.05);
             border-right: 1px solid rgba(0,0,0,0.03);
             
-            transition: background-color 0.3s ease;
+            transition: background-color 0.4s ease;
         }
 
-        /* -- LOGO: STATO SCROLL (TRASPARENTE) -- */
-        /* Importante: uso !important per forzare il cambio */
+        /* -- LOGO: STATO SCROLL (SINCRONIZZATO) -- */
+        /* Qui forziamo il logo ad avere LO STESSO colore della barra */
         .nav-pill-wrapper.scrolled .nav-logo-fixed {
-            background-color: rgba(255, 255, 255, 0.6) !important;
-            backdrop-filter: blur(10px);
-            border-right: 1px solid rgba(255,255,255,0.2);
+            background-color: rgba(255, 255, 255, 0.3) !important; /* Identico alla barra */
+            backdrop-filter: blur(15px);
+            border-right: none; /* Rimuovo il bordo per unirlo visivamente */
+            box-shadow: none; /* Rimuovo l'ombra interna per appiattirlo */
         }
 
         .nav-mini-logo {
@@ -306,14 +307,14 @@
         showCategory('calde', document.querySelector('.tab-btn.active'));
     });
 
-    // --- MODIFICATO: SOGLIA BASSISSIMA (10px) ---
+    // --- SCROLL TRIGGER IMPOSTATO A 200px ---
+    // La barra diventa trasparente SOLO quando hai superato l'header (la foto)
     window.addEventListener('scroll', () => {
         const nav = document.querySelector('.nav-pill-wrapper');
         const body = document.body;
         if (body.classList.contains('lite-mode')) return;
 
-        // Appena muovi lo schermo di 10px, attiva la trasparenza
-        if (window.scrollY > 10) {
+        if (window.scrollY > 200) {
             nav.classList.add('scrolled');
         } else {
             nav.classList.remove('scrolled');
