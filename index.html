@@ -225,6 +225,27 @@
         body.lite-mode #lite-switch {
             background: #d4af37 !important; color: #000 !important; border: none !important;
         }
+
+/* --- FIX LANDSCAPE (Modalità Orizzontale) --- */
+@media (orientation: landscape) {
+    .nav-pill-wrapper {
+        /* 1. La pillola si stringe attorno al contenuto invece di espandersi */
+        width: fit-content; 
+        width: -moz-fit-content; /* Per compatibilità Firefox */
+        
+        /* 2. Assicuriamo che non esca dallo schermo se ci sono troppi tasti */
+        max-width: 85%;
+        
+        /* 3. Aggiungiamo un po' di padding a destra per bilanciare il logo a sinistra */
+        padding-right: 15px; 
+    }
+
+    .sticky-nav-container {
+        /* Assicura che la pillola rimanga centrata */
+        display: flex;
+        justify-content: center;
+    }
+}
     </style>
 </head>
 <body>
