@@ -21,8 +21,9 @@
             background-color: var(--bg-warm);
             color: var(--text-dark);
             margin: 0; padding: 0;
-            overscroll-behavior-y: none; /* Evita il rimbalzo su iOS */
+            overscroll-behavior-y: none; 
             -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.3s ease;
         }
         
         /* --- 2. ANIMAZIONI --- */
@@ -42,11 +43,13 @@
             height: 240px;
             overflow: hidden;
             background-color: #2c2c2c;
+            transition: height 0.3s ease;
         }
         header::before {
             content: '';
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background-image: url('images/la-lucciola-neve.jpg'); /* TUA IMMAGINE QUI */
+            /* FILE IMMAGINE CORRETTO */
+            background-image: url('images/la-lucciola-fronte.png'); 
             background-size: cover;
             background-position: center;
             z-index: 0;
@@ -72,7 +75,8 @@
         .sticky-nav-container {
             position: sticky; top: 0; z-index: 100;
             padding-top: 15px; padding-bottom: 25px; margin-top: -50px;
-            pointer-events: none; /* Lascia passare i click ai lati */
+            pointer-events: none;
+            transition: all 0.3s ease;
         }
 
         .nav-pill-wrapper {
@@ -84,6 +88,7 @@
             box-shadow: 0 8px 30px rgba(0,0,0,0.08);
             border-radius: 50px; max-width: 92%; margin: 0 auto; height: 65px;
             overflow: hidden; display: flex; align-items: center;
+            transition: all 0.3s ease;
         }
 
         .nav-logo-fixed {
@@ -101,7 +106,7 @@
 
         .nav-scroll-area {
             display: flex; align-items: center; overflow-x: auto; height: 100%; width: 100%;
-            padding-left: 85px; padding-right: 20px; /* Spazio per il logo */
+            padding-left: 85px; padding-right: 20px; 
             scroll-snap-type: x mandatory; scrollbar-width: none;
         }
         .nav-scroll-area::-webkit-scrollbar { display: none; }
@@ -116,19 +121,15 @@
             scroll-snap-align: center; margin-right: 5px; flex: 0 0 auto; 
         }
         
-        /* Stile SVG */
         .tab-btn svg {
             width: 20px; height: 20px;
-            stroke: currentColor; /* Prende il colore del testo */
-            stroke-width: 2; fill: none;
+            stroke: currentColor; stroke-width: 2; fill: none;
             stroke-linecap: round; stroke-linejoin: round;
             transition: transform 0.2s ease;
         }
 
-        /* Stato Attivo */
         .tab-btn.active {
-            background-color: var(--primary-color); 
-            color: white;
+            background-color: var(--primary-color); color: white;
             box-shadow: var(--shadow-active);
         }
         .tab-btn.active svg { transform: scale(1.15); }
@@ -154,7 +155,6 @@
             display: flex; justify-content: space-between; align-items: center; 
             background: white; padding: 16px; margin-bottom: 15px; border-radius: 16px; 
             box-shadow: var(--shadow-soft); border: 1px solid rgba(0,0,0,0.01);
-            /* Animazione Cascata */
             opacity: 0; 
             animation: fadeInUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
@@ -182,11 +182,65 @@
             border-radius: 50px; font-weight: 600; font-size: 0.95rem;
             box-shadow: 0 8px 20px rgba(24, 119, 242, 0.25);
         }
+
+        /* =========================================
+           LITE MODE (Per connessioni lente)
+           ========================================= */
+        body.lite-mode {
+            background-color: #ffffff;
+        }
+        /* Header semplice */
+        body.lite-mode header {
+            height: 100px; /* Compatto */
+            background: var(--primary-color);
+        }
+        body.lite-mode header::before {
+            display: none; /* VIA L'IMMAGINE PESANTE */
+            animation: none;
+        }
+        body.lite-mode .header-content h1 { font-size: 22px; }
+        body.lite-mode .subtitle { font-size: 13px; }
+
+        /* Navigazione Semplice */
+        body.lite-mode .sticky-nav-container {
+            position: static; margin-top: 0; padding: 10px 0; background: #f1f1f1;
+        }
+        body.lite-mode .nav-pill-wrapper {
+            backdrop-filter: none; background: #fff; box-shadow: none;
+            border: 1px solid #ddd; border-radius: 8px; height: 55px;
+        }
+        body.lite-mode .nav-logo-fixed { display: none; } /* Via il logo */
+        body.lite-mode .nav-scroll-area { padding-left: 10px; }
+        
+        /* Lista Prodotti Immediata */
+        body.lite-mode .menu-item {
+            animation: none !important; opacity: 1 !important;
+            box-shadow: none; border: 1px solid #eee; margin-bottom: 8px;
+        }
+        body.lite-mode .item-price {
+            background-color: #eee; color: #333;
+        }
+        
+        /* Bottone Switch Attivo */
+        body.lite-mode #lite-switch {
+            background: #d4af37 !important; color: #000 !important; border: none !important;
+        }
     </style>
 </head>
 <body>
 
-<!-- HEADER -->
+<!-- SWITCH LITE MODE (FISSO) -->
+<button id="lite-switch" onclick="toggleLiteMode()" style="
+    position: fixed; top: 15px; right: 15px; z-index: 9999; 
+    background: rgba(0,0,0,0.6); color: white; 
+    border: 1px solid rgba(255,255,255,0.3); 
+    padding: 8px 15px; border-radius: 20px; 
+    font-size: 12px; font-weight: bold; 
+    backdrop-filter: blur(5px); cursor: pointer;
+    display: flex; align-items: center; gap: 5px;">
+    ⚡ Lite
+</button>
+
 <header>
     <div class="header-content">
         <h1>BAR LA LUCCIOLA</h1>
@@ -194,7 +248,6 @@
     </div>
 </header>
 
-<!-- NAVIGAZIONE -->
 <div class="sticky-nav-container">
     <div class="nav-pill-wrapper">
         
@@ -206,8 +259,8 @@
         <!-- Menu Scorrevole con Icone SVG -->
         <div class="nav-scroll-area">
             
-            <!-- Calde (Tazza) -->
             <button class="tab-btn active" onclick="showCategory('calde', this)">
+                <!-- Tazza -->
                 <svg viewBox="0 0 24 24">
                     <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
                     <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
@@ -218,8 +271,8 @@
                 Calde
             </button>
 
-            <!-- Fredde (Fiocco Neve) -->
             <button class="tab-btn" onclick="showCategory('fredde', this)">
+                <!-- Fiocco Neve -->
                 <svg viewBox="0 0 24 24">
                     <line x1="2" y1="12" x2="22" y2="12"></line>
                     <line x1="12" y1="2" x2="12" y2="22"></line>
@@ -231,8 +284,8 @@
                 Fredde
             </button>
 
-            <!-- Cocktail (Calice) -->
             <button class="tab-btn" onclick="showCategory('cocktail', this)">
+                <!-- Calice -->
                 <svg viewBox="0 0 24 24">
                     <path d="M8 22h8"></path>
                     <path d="M12 15v7"></path>
@@ -241,8 +294,8 @@
                 Cocktail
             </button>
 
-            <!-- Food (Tagliere) -->
             <button class="tab-btn" onclick="showCategory('food', this)">
+                <!-- Tagliere -->
                 <svg viewBox="0 0 24 24">
                     <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                     <path d="M9 3v2a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V3"></path> 
@@ -251,8 +304,8 @@
                 Food
             </button>
 
-            <!-- Dolci (Cornetto) -->
             <button class="tab-btn" onclick="showCategory('dolci', this)">
+                <!-- Cornetto -->
                 <svg viewBox="0 0 24 24">
                      <path d="m4.5 13.5 3-3"/>
                      <path d="m19.5 13.5-3-3"/>
@@ -265,10 +318,8 @@
     </div>
 </div>
 
-<!-- LISTA PRODOTTI -->
 <div id="menu-container" class="menu-container"></div>
 
-<!-- FOOTER -->
 <footer>
     <div style="font-size: 1.2rem; font-weight: 700; color: var(--text-dark); margin-bottom: 5px;">
         Bar La Lucciola
@@ -376,41 +427,82 @@
     };
 
     document.addEventListener('DOMContentLoaded', () => {
+        
+        // 1. Controlla preferenza utente salvata
+        const savedMode = localStorage.getItem('siteMode');
+        
+        if (savedMode) {
+            if (savedMode === 'lite') toggleLiteMode();
+        } else {
+            // 2. Se nessuna preferenza, check automatico velocità
+            checkConnectionSpeed();
+        }
+
         showCategory('calde', document.querySelector('.tab-btn.active'));
     });
 
-    function showCategory(catId, btnElement) {
-        // 1. SCROLL TOP
-        setTimeout(() => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }, 50);
+    // Funzione controllo velocità connessione (Android/Chrome)
+    function checkConnectionSpeed() {
+        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        if (connection) {
+            // Se la connessione è 2G, 3G o ha risparmio dati attivo
+            const isSlow = connection.saveData || 
+                           connection.effectiveType === 'slow-2g' || 
+                           connection.effectiveType === '2g' || 
+                           connection.effectiveType === '3g';
 
-        // 2. CENTER BUTTON
-        if (btnElement) {
-            setTimeout(() => {
-                btnElement.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-            }, 150);
+            if (isSlow) {
+                console.log("Rete lenta rilevata: Attivazione Lite Mode");
+                toggleLiteMode();
+            }
+        }
+    }
+
+    function toggleLiteMode() {
+        const body = document.body;
+        const btn = document.getElementById('lite-switch');
+        
+        if(!btn) return;
+
+        body.classList.toggle('lite-mode');
+        const isLite = body.classList.contains('lite-mode');
+        
+        btn.innerHTML = isLite ? "🚀 Normal" : "⚡ Lite";
+        localStorage.setItem('siteMode', isLite ? 'lite' : 'normal');
+    }
+
+    function showCategory(catId, btnElement) {
+        const body = document.body;
+        const isLite = body.classList.contains('lite-mode');
+
+        // SCROLL E CENTER (Solo se non siamo in lite mode, per evitare scatti su cell vecchi)
+        if (!isLite) {
+            setTimeout(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }, 50);
+            if (btnElement) {
+                setTimeout(() => {
+                    btnElement.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                }, 150);
+            }
+        } else {
+             // In lite mode scroll immediato
+             window.scrollTo(0,0);
         }
 
-        // 3. RENDER CONTENT
         const container = document.getElementById('menu-container');
         const data = menuData[catId];
 
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        if(btnElement) {
-            btnElement.classList.add('active');
-        }
+        if(btnElement) btnElement.classList.add('active');
 
         if(data) {
             container.innerHTML = `<h3>${data.title}</h3>`;
             
-            // Generazione con ritardo per effetto "cascata"
             data.items.forEach((item, index) => {
                 const price = item.price.toFixed(2).replace('.', ',');
                 const descHTML = item.description ? `<p>${item.description}</p>` : '';
                 
-                // Delay progressivo (0.05s per ogni elemento)
-                const delay = index * 0.05; 
+                // Se siamo in lite mode, niente delay
+                const delay = isLite ? 0 : index * 0.05;
                 
                 const itemHTML = `
                     <div class="menu-item" style="animation-delay: ${delay}s">
