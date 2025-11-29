@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bar La Lucciola - Menù</title>
+    
+    <!-- IMPORT FONTS GOOGLE -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Importo Playfair Display per il titolo e Inter per il testo -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
     <style>
         /* --- VARIABILI & RESET --- */
         :root {
@@ -11,13 +18,14 @@
             --accent-color: #d4af37;
             --bg-warm: #f8f9fa;
             --text-dark: #2c2c2c;
-            --text-light: #666666;
+            --text-gray: #666666; /* Nuovo grigio per le categorie */
             --shadow-soft: 0 10px 25px rgba(0,0,0,0.06);
             --shadow-active: 0 4px 15px rgba(62, 92, 69, 0.3);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            /* Uso 'Inter' per il corpo del testo, più moderno e leggibile */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-warm);
             color: var(--text-dark);
             margin: 0; padding: 0;
@@ -56,39 +64,43 @@
         }
         header::after {
             content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            /* Gradiente più scuro in basso per far leggere il testo */
             background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.7) 100%);
             z-index: 1;
         }
 
-        /* MODIFICA: TESTO SPOSTATO IN BASSO A SINISTRA */
         .header-content {
             position: absolute; 
-            bottom: 25px; /* Distanza dal basso */
-            left: 20px;   /* Distanza da sinistra */
-            /* Rimosso transform e top: 50% */
+            bottom: 25px; 
+            left: 20px;   
             color: white; 
-            text-align: left; /* Allineato a sinistra */
+            text-align: left; 
             z-index: 2; 
             width: auto;
             max-width: 80%;
         }
+        
+        /* MODIFICA FONT TITOLO */
         .header-content h1 {
-            font-size: 28px; /* Leggermente più piccolo per eleganza */
-            margin-bottom: 4px; 
-            font-weight: 800; 
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5); /* Ombra per leggibilità */
+            font-family: 'Playfair Display', serif; /* Font elegante */
+            font-size: 34px; /* Leggermente più grande per questo font */
+            margin-bottom: 2px; 
+            font-weight: 700; 
+            font-style: italic; /* Un tocco di stile in più */
+            text-transform: none; /* Lasciamo Maiuscole/Minuscole naturali o forziamo se vuoi */
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.6);
         }
         .subtitle { 
-            font-size: 14px; 
+            font-family: 'Inter', sans-serif;
+            font-size: 13px; 
             font-weight: 400; 
-            opacity: 0.95; 
+            opacity: 0.9; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
             text-shadow: 0 1px 5px rgba(0,0,0,0.5);
         }
 
-        /* --- STICKY NAV (NORMAL MODE) --- */
+        /* --- STICKY NAV --- */
         .sticky-nav-container {
             position: sticky;
             top: 0;
@@ -111,14 +123,16 @@
             max-width: 800px;
         }
         
-        /* CERCHIO LOGO */
         .logo-circle {
             width: 60px; height: 60px;
             border-radius: 50%;
             flex-shrink: 0;
             display: flex; align-items: center; justify-content: center;
+            
+            /* Trasparenza Fissa */
             background-color: rgba(255, 255, 255, 0.4);
             backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
             border: 1px solid rgba(255,255,255,0.3);
             transition: all 0.4s ease;
@@ -128,7 +142,6 @@
             border-radius: 50%; object-fit: cover;
         }
 
-        /* PILLOLA MENU */
         .nav-pill-wrapper {
             display: flex;
             align-items: center;
@@ -136,8 +149,11 @@
             border-radius: 50px;
             flex-grow: 1;
             overflow: hidden; 
+            
+            /* Trasparenza Fissa */
             background-color: rgba(255, 255, 255, 0.4);
             backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
             border: 1px solid rgba(255,255,255,0.3);
             transition: all 0.4s ease;
@@ -155,7 +171,12 @@
         /* --- ELEMENTI MENU --- */
         .tab-btn {
             background: transparent; border: none; padding: 10px 16px;
-            font-size: 14px; color: var(--text-light); font-weight: 600;
+            font-size: 15px; 
+            
+            /* MODIFICA COLORE TESTO CATEGORIE */
+            color: #555555; /* Grigio medio invece di nero */
+            font-weight: 500; /* Un po' meno grassetto per eleganza */
+            
             border-radius: 30px; cursor: pointer; 
             transition: all 0.2s ease;
             display: flex; align-items: center; gap: 8px; white-space: nowrap;
@@ -167,13 +188,20 @@
             stroke: currentColor; stroke-width: 2; fill: none;
             stroke-linecap: round; stroke-linejoin: round;
             transition: transform 0.2s ease;
+            opacity: 0.8; /* Icone leggermente più soft */
         }
 
+        /* Stato Attivo */
         .tab-btn.active {
-            background-color: var(--primary-color); color: white;
+            background-color: var(--primary-color); 
+            color: white; /* Torna bianco quando attivo */
+            font-weight: 600;
             box-shadow: var(--shadow-active);
         }
-        .tab-btn.active svg { transform: scale(1.15); }
+        .tab-btn.active svg { 
+            transform: scale(1.15); 
+            opacity: 1;
+        }
 
         .menu-container { 
             max-width: 800px; margin: 0 auto; padding: 20px; padding-bottom: 100px; 
@@ -182,7 +210,8 @@
         
         h3 { 
             color: var(--primary-color); 
-            margin: 10px 0 25px 0; font-size: 22px; font-weight: 800;
+            font-family: 'Playfair Display', serif; /* Anche i titoli delle sezioni eleganti */
+            margin: 10px 0 25px 0; font-size: 24px; font-weight: 700;
             display: flex; align-items: center;
         }
         h3::after {
@@ -199,7 +228,7 @@
             animation: fadeInUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
         
-        .item-info h4 { margin: 0; font-size: 17px; color: var(--text-dark); font-weight: 700; }
+        .item-info h4 { margin: 0; font-size: 17px; color: var(--text-dark); font-weight: 600; }
         .item-info p { margin: 5px 0 0 0; font-size: 13px; color: #888; line-height: 1.4; }
         
         .item-price { 
@@ -223,7 +252,7 @@
         }
 
         /* =========================================
-           6. LITE MODE
+           LITE MODE
            ========================================= */
         body.lite-mode {
             background-color: #f9f7f2; 
@@ -237,13 +266,14 @@
         }
         body.lite-mode header::before { display: none; animation: none; }
         
-        /* In lite mode riportiamo il testo al centro per equilibrio */
         body.lite-mode .header-content { 
             position: static; transform: none; 
             margin-top: 10px; text-align: center;
             bottom: auto; left: auto; max-width: 100%;
         }
-        body.lite-mode .header-content h1 { font-size: 26px; text-shadow: none; }
+        body.lite-mode .header-content h1 { 
+            font-size: 28px; text-shadow: none; font-style: normal; /* Meno elaborato in lite */
+        }
         body.lite-mode .subtitle { opacity: 0.8; font-size: 14px; text-shadow: none; }
 
         body.lite-mode .sticky-nav-container {
@@ -305,7 +335,7 @@
 
 <header>
     <div class="header-content">
-        <h1>BAR LA LUCCIOLA</h1>
+        <h1>Bar La Lucciola</h1> <!-- Scritto in Minuscolo/Maiuscolo per sfruttare il font italic -->
         <div class="subtitle">Laceno - Bagnoli Irpino</div>
     </div>
 </header>
@@ -346,7 +376,7 @@
 <div id="menu-container" class="menu-container"></div>
 
 <footer>
-    <div style="font-size: 1.2rem; font-weight: 700; color: var(--text-dark); margin-bottom: 5px;">
+    <div style="font-size: 1.2rem; font-weight: 700; color: var(--text-dark); margin-bottom: 5px; font-family: 'Playfair Display', serif;">
         Bar La Lucciola
     </div>
     <div style="font-size: 0.9rem; color: var(--text-light);">Via Dei Prati, 2 - Laceno</div>
