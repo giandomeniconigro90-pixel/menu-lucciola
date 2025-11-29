@@ -351,6 +351,12 @@
     pointer-events: auto;
     background-color: #fff; 
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    /* Ensure horizontal scrolling works smoothly */
+    overflow-x: auto; 
+    scrollbar-width: none; /* Hide scrollbar firefox */
+}
+.nav-tabs::-webkit-scrollbar {
+    display: none; /* Hide scrollbar chrome/safari */
 }
 
 </style>
@@ -494,10 +500,19 @@
        3. Inserisce l'HTML nella pagina.
     */
     function showCategory(catId, btnElement) {
-    // SCROLL FIX: Timeout per garantire che l'azione avvenga dopo eventuali rendering o altri scroll
+    // 1. SCROLL VERTICALE: Riporta la pagina su (dopo un attimo per stabilità)
     setTimeout(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 100);
+    }, 50);
+
+    // 2. SCROLL ORIZZONTALE (Menu): Centra il pulsante attivo
+    // Usiamo 'inline: center' per dire "mettimelo al centro orizzontalmente"
+    // Usiamo 'block: nearest' per non far saltare la pagina in verticale
+    if (btnElement) {
+        setTimeout(() => {
+            /* old scroll removed */
+        }, 150); // Un pelino dopo lo scroll verticale per non scattare
+    }
 
         const container = document.getElementById('menu-container');
         const data = menuData[catId];
@@ -507,7 +522,7 @@
         if(btnElement) {
             btnElement.classList.add('active');
             // Scroll automatico orizzontale per centrare il pulsante (utile su mobile)
-            // btnElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            /* old scroll removed */
         }
 
         // 2. Costruzione HTML
