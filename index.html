@@ -161,22 +161,18 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.3); transition: all 0.4s ease;
         }
         
-        /* --- SCROLL AREA DEFINITIVA --- */
+        /* --- SCROLL AREA MODIFICATA --- */
         .nav-scroll-area {
             display: flex; 
             align-items: center; 
             overflow-x: auto; 
             height: 100%; width: 100%;
             
-            /* SPAZIO SINISTRA AUMENTATO: 25px staccano bene la prima voce */
+            /* SPAZIO EXTRA A SINISTRA (25px) per staccare la prima categoria dal bordo */
             padding-left: 25px; 
             
-            /* SPAZIO DESTRA ENORME: 50px cuscinetto finale */
-            padding-right: 50px; 
-            
-            /* Scroll Snap */
+            padding-right: 40px; 
             scroll-snap-type: x mandatory; 
-            
             scrollbar-width: none;
         }
         .nav-scroll-area::-webkit-scrollbar { display: none; }
@@ -184,20 +180,21 @@
         /* --- ELEMENTI MENU --- */
         .tab-btn {
             background: transparent; border: none; 
-            padding: 10px 16px; 
             
-            /* SPAZIO TRA PULSANTI: 20px costringe l'elemento successivo fuori se non c'è spazio */
-            margin-right: 20px; 
+            /* PADDING INTERNO AUMENTATO: Dà aria al testo dentro l'ovale verde */
+            padding: 12px 20px; 
             
-            /* Allineamento forzato all'inizio */
+            margin-right: 15px; 
             scroll-snap-align: start; 
             
             font-size: 15px; color: #333333; font-weight: 600;
             border-radius: 30px; cursor: pointer; transition: all 0.2s ease; 
-            display: flex; align-items: center; gap: 8px; white-space: nowrap; 
+            
+            /* Flexbox per centrare icona e testo */
+            display: flex; align-items: center; justify-content: center; gap: 8px; 
+            white-space: nowrap; 
             flex: 0 0 auto; 
         }
-        /* Reset ultimo margine */
         .tab-btn:last-child { margin-right: 0; }
 
         .tab-btn svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.2s ease; opacity: 0.85; }
