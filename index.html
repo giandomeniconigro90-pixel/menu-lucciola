@@ -17,236 +17,158 @@
         /* --- VARIABILI --- */
         :root {
             --primary-color: #3e5c45;
-            --accent-color: #d4af37;
             --bg-warm: #f8f9fa;
             --text-dark: #2c2c2c;
             --text-gray: #333333;
             --shadow-soft: 0 10px 25px rgba(0,0,0,0.06);
-            --shadow-active: 0 4px 15px rgba(62, 92, 69, 0.3);
             --status-open: #4caf50;
             --status-closed: #ff5252;
         }
 
         /* --- BASE --- */
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: var(--bg-warm);
             color: var(--text-dark);
             margin: 0; padding: 0;
             overscroll-behavior-y: none; 
             -webkit-tap-highlight-color: transparent;
-            transition: background-color 0.3s ease;
         }
         
         /* --- ANIMAZIONI --- */
-        @keyframes kenBurns {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.15); }
-        }
-        
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); }
-            70% { box-shadow: 0 0 0 6px rgba(76, 175, 80, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
-        }
+        @keyframes kenBurns { 0% { transform: scale(1); } 100% { transform: scale(1.15); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(76, 175, 80, 0); } 100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); } }
 
         /* --- HEADER --- */
         header {
-            position: relative;
-            height: 260px; 
-            overflow: hidden;
-            background-color: #2c2c2c;
-            transition: height 0.3s ease;
+            position: relative; height: 260px; overflow: hidden; background-color: #2c2c2c; transition: height 0.3s ease;
         }
         header::before {
-            content: '';
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background-image: url('images/la-lucciola-fronte.png'); 
-            background-size: cover;
-            background-position: center;
-            z-index: 0;
+            background-size: cover; background-position: center; z-index: 0;
             animation: kenBurns 20s infinite alternate ease-in-out;
         }
         header::after {
             content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.8) 100%);
-            z-index: 1;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.8) 100%); z-index: 1;
         }
 
         .header-content {
-            position: absolute; 
-            bottom: 70px; 
-            left: 20px;   
-            color: white; 
-            text-align: left; 
-            z-index: 2; 
-            width: auto;
-            max-width: 90%;
+            position: absolute; bottom: 70px; left: 20px; color: white; z-index: 2; width: auto; max-width: 90%;
         }
-        
         .header-content h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 34px; 
-            margin-bottom: 2px; 
-            font-weight: 700; 
-            font-style: italic;
-            letter-spacing: 0.5px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+            font-family: 'Playfair Display', serif; font-size: 34px; margin-bottom: 2px; font-weight: 700; font-style: italic; letter-spacing: 0.5px; text-shadow: 0 2px 10px rgba(0,0,0,0.6);
         }
         .subtitle { 
-            font-family: 'Inter', sans-serif;
-            font-size: 13px; 
-            font-weight: 400; 
-            opacity: 0.9; 
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-shadow: 0 1px 5px rgba(0,0,0,0.5);
-            margin-bottom: 10px;
+            font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 400; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 1px 5px rgba(0,0,0,0.5); margin-bottom: 10px;
         }
 
-        @media (max-width: 480px) {
-            .header-content { bottom: 80px; left: 15px; }
-            .header-content h1 { font-size: 26px; }
-            .status-badge, .weather-badge { padding: 4px 10px; font-size: 11px; }
-        }
-
-        /* INFO CLUSTER */
         .info-cluster { display: flex; gap: 8px; flex-wrap: wrap; }
 
         .status-badge, .weather-badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            font-size: 12px; font-weight: 600;
-            background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(6px);
-            padding: 5px 12px; border-radius: 20px;
+            display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600;
+            background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(6px); padding: 5px 12px; border-radius: 20px;
             border: 1px solid rgba(255,255,255,0.15); color: #e8f5e9;
-            transition: all 0.3s ease;
         }
-
         .status-dot { width: 8px; height: 8px; border-radius: 50%; background-color: #ccc; }
         .status-badge.open .status-dot { background-color: var(--status-open); animation: pulse 2s infinite; }
         .status-badge.closed { color: #ffebee; border-color: rgba(255, 82, 82, 0.3); }
         .status-badge.closed .status-dot { background-color: var(--status-closed); }
-
-        .weather-badge svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
         .weather-badge.snow { background: rgba(200, 230, 255, 0.25); color: #fff; border-color: rgba(255,255,255,0.4); }
-
+        .weather-badge svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
         /* --- STICKY NAV --- */
         .sticky-nav-container {
-            position: sticky; 
-            top: 10px; 
-            z-index: 100; 
-            margin-top: -40px; 
-            padding: 0; 
-            display: flex; 
-            justify-content: center;
-            pointer-events: none; 
-            transition: all 0.3s ease;
+            position: sticky; top: 10px; z-index: 100; margin-top: -40px; padding: 0; 
+            display: flex; justify-content: center; pointer-events: none; transition: all 0.3s ease;
         }
         
         .nav-cluster {
-            display: flex; 
-            align-items: center; 
-            gap: 10px; 
-            pointer-events: auto; 
-            width: 92%; 
-            justify-content: center; 
-            max-width: 800px;
+            display: flex; align-items: center; gap: 10px; pointer-events: auto; 
+            width: 94%; justify-content: center; max-width: 800px;
         }
         
         .logo-circle {
-            width: 58px; height: 58px; 
-            border-radius: 50%; 
-            flex-shrink: 0; 
+            width: 58px; height: 58px; border-radius: 50%; flex-shrink: 0; 
             display: flex; align-items: center; justify-content: center;
-            background-color: rgba(255, 255, 255, 0.45); 
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15); 
-            border: 1px solid rgba(255,255,255,0.4); 
-            transition: all 0.4s ease;
+            background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); 
         }
         .nav-mini-logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
 
         .nav-pill-wrapper {
-            display: flex; 
-            align-items: center; 
-            height: 58px; 
-            border-radius: 50px; 
-            flex-grow: 1; 
-            overflow: hidden; 
-            background-color: rgba(255, 255, 255, 0.45); 
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15); 
-            border: 1px solid rgba(255,255,255,0.4); 
-            transition: all 0.4s ease;
-            
-            /* Importante per centrare */
-            position: relative;
+            display: flex; align-items: center; height: 58px; border-radius: 50px; flex-grow: 1; overflow: hidden; 
+            background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4);
         }
         
-        /* --- SCROLL AREA MODIFICATA PER CENTRATURA --- */
+        /* --- LOGICA RESPONSIVE PER LA NAVIGAZIONE --- */
+        
+        /* Mobile (< 768px): 2 Elementi esatti, Snap rigido */
         .nav-scroll-area {
             display: flex; 
             align-items: center; 
             overflow-x: auto; 
             height: 100%; width: 100%;
-            
-            /* TRUCCO: Spazi laterali enormi per permettere al primo e ultimo elemento di andare al centro */
-            padding: 0 8%; 
-            
-            scroll-snap-type: x mandatory; 
+            scroll-behavior: smooth;
             scrollbar-width: none;
             
-            /* Comportamento scorrimento */
-            scroll-behavior: smooth;
+            /* MOBILE: Padding zero per toccare i bordi, snap attivo */
+            padding: 0; 
+            scroll-snap-type: x mandatory; 
         }
         .nav-scroll-area::-webkit-scrollbar { display: none; }
 
-        /* --- ELEMENTI MENU (Più larghi per vederne solo 2) --- */
         .tab-btn {
-            background: transparent; 
-            border: none; 
-            
-            height: 42px; 
-            
-            /* Larghezza minima fissa per occupare spazio e forzare lo scroll */
-            min-width: 110px; 
-            padding: 0 15px;
-            margin: 0 5px; /* Piccolo margine tra loro */
-            
-            font-size: 15px; 
-            color: #333333; 
-            font-weight: 500;
-            border-radius: 30px; 
-            cursor: pointer; 
-            transition: all 0.2s ease; 
-            
+            background: transparent; border: none; height: 42px; 
+            font-size: 15px; color: #333333; font-weight: 500;
+            border-radius: 30px; cursor: pointer; transition: all 0.2s ease; 
             display: flex; align-items: center; justify-content: center; gap: 8px; 
-            white-space: nowrap; 
-            flex-shrink: 0;
+            white-space: nowrap; flex-shrink: 0;
             
-            /* FONDAMENTALE: Si allinea al centro della vista */
-            scroll-snap-align: center; 
+            /* MOBILE: Larghezza fissa 50% per vederne sempre 2 */
+            width: 50%;
+            padding: 0; /* Niente padding interno laterale extra su mobile, gestiamo col flex center */
+            margin: 0;  /* Niente margine tra bottoni su mobile per calcolo perfetto 50% */
+            
+            scroll-snap-align: start; /* Si aggancia all'inizio */
+        }
+
+        /* Tablet/Desktop (>= 768px): Spazio ai lati, larghezza naturale */
+        @media (min-width: 768px) {
+            .nav-scroll-area {
+                /* TABLET: Aggiungo "aria" ai lati */
+                padding: 0 20px; 
+                /* Disabilito lo snap rigido per scorrimento fluido */
+                scroll-snap-type: none; 
+            }
+            
+            .tab-btn {
+                /* TABLET: Larghezza automatica in base al testo */
+                width: auto; 
+                padding: 0 25px; /* Spazio comodo per il click */
+                margin-right: 10px; /* Spazio tra i bottoni */
+                scroll-snap-align: unset;
+            }
+            .tab-btn:last-child { margin-right: 0; }
         }
 
         .tab-btn.active { 
-            background-color: #3e5c45; 
-            color: white; 
-            font-weight: 600; 
+            background-color: #3e5c45; color: white; font-weight: 600; 
             box-shadow: 0 4px 12px rgba(62, 92, 69, 0.25); 
-            /* Leggermente più grande quando attivo per enfasi */
-            transform: scale(1.05);
+            /* Ridimensiono leggermente su mobile per far capire che è cliccabile ma contenuto */
+            transform: scale(0.92); 
         }
-        
-        .tab-btn svg { width: 18px; height: 18px; stroke-width: 2; opacity: 0.7; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.2s ease; }
+        /* Su tablet resetto la scale perché c'è spazio */
+        @media (min-width: 768px) { .tab-btn.active { transform: scale(1); } }
+
+        .tab-btn svg { width: 18px; height: 18px; stroke-width: 2; opacity: 0.7; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; }
         .tab-btn.active svg { opacity: 1; stroke-width: 2.5; }
 
 
+        /* --- CONTENUTO E FOOTER --- */
         .menu-container { max-width: 800px; margin: 0 auto; padding: 20px; padding-bottom: 100px; min-height: 600px; }
         
         h3 { color: var(--primary-color); font-family: 'Playfair Display', serif; margin: 10px 0 25px 0; font-size: 24px; font-weight: 700; display: flex; align-items: center; }
@@ -260,7 +182,6 @@
         .item-info p { margin: 5px 0 0 0; font-size: 13px; color: #888; line-height: 1.4; }
         .item-price { font-weight: 700; color: var(--primary-color); background-color: #f1f8f3; padding: 8px 14px; border-radius: 10px; font-size: 15px; white-space: nowrap; margin-left: 15px; }
 
-        /* --- FOOTER --- */
         footer {
             background-color: white; padding: 30px 20px; margin-top: 20px; 
             border-top-left-radius: 30px; border-top-right-radius: 30px; box-shadow: 0 -10px 40px rgba(0,0,0,0.03);
@@ -274,7 +195,6 @@
             display: inline-flex; align-items: center; gap: 6px; color: var(--primary-color); font-weight: 600; font-size: 0.95rem;
             text-decoration: none; background-color: #f1f8f3; padding: 6px 12px; border-radius: 8px;
         }
-        .footer-social { display: flex; align-items: center; }
         .social-circle {
             width: 50px; height: 50px; border-radius: 50%; background-color: white; border: 1px solid rgba(0,0,0,0.08);
             box-shadow: 0 4px 15px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease; color: #1877f2;
@@ -292,13 +212,11 @@
         body.lite-mode .status-badge, body.lite-mode .weather-badge { background: rgba(0,0,0,0.1); border: none; color: white; }
         body.lite-mode .header-content h1 { font-size: 28px; text-shadow: none; font-style: normal; }
         body.lite-mode .subtitle { opacity: 0.8; font-size: 14px; text-shadow: none; }
-        body.lite-mode .sticky-nav-container { position: sticky; top: 0; z-index: 100; margin-top: 0; padding-top: 15px; background-color: #f9f7f2; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        body.lite-mode .nav-cluster { display: flex; }
+        body.lite-mode .sticky-nav-container { margin-top: 0; padding-top: 15px; background-color: #f9f7f2; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         body.lite-mode .logo-circle, body.lite-mode .nav-pill-wrapper { background-color: #ffffff !important; border: 2px solid #e6e6e6; box-shadow: 0 2px 6px rgba(0,0,0,0.05); backdrop-filter: none !important; }
         body.lite-mode .menu-item { animation: none !important; opacity: 1 !important; box-shadow: none; border: 1px solid #e0dec0; background: #fff; margin-bottom: 10px; }
         body.lite-mode .item-price { background-color: #f4f1ea; color: #3e5c45; }
         body.lite-mode #lite-switch { background: #d4af37 !important; color: #000 !important; border: 2px solid white !important; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        @media (orientation: landscape) { .nav-cluster { width: auto; max-width: 90%; } }
     </style>
 </head>
 <body>
@@ -419,13 +337,7 @@
         if (savedMode) { if (savedMode === 'lite') toggleLiteMode(); } 
         else { checkConnectionSpeed(); }
         
-        // Forza la selezione iniziale con un piccolo ritardo per far calcolare il layout
-        setTimeout(() => {
-            const activeBtn = document.querySelector('.tab-btn.active');
-            if(activeBtn) activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-            showCategory('calde', activeBtn);
-        }, 100);
-
+        showCategory('calde', document.querySelector('.tab-btn.active'));
         checkOpenStatus();
         fetchWeather(); 
     });
@@ -506,10 +418,12 @@
 
         if (!isLite) {
             setTimeout(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }, 50);
-            // Scorrimento automatico orizzontale per centrare il bottone selezionato
             if (btnElement) {
+                // Calcolo per centrare solo su tablet, su mobile lo snap fa il lavoro sporco
+                const isMobile = window.innerWidth < 768;
+                const options = isMobile ? { behavior: 'smooth', inline: 'start', block: 'nearest' } : { behavior: 'smooth', inline: 'center', block: 'nearest' };
                 setTimeout(() => {
-                    btnElement.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                    btnElement.scrollIntoView(options);
                 }, 150);
             }
         } else {
