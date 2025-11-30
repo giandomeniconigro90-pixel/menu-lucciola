@@ -46,7 +46,7 @@
         header::before { content: ''; position: absolute; inset: 0; background-image: url('images/la-lucciola-fronte.png'); background-size: cover; background-position: center; z-index: 0; animation: kenBurns 20s infinite alternate ease-in-out; }
         header::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.8) 100%); z-index: 1; }
 
-        .header-content { position: absolute; bottom: 70px; left: 20px; color: white; z-index: 2; width: auto; max-width: 90%; }
+        .header-content { position: absolute; bottom: 70px; left: 20px; color: white; z-index: 2; width: auto; max-width: 90%; transition: all 0.3s ease; }
         .header-content h1 { font-family: 'Playfair Display', serif; font-size: 34px; margin-bottom: 2px; font-weight: 700; font-style: italic; text-shadow: 0 2px 10px rgba(0,0,0,0.6); }
         .subtitle { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 400; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 1px 5px rgba(0,0,0,0.5); margin-bottom: 10px; }
 
@@ -84,7 +84,6 @@
             scroll-snap-align: start; 
         }
 
-        /* La Pillola Verde Visibile (Inner) */
         .tab-btn-inner {
             width: 90%; 
             height: 42px;
@@ -95,23 +94,32 @@
             transition: all 0.2s ease;
         }
 
-        /* TABLET/DESKTOP RESET (MODIFICATO PER DISABILITARE SCROLL) */
+        /* TABLET & DESKTOP RESET */
         @media (min-width: 600px) {
             .nav-scroll-area { 
-                padding: 0; 
-                scroll-snap-type: none; 
-                justify-content: center; /* Centra le icone */
-                overflow-x: hidden;      /* Rimuove lo scroll */
+                padding: 0; scroll-snap-type: none; justify-content: center; overflow-x: hidden; 
             }
-            .tab-btn { 
-                flex: 0 0 auto;          /* Dimensione naturale */
-                width: auto; 
-                margin: 0 8px;          /* Spazio tra le voci */
+            .tab-btn { flex: 0 0 auto; width: auto; margin: 0 8px; }
+            .tab-btn:last-child { margin-right: 8px; } 
+            .tab-btn-inner { width: auto; padding: 0 15px; }
+        }
+        
+        /* --- LAYOUT SPECIFICO PER DESKTOP / LANDSCAPE (> 900px) --- */
+        @media (min-width: 900px) {
+            header {
+                height: 380px; /* Più alto per dare respiro alla foto su schermi grandi */
             }
-            /* Rimuove il margine destro dall'ultimo elemento per una centratura perfetta */
-            .tab-btn:last-child { margin-right: 10px; } 
-
-            .tab-btn-inner { width: auto; padding: 0 15px; } /* Larghezza naturale */
+            .header-content {
+                bottom: 30px;   /* Allineato in basso */
+                left: 50px;     /* Più rientrato a sinistra */
+                max-width: 40%; /* Impedisce che vada sotto la nav centrale */
+            }
+            .header-content h1 {
+                font-size: 48px; /* Titolo più grande e importante */
+            }
+            .subtitle {
+                font-size: 15px;
+            }
         }
 
         /* Stato Attivo applicato alla pillola interna */
@@ -191,7 +199,6 @@
         <div class="logo-circle"><img src="images/icon_app.png" alt="Logo" class="nav-mini-logo"></div>
         <div class="nav-pill-wrapper">
             <div class="nav-scroll-area">
-                <!-- NOTA: Ogni bottone ha un wrapper .tab-btn e un figlio .tab-btn-inner -->
                 <button class="tab-btn active" onclick="showCategory('calde', this)">
                     <span class="tab-btn-inner">
                         <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>Calde
