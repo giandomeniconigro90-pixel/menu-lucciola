@@ -9,7 +9,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <!-- --- FAVICON (LOGO NELLA TAB) --- -->
+    <!-- FAVICON -->
     <link rel="icon" type="image/png" href="images/icon_app.png">
     <link rel="shortcut icon" href="images/icon_app.png">
     <link rel="apple-touch-icon" href="images/icon_app.png">
@@ -75,13 +75,11 @@
         /* --- NAVIGAZIONE SCROLL --- */
         .nav-scroll-area {
             display: flex; align-items: center; overflow-x: auto; height: 100%; width: 100%;
-            padding: 0; 
-            scroll-snap-type: x mandatory; 
-            scrollbar-width: none;
+            padding: 0; scroll-snap-type: x mandatory; scrollbar-width: none;
         }
         .nav-scroll-area::-webkit-scrollbar { display: none; }
 
-        /* --- BOTTONI CON SELEZIONE VERDE RIDOTTA (Margini) --- */
+        /* --- BOTTONI: SELEZIONE VERDE PIÙ PICCOLA --- */
         .tab-btn {
             background: transparent; border: none; height: 42px; 
             font-size: 15px; color: #333333; font-weight: 500;
@@ -89,17 +87,28 @@
             display: flex; align-items: center; justify-content: center; gap: 8px; 
             white-space: nowrap; 
             
-            /* Qui la magia: il bottone occupa il 50% matematico, ma i margini lo restringono visivamente */
-            flex: 0 0 calc(50% - 12px); 
-            width: calc(50% - 12px);
-            margin: 0 6px; 
+            /* Logica matematica: 50% esatto */
+            flex: 0 0 calc(50% - 20px); /* Riduco la width calcolata */
+            width: calc(50% - 20px);
+            
+            /* Logica visiva: Aumento i margini per restringere la pillola verde */
+            margin: 0 10px; 
             
             scroll-snap-align: start; 
         }
 
-        /* Spaziatura Extra ai bordi estremi */
-        .tab-btn:first-child { margin-left: 15px; flex: 0 0 calc(50% - 21px); width: calc(50% - 21px); } 
-        .tab-btn:last-child { margin-right: 15px; flex: 0 0 calc(50% - 21px); width: calc(50% - 21px); scroll-snap-align: end; }
+        /* SPAZIATORI LATERALI PIÙ AMPI PER STACCARE DAL BORDO */
+        .tab-btn:first-child { 
+            margin-left: 20px; /* Più spazio a sinistra del primo elemento */
+            flex: 0 0 calc(50% - 30px); 
+            width: calc(50% - 30px); 
+        } 
+        .tab-btn:last-child { 
+            margin-right: 20px; 
+            flex: 0 0 calc(50% - 30px); 
+            width: calc(50% - 30px); 
+            scroll-snap-align: end; 
+        }
 
         /* TABLET RESET */
         @media (min-width: 768px) {
@@ -112,7 +121,7 @@
         .tab-btn.active { 
             background-color: #3e5c45; color: white; font-weight: 600; 
             box-shadow: 0 4px 12px rgba(62, 92, 69, 0.25); 
-            transform: scale(0.95); /* Leggera riduzione per eleganza */
+            transform: scale(0.95); 
         }
         @media (min-width: 768px) { .tab-btn.active { transform: scale(1); } }
         
