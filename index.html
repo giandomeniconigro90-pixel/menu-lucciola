@@ -14,205 +14,200 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 
     <style>
-        /* --- VARIABILI --- */
-        :root {
-            --primary-color: #3e5c45;
-            --bg-warm: #f8f9fa;
-            --text-dark: #2c2c2c;
-            --text-gray: #333333;
-            --shadow-soft: 0 10px 25px rgba(0,0,0,0.06);
-            --status-open: #4caf50;
-            --status-closed: #ff5252;
-        }
+    /* ... (Tutte le variabili e animazioni restano uguali fino a .nav-pill-wrapper) ... */
+    
+    /* --- VARIABILI --- */
+    :root {
+        --primary-color: #3e5c45;
+        --accent-color: #d4af37;
+        --bg-warm: #f8f9fa;
+        --text-dark: #2c2c2c;
+        --text-gray: #333333;
+        --shadow-soft: 0 10px 25px rgba(0,0,0,0.06);
+        --status-open: #4caf50;
+        --status-closed: #ff5252;
+    }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-warm);
-            color: var(--text-dark);
-            margin: 0; padding: 0;
-            overscroll-behavior-y: none; 
-            -webkit-tap-highlight-color: transparent;
-        }
+    /* --- BASE --- */
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--bg-warm);
+        color: var(--text-dark);
+        margin: 0; padding: 0;
+        overscroll-behavior-y: none; 
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* --- ANIMAZIONI --- */
+    @keyframes kenBurns { 0% { transform: scale(1); } 100% { transform: scale(1.15); } }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(76, 175, 80, 0); } 100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); } }
+
+    /* --- HEADER --- */
+    header {
+        position: relative; height: 260px; overflow: hidden; background-color: #2c2c2c; transition: height 0.3s ease;
+    }
+    header::before {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+        background-image: url('images/la-lucciola-fronte.png'); 
+        background-size: cover; background-position: center; z-index: 0;
+        animation: kenBurns 20s infinite alternate ease-in-out;
+    }
+    header::after {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.8) 100%); z-index: 1;
+    }
+
+    .header-content {
+        position: absolute; bottom: 70px; left: 20px; color: white; z-index: 2; width: auto; max-width: 90%;
+    }
+    .header-content h1 {
+        font-family: 'Playfair Display', serif; font-size: 34px; margin-bottom: 2px; font-weight: 700; font-style: italic; letter-spacing: 0.5px; text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+    }
+    .subtitle { 
+        font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 400; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 1px 5px rgba(0,0,0,0.5); margin-bottom: 10px;
+    }
+
+    .info-cluster { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .status-badge, .weather-badge {
+        display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600;
+        background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(6px); padding: 5px 12px; border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.15); color: #e8f5e9;
+    }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background-color: #ccc; }
+    .status-badge.open .status-dot { background-color: var(--status-open); animation: pulse 2s infinite; }
+    .status-badge.closed { color: #ffebee; border-color: rgba(255, 82, 82, 0.3); }
+    .status-badge.closed .status-dot { background-color: var(--status-closed); }
+    .weather-badge.snow { background: rgba(200, 230, 255, 0.25); color: #fff; border-color: rgba(255,255,255,0.4); }
+    .weather-badge svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* --- STICKY NAV --- */
+    .sticky-nav-container {
+        position: sticky; top: 10px; z-index: 100; margin-top: -40px; padding: 0; 
+        display: flex; justify-content: center; pointer-events: none; transition: all 0.3s ease;
+    }
+    
+    .nav-cluster {
+        display: flex; align-items: center; gap: 10px; pointer-events: auto; 
+        width: 94%; justify-content: center; max-width: 800px;
+    }
+    
+    .logo-circle {
+        width: 58px; height: 58px; border-radius: 50%; flex-shrink: 0; 
+        display: flex; align-items: center; justify-content: center;
+        background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); 
+    }
+    .nav-mini-logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
+
+    .nav-pill-wrapper {
+        display: flex; align-items: center; height: 58px; border-radius: 50px; flex-grow: 1; overflow: hidden; 
+        background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4);
+    }
+    
+    .nav-scroll-area {
+        display: flex; align-items: center; overflow-x: auto; height: 100%; width: 100%;
+        scroll-behavior: smooth; scrollbar-width: none; scroll-snap-type: x mandatory; 
+        padding: 0; 
+    }
+    .nav-scroll-area::-webkit-scrollbar { display: none; }
+
+    /* --- IL TRUCCO DEL MARGINE --- */
+    .tab-btn {
+        background: transparent; border: none; 
+        height: 42px; /* Altezza capsula */
         
-        /* --- ANIMAZIONI --- */
-        @keyframes kenBurns { 0% { transform: scale(1); } 100% { transform: scale(1.15); } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(76, 175, 80, 0); } 100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); } }
-
-        /* --- HEADER --- */
-        header {
-            position: relative; height: 260px; overflow: hidden; background-color: #2c2c2c; transition: height 0.3s ease;
-        }
-        header::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background-image: url('images/la-lucciola-fronte.png'); 
-            background-size: cover; background-position: center; z-index: 0;
-            animation: kenBurns 20s infinite alternate ease-in-out;
-        }
-        header::after {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.8) 100%); z-index: 1;
-        }
-
-        .header-content {
-            position: absolute; bottom: 70px; left: 20px; color: white; z-index: 2; width: auto; max-width: 90%;
-        }
-        .header-content h1 {
-            font-family: 'Playfair Display', serif; font-size: 34px; margin-bottom: 2px; font-weight: 700; font-style: italic; letter-spacing: 0.5px; text-shadow: 0 2px 10px rgba(0,0,0,0.6);
-        }
-        .subtitle { 
-            font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 400; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 1px 5px rgba(0,0,0,0.5); margin-bottom: 10px;
-        }
-
-        .info-cluster { display: flex; gap: 8px; flex-wrap: wrap; }
-
-        .status-badge, .weather-badge {
-            display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600;
-            background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(6px); padding: 5px 12px; border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.15); color: #e8f5e9;
-        }
-        .status-dot { width: 8px; height: 8px; border-radius: 50%; background-color: #ccc; }
-        .status-badge.open .status-dot { background-color: var(--status-open); animation: pulse 2s infinite; }
-        .status-badge.closed { color: #ffebee; border-color: rgba(255, 82, 82, 0.3); }
-        .status-badge.closed .status-dot { background-color: var(--status-closed); }
-        .weather-badge.snow { background: rgba(200, 230, 255, 0.25); color: #fff; border-color: rgba(255,255,255,0.4); }
-        .weather-badge svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-
-        /* --- STICKY NAV --- */
-        .sticky-nav-container {
-            position: sticky; top: 10px; z-index: 100; margin-top: -40px; padding: 0; 
-            display: flex; justify-content: center; pointer-events: none; transition: all 0.3s ease;
-        }
+        font-size: 15px; color: #333333; font-weight: 500;
+        border-radius: 30px; cursor: pointer; transition: all 0.2s ease; 
+        display: flex; align-items: center; justify-content: center; gap: 8px; 
+        white-space: nowrap; 
         
-        .nav-cluster {
-            display: flex; align-items: center; gap: 10px; pointer-events: auto; 
-            width: 94%; justify-content: center; max-width: 800px;
-        }
+        /* Mantiene la cella larga 50% per la matematica dello scroll */
+        flex: 0 0 50%; width: 50%;
         
-        .logo-circle {
-            width: 58px; height: 58px; border-radius: 50%; flex-shrink: 0; 
-            display: flex; align-items: center; justify-content: center;
-            background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); 
-        }
-        .nav-mini-logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
+        /* QUALE MODIFICA: Aggiungo un margine laterale SIGNIFICATIVO (es. 6px) 
+           invece di padding 0. Questo "strizza" visivamente la pillola verde
+           allontanandola dai bordi della sua cella invisibile. */
+        margin: 0 6px; 
+        
+        /* Per compensare i margini e non sforare il 100% totale, uso calc() 
+           oppure, più semplice, riduco la larghezza visiva interna */
+        width: calc(50% - 12px); /* 50% meno i due margini da 6px */
+        flex: 0 0 calc(50% - 12px);
 
-        .nav-pill-wrapper {
-            display: flex; align-items: center; height: 58px; border-radius: 50px; flex-grow: 1; overflow: hidden; 
-            background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4);
-        }
-        
-        /* --- LOGICA CAROSELLO 50/50 --- */
-        
-        .nav-scroll-area {
-            display: flex; 
-            align-items: center; 
-            overflow-x: auto; 
-            height: 100%; width: 100%;
-            
-            /* MOBILE: Snap obbligatorio, niente padding */
-            scroll-behavior: smooth;
-            scrollbar-width: none;
-            scroll-snap-type: x mandatory; 
-            padding: 0; 
-        }
-        .nav-scroll-area::-webkit-scrollbar { display: none; }
+        scroll-snap-align: start; 
+    }
+    
+    /* Correggo il primo e ultimo elemento per avere più aria esterna */
+    .tab-btn:first-child {
+        margin-left: 12px; /* Doppio spazio all'inizio per staccare dal logo */
+        flex: 0 0 calc(50% - 18px); /* Ricalcolo larghezza specifica */
+    }
+    .tab-btn:last-child {
+        margin-right: 12px; /* Doppio spazio alla fine */
+        flex: 0 0 calc(50% - 18px);
+        scroll-snap-align: end; 
+    }
 
+    /* TABLET Reset */
+    @media (min-width: 768px) {
+        .nav-scroll-area { padding: 0 20px; scroll-snap-type: none; }
         .tab-btn {
-            background: transparent; border: none; height: 42px; 
-            font-size: 15px; color: #333333; font-weight: 500;
-            border-radius: 30px; cursor: pointer; transition: all 0.2s ease; 
-            display: flex; align-items: center; justify-content: center; gap: 8px; 
-            white-space: nowrap; 
-            
-            /* LA CHIAVE MATEMATICA: 50% spaccato, no flex-grow, no flex-shrink */
-            flex: 0 0 50%; 
-            width: 50%;
-            box-sizing: border-box; /* Include il padding nel calcolo del 50% */
-            
-            margin: 0; 
-            padding: 0;
-            
-            scroll-snap-align: start; 
+            flex: 0 0 auto; width: auto; 
+            margin: 0 10px 0 0; padding: 0 25px; 
+            scroll-snap-align: unset;
         }
-
-        /* TRUCCO PER L'ULTIMO ELEMENTO: Si aggancia alla FINE */
-        /* Questo impedisce di vedere 50% categoria + 50% vuoto. Mostra sempre l'ultima coppia. */
-        .tab-btn:last-child {
-            scroll-snap-align: end; 
+        .tab-btn:first-child, .tab-btn:last-child { 
+            margin: 0 10px 0 0; flex: 0 0 auto; 
         }
+        .tab-btn:last-child { margin-right: 0; }
+    }
 
-        /* TABLET/DESKTOP: Reset del comportamento */
-        @media (min-width: 768px) {
-            .nav-scroll-area { padding: 0 20px; scroll-snap-type: none; }
-            .tab-btn {
-                flex: 0 0 auto; /* Larghezza naturale */
-                width: auto; 
-                padding: 0 25px; 
-                margin-right: 10px; 
-                scroll-snap-align: unset;
-            }
-            .tab-btn:last-child { margin-right: 0; scroll-snap-align: unset; }
-        }
+    .tab-btn.active { 
+        background-color: #3e5c45; color: white; font-weight: 600; 
+        box-shadow: 0 4px 12px rgba(62, 92, 69, 0.25); 
+        /* Nessuna trasformazione di scala qui, gestiamo tutto coi margini */
+    }
 
-        .tab-btn.active { 
-            background-color: #3e5c45; color: white; font-weight: 600; 
-            box-shadow: 0 4px 12px rgba(62, 92, 69, 0.25); 
-            transform: scale(0.92); /* Piccola riduzione per mobile per estetica */
-        }
-        @media (min-width: 768px) { .tab-btn.active { transform: scale(1); } }
+    /* ... (Resto del CSS uguale) ... */
+    .tab-btn svg { width: 18px; height: 18px; stroke-width: 2; opacity: 0.7; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .tab-btn.active svg { opacity: 1; stroke-width: 2.5; }
+    
+    /* Contenitore Menu e Footer uguali a prima */
+    .menu-container { max-width: 800px; margin: 0 auto; padding: 20px; padding-bottom: 100px; min-height: 600px; }
+    h3 { color: var(--primary-color); font-family: 'Playfair Display', serif; margin: 10px 0 25px 0; font-size: 24px; font-weight: 700; display: flex; align-items: center; }
+    h3::after { content: ''; flex-grow: 1; height: 2px; background: linear-gradient(to right, var(--primary-color), transparent); opacity: 0.2; margin-left: 15px; }
+    .menu-item { display: flex; justify-content: space-between; align-items: center; background: white; padding: 16px; margin-bottom: 15px; border-radius: 16px; box-shadow: var(--shadow-soft); border: 1px solid rgba(0,0,0,0.01); opacity: 0; animation: fadeInUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+    .item-info h4 { margin: 0; font-size: 17px; color: var(--text-dark); font-weight: 600; }
+    .item-info p { margin: 5px 0 0 0; font-size: 13px; color: #888; line-height: 1.4; }
+    .item-price { font-weight: 700; color: var(--primary-color); background-color: #f1f8f3; padding: 8px 14px; border-radius: 10px; font-size: 15px; white-space: nowrap; margin-left: 15px; }
 
-        .tab-btn svg { width: 18px; height: 18px; stroke-width: 2; opacity: 0.7; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-        .tab-btn.active svg { opacity: 1; stroke-width: 2.5; }
+    footer { background-color: white; padding: 30px 20px; margin-top: 20px; border-top-left-radius: 30px; border-top-right-radius: 30px; box-shadow: 0 -10px 40px rgba(0,0,0,0.03); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .footer-info { text-align: left; }
+    .footer-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
+    .footer-address { font-size: 0.85rem; color: var(--text-gray); margin-bottom: 8px; text-decoration: none; display: block; transition: color 0.2s; }
+    .footer-phone { display: inline-flex; align-items: center; gap: 6px; color: var(--primary-color); font-weight: 600; font-size: 0.95rem; text-decoration: none; background-color: #f1f8f3; padding: 6px 12px; border-radius: 8px; }
+    .social-circle { width: 50px; height: 50px; border-radius: 50%; background-color: white; border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 4px 15px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease; color: #1877f2; }
+    .social-circle svg { width: 28px; height: 28px; fill: currentColor; stroke: none; }
+    .footer-bottom { width: 100%; text-align: center; margin-top: 20px; font-size: 0.7rem; color: #999; border-top: 1px solid #f0f0f0; padding-top: 15px; }
 
-        /* --- CONTENUTO --- */
-        .menu-container { max-width: 800px; margin: 0 auto; padding: 20px; padding-bottom: 100px; min-height: 600px; }
-        
-        h3 { color: var(--primary-color); font-family: 'Playfair Display', serif; margin: 10px 0 25px 0; font-size: 24px; font-weight: 700; display: flex; align-items: center; }
-        h3::after { content: ''; flex-grow: 1; height: 2px; background: linear-gradient(to right, var(--primary-color), transparent); opacity: 0.2; margin-left: 15px; }
-
-        .menu-item { 
-            display: flex; justify-content: space-between; align-items: center; background: white; padding: 16px; margin-bottom: 15px; border-radius: 16px; 
-            box-shadow: var(--shadow-soft); border: 1px solid rgba(0,0,0,0.01); opacity: 0; animation: fadeInUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
-        .item-info h4 { margin: 0; font-size: 17px; color: var(--text-dark); font-weight: 600; }
-        .item-info p { margin: 5px 0 0 0; font-size: 13px; color: #888; line-height: 1.4; }
-        .item-price { font-weight: 700; color: var(--primary-color); background-color: #f1f8f3; padding: 8px 14px; border-radius: 10px; font-size: 15px; white-space: nowrap; margin-left: 15px; }
-
-        footer {
-            background-color: white; padding: 30px 20px; margin-top: 20px; 
-            border-top-left-radius: 30px; border-top-right-radius: 30px; box-shadow: 0 -10px 40px rgba(0,0,0,0.03);
-            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
-        }
-        .footer-info { text-align: left; }
-        .footer-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
-        .footer-address { font-size: 0.85rem; color: var(--text-gray); margin-bottom: 8px; text-decoration: none; display: block; transition: color 0.2s; }
-        .footer-phone {
-            display: inline-flex; align-items: center; gap: 6px; color: var(--primary-color); font-weight: 600; font-size: 0.95rem; text-decoration: none; background-color: #f1f8f3; padding: 6px 12px; border-radius: 8px;
-        }
-        .social-circle {
-            width: 50px; height: 50px; border-radius: 50%; background-color: white; border: 1px solid rgba(0,0,0,0.08);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease; color: #1877f2;
-        }
-        .social-circle svg { width: 28px; height: 28px; fill: currentColor; stroke: none; }
-        .footer-bottom { width: 100%; text-align: center; margin-top: 20px; font-size: 0.7rem; color: #999; border-top: 1px solid #f0f0f0; padding-top: 15px; }
-
-        /* --- LITE MODE --- */
-        body.lite-mode { background-color: #f9f7f2; }
-        body.lite-mode header { height: 130px; background: linear-gradient(135deg, #2d4030 0%, #3e5c45 100%); border-bottom: 4px solid #d4af37; display: flex; align-items: center; justify-content: center; }
-        body.lite-mode header::before { display: none; animation: none; }
-        body.lite-mode .header-content { position: static; transform: none; margin-top: 10px; text-align: center; bottom: auto; left: auto; max-width: 100%; }
-        body.lite-mode .info-cluster { justify-content: center; }
-        body.lite-mode .status-badge, body.lite-mode .weather-badge { background: rgba(0,0,0,0.1); border: none; color: white; }
-        body.lite-mode .header-content h1 { font-size: 28px; text-shadow: none; font-style: normal; }
-        body.lite-mode .subtitle { opacity: 0.8; font-size: 14px; text-shadow: none; }
-        body.lite-mode .sticky-nav-container { margin-top: 0; padding-top: 15px; background-color: #f9f7f2; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        body.lite-mode .logo-circle, body.lite-mode .nav-pill-wrapper { background-color: #ffffff !important; border: 2px solid #e6e6e6; box-shadow: 0 2px 6px rgba(0,0,0,0.05); backdrop-filter: none !important; }
-        body.lite-mode .menu-item { animation: none !important; opacity: 1 !important; box-shadow: none; border: 1px solid #e0dec0; background: #fff; margin-bottom: 10px; }
-        body.lite-mode .item-price { background-color: #f4f1ea; color: #3e5c45; }
-        body.lite-mode #lite-switch { background: #d4af37 !important; color: #000 !important; border: 2px solid white !important; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-    </style>
+    /* Lite Mode e media queries */
+    body.lite-mode { background-color: #f9f7f2; }
+    body.lite-mode header { height: 130px; background: linear-gradient(135deg, #2d4030 0%, #3e5c45 100%); border-bottom: 4px solid #d4af37; display: flex; align-items: center; justify-content: center; }
+    body.lite-mode header::before { display: none; animation: none; }
+    body.lite-mode .header-content { position: static; transform: none; margin-top: 10px; text-align: center; bottom: auto; left: auto; max-width: 100%; }
+    body.lite-mode .info-cluster { justify-content: center; }
+    body.lite-mode .status-badge, body.lite-mode .weather-badge { background: rgba(0,0,0,0.1); border: none; color: white; }
+    body.lite-mode .header-content h1 { font-size: 28px; text-shadow: none; font-style: normal; }
+    body.lite-mode .subtitle { opacity: 0.8; font-size: 14px; text-shadow: none; }
+    body.lite-mode .sticky-nav-container { margin-top: 0; padding-top: 15px; background-color: #f9f7f2; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+    body.lite-mode .logo-circle, body.lite-mode .nav-pill-wrapper { background-color: #ffffff !important; border: 2px solid #e6e6e6; box-shadow: 0 2px 6px rgba(0,0,0,0.05); backdrop-filter: none !important; }
+    body.lite-mode .menu-item { animation: none !important; opacity: 1 !important; box-shadow: none; border: 1px solid #e0dec0; background: #fff; margin-bottom: 10px; }
+    body.lite-mode .item-price { background-color: #f4f1ea; color: #3e5c45; }
+    body.lite-mode #lite-switch { background: #d4af37 !important; color: #000 !important; border: 2px solid white !important; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+</style>
 </head>
 <body>
 
