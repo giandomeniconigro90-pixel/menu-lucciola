@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bar La Lucciola - Menù</title>
     
-    <link rel="icon" type="image/png" href="images/icon_app.png">
-    <link rel="apple-touch-icon" href="images/icon_app.png">
-    
     <meta name="theme-color" content="#2c2c2c">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -70,95 +67,53 @@
 
         .nav-pill-wrapper { display: flex; align-items: center; height: 58px; border-radius: 50px; flex-grow: 1; overflow: hidden; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); transition: all 0.4s ease; }
         
-        /* --- NAV SCROLL MODIFICATA PER CENTRATURA --- */
+        /* --- LOGICA 50% + PILLOLA PICCOLA --- */
         .nav-scroll-area {
-            display: flex; 
-            align-items: center; 
-            overflow-x: auto; 
-            height: 100%; 
-            width: 100%;
-            
-            /* Spazio iniziale e finale generoso */
-            padding: 0 20px; 
-            
-            /* Gap tra gli elementi */
-            gap: 12px; 
-
-            scroll-snap-type: x mandatory; 
-            scrollbar-width: none;
-            box-sizing: border-box;
+            display: flex; align-items: center; overflow-x: auto; height: 100%; width: 100%;
+            padding: 0; scroll-snap-type: x mandatory; scrollbar-width: none;
         }
-        
-        /* Pseudo elemento per garantire lo spazio finale dopo l'ultimo elemento */
-        .nav-scroll-area::after {
-            content: '';
-            display: block;
-            min-width: 20px; /* Uguale al padding sinistro */
-            height: 1px;
-        }
-
         .nav-scroll-area::-webkit-scrollbar { display: none; }
 
-        /* --- BOTTONE TAB MODIFICATO --- */
+        /* Il contenitore invisibile: largo 50% */
         .tab-btn {
-            background: transparent; 
-            border: none; 
-            height: 100%; 
+            background: transparent; border: none; height: 100%; 
             
-            /* Rimosso flex: 0 0 50%. Ora larghezza automatica */
-            flex: 0 0 auto;
-            width: auto;
+            /* MATEMATICA PURA: 50% esatto */
+            flex: 0 0 50%; width: 50%;
             
-            margin: 0; 
-            padding: 0;
+            margin: 0; padding: 0;
             cursor: pointer; 
             
-            /* Centratura */
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
+            /* Flex per centrare la pillola interna */
+            display: flex; align-items: center; justify-content: center;
             
-            scroll-snap-align: center; /* Centra lo snap invece che all'inizio */
+            scroll-snap-align: start; 
         }
 
-        /* --- PILLOLA INTERNA --- */
+        /* La Pillola Verde Visibile (Inner) */
         .tab-btn-inner {
-            /* Rimosso width: 90%. Ora si adatta al contenuto */
-            width: auto;
-            min-width: 80px; /* Minima larghezza per estetica */
+            /* Dimensioni pillola: larga quanto basta ma non tocca i bordi (es. 90% del contenitore padre) */
+            width: 90%; 
             height: 42px;
             
-            /* Padding interno confortevole */
-            padding: 0 18px;
-            
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 8px;
-            
+            display: flex; align-items: center; justify-content: center; gap: 8px;
             border-radius: 30px;
-            font-size: 15px; 
-            color: #333333; 
-            font-weight: 500;
+            font-size: 15px; color: #333333; font-weight: 500;
             white-space: nowrap;
             transition: all 0.2s ease;
-            
-            /* Bordo trasparente di base per evitare salti */
-            border: 1px solid transparent;
         }
 
         /* TABLET/DESKTOP RESET */
         @media (min-width: 768px) {
-            .nav-scroll-area { justify-content: center; padding: 0; } /* Su desktop centra tutto il blocco */
-            .nav-scroll-area::after { display: none; }
-            .tab-btn { margin-right: 0; }
+            .nav-scroll-area { padding: 0 20px; scroll-snap-type: none; }
+            .tab-btn { flex: 0 0 auto; width: auto; margin-right: 15px; }
+            .tab-btn:last-child { margin-right: 0; }
+            .tab-btn-inner { width: auto; padding: 0 20px; } /* Su desktop larghezza naturale */
         }
 
         /* Stato Attivo applicato alla pillola interna */
         .tab-btn.active .tab-btn-inner { 
-            background-color: #3e5c45; 
-            color: white; 
-            font-weight: 600; 
+            background-color: #3e5c45; color: white; font-weight: 600; 
             box-shadow: 0 4px 12px rgba(62, 92, 69, 0.25); 
         }
         
@@ -233,7 +188,7 @@
         <div class="logo-circle"><img src="images/icon_app.png" alt="Logo" class="nav-mini-logo"></div>
         <div class="nav-pill-wrapper">
             <div class="nav-scroll-area">
-                <!-- NOTA: Ogni bottone ha larghezza naturale e padding uniforme -->
+                <!-- NOTA: Ogni bottone ha un wrapper .tab-btn (50% width) e un figlio .tab-btn-inner (pillola visibile) -->
                 <button class="tab-btn active" onclick="showCategory('calde', this)">
                     <span class="tab-btn-inner">
                         <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>Calde
@@ -341,7 +296,7 @@
             setTimeout(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }, 50);
             if (btnElement) {
                 // Scroll morbido per rispettare lo snap su mobile
-                setTimeout(() => { btnElement.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }, 150);
+                setTimeout(() => { btnElement.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' }); }, 150);
             }
         } else { window.scrollTo(0,0); }
 
