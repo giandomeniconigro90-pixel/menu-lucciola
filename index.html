@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <!-- META TAG -->
+    <!-- META TAG BASE -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bar La Lucciola - Menù</title>
     
+    <!-- *** NUOVO: META TAG PER EFFETTO APP *** -->
+    <!-- Colora la barra di Chrome/Android dello stesso verde dell'header -->
+    <meta name="theme-color" content="#2c2c2c">
+    <!-- Per iOS/iPhone: stile barra di stato -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Titolo dell'icona se salvato in home -->
+    <meta name="apple-mobile-web-app-title" content="La Lucciola">
+
     <!-- FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,8 +30,8 @@
             --text-gray: #333333;
             --shadow-soft: 0 10px 25px rgba(0,0,0,0.06);
             --shadow-active: 0 4px 15px rgba(62, 92, 69, 0.3);
-            --status-open: #4caf50; /* Verde vivo */
-            --status-closed: #ff5252; /* Rosso soft */
+            --status-open: #4caf50;
+            --status-closed: #ff5252;
         }
 
         /* --- BASE --- */
@@ -107,7 +116,7 @@
             margin-bottom: 8px;
         }
 
-        /* NUOVO: INDICATORE APERTO/CHIUSO */
+        /* STATUS BADGE */
         .status-badge {
             display: inline-flex;
             align-items: center;
@@ -159,6 +168,7 @@
             max-width: 800px;
         }
         
+        /* LOGO: SEMPRE TRASPARENTE */
         .logo-circle {
             width: 60px; height: 60px;
             border-radius: 50%;
@@ -175,6 +185,7 @@
             border-radius: 50%; object-fit: cover;
         }
 
+        /* BARRA MENU: SEMPRE TRASPARENTE */
         .nav-pill-wrapper {
             display: flex;
             align-items: center;
@@ -202,7 +213,7 @@
         .tab-btn {
             background: transparent; border: none; padding: 10px 16px;
             font-size: 15px; 
-            color: #333333; 
+            color: #333333; /* Grigio scuro per i non attivi */
             font-weight: 600;
             border-radius: 30px; cursor: pointer; 
             transition: all 0.2s ease;
@@ -278,7 +289,6 @@
             font-size: 1.3rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px;
         }
         
-        /* NUOVO: INDIRIZZO CLICCABILE PER MAPPE */
         .footer-address {
             font-size: 0.85rem; color: var(--text-gray); margin-bottom: 8px;
             text-decoration: none; display: block;
@@ -324,7 +334,6 @@
         }
         body.lite-mode .header-content h1 { font-size: 28px; text-shadow: none; font-style: normal; }
         body.lite-mode .subtitle { opacity: 0.8; font-size: 14px; text-shadow: none; }
-        /* In lite mode, l'indicatore diventa un badge solido scuro */
         body.lite-mode .status-badge { background: rgba(0,0,0,0.2); border: none; }
 
         body.lite-mode .sticky-nav-container {
@@ -368,7 +377,7 @@
         <h1>Bar La Lucciola</h1> 
         <div class="subtitle">Laceno - Bagnoli Irpino</div>
         
-        <!-- INDICATORE APERTO/CHIUSO (Generato da JS) -->
+        <!-- INDICATORE APERTO/CHIUSO -->
         <div id="status-indicator" class="status-badge">
             <span class="status-dot"></span> Caricamento...
         </div>
@@ -407,7 +416,6 @@
 <footer>
     <div class="footer-info">
         <div class="footer-title">Bar La Lucciola</div>
-        <!-- LINK MAPS CLICCABILE -->
         <a href="https://www.google.com/maps/search/?api=1&query=Bar+La+Lucciola+Laceno+Bagnoli+Irpino" target="_blank" class="footer-address">
             Via Dei Prati, 2 - Laceno 📍
         </a>
@@ -469,17 +477,14 @@
         
         showCategory('calde', document.querySelector('.tab-btn.active'));
         
-        // Avvia controllo orario
+        // Controllo orario
         checkOpenStatus();
     });
 
-    // --- FUNZIONE ORARIO APERTURA ---
     function checkOpenStatus() {
         const now = new Date();
         const hour = now.getHours();
         const el = document.getElementById('status-indicator');
-        
-        // ORARIO: Dalle 07:00 alle 24:00 (modifica qui se serve)
         const isOpen = hour >= 7 && hour < 24; 
 
         if(isOpen) {
