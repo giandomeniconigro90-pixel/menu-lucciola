@@ -136,12 +136,12 @@
         .weather-badge.snow { background: rgba(200, 230, 255, 0.25); color: #fff; border-color: rgba(255,255,255,0.4); }
 
 
-        /* --- STICKY NAV (Ricalibrata sullo screenshot) --- */
+        /* --- STICKY NAV --- */
         .sticky-nav-container {
             position: sticky; 
-            top: 10px; /* Leggero margine dall'alto come nello screenshot */
+            top: 10px; 
             z-index: 100; 
-            margin-top: -40px; /* Sovrappone leggermente l'header */
+            margin-top: -40px; 
             padding: 0; 
             display: flex; 
             justify-content: center;
@@ -152,7 +152,7 @@
         .nav-cluster {
             display: flex; 
             align-items: center; 
-            gap: 10px; /* Spazio tra Logo e Barra Menu */
+            gap: 10px; 
             pointer-events: auto; 
             width: 92%; 
             justify-content: center; 
@@ -160,11 +160,11 @@
         }
         
         .logo-circle {
-            width: 58px; height: 58px; /* Leggermente più piccolo per eleganza */
+            width: 58px; height: 58px; 
             border-radius: 50%; 
             flex-shrink: 0; 
             display: flex; align-items: center; justify-content: center;
-            background-color: rgba(255, 255, 255, 0.45); /* Più luminoso */
+            background-color: rgba(255, 255, 255, 0.45); 
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             box-shadow: 0 8px 20px rgba(0,0,0,0.15); 
             border: 1px solid rgba(255,255,255,0.4); 
@@ -175,44 +175,49 @@
         .nav-pill-wrapper {
             display: flex; 
             align-items: center; 
-            height: 58px; /* Altezza fissa per contenere le "capsule" */
+            height: 58px; 
             border-radius: 50px; 
             flex-grow: 1; 
             overflow: hidden; 
-            background-color: rgba(255, 255, 255, 0.45); /* Effetto vetro latteo */
+            background-color: rgba(255, 255, 255, 0.45); 
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             box-shadow: 0 8px 20px rgba(0,0,0,0.15); 
             border: 1px solid rgba(255,255,255,0.4); 
             transition: all 0.4s ease;
+            
+            /* Importante per centrare */
+            position: relative;
         }
         
-        /* --- SCROLL AREA (Il segreto del posizionamento) --- */
+        /* --- SCROLL AREA MODIFICATA PER CENTRATURA --- */
         .nav-scroll-area {
             display: flex; 
             align-items: center; 
             overflow-x: auto; 
             height: 100%; width: 100%;
             
-            /* PADDING BILANCIATO: 
-               8px a sinistra crea quel piccolo spazio prima del bottone verde
-               che vedi nella tua foto, staccandolo dal bordo del vetro. */
-            padding-left: 8px; 
-            padding-right: 20px; 
+            /* TRUCCO: Spazi laterali enormi per permettere al primo e ultimo elemento di andare al centro */
+            padding: 0 35%; 
             
             scroll-snap-type: x mandatory; 
             scrollbar-width: none;
+            
+            /* Comportamento scorrimento */
+            scroll-behavior: smooth;
         }
         .nav-scroll-area::-webkit-scrollbar { display: none; }
 
-        /* --- ELEMENTI MENU (Effetto Capsula) --- */
+        /* --- ELEMENTI MENU (Più larghi per vederne solo 2) --- */
         .tab-btn {
             background: transparent; 
             border: none; 
             
-            /* Dimensioni studiate per "fluttuare" dentro la barra alta 58px */
-            height: 42px; /* Altezza fissa del bottone */
-            padding: 0 20px; /* Spazio laterale interno al bottone */
-            margin-right: 8px; /* Distanza tra un bottone e l'altro */
+            height: 42px; 
+            
+            /* Larghezza minima fissa per occupare spazio e forzare lo scroll */
+            min-width: 110px; 
+            padding: 0 15px;
+            margin: 0 5px; /* Piccolo margine tra loro */
             
             font-size: 15px; 
             color: #333333; 
@@ -224,21 +229,22 @@
             display: flex; align-items: center; justify-content: center; gap: 8px; 
             white-space: nowrap; 
             flex-shrink: 0;
-            scroll-snap-align: start; 
+            
+            /* FONDAMENTALE: Si allinea al centro della vista */
+            scroll-snap-align: center; 
         }
-        .tab-btn:last-child { margin-right: 0; }
 
-        /* STATO ATTIVO (Il bottone verde scuro) */
         .tab-btn.active { 
-            background-color: #3e5c45; /* Verde La Lucciola */
+            background-color: #3e5c45; 
             color: white; 
             font-weight: 600; 
             box-shadow: 0 4px 12px rgba(62, 92, 69, 0.25); 
+            /* Leggermente più grande quando attivo per enfasi */
+            transform: scale(1.05);
         }
         
-        /* Icone leggermente più definite */
         .tab-btn svg { width: 18px; height: 18px; stroke-width: 2; opacity: 0.7; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.2s ease; }
-        .tab-btn.active svg { opacity: 1; stroke-width: 2.5; transform: scale(1.15); }
+        .tab-btn.active svg { opacity: 1; stroke-width: 2.5; }
 
 
         .menu-container { max-width: 800px; margin: 0 auto; padding: 20px; padding-bottom: 100px; min-height: 600px; }
@@ -413,7 +419,13 @@
         if (savedMode) { if (savedMode === 'lite') toggleLiteMode(); } 
         else { checkConnectionSpeed(); }
         
-        showCategory('calde', document.querySelector('.tab-btn.active'));
+        // Forza la selezione iniziale con un piccolo ritardo per far calcolare il layout
+        setTimeout(() => {
+            const activeBtn = document.querySelector('.tab-btn.active');
+            if(activeBtn) activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            showCategory('calde', activeBtn);
+        }, 100);
+
         checkOpenStatus();
         fetchWeather(); 
     });
@@ -446,25 +458,18 @@
             const code = data.current_weather.weathercode;
             
             let iconSvg = '';
-            // Mappatura WMO semplificata
             if(code <= 1) { 
-                // Sole
                 iconSvg = '<svg viewBox="0 0 24 24">ircle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>'; 
             } else if (code <= 3) {
-                // Nuvole
                 iconSvg = '<svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>';
             } else if (code >= 45 && code <= 48) {
-                // Nebbia
                 iconSvg = '<svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M5 16h14"/><path d="M5 20h14"/><path d="M5 8h14"/></svg>';
             } else if (code >= 71 && code <= 77) {
-                // Neve
                 iconSvg = '<svg viewBox="0 0 24 24"><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><path d="m20 16-4-4 4-4"></path><path d="m4 8 4 4-4 4"></path><path d="m16 4-4 4-4-4"></path><path d="m8 20 4-4 4 4"></path></svg>';
                 weatherEl.classList.add('snow'); 
             } else if (code >= 95) {
-                // Temporale
                 iconSvg = '<svg viewBox="0 0 24 24"><path d="M19 16.9A5 5 0 0 0 18 7h-1.26a8 8 0 1 0-11.62 9"></path><polyline points="13 11 9 17 15 17 11 23"></polyline></svg>';
             } else {
-                // Pioggia (default per altri codici)
                 iconSvg = '<svg viewBox="0 0 24 24"><line x1="16" y1="13" x2="16" y2="21"></line><line x1="8" y1="13" x2="8" y2="21"></line><line x1="12" y1="15" x2="12" y2="23"></line><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"></path></svg>';
             }
 
@@ -501,6 +506,7 @@
 
         if (!isLite) {
             setTimeout(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }, 50);
+            // Scorrimento automatico orizzontale per centrare il bottone selezionato
             if (btnElement) {
                 setTimeout(() => {
                     btnElement.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
