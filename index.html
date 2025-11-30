@@ -9,6 +9,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="images/icon_app.png">
+    <link rel="apple-touch-icon" href="images/icon_app.png">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
@@ -67,57 +71,56 @@
 
         .nav-pill-wrapper { display: flex; align-items: center; height: 58px; border-radius: 50px; flex-grow: 1; overflow: hidden; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); transition: all 0.4s ease; }
         
-        /* --- LOGICA 50% + PILLOLA PICCOLA --- */
+        /* --- LOGICA 50% --- */
         .nav-scroll-area {
-            display: flex; align-items: center; overflow-x: auto; height: 100%; width: 100%;
-            padding: 0; scroll-snap-type: x mandatory; scrollbar-width: none;
+            display: flex; 
+            align-items: center; 
+            overflow-x: auto; 
+            height: 100%; width: 100%;
+            padding: 0; 
+            scroll-snap-type: x mandatory; 
+            scrollbar-width: none;
         }
         .nav-scroll-area::-webkit-scrollbar { display: none; }
 
-        /* Il contenitore invisibile: largo 50% */
         .tab-btn {
-            background: transparent; border: none; height: 100%; 
+            background: transparent; border: none; height: 42px; 
             
-            /* MATEMATICA PURA: 50% esatto */
-            flex: 0 0 50%; width: 50%;
+            font-size: 15px; color: #333333; font-weight: 500;
+            border-radius: 30px; cursor: pointer; transition: all 0.2s ease; 
             
-            margin: 0; padding: 0;
-            cursor: pointer; 
+            display: flex; align-items: center; justify-content: center; gap: 8px; 
+            white-space: nowrap; 
             
-            /* Flex per centrare la pillola interna */
-            display: flex; align-items: center; justify-content: center;
+            flex: 0 0 50%; width: 50%; /* Griglia rigida */
             
+            margin: 0 8px; /* Margine per ridurre visivamente la pillola verde */
+            width: calc(50% - 16px); /* Compensazione */
+            flex: 0 0 calc(50% - 16px);
+
             scroll-snap-align: start; 
         }
 
-        /* La Pillola Verde Visibile (Inner) */
-        .tab-btn-inner {
-            /* Dimensioni pillola: larga quanto basta ma non tocca i bordi (es. 90% del contenitore padre) */
-            width: 90%; 
-            height: 42px;
-            
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-            border-radius: 30px;
-            font-size: 15px; color: #333333; font-weight: 500;
-            white-space: nowrap;
-            transition: all 0.2s ease;
-        }
+        /* Spaziatori laterali */
+        .tab-btn:first-child { margin-left: 15px; width: calc(50% - 23px); flex: 0 0 calc(50% - 23px); } 
+        .tab-btn:last-child { margin-right: 15px; width: calc(50% - 23px); flex: 0 0 calc(50% - 23px); scroll-snap-align: end; }
 
-        /* TABLET/DESKTOP RESET */
+        /* Tablet Reset */
         @media (min-width: 768px) {
             .nav-scroll-area { padding: 0 20px; scroll-snap-type: none; }
-            .tab-btn { flex: 0 0 auto; width: auto; margin-right: 15px; }
+            .tab-btn { flex: 0 0 auto; width: auto; margin: 0 15px 0 0; padding: 0 25px; scroll-snap-align: unset; }
+            .tab-btn:first-child { margin-left: 0; }
             .tab-btn:last-child { margin-right: 0; }
-            .tab-btn-inner { width: auto; padding: 0 20px; } /* Su desktop larghezza naturale */
         }
 
-        /* Stato Attivo applicato alla pillola interna */
-        .tab-btn.active .tab-btn-inner { 
+        .tab-btn.active { 
             background-color: #3e5c45; color: white; font-weight: 600; 
             box-shadow: 0 4px 12px rgba(62, 92, 69, 0.25); 
+            transform: scale(0.95); 
         }
+        @media (min-width: 768px) { .tab-btn.active { transform: scale(1); } }
         
-        .tab-btn svg { width: 18px; height: 18px; stroke-width: 2; opacity: 0.7; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.2s ease; }
+        .tab-btn svg { width: 18px; height: 18px; stroke-width: 2; opacity: 0.7; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; }
         .tab-btn.active svg { opacity: 1; stroke-width: 2.5; transform: scale(1.15); }
 
         /* --- CONTENUTO E FOOTER --- */
@@ -188,31 +191,20 @@
         <div class="logo-circle"><img src="images/icon_app.png" alt="Logo" class="nav-mini-logo"></div>
         <div class="nav-pill-wrapper">
             <div class="nav-scroll-area">
-                <!-- NOTA: Ogni bottone ha un wrapper .tab-btn (50% width) e un figlio .tab-btn-inner (pillola visibile) -->
                 <button class="tab-btn active" onclick="showCategory('calde', this)">
-                    <span class="tab-btn-inner">
-                        <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>Calde
-                    </span>
+                    <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>Calde
                 </button>
                 <button class="tab-btn" onclick="showCategory('fredde', this)">
-                    <span class="tab-btn-inner">
-                        <svg viewBox="0 0 24 24"><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><path d="m20 16-4-4 4-4"></path><path d="m4 8 4 4-4 4"></path><path d="m16 4-4 4-4-4"></path><path d="m8 20 4-4 4 4"></path></svg>Fredde
-                    </span>
+                    <svg viewBox="0 0 24 24"><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><path d="m20 16-4-4 4-4"></path><path d="m4 8 4 4-4 4"></path><path d="m16 4-4 4-4-4"></path><path d="m8 20 4-4 4 4"></path></svg>Fredde
                 </button>
                 <button class="tab-btn" onclick="showCategory('cocktail', this)">
-                    <span class="tab-btn-inner">
-                        <svg viewBox="0 0 24 24"><path d="M8 22h8"></path><path d="M12 15v7"></path><path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"></path></svg>Cocktail
-                    </span>
+                    <svg viewBox="0 0 24 24"><path d="M8 22h8"></path><path d="M12 15v7"></path><path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"></path></svg>Cocktail
                 </button>
                 <button class="tab-btn" onclick="showCategory('food', this)">
-                    <span class="tab-btn-inner">
-                        <svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><path d="M9 3v2a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V3"></path>ircle cx="12" cy="12" r="1"></circle></svg>Food
-                    </span>
+                    <svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><path d="M9 3v2a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V3"></path>ircle cx="12" cy="12" r="1"></circle></svg>Food
                 </button>
                 <button class="tab-btn" onclick="showCategory('dolci', this)">
-                    <span class="tab-btn-inner">
-                        <svg viewBox="0 0 24 24"><path d="m4.5 13.5 3-3"/><path d="m19.5 13.5-3-3"/><path d="M12 9c-4.5-2-8 1-9.5 4.5 2.5 4 6 5 9.5 5s7-1 9.5-5c-1.5-3.5-5-6.5-9.5-4.5Z"/></svg>Dolci
-                    </span>
+                    <svg viewBox="0 0 24 24"><path d="m4.5 13.5 3-3"/><path d="m19.5 13.5-3-3"/><path d="M12 9c-4.5-2-8 1-9.5 4.5 2.5 4 6 5 9.5 5s7-1 9.5-5c-1.5-3.5-5-6.5-9.5-4.5Z"/></svg>Dolci
                 </button>
             </div>
         </div>
