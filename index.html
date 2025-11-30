@@ -146,7 +146,7 @@
         .status-badge.closed .status-dot { background-color: var(--status-closed); }
 
         /* Weather Specifics */
-        .weather-badge svg { width: 16px; height: 16px; fill: currentColor; }
+        .weather-badge svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
         /* Se nevica, sfondo azzurrino */
         .weather-badge.snow { background: rgba(200, 230, 255, 0.25); color: #fff; border-color: rgba(255,255,255,0.4); }
 
@@ -223,7 +223,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease; color: #1877f2;
         }
         .social-circle:active { transform: scale(0.95); }
-        .social-circle svg { width: 28px; height: 28px; fill: currentColor; }
+        .social-circle svg { width: 28px; height: 28px; fill: currentColor; stroke: none; }
         .footer-bottom { width: 100%; text-align: center; margin-top: 20px; font-size: 0.7rem; color: #999; border-top: 1px solid #f0f0f0; padding-top: 15px; }
 
         /* --- LITE MODE --- */
@@ -269,10 +269,8 @@
                 <span class="status-dot"></span> ...
             </div>
             
-            <!-- Meteo Live (Riempito da JS) -->
-            <div id="weather-indicator" class="weather-badge" style="display:none;">
-                <!-- Icona e Gradi -->
-            </div>
+            <!-- Meteo Live (Riempito da JS con Icona) -->
+            <div id="weather-indicator" class="weather-badge" style="display:none;"></div>
         </div>
     </div>
 </header>
@@ -377,7 +375,6 @@
         const now = new Date();
         const hour = now.getHours();
         const el = document.getElementById('status-indicator');
-        // ORARIO: 7:00 - 24:00
         const isOpen = hour >= 7 && hour < 24; 
 
         if(isOpen) {
@@ -403,31 +400,34 @@
             const temp = Math.round(data.current_weather.temperature);
             const code = data.current_weather.weathercode;
             
-            // Mappa Icone Semplificata
-            let icon = '';
-            let label = '';
+            // Mappa Icone Completa con SVG in-line
+            // 0-1: Sereno, 2-3: Nuvoloso, 45-48: Nebbia, 51-67: Pioggia, 71-77: Neve, >80: Temporale
+            let iconSvg = '';
             
-            // Codici WMO
             if(code <= 1) { 
                 // Sole
-                icon = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>'; 
+                iconSvg = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>'; 
             } else if (code <= 3) {
                 // Nuvole
-                icon = '<svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>';
+                iconSvg = '<svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>';
+            } else if (code >= 45 && code <= 48) {
+                // Nebbia
+                iconSvg = '<svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M5 16h14"/><path d="M5 20h14"/><path d="M5 8h14"/></svg>';
             } else if (code >= 71 && code <= 77) {
-                // NEVE (Fiocco)
-                icon = '<svg viewBox="0 0 24 24"><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><path d="m20 16-4-4 4-4"></path><path d="m4 8 4 4-4 4"></path><path d="m16 4-4 4-4-4"></path><path d="m8 20 4-4 4 4"></path></svg>';
-                weatherEl.classList.add('snow'); // Aggiunge stile neve
-            } else if (code >= 51) {
-                // Pioggia
-                icon = '<svg viewBox="0 0 24 24"><line x1="16" y1="13" x2="16" y2="21"></line><line x1="8" y1="13" x2="8" y2="21"></line><line x1="12" y1="15" x2="12" y2="23"></line><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"></path></svg>';
+                // NEVE
+                iconSvg = '<svg viewBox="0 0 24 24"><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><path d="m20 16-4-4 4-4"></path><path d="m4 8 4 4-4 4"></path><path d="m16 4-4 4-4-4"></path><path d="m8 20 4-4 4 4"></path></svg>';
+                weatherEl.classList.add('snow'); 
+            } else if (code >= 95) {
+                // Temporale
+                iconSvg = '<svg viewBox="0 0 24 24"><path d="M19 16.9A5 5 0 0 0 18 7h-1.26a8 8 0 1 0-11.62 9"></path><polyline points="13 11 9 17 15 17 11 23"></polyline></svg>';
             } else {
-                // Default (Nuvole/Nebbia)
-                icon = '<svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>';
+                // Pioggia (default)
+                iconSvg = '<svg viewBox="0 0 24 24"><line x1="16" y1="13" x2="16" y2="21"></line><line x1="8" y1="13" x2="8" y2="21"></line><line x1="12" y1="15" x2="12" y2="23"></line><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"></path></svg>';
             }
 
-            weatherEl.innerHTML = `${icon} ${temp}°C`;
-            weatherEl.style.display = 'inline-flex'; // Mostra il badge
+            weatherEl.innerHTML = `${iconSvg} ${temp}°C`;
+            weatherEl.title = `Meteo attuale: ${code <= 1 ? 'Sereno' : (code <=3 ? 'Nuvoloso' : 'Precipitazioni')}`;
+            weatherEl.style.display = 'inline-flex'; 
 
         } catch (e) {
             console.log("Meteo non disponibile");
