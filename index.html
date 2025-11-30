@@ -67,35 +67,27 @@
 
         .nav-pill-wrapper { display: flex; align-items: center; height: 58px; border-radius: 50px; flex-grow: 1; overflow: hidden; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); transition: all 0.4s ease; }
         
-        /* --- LOGICA 50% + PILLOLA PICCOLA --- */
+        /* --- LOGICA SCROLL --- */
         .nav-scroll-area {
             display: flex; align-items: center; overflow-x: auto; height: 100%; width: 100%;
             padding: 0; scroll-snap-type: x mandatory; scrollbar-width: none;
         }
         .nav-scroll-area::-webkit-scrollbar { display: none; }
 
-        /* Il contenitore invisibile: largo 50% */
+        /* Il contenitore invisibile: largo 50% su mobile */
         .tab-btn {
             background: transparent; border: none; height: 100%; 
-            
-            /* MATEMATICA PURA: 50% esatto */
             flex: 0 0 50%; width: 50%;
-            
             margin: 0; padding: 0;
             cursor: pointer; 
-            
-            /* Flex per centrare la pillola interna */
             display: flex; align-items: center; justify-content: center;
-            
             scroll-snap-align: start; 
         }
 
         /* La Pillola Verde Visibile (Inner) */
         .tab-btn-inner {
-            /* Dimensioni pillola: larga quanto basta ma non tocca i bordi (es. 90% del contenitore padre) */
             width: 90%; 
             height: 42px;
-            
             display: flex; align-items: center; justify-content: center; gap: 8px;
             border-radius: 30px;
             font-size: 15px; color: #333333; font-weight: 500;
@@ -103,12 +95,23 @@
             transition: all 0.2s ease;
         }
 
-        /* TABLET/DESKTOP RESET */
+        /* TABLET/DESKTOP RESET (MODIFICATO PER DISABILITARE SCROLL) */
         @media (min-width: 768px) {
-            .nav-scroll-area { padding: 0 20px; scroll-snap-type: none; }
-            .tab-btn { flex: 0 0 auto; width: auto; margin-right: 15px; }
-            .tab-btn:last-child { margin-right: 0; }
-            .tab-btn-inner { width: auto; padding: 0 20px; } /* Su desktop larghezza naturale */
+            .nav-scroll-area { 
+                padding: 0; 
+                scroll-snap-type: none; 
+                justify-content: center; /* Centra le icone */
+                overflow-x: hidden;      /* Rimuove lo scroll */
+            }
+            .tab-btn { 
+                flex: 0 0 auto;          /* Dimensione naturale */
+                width: auto; 
+                margin: 0 10px;          /* Spazio tra le voci */
+            }
+            /* Rimuove il margine destro dall'ultimo elemento per una centratura perfetta */
+            .tab-btn:last-child { margin-right: 10px; } 
+
+            .tab-btn-inner { width: auto; padding: 0 20px; } /* Larghezza naturale */
         }
 
         /* Stato Attivo applicato alla pillola interna */
@@ -188,7 +191,7 @@
         <div class="logo-circle"><img src="images/icon_app.png" alt="Logo" class="nav-mini-logo"></div>
         <div class="nav-pill-wrapper">
             <div class="nav-scroll-area">
-                <!-- NOTA: Ogni bottone ha un wrapper .tab-btn (50% width) e un figlio .tab-btn-inner (pillola visibile) -->
+                <!-- NOTA: Ogni bottone ha un wrapper .tab-btn e un figlio .tab-btn-inner -->
                 <button class="tab-btn active" onclick="showCategory('calde', this)">
                     <span class="tab-btn-inner">
                         <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>Calde
