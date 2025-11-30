@@ -26,254 +26,111 @@
             --status-closed: #ff5252;
         }
 
-        /* --- BASE --- */
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: var(--bg-warm);
             color: var(--text-dark);
             margin: 0; padding: 0;
             overscroll-behavior-y: none; 
             -webkit-tap-highlight-color: transparent;
-            transition: background-color 0.3s ease;
-        }
-        
-        /* --- ANIMAZIONI --- */
-        @keyframes kenBurns {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.15); }
-        }
-        
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); }
-            70% { box-shadow: 0 0 0 6px rgba(76, 175, 80, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
-        }
+        @keyframes kenBurns { 0% { transform: scale(1); } 100% { transform: scale(1.15); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(76, 175, 80, 0); } 100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); } }
 
-        /* --- HEADER --- */
-        header {
-            position: relative;
-            height: 260px; 
-            overflow: hidden;
-            background-color: #2c2c2c;
-            transition: height 0.3s ease;
-        }
-        header::before {
-            content: '';
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background-image: url('images/la-lucciola-fronte.png'); 
-            background-size: cover;
-            background-position: center;
-            z-index: 0;
-            animation: kenBurns 20s infinite alternate ease-in-out;
-        }
-        header::after {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.8) 100%);
-            z-index: 1;
-        }
+        header { position: relative; height: 260px; overflow: hidden; background-color: #2c2c2c; }
+        header::before { content: ''; position: absolute; inset: 0; background-image: url('images/la-lucciola-fronte.png'); background-size: cover; background-position: center; z-index: 0; animation: kenBurns 20s infinite alternate ease-in-out; }
+        header::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.8) 100%); z-index: 1; }
 
-        .header-content {
-            position: absolute; 
-            bottom: 70px; 
-            left: 20px;   
-            color: white; 
-            text-align: left; 
-            z-index: 2; 
-            width: auto;
-            max-width: 90%;
-        }
-        
-        .header-content h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 34px; 
-            margin-bottom: 2px; 
-            font-weight: 700; 
-            font-style: italic;
-            letter-spacing: 0.5px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.6);
-        }
-        .subtitle { 
-            font-family: 'Inter', sans-serif;
-            font-size: 13px; 
-            font-weight: 400; 
-            opacity: 0.9; 
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-shadow: 0 1px 5px rgba(0,0,0,0.5);
-            margin-bottom: 10px;
-        }
+        .header-content { position: absolute; bottom: 70px; left: 20px; color: white; z-index: 2; max-width: 90%; }
+        .header-content h1 { font-family: 'Playfair Display', serif; font-size: 34px; margin: 0 0 2px; font-weight: 700; font-style: italic; text-shadow: 0 2px 10px rgba(0,0,0,0.6); }
+        .subtitle { font-size: 13px; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
 
         .info-cluster { display: flex; gap: 8px; flex-wrap: wrap; }
-
-        .status-badge, .weather-badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            font-size: 12px; font-weight: 600;
-            background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(6px);
-            padding: 5px 12px; border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.15); color: #e8f5e9;
-            transition: all 0.3s ease;
-        }
-
+        .status-badge, .weather-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(6px); padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); color: #e8f5e9; }
         .status-dot { width: 8px; height: 8px; border-radius: 50%; background-color: #ccc; }
         .status-badge.open .status-dot { background-color: var(--status-open); animation: pulse 2s infinite; }
-        .status-badge.closed { color: #ffebee; border-color: rgba(255, 82, 82, 0.3); }
         .status-badge.closed .status-dot { background-color: var(--status-closed); }
+        .weather-badge svg { width: 18px; height: 18px; fill: none; stroke: currentColor; }
 
-        .weather-badge svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-        .weather-badge.snow { background: rgba(200, 230, 255, 0.25); color: #fff; border-color: rgba(255,255,255,0.4); }
-
-
-        /* --- STICKY NAV --- */
-        .sticky-nav-container {
-            position: sticky; 
-            top: 10px; 
-            z-index: 100; 
-            margin-top: -40px; 
-            padding: 0; 
-            display: flex; 
-            justify-content: center;
-            pointer-events: none; 
-            transition: all 0.3s ease;
-        }
-        
-        .nav-cluster {
-            display: flex; 
-            align-items: center; 
-            gap: 10px; 
-            pointer-events: auto; 
-            width: 94%; 
-            justify-content: center; 
-            max-width: 800px;
-        }
-        
-        .logo-circle {
-            width: 58px; height: 58px; 
-            border-radius: 50%; 
-            flex-shrink: 0; 
-            display: flex; align-items: center; justify-content: center;
-            background-color: rgba(255, 255, 255, 0.45); 
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15); 
-            border: 1px solid rgba(255,255,255,0.4); 
-            transition: all 0.4s ease;
-        }
+        /* --- NAVIGAZIONE --- */
+        .sticky-nav-container { position: sticky; top: 10px; z-index: 100; margin-top: -40px; padding: 0; display: flex; justify-content: center; pointer-events: none; }
+        .nav-cluster { display: flex; align-items: center; gap: 10px; pointer-events: auto; width: 94%; justify-content: center; max-width: 800px; }
+        .logo-circle { width: 58px; height: 58px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); }
         .nav-mini-logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
 
-        .nav-pill-wrapper {
-            display: flex; 
-            align-items: center; 
-            height: 58px; 
-            border-radius: 50px; 
-            flex-grow: 1; 
-            overflow: hidden; 
-            background-color: rgba(255, 255, 255, 0.45); 
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15); 
-            border: 1px solid rgba(255,255,255,0.4); 
-            transition: all 0.4s ease;
-        }
+        .nav-pill-wrapper { display: flex; align-items: center; height: 58px; border-radius: 50px; flex-grow: 1; overflow: hidden; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); }
         
-        /* --- LOGICA SCROLL SNAP FINALE --- */
+        /* --- LOGICA 50% MOBILE --- */
         .nav-scroll-area {
             display: flex; 
             align-items: center; 
             overflow-x: auto; 
             height: 100%; width: 100%;
             
-            /* Snap: obbliga a fermarsi all'inizio degli elementi */
+            /* Mobile: Niente padding, scroll obbligatorio */
+            padding: 0; 
             scroll-snap-type: x mandatory; 
-            
-            /* Questo padding virtuale evita che l'elemento si "incolli" al bordo sinistro */
-            scroll-padding-left: 20px;
-            
             scrollbar-width: none;
         }
         .nav-scroll-area::-webkit-scrollbar { display: none; }
 
-        /* SPAZIATORI: Creano respiro fisico all'inizio e alla fine */
-        .nav-scroll-area::before { content: ''; flex: 0 0 20px; }
-        .nav-scroll-area::after { content: ''; flex: 0 0 20px; }
-
-        /* --- ELEMENTI MENU --- */
         .tab-btn {
-            background: transparent; 
-            border: none; 
-            height: 42px; 
-            
-            /* Larghezza dinamica ma controllata: non si allarga all'infinito */
-            flex: 0 0 auto; 
-            
-            margin-right: 15px; 
-            padding: 0 20px; 
-            
-            font-size: 15px; 
-            color: #333333; 
-            font-weight: 500;
-            border-radius: 30px; 
-            cursor: pointer; 
-            transition: all 0.2s ease; 
+            background: transparent; border: none; height: 42px; 
+            font-size: 15px; color: #333333; font-weight: 500;
+            border-radius: 30px; cursor: pointer; transition: all 0.2s ease; 
             
             display: flex; align-items: center; justify-content: center; gap: 8px; 
             white-space: nowrap; 
             
-            /* PUNTO CRITICO: Questo allinea l'elemento all'inizio dell'area visibile */
-            scroll-snap-align: start; 
+            /* IL CUORE DEL SISTEMA MOBILE:
+               Ogni bottone è forzato al 50% della larghezza del genitore.
+               Non importa quanto testo c'è, lui prende il 50%. */
+            flex: 0 0 50%; 
+            width: 50%;
+            
+            margin: 0; padding: 0; /* Reset margini per calcolo preciso */
+            
+            scroll-snap-align: start; /* Si aggancia all'inizio */
         }
-        .tab-btn:last-child { margin-right: 0; }
 
-        .tab-btn.active { 
-            background-color: #3e5c45; 
-            color: white; 
-            font-weight: 600; 
-            box-shadow: 0 4px 12px rgba(62, 92, 69, 0.25); 
+        /* Su Tablet (>768px) torniamo al comportamento normale fluido */
+        @media (min-width: 768px) {
+            .nav-scroll-area { padding: 0 20px; scroll-snap-type: none; }
+            .tab-btn { flex: 0 0 auto; width: auto; margin-right: 15px; padding: 0 20px; scroll-snap-align: unset; }
+            .tab-btn:last-child { margin-right: 0; }
         }
+
+        .tab-btn.active { background-color: #3e5c45; color: white; font-weight: 600; box-shadow: 0 4px 12px rgba(62, 92, 69, 0.25); 
+            /* Ridimensiono leggermente la pillola attiva su mobile per non farla toccare coi bordi */
+            transform: scale(0.90); 
+        }
+        @media (min-width: 768px) { .tab-btn.active { transform: scale(1); } }
         
-        .tab-btn svg { width: 18px; height: 18px; stroke-width: 2; opacity: 0.7; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.2s ease; }
+        .tab-btn svg { width: 18px; height: 18px; stroke-width: 2; opacity: 0.7; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; }
         .tab-btn.active svg { opacity: 1; stroke-width: 2.5; transform: scale(1.15); }
 
-
+        /* --- CONTENUTO --- */
         .menu-container { max-width: 800px; margin: 0 auto; padding: 20px; padding-bottom: 100px; min-height: 600px; }
-        
         h3 { color: var(--primary-color); font-family: 'Playfair Display', serif; margin: 10px 0 25px 0; font-size: 24px; font-weight: 700; display: flex; align-items: center; }
         h3::after { content: ''; flex-grow: 1; height: 2px; background: linear-gradient(to right, var(--primary-color), transparent); opacity: 0.2; margin-left: 15px; }
-
-        .menu-item { 
-            display: flex; justify-content: space-between; align-items: center; background: white; padding: 16px; margin-bottom: 15px; border-radius: 16px; 
-            box-shadow: var(--shadow-soft); border: 1px solid rgba(0,0,0,0.01); opacity: 0; animation: fadeInUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
+        .menu-item { display: flex; justify-content: space-between; align-items: center; background: white; padding: 16px; margin-bottom: 15px; border-radius: 16px; box-shadow: var(--shadow-soft); opacity: 0; animation: fadeInUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
         .item-info h4 { margin: 0; font-size: 17px; color: var(--text-dark); font-weight: 600; }
-        .item-info p { margin: 5px 0 0 0; font-size: 13px; color: #888; line-height: 1.4; }
+        .item-info p { margin: 5px 0 0 0; font-size: 13px; color: #888; }
         .item-price { font-weight: 700; color: var(--primary-color); background-color: #f1f8f3; padding: 8px 14px; border-radius: 10px; font-size: 15px; white-space: nowrap; margin-left: 15px; }
 
-        /* --- FOOTER --- */
-        footer {
-            background-color: white; padding: 30px 20px; margin-top: 20px; 
-            border-top-left-radius: 30px; border-top-right-radius: 30px; box-shadow: 0 -10px 40px rgba(0,0,0,0.03);
-            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
-        }
+        /* --- FOOTER & LITE --- */
+        footer { background-color: white; padding: 30px 20px; margin-top: 20px; border-top-left-radius: 30px; border-top-right-radius: 30px; box-shadow: 0 -10px 40px rgba(0,0,0,0.03); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
         .footer-info { text-align: left; }
         .footer-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
         .footer-address { font-size: 0.85rem; color: var(--text-gray); margin-bottom: 8px; text-decoration: none; display: block; transition: color 0.2s; }
-        .footer-address:hover { color: var(--primary-color); text-decoration: underline; }
-        .footer-phone {
-            display: inline-flex; align-items: center; gap: 6px; color: var(--primary-color); font-weight: 600; font-size: 0.95rem;
-            text-decoration: none; background-color: #f1f8f3; padding: 6px 12px; border-radius: 8px;
-        }
+        .footer-phone { display: inline-flex; align-items: center; gap: 6px; color: var(--primary-color); font-weight: 600; font-size: 0.95rem; background-color: #f1f8f3; padding: 6px 12px; border-radius: 8px; text-decoration: none; }
         .footer-social { display: flex; align-items: center; }
-        .social-circle {
-            width: 50px; height: 50px; border-radius: 50%; background-color: white; border: 1px solid rgba(0,0,0,0.08);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease; color: #1877f2;
-        }
-        .social-circle:active { transform: scale(0.95); }
-        .social-circle svg { width: 28px; height: 28px; fill: currentColor; stroke: none; }
+        .social-circle { width: 50px; height: 50px; border-radius: 50%; background-color: white; border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 4px 15px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center; color: #1877f2; }
+        .social-circle svg { width: 28px; height: 28px; fill: currentColor; }
         .footer-bottom { width: 100%; text-align: center; margin-top: 20px; font-size: 0.7rem; color: #999; border-top: 1px solid #f0f0f0; padding-top: 15px; }
 
-        /* --- LITE MODE --- */
         body.lite-mode { background-color: #f9f7f2; }
         body.lite-mode header { height: 130px; background: linear-gradient(135deg, #2d4030 0%, #3e5c45 100%); border-bottom: 4px solid #d4af37; display: flex; align-items: center; justify-content: center; }
         body.lite-mode header::before { display: none; animation: none; }
@@ -293,26 +150,14 @@
 </head>
 <body>
 
-<button id="lite-switch" onclick="toggleLiteMode()" style="
-    position: fixed; top: 15px; right: 15px; z-index: 9999; 
-    background: rgba(0,0,0,0.6); color: white; 
-    border: 1px solid rgba(255,255,255,0.3); 
-    padding: 8px 15px; border-radius: 20px; 
-    font-size: 12px; font-weight: bold; 
-    backdrop-filter: blur(5px); cursor: pointer;
-    display: flex; align-items: center; gap: 5px;">
-    ⚡ Lite
-</button>
+<button id="lite-switch" onclick="toggleLiteMode()" style="position: fixed; top: 15px; right: 15px; z-index: 9999; background: rgba(0,0,0,0.6); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 8px 15px; border-radius: 20px; font-size: 12px; font-weight: bold; backdrop-filter: blur(5px); cursor: pointer; display: flex; align-items: center; gap: 5px;">⚡ Lite</button>
 
 <header>
     <div class="header-content">
         <h1>Bar La Lucciola</h1> 
         <div class="subtitle">Laceno - Bagnoli Irpino</div>
-        
         <div class="info-cluster">
-            <div id="status-indicator" class="status-badge">
-                <span class="status-dot"></span> ...
-            </div>
+            <div id="status-indicator" class="status-badge"><span class="status-dot"></span> ...</div>
             <div id="weather-indicator" class="weather-badge" style="display:none;"></div>
         </div>
     </div>
@@ -320,9 +165,7 @@
 
 <div class="sticky-nav-container">
     <div class="nav-cluster">
-        <div class="logo-circle">
-            <img src="images/icon_app.png" alt="Logo" class="nav-mini-logo">
-        </div>
+        <div class="logo-circle"><img src="images/icon_app.png" alt="Logo" class="nav-mini-logo"></div>
         <div class="nav-pill-wrapper">
             <div class="nav-scroll-area">
                 <button class="tab-btn active" onclick="showCategory('calde', this)">
@@ -350,65 +193,28 @@
 <footer>
     <div class="footer-info">
         <div class="footer-title">Bar La Lucciola</div>
-        <a href="https://www.google.com/maps/search/?api=1&query=Bar+La+Lucciola+Laceno+Bagnoli+Irpino" target="_blank" class="footer-address">
-            Via Dei Prati, 2 - Laceno 📍
-        </a>
-        <a href="tel:082768069" class="footer-phone">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-            0827 68069
-        </a>
+        <a href="https://www.google.com/maps/search/?api=1&query=Bar+La+Lucciola+Laceno+Bagnoli+Irpino" target="_blank" class="footer-address">Via Dei Prati, 2 - Laceno 📍</a>
+        <a href="tel:082768069" class="footer-phone"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> 0827 68069</a>
     </div>
-
     <div class="footer-social">
-        <a href="https://www.facebook.com/barlalucciolaLACENO" target="_blank" class="social-circle" aria-label="Facebook">
-            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-        </a>
+        <a href="https://www.facebook.com/barlalucciolaLACENO" target="_blank" class="social-circle" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
     </div>
-
-    <div class="footer-bottom">
-        Coperto e Servizio inclusi • © 2025 Designed for Laceno
-    </div>
+    <div class="footer-bottom">Coperto e Servizio inclusi • © 2025 Designed for Laceno</div>
 </footer>
 
 <script>
     const menuData = {
-        calde: {
-            title: "Caffetteria Calda",
-            items: [
-                { name: "Caffè Espresso", description: "", price: 1.30 }, { name: "Caffè Decaffeinato", description: "", price: 1.50 }, { name: "Caffè D'Orzo", description: "Piccolo / Grande", price: 1.50 }, { name: "Caffè Ginseng", description: "Piccolo / Grande", price: 1.50 }, { name: "Caffè Macchiato", description: "", price: 1.50 }, { name: "Caffè Corretto", description: "Grappa, Sambuca, Anice", price: 1.80 }, { name: "Cappuccino", description: "Latte fresco alta qualità", price: 2.00 }, { name: "Cioccolata Calda", description: "Classica o Fondente", price: 3.50 }, { name: "Cioccolata con Panna", description: "", price: 4.00 }, { name: "Tè e Tisane", description: "Vari gusti", price: 2.50 }, { name: "Camomilla", description: "", price: 2.00 }, { name: "Punch", description: "Mandarino, Arancio, Rum", price: 3.00 }, { name: "Bombardino", description: "Con panna", price: 4.00 }
-            ]
-        },
-        fredde: {
-            title: "Bibite & Freddi",
-            items: [
-                { name: "Acqua Minerale 50cl", description: "Naturale o Frizzante", price: 1.00 }, { name: "Acqua Minerale 1L", description: "Vetro (al tavolo)", price: 2.50 }, { name: "Coca Cola / Zero", description: "33cl Vetro", price: 3.00 }, { name: "Fanta / Sprite", description: "33cl Vetro", price: 3.00 }, { name: "Estathé", description: "Limone o Pesca (Vetro)", price: 3.00 }, { name: "Succhi di Frutta", description: "Pera, Pesca, Ace, Albicocca", price: 2.50 }, { name: "Crodino / Sanbittèr", description: "", price: 3.00 }, { name: "Red Bull", description: "", price: 4.00 }, { name: "Schweppes Tonica", description: "", price: 3.00 }, { name: "Schweppes Lemon", description: "", price: 3.00 }, { name: "Crema Caffè", description: "Artigianale", price: 3.00 }
-            ]
-        },
-        cocktail: {
-            title: "Aperitivi & Cocktail",
-            items: [
-                { name: "Aperol Spritz", description: "Prosecco, Aperol, Soda", price: 5.00 }, { name: "Campari Spritz", description: "Prosecco, Bitter Campari, Soda", price: 5.00 }, { name: "Hugo Spritz", description: "Prosecco, Sciroppo Sambuco, Menta", price: 6.00 }, { name: "Gin Tonic", description: "Gin Gordon's/Tanqueray + Tonica", price: 6.00 },
-            ]
-        },
-        food: {
-            title: "Food & Snack",
-            items: [
-                { name: "Panino Prosciutto Crudo", description: "Crudo di Parma", price: 5.00 }, { name: "Panino Cotto e Formaggio", description: "", price: 4.50 }, { name: "Panino Salame", description: "Salame Napoli", price: 4.50 }, { name: "Panino Caprese", description: "Mozzarella, Pomodoro, Origano", price: 5.00 },
-            ]
-        },
-        dolci: {
-            title: "Dolci & Gelati",
-            items: [
-                { name: "Cornetto Vuoto", description: "Artigianale", price: 1.20 }, { name: "Cornetto Farcito", description: "Crema, Cioccolato, Marmellata", price: 1.50 }, { name: "Gelato Confezionato", description: "Vari (Vedi frigo)", price: 2.00 },         
-            ]
-        }
+        calde: { title: "Caffetteria Calda", items: [{ name: "Caffè Espresso", description: "", price: 1.30 }, { name: "Caffè Decaffeinato", description: "", price: 1.50 }, { name: "Caffè D'Orzo", description: "Piccolo / Grande", price: 1.50 }, { name: "Caffè Ginseng", description: "Piccolo / Grande", price: 1.50 }, { name: "Caffè Macchiato", description: "", price: 1.50 }, { name: "Caffè Corretto", description: "Grappa, Sambuca, Anice", price: 1.80 }, { name: "Cappuccino", description: "Latte fresco alta qualità", price: 2.00 }, { name: "Cioccolata Calda", description: "Classica o Fondente", price: 3.50 }, { name: "Cioccolata con Panna", description: "", price: 4.00 }, { name: "Tè e Tisane", description: "Vari gusti", price: 2.50 }, { name: "Camomilla", description: "", price: 2.00 }, { name: "Punch", description: "Mandarino, Arancio, Rum", price: 3.00 }, { name: "Bombardino", description: "Con panna", price: 4.00 }] },
+        fredde: { title: "Bibite & Freddi", items: [{ name: "Acqua Minerale 50cl", description: "Naturale o Frizzante", price: 1.00 }, { name: "Acqua Minerale 1L", description: "Vetro (al tavolo)", price: 2.50 }, { name: "Coca Cola / Zero", description: "33cl Vetro", price: 3.00 }, { name: "Fanta / Sprite", description: "33cl Vetro", price: 3.00 }, { name: "Estathé", description: "Limone o Pesca (Vetro)", price: 3.00 }, { name: "Succhi di Frutta", description: "Pera, Pesca, Ace, Albicocca", price: 2.50 }, { name: "Crodino / Sanbittèr", description: "", price: 3.00 }, { name: "Red Bull", description: "", price: 4.00 }, { name: "Schweppes Tonica", description: "", price: 3.00 }, { name: "Schweppes Lemon", description: "", price: 3.00 }, { name: "Crema Caffè", description: "Artigianale", price: 3.00 }] },
+        cocktail: { title: "Aperitivi & Cocktail", items: [{ name: "Aperol Spritz", description: "Prosecco, Aperol, Soda", price: 5.00 }, { name: "Campari Spritz", description: "Prosecco, Bitter Campari, Soda", price: 5.00 }, { name: "Hugo Spritz", description: "Prosecco, Sciroppo Sambuco, Menta", price: 6.00 }, { name: "Gin Tonic", description: "Gin Gordon's/Tanqueray + Tonica", price: 6.00 }] },
+        food: { title: "Food & Snack", items: [{ name: "Panino Prosciutto Crudo", description: "Crudo di Parma", price: 5.00 }, { name: "Panino Cotto e Formaggio", description: "", price: 4.50 }, { name: "Panino Salame", description: "Salame Napoli", price: 4.50 }, { name: "Panino Caprese", description: "Mozzarella, Pomodoro, Origano", price: 5.00 }] },
+        dolci: { title: "Dolci & Gelati", items: [{ name: "Cornetto Vuoto", description: "Artigianale", price: 1.20 }, { name: "Cornetto Farcito", description: "Crema, Cioccolato, Marmellata", price: 1.50 }, { name: "Gelato Confezionato", description: "Vari (Vedi frigo)", price: 2.00 }] }
     };
 
     document.addEventListener('DOMContentLoaded', () => {
         const savedMode = localStorage.getItem('siteMode');
         if (savedMode) { if (savedMode === 'lite') toggleLiteMode(); } 
         else { checkConnectionSpeed(); }
-        
         showCategory('calde', document.querySelector('.tab-btn.active'));
         checkOpenStatus();
         fetchWeather(); 
@@ -419,51 +225,28 @@
         const hour = now.getHours();
         const el = document.getElementById('status-indicator');
         const isOpen = hour >= 7 && hour < 24; 
-
-        if(isOpen) {
-            el.innerHTML = '<span class="status-dot"></span> Aperto';
-            el.classList.add('open'); el.classList.remove('closed');
-        } else {
-            el.innerHTML = '<span class="status-dot"></span> Chiuso';
-            el.classList.add('closed'); el.classList.remove('open');
-        }
+        if(isOpen) { el.innerHTML = '<span class="status-dot"></span> Aperto'; el.classList.add('open'); el.classList.remove('closed'); } 
+        else { el.innerHTML = '<span class="status-dot"></span> Chiuso'; el.classList.add('closed'); el.classList.remove('open'); }
     }
 
     async function fetchWeather() {
         const weatherEl = document.getElementById('weather-indicator');
-        const lat = 40.8106; 
-        const lon = 15.1127;
+        const lat = 40.8106; const lon = 15.1127;
         const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
-
         try {
             const response = await fetch(url);
             const data = await response.json();
             const temp = Math.round(data.current_weather.temperature);
             const code = data.current_weather.weathercode;
-            
             let iconSvg = '';
-            if(code <= 1) { 
-                iconSvg = '<svg viewBox="0 0 24 24">ircle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>'; 
-            } else if (code <= 3) {
-                iconSvg = '<svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>';
-            } else if (code >= 45 && code <= 48) {
-                iconSvg = '<svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M5 16h14"/><path d="M5 20h14"/><path d="M5 8h14"/></svg>';
-            } else if (code >= 71 && code <= 77) {
-                iconSvg = '<svg viewBox="0 0 24 24"><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><path d="m20 16-4-4 4-4"></path><path d="m4 8 4 4-4 4"></path><path d="m16 4-4 4-4-4"></path><path d="m8 20 4-4 4 4"></path></svg>';
-                weatherEl.classList.add('snow'); 
-            } else if (code >= 95) {
-                iconSvg = '<svg viewBox="0 0 24 24"><path d="M19 16.9A5 5 0 0 0 18 7h-1.26a8 8 0 1 0-11.62 9"></path><polyline points="13 11 9 17 15 17 11 23"></polyline></svg>';
-            } else {
-                iconSvg = '<svg viewBox="0 0 24 24"><line x1="16" y1="13" x2="16" y2="21"></line><line x1="8" y1="13" x2="8" y2="21"></line><line x1="12" y1="15" x2="12" y2="23"></line><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"></path></svg>';
-            }
-
-            weatherEl.innerHTML = `${iconSvg} ${temp}°C`;
-            weatherEl.title = `Meteo attuale: ${code <= 1 ? 'Sereno' : (code <=3 ? 'Nuvoloso' : 'Precipitazioni')}`;
-            weatherEl.style.display = 'inline-flex'; 
-
-        } catch (e) {
-            console.log("Meteo non disponibile");
-        }
+            if(code <= 1) iconSvg = '<svg viewBox="0 0 24 24">ircle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>'; 
+            else if (code <= 3) iconSvg = '<svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>';
+            else if (code >= 45 && code <= 48) iconSvg = '<svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M5 16h14"/><path d="M5 20h14"/><path d="M5 8h14"/></svg>';
+            else if (code >= 71 && code <= 77) { iconSvg = '<svg viewBox="0 0 24 24"><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><path d="m20 16-4-4 4-4"></path><path d="m4 8 4 4-4 4"></path><path d="m16 4-4 4-4-4"></path><path d="m8 20 4-4 4 4"></path></svg>'; weatherEl.classList.add('snow'); }
+            else if (code >= 95) iconSvg = '<svg viewBox="0 0 24 24"><path d="M19 16.9A5 5 0 0 0 18 7h-1.26a8 8 0 1 0-11.62 9"></path><polyline points="13 11 9 17 15 17 11 23"></polyline></svg>';
+            else iconSvg = '<svg viewBox="0 0 24 24"><line x1="16" y1="13" x2="16" y2="21"></line><line x1="8" y1="13" x2="8" y2="21"></line><line x1="12" y1="15" x2="12" y2="23"></line><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"></path></svg>';
+            weatherEl.innerHTML = `${iconSvg} ${temp}°C`; weatherEl.style.display = 'inline-flex'; 
+        } catch (e) { console.log("Meteo non disponibile"); }
     }
 
     function checkConnectionSpeed() {
@@ -475,34 +258,24 @@
     }
 
     function toggleLiteMode() {
-        const body = document.body;
-        const btn = document.getElementById('lite-switch');
-        if(!btn) return;
-        body.classList.toggle('lite-mode');
-        const isLite = body.classList.contains('lite-mode');
+        const body = document.body; const btn = document.getElementById('lite-switch'); if(!btn) return;
+        body.classList.toggle('lite-mode'); const isLite = body.classList.contains('lite-mode');
         btn.innerHTML = isLite ? "🚀 Normal" : "⚡ Lite";
         localStorage.setItem('siteMode', isLite ? 'lite' : 'normal');
     }
 
     function showCategory(catId, btnElement) {
-        const body = document.body;
-        const isLite = body.classList.contains('lite-mode');
-
+        const body = document.body; const isLite = body.classList.contains('lite-mode');
         if (!isLite) {
             setTimeout(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }, 50);
             if (btnElement) {
-                setTimeout(() => {
-                    btnElement.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-                }, 150);
+                // Scroll morbido e "nearest" per rispettare lo snap su mobile
+                setTimeout(() => { btnElement.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' }); }, 150);
             }
-        } else {
-             window.scrollTo(0,0);
-        }
+        } else { window.scrollTo(0,0); }
 
-        const container = document.getElementById('menu-container');
-        const data = menuData[catId];
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        if(btnElement) btnElement.classList.add('active');
+        const container = document.getElementById('menu-container'); const data = menuData[catId];
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); if(btnElement) btnElement.classList.add('active');
 
         if(data) {
             container.innerHTML = `<h3>${data.title}</h3>`;
@@ -510,16 +283,11 @@
                 const price = item.price.toFixed(2).replace('.', ',');
                 const descHTML = item.description ? `<p>${item.description}</p>` : '';
                 const delay = isLite ? 0 : index * 0.05;
-                const itemHTML = `
+                container.innerHTML += `
                     <div class="menu-item" style="animation-delay: ${delay}s">
-                        <div class="item-info">
-                            <h4>${item.name}</h4>
-                            ${descHTML}
-                        </div>
+                        <div class="item-info"><h4>${item.name}</h4>${descHTML}</div>
                         <div class="item-price">€ ${price}</div>
-                    </div>
-                `;
-                container.innerHTML += itemHTML;
+                    </div>`;
             });
         }
     }
