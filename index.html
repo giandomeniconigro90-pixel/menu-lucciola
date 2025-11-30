@@ -25,7 +25,6 @@
             --status-closed: #ff5252;
         }
 
-        /* --- BASE --- */
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-warm);
@@ -104,20 +103,19 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4);
         }
         
-        /* --- LOGICA RESPONSIVE PER LA NAVIGAZIONE --- */
+        /* --- LOGICA CAROSELLO 50/50 --- */
         
-        /* Mobile (< 768px): 2 Elementi esatti, Snap rigido */
         .nav-scroll-area {
             display: flex; 
             align-items: center; 
             overflow-x: auto; 
             height: 100%; width: 100%;
+            
+            /* MOBILE: Snap obbligatorio, niente padding */
             scroll-behavior: smooth;
             scrollbar-width: none;
-            
-            /* MOBILE: Padding zero per toccare i bordi, snap attivo */
-            padding: 0; 
             scroll-snap-type: x mandatory; 
+            padding: 0; 
         }
         .nav-scroll-area::-webkit-scrollbar { display: none; }
 
@@ -126,49 +124,49 @@
             font-size: 15px; color: #333333; font-weight: 500;
             border-radius: 30px; cursor: pointer; transition: all 0.2s ease; 
             display: flex; align-items: center; justify-content: center; gap: 8px; 
-            white-space: nowrap; flex-shrink: 0;
+            white-space: nowrap; 
             
-            /* MOBILE: Larghezza fissa 50% per vederne sempre 2 */
+            /* LA CHIAVE MATEMATICA: 50% spaccato, no flex-grow, no flex-shrink */
+            flex: 0 0 50%; 
             width: 50%;
-            padding: 0; /* Niente padding interno laterale extra su mobile, gestiamo col flex center */
-            margin: 0;  /* Niente margine tra bottoni su mobile per calcolo perfetto 50% */
+            box-sizing: border-box; /* Include il padding nel calcolo del 50% */
             
-            scroll-snap-align: start; /* Si aggancia all'inizio */
+            margin: 0; 
+            padding: 0;
+            
+            scroll-snap-align: start; 
         }
 
-        /* Tablet/Desktop (>= 768px): Spazio ai lati, larghezza naturale */
+        /* TRUCCO PER L'ULTIMO ELEMENTO: Si aggancia alla FINE */
+        /* Questo impedisce di vedere 50% categoria + 50% vuoto. Mostra sempre l'ultima coppia. */
+        .tab-btn:last-child {
+            scroll-snap-align: end; 
+        }
+
+        /* TABLET/DESKTOP: Reset del comportamento */
         @media (min-width: 768px) {
-            .nav-scroll-area {
-                /* TABLET: Aggiungo "aria" ai lati */
-                padding: 0 20px; 
-                /* Disabilito lo snap rigido per scorrimento fluido */
-                scroll-snap-type: none; 
-            }
-            
+            .nav-scroll-area { padding: 0 20px; scroll-snap-type: none; }
             .tab-btn {
-                /* TABLET: Larghezza automatica in base al testo */
+                flex: 0 0 auto; /* Larghezza naturale */
                 width: auto; 
-                padding: 0 25px; /* Spazio comodo per il click */
-                margin-right: 10px; /* Spazio tra i bottoni */
+                padding: 0 25px; 
+                margin-right: 10px; 
                 scroll-snap-align: unset;
             }
-            .tab-btn:last-child { margin-right: 0; }
+            .tab-btn:last-child { margin-right: 0; scroll-snap-align: unset; }
         }
 
         .tab-btn.active { 
             background-color: #3e5c45; color: white; font-weight: 600; 
             box-shadow: 0 4px 12px rgba(62, 92, 69, 0.25); 
-            /* Ridimensiono leggermente su mobile per far capire che è cliccabile ma contenuto */
-            transform: scale(0.92); 
+            transform: scale(0.92); /* Piccola riduzione per mobile per estetica */
         }
-        /* Su tablet resetto la scale perché c'è spazio */
         @media (min-width: 768px) { .tab-btn.active { transform: scale(1); } }
 
         .tab-btn svg { width: 18px; height: 18px; stroke-width: 2; opacity: 0.7; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; }
         .tab-btn.active svg { opacity: 1; stroke-width: 2.5; }
 
-
-        /* --- CONTENUTO E FOOTER --- */
+        /* --- CONTENUTO --- */
         .menu-container { max-width: 800px; margin: 0 auto; padding: 20px; padding-bottom: 100px; min-height: 600px; }
         
         h3 { color: var(--primary-color); font-family: 'Playfair Display', serif; margin: 10px 0 25px 0; font-size: 24px; font-weight: 700; display: flex; align-items: center; }
@@ -190,16 +188,13 @@
         .footer-info { text-align: left; }
         .footer-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
         .footer-address { font-size: 0.85rem; color: var(--text-gray); margin-bottom: 8px; text-decoration: none; display: block; transition: color 0.2s; }
-        .footer-address:hover { color: var(--primary-color); text-decoration: underline; }
         .footer-phone {
-            display: inline-flex; align-items: center; gap: 6px; color: var(--primary-color); font-weight: 600; font-size: 0.95rem;
-            text-decoration: none; background-color: #f1f8f3; padding: 6px 12px; border-radius: 8px;
+            display: inline-flex; align-items: center; gap: 6px; color: var(--primary-color); font-weight: 600; font-size: 0.95rem; text-decoration: none; background-color: #f1f8f3; padding: 6px 12px; border-radius: 8px;
         }
         .social-circle {
             width: 50px; height: 50px; border-radius: 50%; background-color: white; border: 1px solid rgba(0,0,0,0.08);
             box-shadow: 0 4px 15px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease; color: #1877f2;
         }
-        .social-circle:active { transform: scale(0.95); }
         .social-circle svg { width: 28px; height: 28px; fill: currentColor; stroke: none; }
         .footer-bottom { width: 100%; text-align: center; margin-top: 20px; font-size: 0.7rem; color: #999; border-top: 1px solid #f0f0f0; padding-top: 15px; }
 
@@ -419,11 +414,10 @@
         if (!isLite) {
             setTimeout(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }, 50);
             if (btnElement) {
-                // Calcolo per centrare solo su tablet, su mobile lo snap fa il lavoro sporco
-                const isMobile = window.innerWidth < 768;
-                const options = isMobile ? { behavior: 'smooth', inline: 'start', block: 'nearest' } : { behavior: 'smooth', inline: 'center', block: 'nearest' };
+                // Centramento solo se tablet. Su mobile lasciamo che sia lo snap a decidere o usiamo start.
+                // Con la logica 50% rigida, 'nearest' è la scelta più sicura per non rompere l'allineamento snap.
                 setTimeout(() => {
-                    btnElement.scrollIntoView(options);
+                    btnElement.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
                 }, 150);
             }
         } else {
