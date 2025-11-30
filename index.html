@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+    <!-- META TAG BASE -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bar La Lucciola - Menù</title>
@@ -60,7 +61,7 @@
         /* --- HEADER --- */
         header {
             position: relative;
-            height: 260px; /* Aumentato leggermente per dare respiro su mobile */
+            height: 260px; 
             overflow: hidden;
             background-color: #2c2c2c;
             transition: height 0.3s ease;
@@ -80,10 +81,8 @@
             z-index: 1;
         }
 
-        /* CONTENUTO HEADER (Titolo + Badges) */
         .header-content {
             position: absolute; 
-            /* Posizione PC */
             bottom: 70px; 
             left: 20px;   
             color: white; 
@@ -113,43 +112,22 @@
             margin-bottom: 10px;
         }
 
-        /* REGOLE SPECIFICHE PER SMARTPHONE */
+        /* MOBILE TWEAKS */
         @media (max-width: 480px) {
-            .header-content {
-                /* Lo alziamo per non farlo toccare dalla barra di navigazione */
-                bottom: 80px; 
-                left: 15px;
-            }
-            .header-content h1 {
-                /* Riduciamo il font per non coprire l'immagine */
-                font-size: 26px; 
-            }
-            /* Riduciamo leggermente i badge su mobile */
-            .status-badge, .weather-badge {
-                padding: 4px 10px;
-                font-size: 11px;
-            }
+            .header-content { bottom: 80px; left: 15px; }
+            .header-content h1 { font-size: 26px; }
+            .status-badge, .weather-badge { padding: 4px 10px; font-size: 11px; }
         }
 
-        /* CONTENITORE INFO (Stato + Meteo) */
-        .info-cluster {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
+        /* INFO CLUSTER */
+        .info-cluster { display: flex; gap: 8px; flex-wrap: wrap; }
 
         .status-badge, .weather-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 12px;
-            font-weight: 600;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(6px);
-            padding: 5px 12px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.15);
-            color: #e8f5e9;
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 12px; font-weight: 600;
+            background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(6px);
+            padding: 5px 12px; border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.15); color: #e8f5e9;
             transition: all 0.3s ease;
         }
 
@@ -165,7 +143,7 @@
         /* --- STICKY NAV --- */
         .sticky-nav-container {
             position: sticky; top: 0; z-index: 100; 
-            margin-top: -60px; /* Più pronunciato per coprire lo spazio lasciato libero */
+            margin-top: -60px; 
             padding: 10px 0; display: flex; justify-content: center;
             pointer-events: none; transition: all 0.3s ease;
         }
@@ -187,15 +165,17 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.3); transition: all 0.4s ease;
         }
         
-        /* FIX SCROLL CATTIVO: SCROLL SNAP AGGIUNTO */
+        /* FIX SCROLL: Distribuzione Migliorata */
         .nav-scroll-area {
             display: flex; 
             align-items: center; 
             overflow-x: auto; 
             height: 100%; width: 100%;
-            padding: 0 10px; 
+            padding-left: 10px;
+            /* Aumentato padding-right per evitare tagli bruschi alla fine */
+            padding-right: 30px; 
             
-            /* Logica Magnetica: */
+            /* Snap Magnetico */
             scroll-snap-type: x mandatory; 
             
             scrollbar-width: none;
@@ -206,9 +186,11 @@
         .tab-btn {
             background: transparent; border: none; 
             padding: 10px 16px; 
-            margin-right: 5px; /* Spazio tra i bottoni */
             
-            /* Snap Point: Ogni bottone è un punto di arresto */
+            /* Aumentato margine destro per distanziare meglio i bottoni */
+            margin-right: 15px; 
+            
+            /* Snap Point: Allinea sempre all'inizio */
             scroll-snap-align: start; 
             
             font-size: 15px; color: #333333; font-weight: 600;
@@ -216,8 +198,8 @@
             display: flex; align-items: center; gap: 8px; white-space: nowrap; 
             flex: 0 0 auto; 
         }
-        /* Ultimo elemento: margine destro extra per non farlo "attaccare" al bordo */
-        .tab-btn:last-child { margin-right: 15px; }
+        /* Ultimo bottone: niente margine extra */
+        .tab-btn:last-child { margin-right: 0; }
 
         .tab-btn svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.2s ease; opacity: 0.85; }
         .tab-btn.active { background-color: var(--primary-color); color: white; font-weight: 600; box-shadow: var(--shadow-active); }
@@ -295,7 +277,6 @@
         <h1>Bar La Lucciola</h1> 
         <div class="subtitle">Laceno - Bagnoli Irpino</div>
         
-        <!-- GRUPPO INFO -->
         <div class="info-cluster">
             <div id="status-indicator" class="status-badge">
                 <span class="status-dot"></span> ...
