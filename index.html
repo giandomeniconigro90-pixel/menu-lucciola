@@ -6,14 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bar La Lucciola - Menù</title>
     
-    <!-- *** NUOVO: META TAG PER EFFETTO APP *** -->
-    <!-- Colora la barra di Chrome/Android dello stesso verde dell'header -->
+    <!-- META APP THEME -->
     <meta name="theme-color" content="#2c2c2c">
-    <!-- Per iOS/iPhone: stile barra di stato -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <!-- Titolo dell'icona se salvato in home -->
-    <meta name="apple-mobile-web-app-title" content="La Lucciola">
 
     <!-- FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -93,7 +89,7 @@
             text-align: left; 
             z-index: 2; 
             width: auto;
-            max-width: 80%;
+            max-width: 90%;
         }
         
         .header-content h1 {
@@ -113,249 +109,138 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             text-shadow: 0 1px 5px rgba(0,0,0,0.5);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
-        /* STATUS BADGE */
-        .status-badge {
+        /* CONTENITORE INFO (Stato + Meteo) */
+        .info-cluster {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        /* STATUS BADGE E METEO BADGE COMUNI */
+        .status-badge, .weather-badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
             font-size: 12px;
             font-weight: 600;
             background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(4px);
-            padding: 4px 10px;
+            backdrop-filter: blur(6px);
+            padding: 5px 12px;
             border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
-            margin-top: 5px;
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #e8f5e9;
+            transition: all 0.3s ease;
         }
+
+        /* Status Dot */
         .status-dot {
             width: 8px; height: 8px;
             border-radius: 50%;
             background-color: #ccc;
         }
-        .status-badge.open .status-dot {
-            background-color: var(--status-open);
-            animation: pulse 2s infinite;
-        }
-        .status-badge.open { color: #e8f5e9; }
-        
+        .status-badge.open .status-dot { background-color: var(--status-open); animation: pulse 2s infinite; }
+        .status-badge.closed { color: #ffebee; border-color: rgba(255, 82, 82, 0.3); }
         .status-badge.closed .status-dot { background-color: var(--status-closed); }
-        .status-badge.closed { color: #ffebee; }
+
+        /* Weather Specifics */
+        .weather-badge svg { width: 16px; height: 16px; fill: currentColor; }
+        /* Se nevica, sfondo azzurrino */
+        .weather-badge.snow { background: rgba(200, 230, 255, 0.25); color: #fff; border-color: rgba(255,255,255,0.4); }
 
 
         /* --- STICKY NAV --- */
         .sticky-nav-container {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            margin-top: -50px; 
-            padding: 10px 0;
-            display: flex;
-            justify-content: center;
-            pointer-events: none; 
-            transition: all 0.3s ease;
+            position: sticky; top: 0; z-index: 100; margin-top: -50px; 
+            padding: 10px 0; display: flex; justify-content: center;
+            pointer-events: none; transition: all 0.3s ease;
         }
         
         .nav-cluster {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            pointer-events: auto;
-            width: 92%;
-            justify-content: center;
-            max-width: 800px;
+            display: flex; align-items: center; gap: 10px; pointer-events: auto; width: 92%; justify-content: center; max-width: 800px;
         }
         
-        /* LOGO: SEMPRE TRASPARENTE */
         .logo-circle {
-            width: 60px; height: 60px;
-            border-radius: 50%;
-            flex-shrink: 0;
-            display: flex; align-items: center; justify-content: center;
-            background-color: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255,255,255,0.3);
-            transition: all 0.4s ease;
+            width: 60px; height: 60px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+            background-color: rgba(255, 255, 255, 0.4); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.3); transition: all 0.4s ease;
         }
-        .nav-mini-logo {
-            width: 45px; height: 45px;
-            border-radius: 50%; object-fit: cover;
-        }
+        .nav-mini-logo { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; }
 
-        /* BARRA MENU: SEMPRE TRASPARENTE */
         .nav-pill-wrapper {
-            display: flex;
-            align-items: center;
-            height: 60px;
-            border-radius: 50px;
-            flex-grow: 1;
-            overflow: hidden; 
-            background-color: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255,255,255,0.3);
-            transition: all 0.4s ease;
+            display: flex; align-items: center; height: 60px; border-radius: 50px; flex-grow: 1; overflow: hidden; 
+            background-color: rgba(255, 255, 255, 0.4); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.3); transition: all 0.4s ease;
         }
         
         .nav-scroll-area {
-            display: flex; align-items: center;
-            overflow-x: auto; height: 100%; width: 100%;
-            padding: 0 20px; 
-            scroll-snap-type: x mandatory;
-            scrollbar-width: none;
+            display: flex; align-items: center; overflow-x: auto; height: 100%; width: 100%; padding: 0 20px; 
+            scroll-snap-type: x mandatory; scrollbar-width: none;
         }
         .nav-scroll-area::-webkit-scrollbar { display: none; }
 
         /* --- ELEMENTI MENU --- */
         .tab-btn {
-            background: transparent; border: none; padding: 10px 16px;
-            font-size: 15px; 
-            color: #333333; /* Grigio scuro per i non attivi */
-            font-weight: 600;
-            border-radius: 30px; cursor: pointer; 
-            transition: all 0.2s ease;
-            display: flex; align-items: center; gap: 8px; white-space: nowrap;
-            scroll-snap-align: center; margin-right: 5px; flex: 0 0 auto; 
+            background: transparent; border: none; padding: 10px 16px; font-size: 15px; color: #333333; font-weight: 600;
+            border-radius: 30px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px; white-space: nowrap; scroll-snap-align: center; margin-right: 5px; flex: 0 0 auto; 
         }
-        
-        .tab-btn svg {
-            width: 20px; height: 20px;
-            stroke: currentColor; stroke-width: 2; fill: none;
-            stroke-linecap: round; stroke-linejoin: round;
-            transition: transform 0.2s ease;
-            opacity: 0.85;
-        }
+        .tab-btn svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.2s ease; opacity: 0.85; }
+        .tab-btn.active { background-color: var(--primary-color); color: white; font-weight: 600; box-shadow: var(--shadow-active); }
+        .tab-btn.active svg { transform: scale(1.15); opacity: 1; }
 
-        .tab-btn.active {
-            background-color: var(--primary-color); 
-            color: white;
-            font-weight: 600;
-            box-shadow: var(--shadow-active);
-        }
-        .tab-btn.active svg { 
-            transform: scale(1.15); 
-            opacity: 1;
-        }
-
-        .menu-container { 
-            max-width: 800px; margin: 0 auto; padding: 20px; padding-bottom: 100px; 
-            min-height: 600px; 
-        }
+        .menu-container { max-width: 800px; margin: 0 auto; padding: 20px; padding-bottom: 100px; min-height: 600px; }
         
-        h3 { 
-            color: var(--primary-color); 
-            font-family: 'Playfair Display', serif;
-            margin: 10px 0 25px 0; font-size: 24px; font-weight: 700;
-            display: flex; align-items: center;
-        }
-        h3::after {
-            content: ''; flex-grow: 1; height: 2px; 
-            background: linear-gradient(to right, var(--primary-color), transparent);
-            opacity: 0.2; margin-left: 15px;
-        }
+        h3 { color: var(--primary-color); font-family: 'Playfair Display', serif; margin: 10px 0 25px 0; font-size: 24px; font-weight: 700; display: flex; align-items: center; }
+        h3::after { content: ''; flex-grow: 1; height: 2px; background: linear-gradient(to right, var(--primary-color), transparent); opacity: 0.2; margin-left: 15px; }
 
         .menu-item { 
-            display: flex; justify-content: space-between; align-items: center; 
-            background: white; padding: 16px; margin-bottom: 15px; border-radius: 16px; 
-            box-shadow: var(--shadow-soft); border: 1px solid rgba(0,0,0,0.01);
-            opacity: 0; 
-            animation: fadeInUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            display: flex; justify-content: space-between; align-items: center; background: white; padding: 16px; margin-bottom: 15px; border-radius: 16px; 
+            box-shadow: var(--shadow-soft); border: 1px solid rgba(0,0,0,0.01); opacity: 0; animation: fadeInUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
-        
         .item-info h4 { margin: 0; font-size: 17px; color: var(--text-dark); font-weight: 600; }
         .item-info p { margin: 5px 0 0 0; font-size: 13px; color: #888; line-height: 1.4; }
-        
-        .item-price { 
-            font-weight: 700; color: var(--primary-color); 
-            background-color: #f1f8f3; padding: 8px 14px; 
-            border-radius: 10px; font-size: 15px; white-space: nowrap; margin-left: 15px;
-        }
+        .item-price { font-weight: 700; color: var(--primary-color); background-color: #f1f8f3; padding: 8px 14px; border-radius: 10px; font-size: 15px; white-space: nowrap; margin-left: 15px; }
 
         /* --- FOOTER --- */
         footer {
             background-color: white; padding: 30px 20px; margin-top: 20px; 
-            border-top-left-radius: 30px; border-top-right-radius: 30px;
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.03);
-            display: flex; justify-content: space-between; align-items: center; 
-            flex-wrap: wrap; gap: 20px;
+            border-top-left-radius: 30px; border-top-right-radius: 30px; box-shadow: 0 -10px 40px rgba(0,0,0,0.03);
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
         }
-
         .footer-info { text-align: left; }
-        .footer-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px;
-        }
-        
-        .footer-address {
-            font-size: 0.85rem; color: var(--text-gray); margin-bottom: 8px;
-            text-decoration: none; display: block;
-            transition: color 0.2s;
-        }
+        .footer-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
+        .footer-address { font-size: 0.85rem; color: var(--text-gray); margin-bottom: 8px; text-decoration: none; display: block; transition: color 0.2s; }
         .footer-address:hover { color: var(--primary-color); text-decoration: underline; }
-
         .footer-phone {
-            display: inline-flex; align-items: center; gap: 6px;
-            color: var(--primary-color); font-weight: 600; font-size: 0.95rem;
+            display: inline-flex; align-items: center; gap: 6px; color: var(--primary-color); font-weight: 600; font-size: 0.95rem;
             text-decoration: none; background-color: #f1f8f3; padding: 6px 12px; border-radius: 8px;
         }
-
         .footer-social { display: flex; align-items: center; }
         .social-circle {
-            width: 50px; height: 50px; border-radius: 50%;
-            background-color: white; border: 1px solid rgba(0,0,0,0.08);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            display: flex; align-items: center; justify-content: center;
-            transition: transform 0.2s ease; color: #1877f2;
+            width: 50px; height: 50px; border-radius: 50%; background-color: white; border: 1px solid rgba(0,0,0,0.08);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease; color: #1877f2;
         }
         .social-circle:active { transform: scale(0.95); }
         .social-circle svg { width: 28px; height: 28px; fill: currentColor; }
-
-        .footer-bottom {
-            width: 100%; text-align: center; margin-top: 20px; 
-            font-size: 0.7rem; color: #999; border-top: 1px solid #f0f0f0; padding-top: 15px;
-        }
+        .footer-bottom { width: 100%; text-align: center; margin-top: 20px; font-size: 0.7rem; color: #999; border-top: 1px solid #f0f0f0; padding-top: 15px; }
 
         /* --- LITE MODE --- */
         body.lite-mode { background-color: #f9f7f2; }
-        body.lite-mode header {
-            height: 130px; 
-            background: linear-gradient(135deg, #2d4030 0%, #3e5c45 100%);
-            border-bottom: 4px solid #d4af37; 
-            display: flex; align-items: center; justify-content: center;
-        }
+        body.lite-mode header { height: 130px; background: linear-gradient(135deg, #2d4030 0%, #3e5c45 100%); border-bottom: 4px solid #d4af37; display: flex; align-items: center; justify-content: center; }
         body.lite-mode header::before { display: none; animation: none; }
-        
-        body.lite-mode .header-content { 
-            position: static; transform: none; margin-top: 10px; text-align: center;
-            bottom: auto; left: auto; max-width: 100%;
-        }
+        body.lite-mode .header-content { position: static; transform: none; margin-top: 10px; text-align: center; bottom: auto; left: auto; max-width: 100%; }
+        body.lite-mode .info-cluster { justify-content: center; } /* Centra i badge */
+        body.lite-mode .status-badge, body.lite-mode .weather-badge { background: rgba(0,0,0,0.1); border: none; color: white; }
         body.lite-mode .header-content h1 { font-size: 28px; text-shadow: none; font-style: normal; }
         body.lite-mode .subtitle { opacity: 0.8; font-size: 14px; text-shadow: none; }
-        body.lite-mode .status-badge { background: rgba(0,0,0,0.2); border: none; }
-
-        body.lite-mode .sticky-nav-container {
-            position: sticky; top: 0; z-index: 100; margin-top: 0; 
-            padding-top: 15px; background-color: #f9f7f2; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
+        body.lite-mode .sticky-nav-container { position: sticky; top: 0; z-index: 100; margin-top: 0; padding-top: 15px; background-color: #f9f7f2; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         body.lite-mode .nav-cluster { display: flex; }
-        body.lite-mode .logo-circle,
-        body.lite-mode .nav-pill-wrapper {
-            background-color: #ffffff !important; border: 2px solid #e6e6e6; 
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05); backdrop-filter: none !important; 
-        }
-        body.lite-mode .menu-item {
-            animation: none !important; opacity: 1 !important; box-shadow: none; 
-            border: 1px solid #e0dec0; background: #fff; margin-bottom: 10px;
-        }
+        body.lite-mode .logo-circle, body.lite-mode .nav-pill-wrapper { background-color: #ffffff !important; border: 2px solid #e6e6e6; box-shadow: 0 2px 6px rgba(0,0,0,0.05); backdrop-filter: none !important; }
+        body.lite-mode .menu-item { animation: none !important; opacity: 1 !important; box-shadow: none; border: 1px solid #e0dec0; background: #fff; margin-bottom: 10px; }
         body.lite-mode .item-price { background-color: #f4f1ea; color: #3e5c45; }
-        body.lite-mode #lite-switch {
-            background: #d4af37 !important; color: #000 !important; 
-            border: 2px solid white !important; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
+        body.lite-mode #lite-switch { background: #d4af37 !important; color: #000 !important; border: 2px solid white !important; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
         @media (orientation: landscape) { .nav-cluster { width: auto; max-width: 90%; } }
     </style>
 </head>
@@ -377,9 +262,17 @@
         <h1>Bar La Lucciola</h1> 
         <div class="subtitle">Laceno - Bagnoli Irpino</div>
         
-        <!-- INDICATORE APERTO/CHIUSO -->
-        <div id="status-indicator" class="status-badge">
-            <span class="status-dot"></span> Caricamento...
+        <!-- GRUPPO INFO (Aperto + Meteo) -->
+        <div class="info-cluster">
+            <!-- Stato -->
+            <div id="status-indicator" class="status-badge">
+                <span class="status-dot"></span> ...
+            </div>
+            
+            <!-- Meteo Live (Riempito da JS) -->
+            <div id="weather-indicator" class="weather-badge" style="display:none;">
+                <!-- Icona e Gradi -->
+            </div>
         </div>
     </div>
 </header>
@@ -476,25 +369,68 @@
         else { checkConnectionSpeed(); }
         
         showCategory('calde', document.querySelector('.tab-btn.active'));
-        
-        // Controllo orario
         checkOpenStatus();
+        fetchWeather(); // Avvia il meteo
     });
 
     function checkOpenStatus() {
         const now = new Date();
         const hour = now.getHours();
         const el = document.getElementById('status-indicator');
+        // ORARIO: 7:00 - 24:00
         const isOpen = hour >= 7 && hour < 24; 
 
         if(isOpen) {
-            el.innerHTML = '<span class="status-dot"></span> Aperto ora';
-            el.classList.add('open');
-            el.classList.remove('closed');
+            el.innerHTML = '<span class="status-dot"></span> Aperto';
+            el.classList.add('open'); el.classList.remove('closed');
         } else {
             el.innerHTML = '<span class="status-dot"></span> Chiuso';
-            el.classList.add('closed');
-            el.classList.remove('open');
+            el.classList.add('closed'); el.classList.remove('open');
+        }
+    }
+
+    // --- API METEO LACENO ---
+    async function fetchWeather() {
+        const weatherEl = document.getElementById('weather-indicator');
+        // Coordinate Laceno
+        const lat = 40.8106; 
+        const lon = 15.1127;
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
+
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            const temp = Math.round(data.current_weather.temperature);
+            const code = data.current_weather.weathercode;
+            
+            // Mappa Icone Semplificata
+            let icon = '';
+            let label = '';
+            
+            // Codici WMO
+            if(code <= 1) { 
+                // Sole
+                icon = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>'; 
+            } else if (code <= 3) {
+                // Nuvole
+                icon = '<svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>';
+            } else if (code >= 71 && code <= 77) {
+                // NEVE (Fiocco)
+                icon = '<svg viewBox="0 0 24 24"><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><path d="m20 16-4-4 4-4"></path><path d="m4 8 4 4-4 4"></path><path d="m16 4-4 4-4-4"></path><path d="m8 20 4-4 4 4"></path></svg>';
+                weatherEl.classList.add('snow'); // Aggiunge stile neve
+            } else if (code >= 51) {
+                // Pioggia
+                icon = '<svg viewBox="0 0 24 24"><line x1="16" y1="13" x2="16" y2="21"></line><line x1="8" y1="13" x2="8" y2="21"></line><line x1="12" y1="15" x2="12" y2="23"></line><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"></path></svg>';
+            } else {
+                // Default (Nuvole/Nebbia)
+                icon = '<svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>';
+            }
+
+            weatherEl.innerHTML = `${icon} ${temp}°C`;
+            weatherEl.style.display = 'inline-flex'; // Mostra il badge
+
+        } catch (e) {
+            console.log("Meteo non disponibile");
         }
     }
 
