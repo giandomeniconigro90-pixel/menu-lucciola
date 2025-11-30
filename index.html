@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <!-- META TAG BASE -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bar La Lucciola - Menù</title>
     
-    <!-- META APP THEME -->
     <meta name="theme-color" content="#2c2c2c">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <!-- FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
@@ -112,7 +109,6 @@
             margin-bottom: 10px;
         }
 
-        /* MOBILE TWEAKS */
         @media (max-width: 480px) {
             .header-content { bottom: 80px; left: 15px; }
             .header-content h1 { font-size: 26px; }
@@ -149,7 +145,8 @@
         }
         
         .nav-cluster {
-            display: flex; align-items: center; gap: 10px; pointer-events: auto; width: 94%; justify-content: center; max-width: 800px;
+            display: flex; align-items: center; gap: 8px; /* Ridotto gap per recuperare spazio */
+            pointer-events: auto; width: 94%; justify-content: center; max-width: 800px;
         }
         
         .logo-circle {
@@ -165,17 +162,18 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.3); transition: all 0.4s ease;
         }
         
-        /* FIX SCROLL: Distribuzione Migliorata */
+        /* --- SCROLL AREA PERFEZIONATA --- */
         .nav-scroll-area {
             display: flex; 
             align-items: center; 
             overflow-x: auto; 
             height: 100%; width: 100%;
-            padding-left: 10px;
-            /* Aumentato padding-right per evitare tagli bruschi alla fine */
-            padding-right: 30px; 
             
-            /* Snap Magnetico */
+            /* Padding asimmetrico per evitare tagli */
+            padding-left: 10px; 
+            padding-right: 40px; /* Spazio extra alla fine */
+            
+            /* Scroll Magnetico */
             scroll-snap-type: x mandatory; 
             
             scrollbar-width: none;
@@ -185,23 +183,25 @@
         /* --- ELEMENTI MENU --- */
         .tab-btn {
             background: transparent; border: none; 
-            padding: 10px 16px; 
+            /* Padding laterale ridotto leggermente per compattezza */
+            padding: 10px 14px; 
             
-            /* Aumentato margine destro per distanziare meglio i bottoni */
-            margin-right: 15px; 
+            /* Margine destro per separare visivamente */
+            margin-right: 5px; 
             
-            /* Snap Point: Allinea sempre all'inizio */
+            /* Snap Point: Inizio elemento */
             scroll-snap-align: start; 
             
             font-size: 15px; color: #333333; font-weight: 600;
             border-radius: 30px; cursor: pointer; transition: all 0.2s ease; 
-            display: flex; align-items: center; gap: 8px; white-space: nowrap; 
+            display: flex; align-items: center; gap: 6px; /* Gap icone ridotto */
+            white-space: nowrap; 
             flex: 0 0 auto; 
         }
-        /* Ultimo bottone: niente margine extra */
+        /* Per evitare che l'ultimo elemento sia tagliato */
         .tab-btn:last-child { margin-right: 0; }
 
-        .tab-btn svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.2s ease; opacity: 0.85; }
+        .tab-btn svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.2s ease; opacity: 0.85; }
         .tab-btn.active { background-color: var(--primary-color); color: white; font-weight: 600; box-shadow: var(--shadow-active); }
         .tab-btn.active svg { transform: scale(1.15); opacity: 1; }
 
