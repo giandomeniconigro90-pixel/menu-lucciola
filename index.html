@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bar La Lucciola - Menù</title>
-
- <!-- FAVICON AGGIUNTA -->
+    
     <link rel="icon" type="image/png" href="images/icon_app.png">
     <link rel="apple-touch-icon" href="images/icon_app.png">
     
@@ -74,7 +73,12 @@
         /* --- LOGICA 50% + PILLOLA PICCOLA --- */
         .nav-scroll-area {
             display: flex; align-items: center; overflow-x: auto; height: 100%; width: 100%;
-            padding: 0; scroll-snap-type: x mandatory; scrollbar-width: none;
+            
+            /* MODIFICA: Aggiunto padding 20px ai lati e border-box */
+            padding: 0 20px; 
+            box-sizing: border-box;
+            
+            scroll-snap-type: x mandatory; scrollbar-width: none;
         }
         .nav-scroll-area::-webkit-scrollbar { display: none; }
 
