@@ -26,111 +26,122 @@
             --status-closed: #ff5252;
         }
 
+        /* --- BASE --- */
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-warm);
             color: var(--text-dark);
             margin: 0; padding: 0;
             overscroll-behavior-y: none; 
             -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.3s ease;
         }
-
+        
         @keyframes kenBurns { 0% { transform: scale(1); } 100% { transform: scale(1.15); } }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(76, 175, 80, 0); } 100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); } }
 
-        header { position: relative; height: 260px; overflow: hidden; background-color: #2c2c2c; }
+        /* --- HEADER --- */
+        header { position: relative; height: 260px; overflow: hidden; background-color: #2c2c2c; transition: height 0.3s ease; }
         header::before { content: ''; position: absolute; inset: 0; background-image: url('images/la-lucciola-fronte.png'); background-size: cover; background-position: center; z-index: 0; animation: kenBurns 20s infinite alternate ease-in-out; }
         header::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.8) 100%); z-index: 1; }
 
-        .header-content { position: absolute; bottom: 70px; left: 20px; color: white; z-index: 2; max-width: 90%; }
-        .header-content h1 { font-family: 'Playfair Display', serif; font-size: 34px; margin: 0 0 2px; font-weight: 700; font-style: italic; text-shadow: 0 2px 10px rgba(0,0,0,0.6); }
-        .subtitle { font-size: 13px; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .header-content { position: absolute; bottom: 70px; left: 20px; color: white; z-index: 2; width: auto; max-width: 90%; }
+        .header-content h1 { font-family: 'Playfair Display', serif; font-size: 34px; margin-bottom: 2px; font-weight: 700; font-style: italic; text-shadow: 0 2px 10px rgba(0,0,0,0.6); }
+        .subtitle { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 400; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 1px 5px rgba(0,0,0,0.5); margin-bottom: 10px; }
 
         .info-cluster { display: flex; gap: 8px; flex-wrap: wrap; }
-        .status-badge, .weather-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(6px); padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); color: #e8f5e9; }
+        .status-badge, .weather-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(6px); padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); color: #e8f5e9; transition: all 0.3s ease; }
         .status-dot { width: 8px; height: 8px; border-radius: 50%; background-color: #ccc; }
         .status-badge.open .status-dot { background-color: var(--status-open); animation: pulse 2s infinite; }
+        .status-badge.closed { color: #ffebee; border-color: rgba(255, 82, 82, 0.3); }
         .status-badge.closed .status-dot { background-color: var(--status-closed); }
-        .weather-badge svg { width: 18px; height: 18px; fill: none; stroke: currentColor; }
+        .weather-badge svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        .weather-badge.snow { background: rgba(200, 230, 255, 0.25); color: #fff; border-color: rgba(255,255,255,0.4); }
 
-        /* --- NAVIGAZIONE --- */
-        .sticky-nav-container { position: sticky; top: 10px; z-index: 100; margin-top: -40px; padding: 0; display: flex; justify-content: center; pointer-events: none; }
+        /* --- STICKY NAV --- */
+        .sticky-nav-container { position: sticky; top: 10px; z-index: 100; margin-top: -40px; padding: 0; display: flex; justify-content: center; pointer-events: none; transition: all 0.3s ease; }
         .nav-cluster { display: flex; align-items: center; gap: 10px; pointer-events: auto; width: 94%; justify-content: center; max-width: 800px; }
-        .logo-circle { width: 58px; height: 58px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); }
+        .logo-circle { width: 58px; height: 58px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); transition: all 0.4s ease; }
         .nav-mini-logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
 
-        .nav-pill-wrapper { display: flex; align-items: center; height: 58px; border-radius: 50px; flex-grow: 1; overflow: hidden; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); }
+        .nav-pill-wrapper { display: flex; align-items: center; height: 58px; border-radius: 50px; flex-grow: 1; overflow: hidden; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); transition: all 0.4s ease; }
         
-        /* --- LOGICA 50% MOBILE --- */
+        /* --- LOGICA 50% + PILLOLA PICCOLA --- */
         .nav-scroll-area {
-            display: flex; 
-            align-items: center; 
-            overflow-x: auto; 
-            height: 100%; width: 100%;
-            
-            /* Mobile: Niente padding, scroll obbligatorio */
-            padding: 0; 
-            scroll-snap-type: x mandatory; 
-            scrollbar-width: none;
+            display: flex; align-items: center; overflow-x: auto; height: 100%; width: 100%;
+            padding: 0; scroll-snap-type: x mandatory; scrollbar-width: none;
         }
         .nav-scroll-area::-webkit-scrollbar { display: none; }
 
+        /* Il contenitore invisibile: largo 50% */
         .tab-btn {
-            background: transparent; border: none; height: 42px; 
-            font-size: 15px; color: #333333; font-weight: 500;
-            border-radius: 30px; cursor: pointer; transition: all 0.2s ease; 
+            background: transparent; border: none; height: 100%; 
             
-            display: flex; align-items: center; justify-content: center; gap: 8px; 
-            white-space: nowrap; 
+            /* MATEMATICA PURA: 50% esatto */
+            flex: 0 0 50%; width: 50%;
             
-            /* IL CUORE DEL SISTEMA MOBILE:
-               Ogni bottone è forzato al 50% della larghezza del genitore.
-               Non importa quanto testo c'è, lui prende il 50%. */
-            flex: 0 0 50%; 
-            width: 50%;
+            margin: 0; padding: 0;
+            cursor: pointer; 
             
-            margin: 0; padding: 0; /* Reset margini per calcolo preciso */
+            /* Flex per centrare la pillola interna */
+            display: flex; align-items: center; justify-content: center;
             
-            scroll-snap-align: start; /* Si aggancia all'inizio */
+            scroll-snap-align: start; 
         }
 
-        /* Su Tablet (>768px) torniamo al comportamento normale fluido */
+        /* La Pillola Verde Visibile (Inner) */
+        .tab-btn-inner {
+            /* Dimensioni pillola: larga quanto basta ma non tocca i bordi (es. 90% del contenitore padre) */
+            width: 90%; 
+            height: 42px;
+            
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            border-radius: 30px;
+            font-size: 15px; color: #333333; font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        /* TABLET/DESKTOP RESET */
         @media (min-width: 768px) {
             .nav-scroll-area { padding: 0 20px; scroll-snap-type: none; }
-            .tab-btn { flex: 0 0 auto; width: auto; margin-right: 15px; padding: 0 20px; scroll-snap-align: unset; }
+            .tab-btn { flex: 0 0 auto; width: auto; margin-right: 15px; }
             .tab-btn:last-child { margin-right: 0; }
+            .tab-btn-inner { width: auto; padding: 0 20px; } /* Su desktop larghezza naturale */
         }
 
-        .tab-btn.active { background-color: #3e5c45; color: white; font-weight: 600; box-shadow: 0 4px 12px rgba(62, 92, 69, 0.25); 
-            /* Ridimensiono leggermente la pillola attiva su mobile per non farla toccare coi bordi */
-            transform: scale(0.90); 
+        /* Stato Attivo applicato alla pillola interna */
+        .tab-btn.active .tab-btn-inner { 
+            background-color: #3e5c45; color: white; font-weight: 600; 
+            box-shadow: 0 4px 12px rgba(62, 92, 69, 0.25); 
         }
-        @media (min-width: 768px) { .tab-btn.active { transform: scale(1); } }
         
-        .tab-btn svg { width: 18px; height: 18px; stroke-width: 2; opacity: 0.7; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .tab-btn svg { width: 18px; height: 18px; stroke-width: 2; opacity: 0.7; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.2s ease; }
         .tab-btn.active svg { opacity: 1; stroke-width: 2.5; transform: scale(1.15); }
 
-        /* --- CONTENUTO --- */
+        /* --- CONTENUTO E FOOTER --- */
         .menu-container { max-width: 800px; margin: 0 auto; padding: 20px; padding-bottom: 100px; min-height: 600px; }
         h3 { color: var(--primary-color); font-family: 'Playfair Display', serif; margin: 10px 0 25px 0; font-size: 24px; font-weight: 700; display: flex; align-items: center; }
         h3::after { content: ''; flex-grow: 1; height: 2px; background: linear-gradient(to right, var(--primary-color), transparent); opacity: 0.2; margin-left: 15px; }
-        .menu-item { display: flex; justify-content: space-between; align-items: center; background: white; padding: 16px; margin-bottom: 15px; border-radius: 16px; box-shadow: var(--shadow-soft); opacity: 0; animation: fadeInUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        .menu-item { display: flex; justify-content: space-between; align-items: center; background: white; padding: 16px; margin-bottom: 15px; border-radius: 16px; box-shadow: var(--shadow-soft); border: 1px solid rgba(0,0,0,0.01); opacity: 0; animation: fadeInUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
         .item-info h4 { margin: 0; font-size: 17px; color: var(--text-dark); font-weight: 600; }
-        .item-info p { margin: 5px 0 0 0; font-size: 13px; color: #888; }
+        .item-info p { margin: 5px 0 0 0; font-size: 13px; color: #888; line-height: 1.4; }
         .item-price { font-weight: 700; color: var(--primary-color); background-color: #f1f8f3; padding: 8px 14px; border-radius: 10px; font-size: 15px; white-space: nowrap; margin-left: 15px; }
 
-        /* --- FOOTER & LITE --- */
         footer { background-color: white; padding: 30px 20px; margin-top: 20px; border-top-left-radius: 30px; border-top-right-radius: 30px; box-shadow: 0 -10px 40px rgba(0,0,0,0.03); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
         .footer-info { text-align: left; }
         .footer-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
         .footer-address { font-size: 0.85rem; color: var(--text-gray); margin-bottom: 8px; text-decoration: none; display: block; transition: color 0.2s; }
-        .footer-phone { display: inline-flex; align-items: center; gap: 6px; color: var(--primary-color); font-weight: 600; font-size: 0.95rem; background-color: #f1f8f3; padding: 6px 12px; border-radius: 8px; text-decoration: none; }
+        .footer-address:hover { color: var(--primary-color); text-decoration: underline; }
+        .footer-phone { display: inline-flex; align-items: center; gap: 6px; color: var(--primary-color); font-weight: 600; font-size: 0.95rem; text-decoration: none; background-color: #f1f8f3; padding: 6px 12px; border-radius: 8px; }
         .footer-social { display: flex; align-items: center; }
-        .social-circle { width: 50px; height: 50px; border-radius: 50%; background-color: white; border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 4px 15px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center; color: #1877f2; }
-        .social-circle svg { width: 28px; height: 28px; fill: currentColor; }
+        .social-circle { width: 50px; height: 50px; border-radius: 50%; background-color: white; border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 4px 15px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease; color: #1877f2; }
+        .social-circle:active { transform: scale(0.95); }
+        .social-circle svg { width: 28px; height: 28px; fill: currentColor; stroke: none; }
         .footer-bottom { width: 100%; text-align: center; margin-top: 20px; font-size: 0.7rem; color: #999; border-top: 1px solid #f0f0f0; padding-top: 15px; }
 
+        /* LITE MODE */
         body.lite-mode { background-color: #f9f7f2; }
         body.lite-mode header { height: 130px; background: linear-gradient(135deg, #2d4030 0%, #3e5c45 100%); border-bottom: 4px solid #d4af37; display: flex; align-items: center; justify-content: center; }
         body.lite-mode header::before { display: none; animation: none; }
@@ -150,7 +161,16 @@
 </head>
 <body>
 
-<button id="lite-switch" onclick="toggleLiteMode()" style="position: fixed; top: 15px; right: 15px; z-index: 9999; background: rgba(0,0,0,0.6); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 8px 15px; border-radius: 20px; font-size: 12px; font-weight: bold; backdrop-filter: blur(5px); cursor: pointer; display: flex; align-items: center; gap: 5px;">⚡ Lite</button>
+<button id="lite-switch" onclick="toggleLiteMode()" style="
+    position: fixed; top: 15px; right: 15px; z-index: 9999; 
+    background: rgba(0,0,0,0.6); color: white; 
+    border: 1px solid rgba(255,255,255,0.3); 
+    padding: 8px 15px; border-radius: 20px; 
+    font-size: 12px; font-weight: bold; 
+    backdrop-filter: blur(5px); cursor: pointer;
+    display: flex; align-items: center; gap: 5px;">
+    ⚡ Lite
+</button>
 
 <header>
     <div class="header-content">
@@ -168,20 +188,31 @@
         <div class="logo-circle"><img src="images/icon_app.png" alt="Logo" class="nav-mini-logo"></div>
         <div class="nav-pill-wrapper">
             <div class="nav-scroll-area">
+                <!-- NOTA: Ogni bottone ha un wrapper .tab-btn (50% width) e un figlio .tab-btn-inner (pillola visibile) -->
                 <button class="tab-btn active" onclick="showCategory('calde', this)">
-                    <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>Calde
+                    <span class="tab-btn-inner">
+                        <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>Calde
+                    </span>
                 </button>
                 <button class="tab-btn" onclick="showCategory('fredde', this)">
-                    <svg viewBox="0 0 24 24"><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><path d="m20 16-4-4 4-4"></path><path d="m4 8 4 4-4 4"></path><path d="m16 4-4 4-4-4"></path><path d="m8 20 4-4 4 4"></path></svg>Fredde
+                    <span class="tab-btn-inner">
+                        <svg viewBox="0 0 24 24"><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><path d="m20 16-4-4 4-4"></path><path d="m4 8 4 4-4 4"></path><path d="m16 4-4 4-4-4"></path><path d="m8 20 4-4 4 4"></path></svg>Fredde
+                    </span>
                 </button>
                 <button class="tab-btn" onclick="showCategory('cocktail', this)">
-                    <svg viewBox="0 0 24 24"><path d="M8 22h8"></path><path d="M12 15v7"></path><path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"></path></svg>Cocktail
+                    <span class="tab-btn-inner">
+                        <svg viewBox="0 0 24 24"><path d="M8 22h8"></path><path d="M12 15v7"></path><path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"></path></svg>Cocktail
+                    </span>
                 </button>
                 <button class="tab-btn" onclick="showCategory('food', this)">
-                    <svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><path d="M9 3v2a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V3"></path>ircle cx="12" cy="12" r="1"></circle></svg>Food
+                    <span class="tab-btn-inner">
+                        <svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><path d="M9 3v2a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V3"></path>ircle cx="12" cy="12" r="1"></circle></svg>Food
+                    </span>
                 </button>
                 <button class="tab-btn" onclick="showCategory('dolci', this)">
-                    <svg viewBox="0 0 24 24"><path d="m4.5 13.5 3-3"/><path d="m19.5 13.5-3-3"/><path d="M12 9c-4.5-2-8 1-9.5 4.5 2.5 4 6 5 9.5 5s7-1 9.5-5c-1.5-3.5-5-6.5-9.5-4.5Z"/></svg>Dolci
+                    <span class="tab-btn-inner">
+                        <svg viewBox="0 0 24 24"><path d="m4.5 13.5 3-3"/><path d="m19.5 13.5-3-3"/><path d="M12 9c-4.5-2-8 1-9.5 4.5 2.5 4 6 5 9.5 5s7-1 9.5-5c-1.5-3.5-5-6.5-9.5-4.5Z"/></svg>Dolci
+                    </span>
                 </button>
             </div>
         </div>
@@ -221,23 +252,18 @@
     });
 
     function checkOpenStatus() {
-        const now = new Date();
-        const hour = now.getHours();
-        const el = document.getElementById('status-indicator');
+        const now = new Date(); const hour = now.getHours(); const el = document.getElementById('status-indicator');
         const isOpen = hour >= 7 && hour < 24; 
         if(isOpen) { el.innerHTML = '<span class="status-dot"></span> Aperto'; el.classList.add('open'); el.classList.remove('closed'); } 
         else { el.innerHTML = '<span class="status-dot"></span> Chiuso'; el.classList.add('closed'); el.classList.remove('open'); }
     }
 
     async function fetchWeather() {
-        const weatherEl = document.getElementById('weather-indicator');
-        const lat = 40.8106; const lon = 15.1127;
+        const weatherEl = document.getElementById('weather-indicator'); const lat = 40.8106; const lon = 15.1127;
         const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
         try {
-            const response = await fetch(url);
-            const data = await response.json();
-            const temp = Math.round(data.current_weather.temperature);
-            const code = data.current_weather.weathercode;
+            const response = await fetch(url); const data = await response.json();
+            const temp = Math.round(data.current_weather.temperature); const code = data.current_weather.weathercode;
             let iconSvg = '';
             if(code <= 1) iconSvg = '<svg viewBox="0 0 24 24">ircle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>'; 
             else if (code <= 3) iconSvg = '<svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>';
@@ -269,7 +295,7 @@
         if (!isLite) {
             setTimeout(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }, 50);
             if (btnElement) {
-                // Scroll morbido e "nearest" per rispettare lo snap su mobile
+                // Scroll morbido per rispettare lo snap su mobile
                 setTimeout(() => { btnElement.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' }); }, 150);
             }
         } else { window.scrollTo(0,0); }
