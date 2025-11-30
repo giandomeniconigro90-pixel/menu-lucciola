@@ -74,12 +74,20 @@
         
         /* --- NAVIGAZIONE SCROLL --- */
         .nav-scroll-area {
-            display: flex; align-items: center; overflow-x: auto; height: 100%; width: 100%;
-            padding: 0; scroll-snap-type: x mandatory; scrollbar-width: none;
+            display: flex; 
+            align-items: center; 
+            overflow-x: auto; 
+            height: 100%; width: 100%;
+            
+            /* Mobile: Niente padding sul container, lo gestiamo con i margini dei bottoni */
+            padding: 0; 
+            
+            scroll-snap-type: x mandatory; 
+            scrollbar-width: none;
         }
         .nav-scroll-area::-webkit-scrollbar { display: none; }
 
-        /* --- BOTTONI: SELEZIONE VERDE PIÙ PICCOLA --- */
+        /* --- BOTTONI CON PILLOLA STRETTA E SPAZIO INIZIALE --- */
         .tab-btn {
             background: transparent; border: none; height: 42px; 
             font-size: 15px; color: #333333; font-weight: 500;
@@ -87,48 +95,69 @@
             display: flex; align-items: center; justify-content: center; gap: 8px; 
             white-space: nowrap; 
             
-            /* Logica matematica: 50% esatto */
-            flex: 0 0 calc(50% - 20px); /* Riduco la width calcolata */
-            width: calc(50% - 20px);
+            /* LA LOGICA DEI 2 ELEMENTI (50% dello spazio) */
+            flex: 0 0 50%; 
+            width: 50%;
             
-            /* Logica visiva: Aumento i margini per restringere la pillola verde */
-            margin: 0 10px; 
+            /* TRUCCO "PILLOLA PICCOLA": Margini laterali ampi.
+               Il box invisibile è 50%, ma la parte colorabile (padding-box) si stringe */
+            
+            box-sizing: border-box; /* Importante per gestire padding/width */
+            
+            /* Questo crea lo spazio bianco tra una pillola e l'altra */
+            padding: 0 8px; 
+            
+            /* Il margine effettivo dell'elemento */
+            margin: 0; 
+            
+            /* Riduco la larghezza effettiva del contenuto visibile usando un width minore e margin auto */
+            /* Ma per mantenere lo snap, usiamo il padding interno wrapper o margin diretto */
+            
+            /* NUOVA LOGICA PIÙ SEMPLICE:
+               Uso margin sul bottone per stringerlo. */
+            flex: 0 0 calc(50% - 10px); /* Tolgo 10px totali di margine */
+            width: calc(50% - 10px);
+            margin: 0 5px;
             
             scroll-snap-align: start; 
         }
 
-        /* SPAZIATORI LATERALI PIÙ AMPI PER STACCARE DAL BORDO */
+        /* --- IL TUO SPAZIO ROSSO --- */
+        /* Il primo elemento ha un margine sinistro ENORME per creare il buco */
         .tab-btn:first-child { 
-            margin-left: 20px; /* Più spazio a sinistra del primo elemento */
-            flex: 0 0 calc(50% - 30px); 
-            width: calc(50% - 30px); 
+            margin-left: 35px; /* ECCOLO: Il buco iniziale che volevi */
+            /* Ricalcolo la larghezza per compensare il margine extra e restare nel 50% */
+            flex: 0 0 calc(50% - 40px); 
+            width: calc(50% - 40px); 
         } 
+        
+        /* Anche l'ultimo per simmetria */
         .tab-btn:last-child { 
-            margin-right: 20px; 
-            flex: 0 0 calc(50% - 30px); 
-            width: calc(50% - 30px); 
+            margin-right: 35px; 
+            flex: 0 0 calc(50% - 40px); 
+            width: calc(50% - 40px); 
             scroll-snap-align: end; 
         }
 
-        /* TABLET RESET */
+        /* TABLET RESET (Schermi grandi) */
         @media (min-width: 768px) {
             .nav-scroll-area { padding: 0 20px; scroll-snap-type: none; }
             .tab-btn { flex: 0 0 auto; width: auto; margin: 0 15px 0 0; padding: 0 25px; scroll-snap-align: unset; }
-            .tab-btn:first-child { margin-left: 0; }
-            .tab-btn:last-child { margin-right: 0; }
+            .tab-btn:first-child { margin-left: 0; flex: 0 0 auto; width: auto; }
+            .tab-btn:last-child { margin-right: 0; flex: 0 0 auto; width: auto; }
         }
 
         .tab-btn.active { 
             background-color: #3e5c45; color: white; font-weight: 600; 
             box-shadow: 0 4px 12px rgba(62, 92, 69, 0.25); 
-            transform: scale(0.95); 
+            transform: scale(0.95); /* Pillola un po' più piccola visivamente */
         }
         @media (min-width: 768px) { .tab-btn.active { transform: scale(1); } }
         
         .tab-btn svg { width: 18px; height: 18px; stroke-width: 2; opacity: 0.7; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; }
         .tab-btn.active svg { opacity: 1; stroke-width: 2.5; transform: scale(1.15); }
 
-        /* --- CONTENUTO --- */
+        /* --- CONTENUTO E FOOTER --- */
         .menu-container { max-width: 800px; margin: 0 auto; padding: 20px; padding-bottom: 100px; min-height: 600px; }
         h3 { color: var(--primary-color); font-family: 'Playfair Display', serif; margin: 10px 0 25px 0; font-size: 24px; font-weight: 700; display: flex; align-items: center; }
         h3::after { content: ''; flex-grow: 1; height: 2px; background: linear-gradient(to right, var(--primary-color), transparent); opacity: 0.2; margin-left: 15px; }
@@ -137,7 +166,6 @@
         .item-info p { margin: 5px 0 0 0; font-size: 13px; color: #888; line-height: 1.4; }
         .item-price { font-weight: 700; color: var(--primary-color); background-color: #f1f8f3; padding: 8px 14px; border-radius: 10px; font-size: 15px; white-space: nowrap; margin-left: 15px; }
 
-        /* --- FOOTER --- */
         footer { background-color: white; padding: 30px 20px; margin-top: 20px; border-top-left-radius: 30px; border-top-right-radius: 30px; box-shadow: 0 -10px 40px rgba(0,0,0,0.03); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
         .footer-info { text-align: left; }
         .footer-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
@@ -150,7 +178,7 @@
         .social-circle svg { width: 28px; height: 28px; fill: currentColor; stroke: none; }
         .footer-bottom { width: 100%; text-align: center; margin-top: 20px; font-size: 0.7rem; color: #999; border-top: 1px solid #f0f0f0; padding-top: 15px; }
 
-        /* --- LITE MODE --- */
+        /* LITE MODE */
         body.lite-mode { background-color: #f9f7f2; }
         body.lite-mode header { height: 130px; background: linear-gradient(135deg, #2d4030 0%, #3e5c45 100%); border-bottom: 4px solid #d4af37; display: flex; align-items: center; justify-content: center; }
         body.lite-mode header::before { display: none; animation: none; }
