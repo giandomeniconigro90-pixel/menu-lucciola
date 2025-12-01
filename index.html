@@ -120,11 +120,14 @@
             .subtitle { font-size: 15px; }
         }
 
-        .tab-btn.active .tab-btn-inner { 
-            background-color: #3e5c45; color: white; font-weight: 600; 
-            box-shadow: 0 4px 12px rgba(62, 92, 69, 0.25); 
-        }
-        
+      /* --- NUOVO STILE SELEZIONE (OUTLINE / BORDO) --- */
+.tab-btn.active .tab-btn-inner { 
+    background-color: rgba(62, 92, 69, 0.08); /* Sfondo verde chiarissimo quasi trasparente */
+    border: 2px solid #3e5c45; /* Bordo verde scuro */
+    color: #3e5c45; /* Testo verde scuro */
+    font-weight: 700; 
+    box-shadow: none; /* Rimuoviamo l'ombra pesante */
+}
         .tab-btn svg { width: 18px; height: 18px; stroke-width: 2; opacity: 0.7; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.2s ease; }
         .tab-btn.active svg { opacity: 1; stroke-width: 2.5; transform: scale(1.15); }
 
