@@ -94,28 +94,29 @@
             transition: all 0.2s ease;
         }
 
-        /* TABLET & DESKTOP RESET (600px + Distribuzione + Spaziatura) */
+        /* TABLET & DESKTOP RESET (MODIFICATO: SPAZIO DIVISO EQUAMENTE IN 5) */
         @media (min-width: 600px) {
             .nav-scroll-area { 
-                /* Padding laterale per non far toccare i bordi alla selezione */
-                padding: 0 20px; 
+                padding: 0; 
                 scroll-snap-type: none; 
-                
-                /* Distribuisce le categorie uniformemente su tutta la larghezza */
-                justify-content: space-between; 
-                
                 overflow-x: hidden; 
+                /* Rimuoviamo justify-content specifici */
             }
             
             .tab-btn { 
-                flex: 0 0 auto; 
+                /* MAGIA: flex: 1 divide lo spazio equamente tra i figli */
+                flex: 1; 
                 width: auto; 
-                margin: 0; /* Rimuove i margini, usa space-between */
+                margin: 0; 
             }
-            .tab-btn:last-child { margin-right: 0; } 
-
-            /* Pillola verde più larga (30px padding) */
-            .tab-btn-inner { width: auto; padding: 0 30px; } 
+            
+            .tab-btn-inner { 
+                width: auto; 
+                /* Padding interno per la selezione verde (mantenuto largo come piaceva a te) */
+                padding: 0 30px; 
+                /* Centra la pillola dentro la sua "fetta" di spazio */
+                margin: 0 auto; 
+            } 
         }
         
         /* --- LAYOUT SPECIFICO PER DESKTOP / LANDSCAPE (> 900px) --- */
