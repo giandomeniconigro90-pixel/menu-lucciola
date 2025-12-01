@@ -67,7 +67,7 @@
 
         .nav-pill-wrapper { display: flex; align-items: center; height: 58px; border-radius: 50px; flex-grow: 1; overflow: hidden; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); transition: all 0.4s ease; }
         
-        /* --- LOGICA SCROLL --- */
+        /* --- LOGICA SCROLL (MOBILE) --- */
         .nav-scroll-area {
             display: flex; align-items: center; overflow-x: auto; height: 100%; width: 100%;
             padding: 0; scroll-snap-type: x mandatory; scrollbar-width: none;
@@ -85,7 +85,7 @@
         }
 
         .tab-btn-inner {
-            width: 94%; 
+            width: 90%; 
             height: 42px;
             display: flex; align-items: center; justify-content: center; gap: 8px;
             border-radius: 30px;
@@ -94,14 +94,28 @@
             transition: all 0.2s ease;
         }
 
-        /* TABLET & DESKTOP RESET (MODIFICATO A 600px) */
+        /* TABLET & DESKTOP RESET (600px + Distribuzione + Spaziatura) */
         @media (min-width: 600px) {
             .nav-scroll-area { 
-                padding: 0; scroll-snap-type: none; justify-content: center; overflow-x: hidden; 
+                /* Padding laterale per non far toccare i bordi alla selezione */
+                padding: 0 20px; 
+                scroll-snap-type: none; 
+                
+                /* Distribuisce le categorie uniformemente su tutta la larghezza */
+                justify-content: space-between; 
+                
+                overflow-x: hidden; 
             }
-            .tab-btn { flex: 0 0 auto; width: auto; margin: 0 8px; }
-            .tab-btn:last-child { margin-right: 8px; } 
-            .tab-btn-inner { width: auto; padding: 0 15px; }
+            
+            .tab-btn { 
+                flex: 0 0 auto; 
+                width: auto; 
+                margin: 0; /* Rimuove i margini, usa space-between */
+            }
+            .tab-btn:last-child { margin-right: 0; } 
+
+            /* Pillola verde più larga (30px padding) */
+            .tab-btn-inner { width: auto; padding: 0 30px; } 
         }
         
         /* --- LAYOUT SPECIFICO PER DESKTOP / LANDSCAPE (> 900px) --- */
