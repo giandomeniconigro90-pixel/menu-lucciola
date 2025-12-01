@@ -178,6 +178,16 @@
     </style>
 </head>
 <body>
+    
+    <button id="back-to-top" onclick="scrollToTop()" style="
+    position: fixed; bottom: 25px; right: 25px; 
+    width: 45px; height: 45px; border-radius: 50%; 
+    background: var(--primary-color); color: white; border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
+    display: none; align-items: center; justify-content: center; 
+    z-index: 900; cursor: pointer; transition: transform 0.2s;">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+</button>
 
 <button id="lite-switch" onclick="toggleLiteMode()" style="
     position: absolute; top: 15px; right: 15px; z-index: 9999; 
@@ -459,6 +469,20 @@
                 </div>`;
         });
     }
+    
+    // Gestione comparsa tasto scroll
+window.onscroll = function() {
+    const btn = document.getElementById('back-to-top');
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        btn.style.display = "flex";
+    } else {
+        btn.style.display = "none";
+    }
+};
+
+function scrollToTop() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
 </script>
 
 </body>
