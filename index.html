@@ -67,7 +67,7 @@
 
         .nav-pill-wrapper { display: flex; align-items: center; height: 58px; border-radius: 50px; flex-grow: 1; overflow: hidden; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); transition: all 0.4s ease; }
         
-        /* --- LOGICA SCROLL (MOBILE) --- */
+        /* --- LOGICA SCROLL --- */
         .nav-scroll-area {
             display: flex; align-items: center; overflow-x: auto; height: 100%; width: 100%;
             padding: 0; scroll-snap-type: x mandatory; scrollbar-width: none;
@@ -94,29 +94,14 @@
             transition: all 0.2s ease;
         }
 
-        /* TABLET & DESKTOP RESET (MODIFICATO: SPAZIO DIVISO EQUAMENTE IN 5) */
+        /* TABLET & DESKTOP RESET (MODIFICATO A 600px) */
         @media (min-width: 600px) {
             .nav-scroll-area { 
-                padding: 0; 
-                scroll-snap-type: none; 
-                overflow-x: hidden; 
-                /* Rimuoviamo justify-content specifici */
+                padding: 0; scroll-snap-type: none; justify-content: center; overflow-x: hidden; 
             }
-            
-            .tab-btn { 
-                /* MAGIA: flex: 1 divide lo spazio equamente tra i figli */
-                flex: 1; 
-                width: auto; 
-                margin: 0; 
-            }
-            
-            .tab-btn-inner { 
-                width: auto; 
-                /* Padding interno per la selezione verde (mantenuto largo come piaceva a te) */
-                padding: 0 30px; 
-                /* Centra la pillola dentro la sua "fetta" di spazio */
-                margin: 0 auto; 
-            } 
+            .tab-btn { flex: 0 0 auto; width: auto; margin: 0 8px; }
+            .tab-btn:last-child { margin-right: 8px; } 
+            .tab-btn-inner { width: auto; padding: 0 15px; }
         }
         
         /* --- LAYOUT SPECIFICO PER DESKTOP / LANDSCAPE (> 900px) --- */
