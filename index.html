@@ -192,6 +192,7 @@
         body.lite-mode .search-input { background: #fff; border: 1px solid #ddd; box-shadow: none; }
         @media (orientation: landscape) { .nav-cluster { width: auto; max-width: 90%; } }
     </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
 <body>
 
@@ -287,7 +288,9 @@
 </footer>
 
 <script>
-    // MAPPATURA ALLERGENI
+
+    // LIBRERIA CSV (Inclusa via CDN nell'head o qui sopra)
+    // MAPPATURA ALLERGENI (Mantenuta statica come richiesto)
     const allergenMap = {
         'latte': { icon: '🥛', label: 'Latte' },
         'glutine': { icon: '🌾', label: 'Glutine' },
@@ -296,71 +299,91 @@
         'sedano': { icon: '🌿', label: 'Sedano' }
     };
 
-    // DATI AGGIORNATI
-    const menuData = {
-        calde: { title: "Caffetteria Calda", items: [
-            { name: "Caffè Espresso", description: "", price: 1.30 }, 
-            { name: "Caffè Decaffeinato", description: "", price: 1.50 }, 
-            { name: "Caffè D'Orzo", description: "Piccolo / Grande", price: 1.50, allergens: ['glutine'] }, 
-            { name: "Caffè Ginseng", description: "Piccolo / Grande", price: 1.50, allergens: ['latte'] }, 
-            { name: "Caffè Macchiato", description: "", price: 1.50, allergens: ['latte'] }, 
-            { name: "Caffè Corretto", description: "Grappa, Sambuca, Anice", price: 1.80 }, 
-            { name: "Cappuccino", description: "Latte fresco alta qualità", price: 2.00, allergens: ['latte'] }, 
-            { name: "Cioccolata Calda", description: "Classica o Fondente", price: 3.50, allergens: ['latte'] }, 
-            { name: "Cioccolata con Panna", description: "", price: 4.00, allergens: ['latte'] }, 
-            { name: "Tè e Tisane", description: "Vari gusti", price: 2.50 }, 
-            { name: "Camomilla", description: "", price: 2.00 }, 
-            { name: "Punch", description: "Mandarino, Arancio, Rum", price: 3.00 }, 
-            { name: "Bombardino", description: "Con panna", price: 4.00, allergens: ['latte', 'uova'], tag: 'hot' }
-        ]},
-        fredde: { title: "Bibite & Freddi", items: [
-            { name: "Acqua Minerale 50cl", description: "Naturale o Frizzante", price: 1.00 }, 
-            { name: "Acqua Minerale 1L", description: "Vetro (al tavolo)", price: 2.50 }, 
-            { name: "Coca Cola / Zero", description: "33cl Vetro", price: 3.00 }, 
-            { name: "Fanta / Sprite", description: "33cl Vetro", price: 3.00 }, 
-            { name: "Estathé", description: "Limone o Pesca (Vetro)", price: 3.00 }, 
-            { name: "Succhi di Frutta", description: "Pera, Pesca, Ace, Albicocca", price: 2.50 }, 
-            { name: "Crodino / Sanbittèr", description: "", price: 3.00 }, 
-            { name: "Red Bull", description: "", price: 4.00 }, 
-            { name: "Schweppes Tonica", description: "", price: 3.00 }, 
-            { name: "Schweppes Lemon", description: "", price: 3.00 }, 
-            { name: "Crema Caffè", description: "Artigianale", price: 3.00, allergens: ['latte'], tag: 'new' }
-        ]},
-        cocktail: { title: "Aperitivi & Cocktail", items: [
-            { name: "Aperol Spritz", description: "Prosecco, Aperol, Soda", price: 5.00 }, 
-            { name: "Campari Spritz", description: "Prosecco, Bitter Campari, Soda", price: 5.00 }, 
-            { name: "Hugo Spritz", description: "Prosecco, Sciroppo Sambuco, Menta", price: 6.00 }, 
-            { name: "Gin Tonic", description: "Gin Gordon's/Tanqueray + Tonica", price: 6.00 }
-        ]},
-        food: { title: "Food & Snack", items: [
-            { name: "Panino Prosciutto Crudo", description: "Crudo di Parma", price: 5.00, allergens: ['glutine'] }, 
-            { name: "Panino Cotto e Formaggio", description: "", price: 4.50, allergens: ['glutine', 'latte'] }, 
-            { name: "Panino Salame", description: "Salame Napoli", price: 4.50, allergens: ['glutine'] }, 
-            { name: "Panino Caprese", description: "Mozzarella, Pomodoro, Origano", price: 5.00, allergens: ['glutine', 'latte'] }
-        ]},
-        dolci: { title: "Dolci & Gelati", items: [
-            { name: "Cornetto Vuoto", description: "Artigianale", price: 1.20, allergens: ['glutine', 'uova'] }, 
-            { name: "Cornetto Farcito", description: "Crema, Cioccolato, Marmellata", price: 1.50, allergens: ['glutine', 'uova', 'latte'] }, 
-            { name: "Gelato Confezionato", description: "Vari (Vedi frigo)", price: 2.00, allergens: ['latte'] }
-        ]}
-    };
+    // --- CONFIGURAZIONE GOOGLE SHEETS ---
+    // INCOLLA QUI IL LINK CSV DEL TUO FOGLIO GOOGLE
+    const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR_r-iS8k_kS_vV_ffF_l_i_k_l_i_k_l_i_k_l_i_k/pub?output=csv'; 
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const savedMode = localStorage.getItem('siteMode');
-        if (savedMode) { if (savedMode === 'lite') toggleLiteMode(); } 
-        else { checkConnectionSpeed(); }
-        
-        showCategory('calde', document.querySelector('.tab-btn.active'));
-        checkOpenStatus();
-        // RIMOSSO CHECK HAPPY HOUR
-        fetchWeather(); 
+    // Variabile globale che sostituirà i dati statici
+    let menuData = {};
 
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js').catch(err => console.log('SW fallito:', err));
-        }
-    });
+    // Funzione di caricamento (Sostituisce i dati statici)
+    function initDataFetch() {
+        const container = document.getElementById('menu-container'); 
+        // Se il container ha un altro ID nel tuo HTML, il codice sotto userà showCategory per trovarlo
 
-    // SCROLL TO TOP
+        // Mostra loading se necessario, o lascia vuoto finché non carica
+
+        Papa.parse(SHEET_URL, {
+            download: true,
+            header: true,
+            skipEmptyLines: true,
+            complete: function(results) {
+                console.log("Dati caricati:", results.data);
+                transformCsvToMenu(results.data);
+
+                // Avvia l'app cliccando sul primo tab
+                const firstBtn = document.querySelector('.tab-btn');
+                if(firstBtn) {
+                    // Simula il click per caricare la prima categoria
+                    showCategory('calde', firstBtn); 
+                }
+            },
+            error: function(err) {
+                console.error("Errore caricamento:", err);
+                alert("Impossibile caricare il menù. Controlla la connessione.");
+            }
+        });
+    }
+
+    function transformCsvToMenu(csvData) {
+        menuData = {}; // Reset
+
+        csvData.forEach(row => {
+            // Skip righe vuote o non disponibili
+            if(!row.categoria || !row.nome) return;
+            if(row.disponibile && (row.disponibile.toLowerCase() === 'no' || row.disponibile.toLowerCase() === 'false')) return;
+
+            // Normalizza chiavi
+            let catKey = normalizeCategory(row.categoria);
+
+            if(!menuData[catKey]) {
+                menuData[catKey] = { 
+                    title: row.categoria, // Usa il nome della categoria dal foglio (es. "Caffetteria")
+                    items: [] 
+                };
+            }
+
+            // Gestione allergeni
+            let allergenesList = [];
+            if(row.allergeni) {
+                allergenesList = row.allergeni.split(',').map(s => s.trim().toLowerCase());
+            }
+
+            menuData[catKey].items.push({
+                name: row.nome,
+                price: parseFloat(row.prezzo.replace(',', '.')) || 0,
+                description: row.descrizione || "",
+                allergens: allergenesList,
+                tag: row.tag || "", // new, hot
+                soldOut: (row.disponibile === 'soldout')
+            });
+        });
+    }
+
+    function normalizeCategory(catString) {
+        // Mappa le categorie del foglio Google agli ID delle TAB HTML esistenti (calde, fredde, alcolici, food, dolci)
+        const c = catString.toLowerCase();
+        if(c.includes('caff') || c.includes('cald')) return 'calde';
+        if(c.includes('fredd') || c.includes('bibit') || c.includes('succh') || c.includes('acqu')) return 'fredde';
+        if(c.includes('alcol') || c.includes('vin') || c.includes('birr') || c.includes('cocktail') || c.includes('amar')) return 'alcolici';
+        if(c.includes('cib') || c.includes('food') || c.includes('panin') || c.includes('snack')) return 'food';
+        if(c.includes('dolc') || c.includes('dessert') || c.includes('gelat')) return 'dolci';
+        return 'altro';
+    }
+    
+
+    // --- FUNZIONI UI ORIGINALI ---
+    
     window.onscroll = function() {
         const btn = document.getElementById('back-to-top');
         if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
@@ -498,7 +521,18 @@
                 </div>`;
         });
     }
-</script>
 
+
+// AVVIO: Sostituisci il vecchio DOMContentLoaded con la fetch
+document.addEventListener('DOMContentLoaded', () => {
+    // Avvio meteo e stato apertura (indipendenti dai dati)
+    checkOpenStatus();
+    fetchWeather();
+    checkConnectionSpeed();
+    
+    // Avvio caricamento dati
+    initDataFetch();
+});
+</script>
 </body>
 </html>
