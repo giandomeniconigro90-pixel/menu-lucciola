@@ -104,15 +104,16 @@
             scroll-snap-align: start; 
         }
 
-        .tab-btn-inner {
-            width: 90%; 
-            height: 42px;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-            border-radius: 30px;
-            font-size: 15px; color: #333333; font-weight: 500;
-            white-space: nowrap;
-            transition: all 0.2s ease;
-        }
+.tab-btn-inner {
+    width: 90%; 
+    height: 42px;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    border-radius: 30px;
+    font-size: 15px; color: #333333; font-weight: 600; /* Aumentato leggermente il peso base per ridurre lo scarto */
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    border: 2px solid transparent; /* ECCO LA SOLUZIONE: Prenota lo spazio */
+}
 
         @media (min-width: 600px) {
             .nav-scroll-area { padding: 0; scroll-snap-type: none; justify-content: center; overflow-x: hidden; }
