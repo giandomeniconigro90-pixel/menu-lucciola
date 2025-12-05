@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bar La Lucciola - Menù</title>
-    
+
     <!-- Logo sulla Tab del Browser (Favicon) -->
     <link rel="icon" type="image/png" href="images/icon_app.png">
     <link rel="apple-touch-icon" href="images/icon_app.png">
-    
+
     <meta name="theme-color" content="#2c2c2c">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -24,7 +24,7 @@
             --primary-color: #8B5A2B; 
             /* Crema caldo per sfondi light */
             --bg-accent-light: #fdf5e6; 
-            
+
             --accent-color: #d4af37;
             --bg-warm: #f8f9fa;
             --text-dark: #2c2c2c;
@@ -45,7 +45,7 @@
             -webkit-tap-highlight-color: transparent;
             transition: background-color 0.3s ease;
         }
-        
+
         @keyframes kenBurns { 0% { transform: scale(1); } 100% { transform: scale(1.15); } }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(76, 175, 80, 0); } 100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); } }
@@ -75,7 +75,7 @@
         .nav-mini-logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
 
         .nav-pill-wrapper { display: flex; align-items: center; height: 58px; border-radius: 50px; flex-grow: 1; overflow: hidden; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); transition: all 0.4s ease; }
-        
+
         /* --- SEARCH BAR --- */
         .search-container { width: 94%; max-width: 800px; margin: 10px auto 20px auto; opacity: 0; animation: fadeInUp 0.6s 0.3s forwards; position: relative; z-index: 5; }
         .search-input-wrapper { position: relative; display: flex; align-items: center; }
@@ -117,7 +117,7 @@
             .tab-btn:last-child { margin-right: 8px; } 
             .tab-btn-inner { width: auto; padding: 0 15px; }
         }
-        
+
         @media (min-width: 900px) {
             header { height: 380px; }
             .header-content { bottom: 30px; left: 50px; max-width: 40%; }
@@ -133,7 +133,7 @@
             font-weight: 700; 
             box-shadow: none;
         }
-        
+
         .tab-btn svg { width: 18px; height: 18px; stroke-width: 2; opacity: 0.7; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.2s ease; }
         .tab-btn.active svg { opacity: 1; stroke-width: 2.5; transform: scale(1.15); }
 
@@ -141,7 +141,7 @@
         .menu-container { max-width: 800px; margin: 0 auto; padding: 20px; padding-bottom: 100px; min-height: 600px; }
         h3 { color: var(--primary-color); font-family: 'Playfair Display', serif; margin: 10px 0 25px 0; font-size: 24px; font-weight: 700; display: flex; align-items: center; }
         h3::after { content: ''; flex-grow: 1; height: 2px; background: linear-gradient(to right, var(--primary-color), transparent); opacity: 0.2; margin-left: 15px; }
-        
+
         .menu-item { display: flex; justify-content: space-between; align-items: center; background: white; padding: 16px; margin-bottom: 15px; border-radius: 16px; box-shadow: var(--shadow-soft); border: 1px solid rgba(0,0,0,0.01); opacity: 0; animation: fadeInUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
         .item-info h4 { margin: 0; font-size: 17px; color: var(--text-dark); font-weight: 600; }
         .item-info p { margin: 5px 0 0 0; font-size: 13px; color: #888; line-height: 1.4; }
@@ -234,14 +234,14 @@
                         <svg viewBox="0 0 24 24"><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><path d="m20 16-4-4 4-4"></path><path d="m4 8 4 4-4 4"></path><path d="m16 4-4 4-4-4"></path><path d="m8 20 4-4 4 4"></path></svg>Fredde
                     </span>
                 </button>
-                <button class="tab-btn" onclick="showCategory('cocktail', this)">
+                <button class="tab-btn" onclick="showCategory('alcolici', this)">
                     <span class="tab-btn-inner">
-                        <svg viewBox="0 0 24 24"><path d="M8 22h8"></path><path d="M12 15v7"></path><path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"></path></svg>Cocktail
+                        <svg viewBox="0 0 24 24"><path d="M8 22h8"></path><path d="M12 15v7"></path><path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"></path></svg>Alcolici
                     </span>
                 </button>
                 <button class="tab-btn" onclick="showCategory('food', this)">
                     <span class="tab-btn-inner">
-                        <svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><path d="M9 3v2a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V3"></path><circle cx="12" cy="12" r="1"></circle></svg>Food
+                        <svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1-2-2h4"></path><path d="M9 3v2a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V3"></path><circle cx="12" cy="12" r="1"></circle></svg>Food
                     </span>
                 </button>
                 <button class="tab-btn" onclick="showCategory('dolci', this)">
@@ -370,19 +370,29 @@
     }
 
     function normalizeCategory(catString) {
-        // Mappa le categorie del foglio Google agli ID delle TAB HTML esistenti (calde, fredde, alcolici, food, dolci)
         const c = catString.toLowerCase();
-        if(c.includes('caff') || c.includes('cald')) return 'calde';
+
+        // Caffetteria
+        if(c.includes('caff') || c.includes('cald') || c.includes('tè') || c.includes('tisane')) return 'calde';
+
+        // Bibite Fredde
         if(c.includes('fredd') || c.includes('bibit') || c.includes('succh') || c.includes('acqu')) return 'fredde';
-        if(c.includes('alcol') || c.includes('vin') || c.includes('birr') || c.includes('cocktail') || c.includes('amar')) return 'alcolici';
-        if(c.includes('cib') || c.includes('food') || c.includes('panin') || c.includes('snack')) return 'food';
-        if(c.includes('dolc') || c.includes('dessert') || c.includes('gelat')) return 'dolci';
+
+        // ALCOLICI (Tutto qui dentro!)
+        if(c.includes('alcol') || c.includes('vin') || c.includes('birr') || c.includes('cocktail') || c.includes('amar') || c.includes('spritz') || c.includes('liquor')) return 'alcolici';
+
+        // Cibo
+        if(c.includes('cib') || c.includes('food') || c.includes('panin') || c.includes('snack') || c.includes('taglier') || c.includes('focacc')) return 'food';
+
+        // Dolci
+        if(c.includes('dolc') || c.includes('dessert') || c.includes('gelat') || c.includes('tort')) return 'dolci';
+
         return 'altro';
     }
-    
+
 
     // --- FUNZIONI UI ORIGINALI ---
-    
+
     window.onscroll = function() {
         const btn = document.getElementById('back-to-top');
         if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
