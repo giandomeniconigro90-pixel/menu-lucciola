@@ -73,14 +73,76 @@
         .weather-badge svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
         .weather-badge.snow { background: rgba(200, 230, 255, 0.25); color: #fff; border-color: rgba(255,255,255,0.4); }
 
-        /* --- STICKY NAV --- */
-        .sticky-nav-container { position: sticky; top: 10px; z-index: 100; margin-top: -40px; padding: 0; display: flex; flex-direction: column; align-items: center; pointer-events: none; transition: all 0.3s ease; }
-        .nav-cluster { display: flex; align-items: center; gap: 10px; pointer-events: auto; width: 94%; justify-content: center; max-width: 800px; margin-bottom: 10px;}
-        .logo-circle { width: 58px; height: 58px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); transition: all 0.4s ease; }
+        /* --- STICKY NAV & ANIMATION --- */
+        .sticky-nav-container { 
+            position: sticky; top: 10px; z-index: 100; 
+            margin-top: -40px; padding: 0; 
+            display: flex; flex-direction: column; align-items: center; 
+            pointer-events: none; 
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Animazione fluida */
+        }
+        
+        .nav-cluster { 
+            display: flex; align-items: center; gap: 10px; 
+            pointer-events: auto; width: 94%; justify-content: center; 
+            max-width: 800px; margin-bottom: 10px;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .logo-circle { 
+            width: 58px; height: 58px; border-radius: 50%; flex-shrink: 0; 
+            display: flex; align-items: center; justify-content: center; 
+            background-color: rgba(255, 255, 255, 0.45); 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15); 
+            border: 1px solid rgba(255,255,255,0.4); 
+            transition: all 0.4s ease; 
+        }
         .nav-mini-logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
 
-        .nav-pill-wrapper { display: flex; align-items: center; height: 58px; border-radius: 50px; flex-grow: 1; overflow: hidden; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); transition: all 0.4s ease; }
+        .nav-pill-wrapper { 
+            display: flex; align-items: center; height: 58px; 
+            border-radius: 50px; flex-grow: 1; overflow: hidden; 
+            background-color: rgba(255, 255, 255, 0.45); 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15); 
+            border: 1px solid rgba(255,255,255,0.4); 
+            transition: all 0.4s ease; 
+        }
+
+        /* CLASSE PER LO SPOSTAMENTO A DESTRA */
+        .sticky-nav-container.scrolled-right {
+            align-items: flex-end; /* Sposta tutto a destra */
+            top: 20px;
+            padding-right: 15px; /* Margine dal bordo destro */
+        }
         
+        .sticky-nav-container.scrolled-right .nav-cluster {
+            width: auto; /* Diventa compatto */
+            flex-direction: row-reverse; /* Logo a destra */
+            gap: 8px;
+        }
+
+        .sticky-nav-container.scrolled-right .logo-circle {
+            width: 45px; height: 45px; /* Logo più piccolo */
+            background-color: rgba(255, 255, 255, 0.9); /* Più solido per visibilità */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .sticky-nav-container.scrolled-right .nav-mini-logo { width: 35px; height: 35px; }
+
+        .sticky-nav-container.scrolled-right .nav-pill-wrapper {
+            width: 260px; /* Larghezza fissa compatta */
+            height: 45px; /* Altezza ridotta */
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+        }
+        
+        /* Nascondi le barre laterali inutili quando compattato */
+        .sticky-nav-container.scrolled-right .tab-btn-inner {
+            font-size: 13px; padding: 0 10px;
+        }
+
+
         /* --- SEARCH BAR --- */
         .search-container { width: 94%; max-width: 800px; margin: 10px auto 20px auto; opacity: 0; animation: fadeInUp 0.6s 0.3s forwards; position: relative; z-index: 5; }
         .search-input-wrapper { position: relative; display: flex; align-items: center; }
@@ -203,9 +265,15 @@
         body.lite-mode .status-badge, body.lite-mode .weather-badge { background: rgba(0,0,0,0.1); border: none; color: white; }
         body.lite-mode .header-content h1 { font-size: 28px; text-shadow: none; font-style: normal; }
         body.lite-mode .subtitle { opacity: 0.8; font-size: 14px; text-shadow: none; }
+        
+        /* Lite Mode - Navigazione compatta */
         body.lite-mode .sticky-nav-container { position: sticky; top: 0; z-index: 100; margin-top: 0; padding-top: 15px; background-color: #f9f7f2; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         body.lite-mode .nav-cluster { display: flex; }
         body.lite-mode .logo-circle, body.lite-mode .nav-pill-wrapper { background-color: #ffffff !important; border: 2px solid #e6e6e6; box-shadow: 0 2px 6px rgba(0,0,0,0.05); backdrop-filter: none !important; }
+        body.lite-mode .sticky-nav-container.scrolled-right { top: 0; padding-right: 0; align-items: center; } /* Disabilita animazione destra in lite */
+        body.lite-mode .sticky-nav-container.scrolled-right .nav-cluster { flex-direction: row; width: 94%; }
+        body.lite-mode .sticky-nav-container.scrolled-right .nav-pill-wrapper { width: auto; height: 58px; border-radius: 50px; background: #fff; }
+
         body.lite-mode .menu-item { animation: none !important; opacity: 1 !important; box-shadow: none; border: 1px solid #e0dec0; background: #fff; margin-bottom: 10px; }
         body.lite-mode .item-price { background-color: var(--bg-accent-light); color: var(--primary-color); }
         body.lite-mode #lite-switch { background: #d4af37 !important; color: #000 !important; border: 2px solid white !important; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
@@ -253,7 +321,7 @@
     </div>
 </header>
 
-<div class="sticky-nav-container">
+<div id="sticky-nav" class="sticky-nav-container">
     <div class="nav-cluster">
         <div class="logo-circle"><img src="images/icon_app.png" alt="Logo" class="nav-mini-logo"></div>
         <div class="nav-pill-wrapper">
@@ -372,8 +440,6 @@
 
     function transformCsvToMenu(csvData) {
         menuData = {}; 
-        
-        // Reset Banner
         const banner = document.getElementById('alert-banner');
         banner.style.display = 'none';
 
@@ -389,17 +455,13 @@
         csvData.forEach(row => {
             if(!row.categoria || !row.nome) return;
 
-            // --- LOGICA AVVISI (Nuova) ---
-            // Se la categoria è AVVISO, mostra il banner e non aggiunge al menu
             if(row.categoria.toUpperCase().includes('AVVISO')) {
                 if(row.disponibile && (row.disponibile.toLowerCase() === 'no' || row.disponibile.toLowerCase() === 'false')) return;
-                
                 const text = row.descrizione ? `${row.nome} - ${row.descrizione}` : row.nome;
                 banner.innerHTML = `🔔 ${text}`;
                 banner.style.display = 'block';
-                return; // Salta il resto per questa riga
+                return;
             }
-            // -----------------------------
 
             if(row.disponibile && (row.disponibile.toLowerCase() === 'no' || row.disponibile.toLowerCase() === 'false')) return;
 
@@ -452,12 +514,19 @@
         }
     }
 
+    // GESTIONE SCROLL ANIMATO NAVBAR
     window.onscroll = function() {
-        const btn = document.getElementById('back-to-top');
-        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-            btn.style.display = "flex";
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const nav = document.getElementById('sticky-nav');
+        const backToTop = document.getElementById('back-to-top');
+        
+        // Soglia per attivare lo spostamento laterale (dopo l'header, circa 280px)
+        if (scrollTop > 280) {
+            nav.classList.add('scrolled-right');
+            backToTop.style.display = "flex";
         } else {
-            btn.style.display = "none";
+            nav.classList.remove('scrolled-right');
+            backToTop.style.display = "none";
         }
     };
     
@@ -504,12 +573,6 @@
         } catch (e) { console.log("Meteo non disponibile"); }
     }
 
-    function toggleLiteMode() {
-        const body = document.body; const btn = document.getElementById('lite-switch');
-        body.classList.toggle('lite-mode'); 
-        btn.innerHTML = body.classList.contains('lite-mode') ? "🚀 Normal" : "⚡ Lite";
-    }
-
     function showCategory(catId, btnElement) {
         const isLite = document.body.classList.contains('lite-mode');
         document.getElementById('menu-search').value = '';
@@ -520,10 +583,7 @@
 
         if(data) {
             container.innerHTML = `<h3>${data.title}</h3>`;
-
-            // LOGICA SOTTOCATEGORIE
             const subcats = [...new Set(data.items.map(i => i.subcategory))].sort();
-            
             if(subcats.length > 1) {
                 const preferredOrder = ['Aperitivi', 'Cocktail', 'Birre', 'Vini', 'Amari', 'Liquori', 'Grappe'];
                 subcats.sort((a,b) => {
@@ -534,7 +594,6 @@
                     if (idxB !== -1) return 1;
                     return a.localeCompare(b);
                 });
-
                 subcats.forEach(sub => {
                     container.innerHTML += `<h4 class="subcategory-title">${sub}</h4>`;
                     const groupItems = data.items.filter(i => i.subcategory === sub);
