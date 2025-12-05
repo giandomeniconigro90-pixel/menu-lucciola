@@ -373,21 +373,33 @@
             btn.style.display = "none";
         }
     };
+    
     function scrollToTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
 
     function checkOpenStatus() {
-        const now = new Date(); const hour = now.getHours(); const el = document.getElementById('status-indicator');
+        const now = new Date(); 
+        const hour = now.getHours(); 
+        const el = document.getElementById('status-indicator');
+        
+        // Logica Orario: Aperto dalle 07:00 alle 24:00
         const isOpen = hour >= 7 && hour < 24; 
-        if(isOpen) { el.innerHTML = '<span class="status-dot"></span> Aperto'; el.classList.add('open'); el.classList.remove('closed'); } 
-        else { el.innerHTML = '<span class="status-dot"></span> Chiuso'; el.classList.add('closed'); el.classList.remove('open'); }
-    }
+        
+        if(isOpen) { 
+            el.innerHTML = '<span class="status-dot"></span> Aperto'; 
+            el.classList.add('open'); 
+            el.classList.remove('closed'); 
+        } else { 
+            el.innerHTML = '<span class="status-dot"></span> Chiuso'; 
+            el.classList.add('closed'); 
+            el.classList.remove('open'); 
+        }
+    } // <--- QUESTA parentesi era probabilmente il problema!
 
-             async function fetchWeather() {
-        const weatherEl = document.getElementById('weather-indicator'); 
+    async function fetchWeather() {
+        const weatherEl = document.getElementById('weather-indicator');
         // Coordinate Laceno
         const lat = 40.8106; 
         const lon = 15.1127;
-        
         const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
         
         try {
@@ -397,35 +409,17 @@
             const code = data.current_weather.weathercode;
             
             let iconSvg = '';
-            
-            // Codici WMO Weather (0=Sereno, 1-3=Nuvoloso, 50+=Pioggia, 70+=Neve)
-            if(code <= 1) {
-                // SOLE
-                iconSvg = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>'; 
-            } else if (code <= 3) {
-                // NUVOLA
-                iconSvg = '<svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>';
-            } else if (code >= 45 && code <= 48) {
-                // NEBBIA
-                iconSvg = '<svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M5 16h14"/><path d="M5 20h14"/><path d="M5 8h14"/></svg>';
-            } else if (code >= 71 && code <= 77) { 
-                // NEVE
-                iconSvg = '<svg viewBox="0 0 24 24"><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><path d="m20 16-4-4 4-4"></path><path d="m4 8 4 4-4 4"></path><path d="m16 4-4 4-4-4"></path><path d="m8 20 4-4 4 4"></path></svg>'; 
-                weatherEl.classList.add('snow'); 
-            } else if (code >= 95) {
-                // TEMPORALE
-                iconSvg = '<svg viewBox="0 0 24 24"><path d="M19 16.9A5 5 0 0 0 18 7h-1.26a8 8 0 1 0-11.62 9"></path><polyline points="13 11 9 17 15 17 11 23"></polyline></svg>';
-            } else {
-                // PIOGGIA (Default per altri codici)
-                iconSvg = '<svg viewBox="0 0 24 24"><line x1="16" y1="13" x2="16" y2="21"></line><line x1="8" y1="13" x2="8" y2="21"></line><line x1="12" y1="15" x2="12" y2="23"></line><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"></path></svg>';
-            }
+            if(code <= 1) iconSvg = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>'; 
+            else if (code <= 3) iconSvg = '<svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>';
+            else if (code >= 45 && code <= 48) iconSvg = '<svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M5 16h14"/><path d="M5 20h14"/><path d="M5 8h14"/></svg>';
+            else if (code >= 71 && code <= 77) { iconSvg = '<svg viewBox="0 0 24 24"><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><path d="m20 16-4-4 4-4"></path><path d="m4 8 4 4-4 4"></path><path d="m16 4-4 4-4-4"></path><path d="m8 20 4-4 4 4"></path></svg>'; weatherEl.classList.add('snow'); }
+            else if (code >= 95) iconSvg = '<svg viewBox="0 0 24 24"><path d="M19 16.9A5 5 0 0 0 18 7h-1.26a8 8 0 1 0-11.62 9"></path><polyline points="13 11 9 17 15 17 11 23"></polyline></svg>';
+            else iconSvg = '<svg viewBox="0 0 24 24"><line x1="16" y1="13" x2="16" y2="21"></line><line x1="8" y1="13" x2="8" y2="21"></line><line x1="12" y1="15" x2="12" y2="23"></line><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"></path></svg>';
 
             weatherEl.innerHTML = `${iconSvg} ${temp}°C`; 
             weatherEl.style.display = 'inline-flex'; 
-        } catch (e) { 
-            console.log("Meteo non disponibile"); 
-        }
-    
+        } catch (e) { console.log("Meteo non disponibile"); }
+    }
 
     function toggleLiteMode() {
         const body = document.body; const btn = document.getElementById('lite-switch');
@@ -442,7 +436,7 @@
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); if(btnElement) btnElement.classList.add('active');
 
         if(data) {
-            container.innerHTML = `<h3>${data.title}</h3>`; // Questo ora userà "Alcolici" forzato
+            container.innerHTML = `<h3>${data.title}</h3>`;
             renderItems(data.items, container, isLite);
         }
     }
@@ -494,6 +488,7 @@
         });
     }
 
+    // AVVIO
     document.addEventListener('DOMContentLoaded', () => {
         checkOpenStatus();
         fetchWeather();
