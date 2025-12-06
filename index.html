@@ -30,8 +30,6 @@
             --status-closed: #ff5252;
             --allergen-bg: rgba(0,0,0,0.05);
             --google-blue: #4285F4;
-            /* Larghezza fissa ottimale per mantenere l'aspetto "pillola" su tutti i device */
-            --nav-pill-width: 600px; 
         }
 
         /* --- BASE --- */
@@ -65,11 +63,9 @@
         header::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.8) 100%); z-index: 1; }
 
         .header-content { 
-            position: absolute; bottom: 70px; left: 50%; transform: translateX(-50%); 
-            color: white; z-index: 2; width: 92%; max-width: var(--nav-pill-width); 
+            position: absolute; bottom: 70px; left: 20px; 
+            color: white; z-index: 2; width: auto; max-width: 90%; 
             transition: all 0.3s ease; 
-            /* Allineato a sinistra come nel design originale, ma dentro il contenitore centrato */
-            text-align: left; 
         }
         .header-content h1 { font-family: 'Playfair Display', serif; font-size: 34px; margin-bottom: 2px; font-weight: 700; font-style: italic; text-shadow: 0 2px 10px rgba(0,0,0,0.6); }
         .subtitle { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 400; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 1px 5px rgba(0,0,0,0.5); margin-bottom: 10px; }
@@ -92,53 +88,87 @@
             transition: transform 0.4s cubic-bezier(0.215, 0.610, 0.355, 1);
             width: 100%;
         }
-        
         .sticky-nav-container.nav-hidden { transform: translateY(-150%); }
 
-        /* --- NAV BAR CRITICA --- */
+        /* 
+           --- NAV BAR & LAYOUT (MOBILE FIRST) --- 
+           Su Mobile (default) usa width: 95% per sfruttare lo spazio.
+           Su Tablet/Desktop (min-width: 768px) blocca la larghezza.
+        */
         .nav-cluster { 
             display: flex; align-items: center; gap: 10px; 
             pointer-events: auto; 
-            width: 92%; /* Margin laterale mobile */
-            max-width: var(--nav-pill-width); /* BLOCCO LARGHEZZA MASSIMA PERFETTA SU DESKTOP/TABLET */
             justify-content: center; 
             margin-bottom: 10px;
+            
+            /* MOBILE DEFAULT: Fluido */
+            width: 95%; 
+            margin-left: auto; margin-right: auto;
         }
 
+        .search-container { 
+            margin: 10px auto 20px auto; 
+            opacity: 0; animation: fadeInUp 0.6s 0.3s forwards; 
+            position: relative; z-index: 5;
+            
+            /* MOBILE DEFAULT: Fluido */
+            width: 95%; 
+        }
+
+        .menu-container { 
+            margin: 0 auto; padding: 0; padding-bottom: 50px; min-height: 400px; 
+            
+            /* MOBILE DEFAULT: Fluido */
+            width: 95%;
+        }
+        
+        footer {
+            background-color: white; padding: 30px 20px; margin-top: 20px; border-top-left-radius: 30px; border-top-right-radius: 30px; box-shadow: 0 -10px 40px rgba(0,0,0,0.03); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+            /* MOBILE DEFAULT: Fluido */
+            width: 100%; box-sizing: border-box;
+        }
+
+        /* --- OVERRIDE PER TABLET E DESKTOP (>768px) --- */
+        @media (min-width: 768px) {
+            .nav-cluster, .search-container, .menu-container {
+                max-width: 580px; /* BLOCCA LARGHEZZA A 'PILLOLA' */
+            }
+            footer {
+                max-width: 580px; margin-left: auto; margin-right: auto;
+                border-radius: 30px; margin-bottom: 20px; /* Footer flottante carino su desktop */
+            }
+            
+            /* Header leggermente più alto su desktop */
+            header { height: 320px; }
+            .header-content { bottom: 50px; left: 50%; transform: translateX(-50%); text-align: center; width: 100%; max-width: 580px; }
+            .info-cluster { justify-content: center; }
+        }
+
+        /* --- COMPONENTI --- */
         .logo-circle { width: 58px; height: 58px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); transition: all 0.4s ease; }
         .nav-mini-logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
 
         .nav-pill-wrapper { display: flex; align-items: center; height: 58px; border-radius: 50px; flex-grow: 1; overflow: hidden; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); transition: all 0.4s ease; }
         
-        /* --- SEARCH BAR --- */
-        .search-container { 
-            width: 92%; 
-            max-width: var(--nav-pill-width); /* Stesso allineamento della barra nav */
-            margin: 10px auto 20px auto; 
-            opacity: 0; animation: fadeInUp 0.6s 0.3s forwards; 
-            position: relative; z-index: 5; 
-        }
         .search-input-wrapper { position: relative; display: flex; align-items: center; }
         .search-input { width: 100%; height: 45px; border-radius: 12px; border: none; padding-left: 45px; padding-right: 15px; font-family: 'Inter', sans-serif; font-size: 15px; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0,0,0,0.05); outline: none; transition: all 0.3s; }
         .search-input:focus { background: white; box-shadow: 0 6px 20px rgba(0,0,0,0.08); transform: translateY(-1px); }
         .search-icon { position: absolute; left: 15px; color: #999; width: 18px; height: 18px; }
 
-        /* --- LOGICA SCROLL --- */
         .nav-scroll-area {
             display: flex; align-items: center; overflow-x: auto; height: 100%; width: 100%;
             padding: 0; scroll-snap-type: x mandatory; scrollbar-width: none;
-            /* Su desktop usiamo justify-content per riempire bene lo spazio */
         }
         .nav-scroll-area::-webkit-scrollbar { display: none; }
 
         .tab-btn {
             background: transparent; border: none; height: 100%; 
-            flex: 1; /* Distribuisce equamente lo spazio disponibile */
+            flex: 1; /* Distribuzione equa spazio */
             margin: 0; padding: 0;
             cursor: pointer; 
             display: flex; align-items: center; justify-content: center;
             scroll-snap-align: start; 
-            min-width: 70px; /* Minima larghezza per evitare che si schiaccino troppo su mobile piccolissimi */
+            min-width: 65px; /* Protezione schiacciamento su mobile micro */
         }
 
         .tab-btn-inner {
@@ -150,21 +180,12 @@
             border: 2px solid transparent; 
         }
 
-        /* Media query per schermi molto piccoli (evita sovrapposizioni) */
+        /* Icon only su schermi piccolissimi */
         @media (max-width: 360px) {
-             .tab-btn-inner span { display: none; } /* Solo icone su schermi minuscoli */
+             .tab-btn-inner span { display: none; } 
              .tab-btn-inner { width: 40px; padding: 0; }
         }
 
-        /* --- MEDIA QUERY AGGIUNTIVE PER RESPONSIVITÀ FLUIDA --- */
-        @media (min-width: 768px) {
-            /* Su Tablet e Desktop aumentiamo leggermente header e spaziature */
-            header { height: 320px; }
-            .header-content { bottom: 50px; }
-            .header-content h1 { font-size: 42px; }
-        }
-
-        /* --- STILE SELEZIONE --- */
         .tab-btn.active .tab-btn-inner { 
             background-color: rgba(139, 90, 43, 0.08);
             border: 2px solid var(--primary-color);
@@ -177,15 +198,9 @@
         .tab-btn.active svg { opacity: 1; stroke-width: 2.5; transform: scale(1.15); }
 
         /* --- CONTENUTO --- */
-        .menu-container { 
-            width: 92%; 
-            max-width: var(--nav-pill-width); /* Allineato perfettamente al resto */
-            margin: 0 auto; padding: 0; padding-bottom: 50px; min-height: 400px; 
-        }
         h3 { color: var(--primary-color); font-family: 'Playfair Display', serif; margin: 10px 0 25px 0; font-size: 24px; font-weight: 700; display: flex; align-items: center; }
         h3::after { content: ''; flex-grow: 1; height: 2px; background: linear-gradient(to right, var(--primary-color), transparent); opacity: 0.2; margin-left: 15px; }
         
-        /* SOTTOTITOLI */
         .subcategory-title {
             color: var(--text-dark); font-family: 'Playfair Display', serif;
             font-size: 19px; font-weight: 600; margin: 25px 0 12px 5px;
@@ -223,9 +238,6 @@
         .review-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--google-blue); color: white; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: 600; box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3); transition: transform 0.2s; font-size: 14px; }
         .review-btn:active { transform: scale(0.95); }
 
-        footer { background-color: white; padding: 30px 20px; margin-top: 20px; border-top-left-radius: 30px; border-top-right-radius: 30px; box-shadow: 0 -10px 40px rgba(0,0,0,0.03); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; 
-            width: 100%; max-width: var(--nav-pill-width); margin-left: auto; margin-right: auto;
-        }
         .footer-info { text-align: left; }
         .footer-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
         .footer-address { font-size: 0.85rem; color: var(--text-gray); margin-bottom: 8px; text-decoration: none; display: block; transition: color 0.2s; }
@@ -241,21 +253,24 @@
         body.lite-mode { background-color: #f9f7f2; }
         body.lite-mode header { height: 130px; background: linear-gradient(135deg, #5D4037 0%, #8D6E63 100%); border-bottom: 4px solid #d4af37; display: flex; align-items: center; justify-content: center; }
         body.lite-mode header::before { display: none; animation: none; }
-        body.lite-mode .header-content { position: static; transform: none; margin-top: 10px; text-align: center; bottom: auto; left: auto; max-width: 100%; }
+        body.lite-mode .header-content { position: static; transform: none; margin-top: 10px; text-align: center; bottom: auto; left: auto; width: 100%; max-width: 100%; }
         body.lite-mode .info-cluster { justify-content: center; }
         body.lite-mode .status-badge, body.lite-mode .weather-badge { background: rgba(0,0,0,0.1); border: none; color: white; }
         body.lite-mode .header-content h1 { font-size: 28px; text-shadow: none; font-style: normal; }
         body.lite-mode .subtitle { opacity: 0.8; font-size: 14px; text-shadow: none; }
         
         body.lite-mode .sticky-nav-container { position: sticky; top: 0; z-index: 100; margin-top: 0; padding-top: 15px; background-color: #f9f7f2; box-shadow: 0 4px 10px rgba(0,0,0,0.05); width: 100%; }
-        body.lite-mode .nav-cluster { display: flex; width: 92%; max-width: var(--nav-pill-width); margin-left: auto; margin-right: auto; }
+        
+        /* LITE MODE: ANCHE QUI MANTENIAMO LA LOGICA MOBILE/DESKTOP */
+        body.lite-mode .nav-cluster { display: flex; width: 95%; margin-left: auto; margin-right: auto; }
+        @media (min-width: 768px) { body.lite-mode .nav-cluster { max-width: 580px; } }
+
         body.lite-mode .logo-circle, body.lite-mode .nav-pill-wrapper { background-color: #ffffff !important; border: 2px solid #e6e6e6; box-shadow: 0 2px 6px rgba(0,0,0,0.05); backdrop-filter: none !important; }
         
         body.lite-mode .menu-item { animation: none !important; opacity: 1 !important; box-shadow: none; border: 1px solid #e0dec0; background: #fff; margin-bottom: 10px; }
         body.lite-mode .item-price { background-color: var(--bg-accent-light); color: var(--primary-color); }
         body.lite-mode #lite-switch { background: #d4af37 !important; color: #000 !important; border: 2px solid white !important; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
         body.lite-mode .search-input { background: #fff; border: 1px solid #ddd; box-shadow: none; }
-        @media (orientation: landscape) { .nav-cluster { width: 92%; max-width: var(--nav-pill-width); } }
     </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
