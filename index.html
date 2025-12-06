@@ -47,7 +47,7 @@
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(76, 175, 80, 0); } 100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); } }
 
-        /* --- ALERT BANNER (Avvisi da CSV) --- */
+        /* --- ALERT BANNER --- */
         #alert-banner {
             background: #ff9800; color: white; text-align: center; 
             padding: 12px 20px; font-weight: 600; display: none; 
@@ -79,14 +79,15 @@
             margin-top: -40px; padding: 0; 
             display: flex; flex-direction: column; align-items: center; 
             pointer-events: none; 
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Animazione fluida */
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            width: 100%;
         }
         
         .nav-cluster { 
             display: flex; align-items: center; gap: 10px; 
             pointer-events: auto; width: 94%; justify-content: center; 
             max-width: 800px; margin-bottom: 10px;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         .logo-circle { 
@@ -96,9 +97,9 @@
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
             box-shadow: 0 8px 20px rgba(0,0,0,0.15); 
             border: 1px solid rgba(255,255,255,0.4); 
-            transition: all 0.4s ease; 
+            transition: all 0.5s ease; 
         }
-        .nav-mini-logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
+        .nav-mini-logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; transition: all 0.5s; }
 
         .nav-pill-wrapper { 
             display: flex; align-items: center; height: 58px; 
@@ -107,39 +108,76 @@
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
             box-shadow: 0 8px 20px rgba(0,0,0,0.15); 
             border: 1px solid rgba(255,255,255,0.4); 
-            transition: all 0.4s ease; 
+            transition: all 0.5s ease; 
         }
 
-        /* CLASSE PER LO SPOSTAMENTO A DESTRA */
-        .sticky-nav-container.scrolled-right {
-            align-items: flex-end; /* Sposta tutto a destra */
-            top: 20px;
-            padding-right: 15px; /* Margine dal bordo destro */
+        /* --- ANIMAZIONE VERTICALE A DESTRA --- */
+        .sticky-nav-container.scrolled-vertical {
+            top: 100px; /* Posizione verticale iniziale */
+            width: auto;
+            right: 10px; /* Agganciato a destra */
+            position: fixed;
+            margin-top: 0;
+            align-items: flex-end;
+            transform: translateX(0);
         }
         
-        .sticky-nav-container.scrolled-right .nav-cluster {
-            width: auto; /* Diventa compatto */
-            flex-direction: row-reverse; /* Logo a destra */
-            gap: 8px;
+        .sticky-nav-container.scrolled-vertical .nav-cluster {
+            flex-direction: column; /* Impila verticalmente */
+            width: 60px; /* Larghezza fissa colonna */
+            gap: 15px;
         }
 
-        .sticky-nav-container.scrolled-right .logo-circle {
-            width: 45px; height: 45px; /* Logo più piccolo */
-            background-color: rgba(255, 255, 255, 0.9); /* Più solido per visibilità */
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        .sticky-nav-container.scrolled-vertical .logo-circle {
+            width: 50px; height: 50px;
+            background-color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
-        .sticky-nav-container.scrolled-right .nav-mini-logo { width: 35px; height: 35px; }
 
-        .sticky-nav-container.scrolled-right .nav-pill-wrapper {
-            width: 260px; /* Larghezza fissa compatta */
-            height: 45px; /* Altezza ridotta */
-            background-color: rgba(255, 255, 255, 0.95);
+        .sticky-nav-container.scrolled-vertical .nav-pill-wrapper {
+            height: auto; /* Altezza automatica per contenere i bottoni verticali */
+            width: 50px;
+            flex-direction: column;
+            background-color: white;
             border-radius: 25px;
+            padding: 10px 0;
+            border: 1px solid rgba(0,0,0,0.05);
         }
         
-        /* Nascondi le barre laterali inutili quando compattato */
-        .sticky-nav-container.scrolled-right .tab-btn-inner {
-            font-size: 13px; padding: 0 10px;
+        .sticky-nav-container.scrolled-vertical .nav-scroll-area {
+            flex-direction: column; /* Bottoni uno sotto l'altro */
+            height: auto;
+            width: 100%;
+            gap: 5px;
+        }
+
+        .sticky-nav-container.scrolled-vertical .tab-btn {
+            width: 100%; height: 50px;
+            margin: 0;
+        }
+
+        /* Nasconde il testo quando è verticale, mostra solo icone */
+        .sticky-nav-container.scrolled-vertical .tab-btn-inner {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            padding: 0;
+            justify-content: center;
+        }
+        .sticky-nav-container.scrolled-vertical .tab-btn-inner svg {
+             margin: 0;
+        }
+        
+        /* Nasconde il testo span dentro il bottone solo quando in mode verticale */
+        .sticky-nav-container.scrolled-vertical .tab-btn-inner span {
+            display: none; /* Fallback se non funziona textNode */
+            font-size: 0;
+        }
+        /* Trucco CSS per nascondere il testo ma lasciare SVG visibile */
+        .sticky-nav-container.scrolled-vertical .tab-btn-inner {
+            font-size: 0; 
+        }
+        .sticky-nav-container.scrolled-vertical .tab-btn-inner svg {
+            width: 22px; height: 22px; 
         }
 
 
@@ -154,6 +192,7 @@
         .nav-scroll-area {
             display: flex; align-items: center; overflow-x: auto; height: 100%; width: 100%;
             padding: 0; scroll-snap-type: x mandatory; scrollbar-width: none;
+            transition: all 0.3s;
         }
         .nav-scroll-area::-webkit-scrollbar { display: none; }
 
@@ -164,6 +203,7 @@
             cursor: pointer; 
             display: flex; align-items: center; justify-content: center;
             scroll-snap-align: start; 
+            transition: all 0.3s;
         }
 
         .tab-btn-inner {
@@ -206,7 +246,7 @@
         h3 { color: var(--primary-color); font-family: 'Playfair Display', serif; margin: 10px 0 25px 0; font-size: 24px; font-weight: 700; display: flex; align-items: center; }
         h3::after { content: ''; flex-grow: 1; height: 2px; background: linear-gradient(to right, var(--primary-color), transparent); opacity: 0.2; margin-left: 15px; }
         
-        /* SOTTOTITOLI (Es. Cocktail, Birre...) */
+        /* SOTTOTITOLI */
         .subcategory-title {
             color: var(--text-dark); font-family: 'Playfair Display', serif;
             font-size: 19px; font-weight: 600; margin: 25px 0 12px 5px;
@@ -266,13 +306,17 @@
         body.lite-mode .header-content h1 { font-size: 28px; text-shadow: none; font-style: normal; }
         body.lite-mode .subtitle { opacity: 0.8; font-size: 14px; text-shadow: none; }
         
-        /* Lite Mode - Navigazione compatta */
-        body.lite-mode .sticky-nav-container { position: sticky; top: 0; z-index: 100; margin-top: 0; padding-top: 15px; background-color: #f9f7f2; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        body.lite-mode .nav-cluster { display: flex; }
+        /* In lite mode disattiviamo l'animazione laterale complessa */
+        body.lite-mode .sticky-nav-container { position: sticky; top: 0; z-index: 100; margin-top: 0; padding-top: 15px; background-color: #f9f7f2; box-shadow: 0 4px 10px rgba(0,0,0,0.05); width: 100%; }
+        body.lite-mode .nav-cluster { display: flex; width: 94%; flex-direction: row; }
         body.lite-mode .logo-circle, body.lite-mode .nav-pill-wrapper { background-color: #ffffff !important; border: 2px solid #e6e6e6; box-shadow: 0 2px 6px rgba(0,0,0,0.05); backdrop-filter: none !important; }
-        body.lite-mode .sticky-nav-container.scrolled-right { top: 0; padding-right: 0; align-items: center; } /* Disabilita animazione destra in lite */
-        body.lite-mode .sticky-nav-container.scrolled-right .nav-cluster { flex-direction: row; width: 94%; }
-        body.lite-mode .sticky-nav-container.scrolled-right .nav-pill-wrapper { width: auto; height: 58px; border-radius: 50px; background: #fff; }
+        
+        body.lite-mode .sticky-nav-container.scrolled-vertical { position: sticky; top: 0; width: 100%; right: auto; transform: none; align-items: center; }
+        body.lite-mode .sticky-nav-container.scrolled-vertical .nav-cluster { flex-direction: row; width: 94%; gap: 10px; }
+        body.lite-mode .sticky-nav-container.scrolled-vertical .nav-pill-wrapper { flex-direction: row; width: 100%; height: 58px; }
+        body.lite-mode .sticky-nav-container.scrolled-vertical .nav-scroll-area { flex-direction: row; height: 100%; }
+        body.lite-mode .sticky-nav-container.scrolled-vertical .tab-btn { width: auto; height: 100%; }
+        body.lite-mode .sticky-nav-container.scrolled-vertical .tab-btn-inner { width: auto; height: 42px; font-size: 15px; border-radius: 30px; }
 
         body.lite-mode .menu-item { animation: none !important; opacity: 1 !important; box-shadow: none; border: 1px solid #e0dec0; background: #fff; margin-bottom: 10px; }
         body.lite-mode .item-price { background-color: var(--bg-accent-light); color: var(--primary-color); }
@@ -403,7 +447,6 @@
         <svg class="wifi-icon-large" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
         <h3>Wi-Fi Gratuito</h3>
         <p>Connettiti alla rete "La Lucciola"</p>
-        <!-- CAMBIA LA PASSWORD QUI SOTTO -->
         <div class="wifi-pass">Lucciola2025</div>
     </div>
 </div>
@@ -514,18 +557,17 @@
         }
     }
 
-    // GESTIONE SCROLL ANIMATO NAVBAR
+    // GESTIONE SCROLL ANIMATO NAVBAR (VERTICALE A DESTRA)
     window.onscroll = function() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         const nav = document.getElementById('sticky-nav');
         const backToTop = document.getElementById('back-to-top');
         
-        // Soglia per attivare lo spostamento laterale (dopo l'header, circa 280px)
         if (scrollTop > 280) {
-            nav.classList.add('scrolled-right');
+            nav.classList.add('scrolled-vertical');
             backToTop.style.display = "flex";
         } else {
-            nav.classList.remove('scrolled-right');
+            nav.classList.remove('scrolled-vertical');
             backToTop.style.display = "none";
         }
     };
