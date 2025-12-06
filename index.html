@@ -62,7 +62,7 @@
 
         .header-content { 
             position: absolute; 
-            bottom: 70px; /* ABBASSATO ANCORA (era 90px) */
+            bottom: 70px; 
             left: 20px; 
             color: white; 
             z-index: 2; 
@@ -73,7 +73,7 @@
         }
         .header-content h1 { 
             font-family: 'Playfair Display', serif; 
-            font-size: 24px; /* RIMPICCIOLITO (era 26px) */
+            font-size: 24px; 
             margin-bottom: 2px; 
             font-weight: 700; 
             font-style: italic; 
@@ -81,7 +81,7 @@
         }
         .subtitle { 
             font-family: 'Inter', sans-serif; 
-            font-size: 10px; /* RIMPICCIOLITO (era 11px) */
+            font-size: 10px; 
             font-weight: 400; 
             opacity: 0.9; 
             text-transform: uppercase; 
@@ -107,14 +107,13 @@
             align-items: center; 
             gap: 15px; 
             pointer-events: auto; 
-            width: fit-content; /* Shrink to content */
-            min-width: auto;
+            width: auto; 
             justify-content: center; 
-            margin: 0 auto 10px auto; /* Center the whole block */
+            max-width: 95%; 
+            margin: 0 auto 10px auto;
             position: relative;
-            max-width: 98%; /* Prevent overflow on small screens */
         }
-        .logo-circle { width: 58px; height: 58px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); transition: all 0.4s ease; }
+        .logo-circle { z-index: 20; position: relative;  width: 58px; height: 58px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); transition: all 0.4s ease; }
         .nav-mini-logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
 
 .nav-pill-wrapper {
@@ -136,7 +135,15 @@
 
 
         /* --- SEARCH BAR --- */
-        .search-container { width: 94%; max-width: 1200px; margin: 10px auto 20px auto; opacity: 0; animation: fadeInUp 0.6s 0.3s forwards; position: relative; z-index: 5; }
+        .search-container { 
+            width: 94%; 
+            max-width: 600px !important; /* LARGHEZZA RIDOTTA PER MATCHARE LOGO+BARRA */
+            margin: 10px auto 20px auto; 
+            opacity: 0; 
+            animation: fadeInUp 0.6s 0.3s forwards; 
+            position: relative; 
+            z-index: 5; 
+        }
         .search-input-wrapper { position: relative; display: flex; align-items: center; }
         .search-input { width: 100%; height: 45px; border-radius: 12px; border: none; padding-left: 45px; padding-right: 15px; font-family: 'Inter', sans-serif; font-size: 15px; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0,0,0,0.05); outline: none; transition: all 0.3s; }
         .search-input:focus { background: white; box-shadow: 0 6px 20px rgba(0,0,0,0.08); transform: translateY(-1px); }
@@ -172,6 +179,36 @@
                /* --- DESKTOP & TABLET (Layout Distribuito) --- */
              /* --- DESKTOP & TABLET (Versione Compatta e Larga) --- */
         @media (min-width: 768px) {
+            .nav-scroll-area { 
+                padding: 0; 
+                scroll-snap-type: none; 
+                justify-content: center; 
+                width: 100%; 
+                overflow-x: hidden; 
+                gap: 10px; 
+            }
+            .tab-btn { 
+                flex: 0 1 auto; 
+                width: auto; 
+                margin: 0; 
+                min-width: 80px; 
+            }
+            .tab-btn-inner { 
+                width: 100%; 
+                padding: 0 15px; 
+                justify-content: center;
+            }
+            .nav-pill-wrapper {
+                display: inline-flex;
+                width: max-content;
+                min-width: 0;
+                flex-grow: 0;
+                padding: 0 5px;
+                justify-content: center;
+                margin: 0;
+                position: static;
+            }
+        }edia (min-width: 768px) {
             .nav-scroll-area { 
                 padding: 0; 
                 scroll-snap-type: none; 
@@ -250,17 +287,17 @@
         @media (min-width: 900px) {
             header { height: 380px; }
             .header-content { 
-                bottom: 80px; /* ABBASSATO ANCORA (era 100px) */
+                bottom: 80px; 
                 left: 50px; 
                 max-width: 60%; 
             }
-            .header-content h1 { font-size: 36px; /* RIMPICCIOLITO (era 38px) */ }
-            .subtitle { font-size: 12px; /* RIMPICCIOLITO (era 13px) */ }
+            .header-content h1 { font-size: 36px; }
+            .subtitle { font-size: 12px; }
         }edia (min-width: 900px) {
             header { height: 380px; }
             .header-content { 
             position: absolute; 
-            bottom: 70px; /* ABBASSATO ANCORA (era 90px) */
+            bottom: 70px; 
             left: 20px; 
             color: white; 
             z-index: 2; 
@@ -271,7 +308,7 @@
         }
             .header-content h1 { 
             font-family: 'Playfair Display', serif; 
-            font-size: 24px; /* RIMPICCIOLITO (era 26px) */
+            font-size: 24px; 
             margin-bottom: 2px; 
             font-weight: 700; 
             font-style: italic; 
@@ -279,7 +316,38 @@
         }
             .subtitle { 
             font-family: 'Inter', sans-serif; 
-            font-size: 10px; /* RIMPICCIOLITO (era 11px) */
+            font-size: 10px; 
+            font-weight: 400; 
+            opacity: 0.9; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            text-shadow: 0 1px 5px rgba(0,0,0,0.5); 
+            margin-bottom: 10px; 
+        }
+        }edia (min-width: 900px) {
+            header { height: 380px; }
+            .header-content { 
+            position: absolute; 
+            bottom: 70px; 
+            left: 20px; 
+            color: white; 
+            z-index: 2; 
+            width: auto; 
+            max-width: 90%; 
+            transition: all 0.3s ease; 
+            pointer-events: none; 
+        }
+            .header-content h1 { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 24px; 
+            margin-bottom: 2px; 
+            font-weight: 700; 
+            font-style: italic; 
+            text-shadow: 0 2px 10px rgba(0,0,0,0.6); 
+        }
+            .subtitle { 
+            font-family: 'Inter', sans-serif; 
+            font-size: 10px; 
             font-weight: 400; 
             opacity: 0.9; 
             text-transform: uppercase; 
@@ -366,7 +434,7 @@
         body.lite-mode header::before { display: none; animation: none; }
         body.lite-mode .header-content { 
             position: absolute; 
-            bottom: 70px; /* ABBASSATO ANCORA (era 90px) */
+            bottom: 70px; 
             left: 20px; 
             color: white; 
             z-index: 2; 
@@ -379,7 +447,7 @@
         body.lite-mode .status-badge, body.lite-mode .weather-badge { background: rgba(0,0,0,0.1); border: none; color: white; }
         body.lite-mode .header-content h1 { 
             font-family: 'Playfair Display', serif; 
-            font-size: 24px; /* RIMPICCIOLITO (era 26px) */
+            font-size: 24px; 
             margin-bottom: 2px; 
             font-weight: 700; 
             font-style: italic; 
@@ -387,7 +455,7 @@
         }
         body.lite-mode .subtitle { 
             font-family: 'Inter', sans-serif; 
-            font-size: 10px; /* RIMPICCIOLITO (era 11px) */
+            font-size: 10px; 
             font-weight: 400; 
             opacity: 0.9; 
             text-transform: uppercase; 
@@ -401,12 +469,11 @@
             align-items: center; 
             gap: 15px; 
             pointer-events: auto; 
-            width: fit-content; /* Shrink to content */
-            min-width: auto;
+            width: auto; 
             justify-content: center; 
-            margin: 0 auto 10px auto; /* Center the whole block */
+            max-width: 95%; 
+            margin: 0 auto 10px auto;
             position: relative;
-            max-width: 98%; /* Prevent overflow on small screens */
         }
         body.lite-mode .logo-circle, body.lite-mode .nav-pill-wrapper { background-color: #ffffff !important; border: 2px solid #e6e6e6; box-shadow: 0 2px 6px rgba(0,0,0,0.05); backdrop-filter: none !important; }
         body.lite-mode .menu-item { animation: none !important; opacity: 1 !important; box-shadow: none; border: 1px solid #e0dec0; background: #fff; margin-bottom: 10px; }
@@ -414,7 +481,7 @@
         body.lite-mode #lite-switch { background: #d4af37 !important; color: #000 !important; border: 2px solid white !important; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
         body.lite-mode .search-input { background: #fff; border: 1px solid #ddd; box-shadow: none; }
     
-        /* --- LITE MODE FIXES REINFORCED V2 --- */
+        /* --- LITE MODE FIXES REINFORCED V3 --- */
         body.lite-mode header {
             height: 160px !important;
             padding-top: 40px;
@@ -423,35 +490,39 @@
             justify-content: center !important;
             align-items: center !important;
             text-align: center !important;
-            position: relative; /* Ensure context */
+            position: relative;
         }
 
-        body.lite-mode .header-content {
-            position: relative !important; /* Not static, relative is safer for z-index */
-            transform: none !important;
-            margin: 0 auto !important;
-            padding: 0 !important;
-            text-align: center !important;
-            width: 100% !important;
-            max-width: 100% !important;
-            left: auto !important;
-            bottom: auto !important;
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important; /* Flex align center */
-            justify-content: center !important;
+        body.lite-mode .header-content { 
+            position: absolute; 
+            bottom: 70px; 
+            left: 20px; 
+            color: white; 
+            z-index: 2; 
+            width: auto; 
+            max-width: 90%; 
+            transition: all 0.3s ease; 
+            pointer-events: none; 
         }
 
-        body.lite-mode .header-content h1 {
-            text-align: center !important;
-            width: 100%;
-            margin: 0 auto 5px auto !important;
-            display: block;
+        body.lite-mode .header-content h1 { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 24px; 
+            margin-bottom: 2px; 
+            font-weight: 700; 
+            font-style: italic; 
+            text-shadow: 0 2px 10px rgba(0,0,0,0.6); 
         }
 
-        body.lite-mode .subtitle {
-            text-align: center !important;
-            margin: 0 auto 10px auto !important;
+        body.lite-mode .subtitle { 
+            font-family: 'Inter', sans-serif; 
+            font-size: 10px; 
+            font-weight: 400; 
+            opacity: 0.9; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            text-shadow: 0 1px 5px rgba(0,0,0,0.5); 
+            margin-bottom: 10px; 
         }
 
         body.lite-mode .info-cluster {
@@ -461,10 +532,9 @@
             margin: 5px auto 0 auto !important;
         }
 
-        /* Ensure buttons don't interfere with flow */
-        body.lite-mode #lite-switch, body.lite-mode button[onclick="openWifi()"] {
-            position: absolute !important; /* Keep them absolute */
-            top: 15px !important;
+        /* Ensure specific Lite Mode search bar override if needed, though global rule handles it */
+        body.lite-mode .search-container {
+            max-width: 600px !important;
         }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
