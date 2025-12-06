@@ -76,20 +76,8 @@
         /* --- STICKY NAV --- */
         .sticky-nav-container { position: sticky; top: 10px; z-index: 100; margin-top: -40px; padding: 0; display: flex; flex-direction: column; align-items: center; pointer-events: none; transition: all 0.3s ease; }
         .sticky-nav-container.nav-hidden {transform: translateY(-200%); }
-        .nav-cluster { 
-            display: flex; 
-            align-items: center; 
-            gap: 10px; 
-            pointer-events: auto; 
-            width: 94%; 
-            justify-content: flex-start; /* LOGO A SINISTRA */
-            max-width: 1200px; 
-            margin-bottom: 10px;
-            margin-left: auto; 
-            margin-right: auto;
-            position: relative; /* NECESSARIO PER IL CENTRAGGIO DELLA BARRA */
-        }
-        .logo-circle { z-index: 20; position: relative;  width: 58px; height: 58px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); transition: all 0.4s ease; }
+        .nav-cluster {display: flex; align-items: center; gap: 10px; pointer-events: auto; width: 94%; justify-content: center; max-width: 1200px; /* IMPORTANTE: Assicurati che questo sia 1200px */margin-bottom: 10px;margin-left: auto; /* Centra il blocco orizzontalmente */margin-right: auto;}
+        .logo-circle { width: 58px; height: 58px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); transition: all 0.4s ease; }
         .nav-mini-logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
 
 .nav-pill-wrapper {
@@ -147,44 +135,6 @@
                /* --- DESKTOP & TABLET (Layout Distribuito) --- */
              /* --- DESKTOP & TABLET (Versione Compatta e Larga) --- */
         @media (min-width: 768px) {
-            .nav-scroll-area { 
-                padding: 0; 
-                scroll-snap-type: none; 
-                justify-content: center; 
-                width: 100%; 
-                overflow-x: hidden; 
-                gap: 10px; 
-            }
-
-            .tab-btn { 
-                flex: 0 1 auto; 
-                width: auto; 
-                margin: 0; 
-                min-width: 100px; 
-            }
-
-            .tab-btn-inner { 
-                width: 100%; 
-                padding: 0 15px; 
-                justify-content: center;
-            }
-
-            /* CENTRAGGIO PERFETTO BARRA DESKTOP */
-            .nav-pill-wrapper {
-                display: inline-flex;
-                width: max-content;
-                min-width: 0;
-                flex-grow: 0;
-                padding: 0 5px;
-                justify-content: center;
-
-                position: absolute; /* Sganciata dal flusso */
-                left: 50%; /* Spostata a metà */
-                transform: translateX(-50%); /* Centrata matematicamente */
-                margin: 0;
-                z-index: 10;
-            }
-        }edia (min-width: 768px) {
     .nav-pill-wrapper {
         display: inline-flex;
         width: max-content; /* <--- Questo è il trucco: forza la larghezza al contenuto esatto */
@@ -228,90 +178,14 @@
 
 
         /* HEADER SCALING (Manteniamo questa per il banner grande su schermi ampi) */
-        @media (min-width: 768px) {
-            .nav-scroll-area { 
-                padding: 0; 
-                scroll-snap-type: none; 
-                justify-content: center; 
-                width: 100%; 
-                overflow-x: hidden; 
-                gap: 10px; 
-            }
-
-            .tab-btn { 
-                flex: 0 1 auto; 
-                width: auto; 
-                margin: 0; 
-                min-width: 100px; 
-            }
-
-            .tab-btn-inner { 
-                width: 100%; 
-                padding: 0 15px; 
-                justify-content: center;
-            }
-
-            /* CENTRAGGIO PERFETTO BARRA DESKTOP */
-            .nav-pill-wrapper {
-                display: inline-flex;
-                width: max-content;
-                min-width: 0;
-                flex-grow: 0;
-                padding: 0 5px;
-                justify-content: center;
-
-                position: absolute; /* Sganciata dal flusso */
-                left: 50%; /* Spostata a metà */
-                transform: translateX(-50%); /* Centrata matematicamente */
-                margin: 0;
-                z-index: 10;
-            }
-        }edia (min-width: 900px) {
+        @media (min-width: 900px) {
             header { height: 380px; }
             .header-content { bottom: 30px; left: 50px; max-width: 40%; }
             .header-content h1 { font-size: 48px; }
             .subtitle { font-size: 15px; }
         }
 
-        /* RIMOSSO: @media (min-width: 768px) {
-            .nav-scroll-area { 
-                padding: 0; 
-                scroll-snap-type: none; 
-                justify-content: center; 
-                width: 100%; 
-                overflow-x: hidden; 
-                gap: 10px; 
-            }
-
-            .tab-btn { 
-                flex: 0 1 auto; 
-                width: auto; 
-                margin: 0; 
-                min-width: 100px; 
-            }
-
-            .tab-btn-inner { 
-                width: 100%; 
-                padding: 0 15px; 
-                justify-content: center;
-            }
-
-            /* CENTRAGGIO PERFETTO BARRA DESKTOP */
-            .nav-pill-wrapper {
-                display: inline-flex;
-                width: max-content;
-                min-width: 0;
-                flex-grow: 0;
-                padding: 0 5px;
-                justify-content: center;
-
-                position: absolute; /* Sganciata dal flusso */
-                left: 50%; /* Spostata a metà */
-                transform: translateX(-50%); /* Centrata matematicamente */
-                margin: 0;
-                z-index: 10;
-            }
-        }edia (orientation: landscape) ... */
+        /* RIMOSSO: @media (orientation: landscape) ... */
         /* Eliminando la regola landscape, la barra manterrà la sua larghezza (94% max 800px)
            costante sia su Surface, iPad o PC, evitando l'effetto "macello". */
 
