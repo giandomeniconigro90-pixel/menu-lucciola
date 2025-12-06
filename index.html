@@ -116,23 +116,32 @@
 
                /* --- MEDIA QUERIES (Sostituisci quelle esistenti con queste) --- */
         
-        /* DESKTOP & TABLET (Da 768px in su: iPad, Surface, PC) */
-        /* Questa regola unifica il comportamento per tutte le risoluzioni non-mobile */
+               /* --- DESKTOP & TABLET (Layout Distribuito) --- */
         @media (min-width: 768px) {
             .nav-scroll-area { 
-                padding: 0; 
+                padding: 0 10px; /* Ridotto padding laterale estremo */
                 scroll-snap-type: none; 
-                justify-content: center; 
+                justify-content: space-evenly; /* DISTRIBUISCE EQUAMENTE LO SPAZIO */
+                width: 100%; /* Forza l'uso di tutta la larghezza disponibile */
                 overflow-x: hidden; 
             }
+            
             .tab-btn { 
-                flex: 0 0 auto; 
+                flex: 1; /* Ogni bottone prende una quota uguale di spazio */
                 width: auto; 
-                margin: 0 8px; 
+                margin: 0 2px; /* Margine minimo tra i bottoni */
+                max-width: 140px; /* Evita che diventino giganti su schermi enormi */
             }
-            .tab-btn:last-child { margin-right: 8px; } 
-            .tab-btn-inner { width: auto; padding: 0 15px; }
+            
+            .tab-btn:last-child { margin-right: 2px; } 
+            
+            .tab-btn-inner { 
+                width: 100%; /* Occupa tutto lo spazio del bottone genitore */
+                padding: 0 5px; /* Padding interno ridotto per ottimizzare spazio */
+                justify-content: center;
+            }
         }
+
 
         /* HEADER SCALING (Manteniamo questa per il banner grande su schermi ampi) */
         @media (min-width: 900px) {
