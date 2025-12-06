@@ -81,17 +81,14 @@
         .nav-mini-logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
 
 .nav-pill-wrapper {
-    display: inline-flex; /* Cambia da flex a inline-flex */
-    width: auto; /* IMPORTANTE: Non più 100%, ma si adatta al contenuto */
-    min-width: fit-content; /* Assicura che si stringa attorno ai bottoni */
-    padding: 0 10px; /* Un po' di margine ai lati interni per eleganza */
-    
-    /* ... Lascia tutto il resto uguale ... */
+    display: flex; /* Torna a Flex normale */
     align-items: center;
     height: 58px;
     border-radius: 50px;
-    flex-grow: 0; /* Impedisce di crescere inutilmente */
+    flex-grow: 1;
+    width: 100%; /* Torna a occupare tutto lo spazio su mobile */
     overflow: hidden;
+    /* ... resto (background, blur, etc) invariato ... */
     background-color: rgba(255, 255, 255, 0.45);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
@@ -99,6 +96,7 @@
     border: 1px solid rgba(255,255,255,0.4);
     transition: all 0.4s ease;
 }
+
 
         /* --- SEARCH BAR --- */
         .search-container { width: 94%; max-width: 1200px; margin: 10px auto 20px auto; opacity: 0; animation: fadeInUp 0.6s 0.3s forwards; position: relative; z-index: 5; }
@@ -144,6 +142,14 @@
                 width: 100%; 
                 overflow-x: hidden; 
                 gap: 20px; /* Spazio fisso e pulito tra i pulsanti */
+                .nav-pill-wrapper {
+        display: inline-flex;
+        width: auto;
+        min-width: fit-content;
+        flex-grow: 0;
+        padding: 0 10px;
+        justify-content: center;
+    }
             }
             
             .tab-btn { 
