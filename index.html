@@ -47,7 +47,7 @@
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(76, 175, 80, 0); } 100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); } }
 
-        /* --- ALERT BANNER (Avvisi da CSV) --- */
+        /* --- ALERT BANNER --- */
         #alert-banner {
             background: #ff9800; color: white; text-align: center; 
             padding: 12px 20px; font-weight: 600; display: none; 
@@ -73,8 +73,20 @@
         .weather-badge svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
         .weather-badge.snow { background: rgba(200, 230, 255, 0.25); color: #fff; border-color: rgba(255,255,255,0.4); }
 
-        /* --- STICKY NAV --- */
-        .sticky-nav-container { position: sticky; top: 10px; z-index: 100; margin-top: -40px; padding: 0; display: flex; flex-direction: column; align-items: center; pointer-events: none; transition: all 0.3s ease; }
+        /* --- STICKY NAV (SMART HIDE) --- */
+        .sticky-nav-container { 
+            position: sticky; top: 10px; z-index: 100; 
+            margin-top: -40px; padding: 0; 
+            display: flex; flex-direction: column; align-items: center; 
+            pointer-events: none; 
+            transition: transform 0.4s ease-in-out; /* Animazione sparizione */
+        }
+        
+        /* Classe per nascondere la barra traslandola in alto */
+        .sticky-nav-container.hidden-nav {
+            transform: translateY(-150%); 
+        }
+
         .nav-cluster { display: flex; align-items: center; gap: 10px; pointer-events: auto; width: 94%; justify-content: center; max-width: 800px; margin-bottom: 10px;}
         .logo-circle { width: 58px; height: 58px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); transition: all 0.4s ease; }
         .nav-mini-logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
@@ -144,7 +156,7 @@
         h3 { color: var(--primary-color); font-family: 'Playfair Display', serif; margin: 10px 0 25px 0; font-size: 24px; font-weight: 700; display: flex; align-items: center; }
         h3::after { content: ''; flex-grow: 1; height: 2px; background: linear-gradient(to right, var(--primary-color), transparent); opacity: 0.2; margin-left: 15px; }
         
-        /* SOTTOTITOLI (Es. Cocktail, Birre...) */
+        /* SOTTOTITOLI */
         .subcategory-title {
             color: var(--text-dark); font-family: 'Playfair Display', serif;
             font-size: 19px; font-weight: 600; margin: 25px 0 12px 5px;
@@ -253,7 +265,7 @@
     </div>
 </header>
 
-<div class="sticky-nav-container">
+<div id="sticky-nav" class="sticky-nav-container">
     <div class="nav-cluster">
         <div class="logo-circle"><img src="images/icon_app.png" alt="Logo" class="nav-mini-logo"></div>
         <div class="nav-pill-wrapper">
@@ -372,8 +384,6 @@
 
     function transformCsvToMenu(csvData) {
         menuData = {}; 
-        
-        // Reset Banner
         const banner = document.getElementById('alert-banner');
         banner.style.display = 'none';
 
@@ -389,17 +399,13 @@
         csvData.forEach(row => {
             if(!row.categoria || !row.nome) return;
 
-            // --- LOGICA AVVISI (Nuova) ---
-            // Se la categoria è AVVISO, mostra il banner e non aggiunge al menu
             if(row.categoria.toUpperCase().includes('AVVISO')) {
                 if(row.disponibile && (row.disponibile.toLowerCase() === 'no' || row.disponibile.toLowerCase() === 'false')) return;
-                
                 const text = row.descrizione ? `${row.nome} - ${row.descrizione}` : row.nome;
                 banner.innerHTML = `🔔 ${text}`;
                 banner.style.display = 'block';
-                return; // Salta il resto per questa riga
+                return;
             }
-            // -----------------------------
 
             if(row.disponibile && (row.disponibile.toLowerCase() === 'no' || row.disponibile.toLowerCase() === 'false')) return;
 
@@ -452,13 +458,36 @@
         }
     }
 
+    // --- GESTIONE SMART HIDE NAVBAR ---
+    let lastScrollTop = 0;
+    const nav = document.getElementById('sticky-nav');
+    const backToTop = document.getElementById('back-to-top');
+
     window.onscroll = function() {
-        const btn = document.getElementById('back-to-top');
-        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-            btn.style.display = "flex";
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Gestione Back to Top
+        if (scrollTop > 300) {
+            backToTop.style.display = "flex";
         } else {
-            btn.style.display = "none";
+            backToTop.style.display = "none";
         }
+
+        // Gestione Nav Bar (Solo se siamo oltre l'header, es. 200px)
+        if (scrollTop > 200) {
+            if (scrollTop > lastScrollTop) {
+                // Scrollando GIÙ -> Nascondi
+                nav.classList.add('hidden-nav');
+            } else {
+                // Scrollando SU -> Mostra
+                nav.classList.remove('hidden-nav');
+            }
+        } else {
+            // Se siamo in cima, mostra sempre
+            nav.classList.remove('hidden-nav');
+        }
+        
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Per Mobile o rimbalzi negativi
     };
     
     function scrollToTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
@@ -504,12 +533,6 @@
         } catch (e) { console.log("Meteo non disponibile"); }
     }
 
-    function toggleLiteMode() {
-        const body = document.body; const btn = document.getElementById('lite-switch');
-        body.classList.toggle('lite-mode'); 
-        btn.innerHTML = body.classList.contains('lite-mode') ? "🚀 Normal" : "⚡ Lite";
-    }
-
     function showCategory(catId, btnElement) {
         const isLite = document.body.classList.contains('lite-mode');
         document.getElementById('menu-search').value = '';
@@ -520,10 +543,7 @@
 
         if(data) {
             container.innerHTML = `<h3>${data.title}</h3>`;
-
-            // LOGICA SOTTOCATEGORIE
             const subcats = [...new Set(data.items.map(i => i.subcategory))].sort();
-            
             if(subcats.length > 1) {
                 const preferredOrder = ['Aperitivi', 'Cocktail', 'Birre', 'Vini', 'Amari', 'Liquori', 'Grappe'];
                 subcats.sort((a,b) => {
@@ -534,7 +554,6 @@
                     if (idxB !== -1) return 1;
                     return a.localeCompare(b);
                 });
-
                 subcats.forEach(sub => {
                     container.innerHTML += `<h4 class="subcategory-title">${sub}</h4>`;
                     const groupItems = data.items.filter(i => i.subcategory === sub);
@@ -591,6 +610,12 @@
                     <div class="item-price">€ ${price}</div>
                 </div>`;
         });
+    }
+
+    function toggleLiteMode() {
+        const body = document.body; const btn = document.getElementById('lite-switch');
+        body.classList.toggle('lite-mode'); 
+        btn.innerHTML = body.classList.contains('lite-mode') ? "🚀 Normal" : "⚡ Lite";
     }
 
     document.addEventListener('DOMContentLoaded', () => {
