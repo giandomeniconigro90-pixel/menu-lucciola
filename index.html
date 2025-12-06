@@ -111,73 +111,84 @@
             transition: all 0.5s ease; 
         }
 
-        /* --- ANIMAZIONE VERTICALE A DESTRA --- */
+        /* --- ANIMAZIONE VERTICALE PERFETTA --- */
         .sticky-nav-container.scrolled-vertical {
-            top: 100px; /* Posizione verticale iniziale */
+            top: 100px; 
             width: auto;
-            right: 10px; /* Agganciato a destra */
+            right: 10px; 
             position: fixed;
             margin-top: 0;
-            align-items: flex-end;
+            align-items: flex-end; /* Mantiene tutto a destra */
             transform: translateX(0);
         }
         
         .sticky-nav-container.scrolled-vertical .nav-cluster {
-            flex-direction: column; /* Impila verticalmente */
-            width: 60px; /* Larghezza fissa colonna */
-            gap: 15px;
+            flex-direction: column; 
+            width: 50px; /* Larghezza fissa identica per logo e menu */
+            gap: 12px;
+            align-items: center; /* CENTRA TUTTO ORIZZONTALMENTE NELLA COLONNA */
         }
 
         .sticky-nav-container.scrolled-vertical .logo-circle {
             width: 50px; height: 50px;
             background-color: white;
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            margin: 0; /* Rimuove margini strani */
         }
 
         .sticky-nav-container.scrolled-vertical .nav-pill-wrapper {
-            height: auto; /* Altezza automatica per contenere i bottoni verticali */
-            width: 50px;
+            height: auto; 
+            width: 50px; /* Larghezza fissa */
             flex-direction: column;
             background-color: white;
             border-radius: 25px;
-            padding: 10px 0;
+            padding: 8px 0; /* Padding verticale uniforme */
             border: 1px solid rgba(0,0,0,0.05);
+            align-items: center; /* Centra icone nella pillola */
         }
         
         .sticky-nav-container.scrolled-vertical .nav-scroll-area {
-            flex-direction: column; /* Bottoni uno sotto l'altro */
+            flex-direction: column; 
             height: auto;
             width: 100%;
-            gap: 5px;
+            gap: 8px; /* Spazio tra icone */
+            align-items: center; /* Centra icone */
         }
 
         .sticky-nav-container.scrolled-vertical .tab-btn {
-            width: 100%; height: 50px;
+            width: 100%; height: 40px;
             margin: 0;
+            display: flex; 
+            justify-content: center; /* Centra il contenuto del bottone */
         }
 
-        /* Nasconde il testo quando è verticale, mostra solo icone */
         .sticky-nav-container.scrolled-vertical .tab-btn-inner {
-            width: 40px; height: 40px;
+            width: 38px; height: 38px; /* Quadrato perfetto per il cerchio */
             border-radius: 50%;
-            padding: 0;
+            padding: 0; /* Rimuove padding laterale che spostava l'icona */
             justify-content: center;
-        }
-        .sticky-nav-container.scrolled-vertical .tab-btn-inner svg {
-             margin: 0;
+            font-size: 0; /* Nasconde testo */
         }
         
-        /* Nasconde il testo span dentro il bottone solo quando in mode verticale */
-        .sticky-nav-container.scrolled-vertical .tab-btn-inner span {
-            display: none; /* Fallback se non funziona textNode */
-            font-size: 0;
-        }
-        /* Trucco CSS per nascondere il testo ma lasciare SVG visibile */
-        .sticky-nav-container.scrolled-vertical .tab-btn-inner {
-            font-size: 0; 
-        }
         .sticky-nav-container.scrolled-vertical .tab-btn-inner svg {
-            width: 22px; height: 22px; 
+             margin: 0;
+             width: 20px; height: 20px;
+        }
+        
+        /* BACK TO TOP ALLINEATO ALLA COLONNA */
+        #back-to-top {
+            position: fixed; 
+            bottom: 25px; 
+            /* Calcolo: right: 10px (nav) + 25px (metà nav) - 22.5px (metà bottone) = 12.5px */
+            right: 12.5px; 
+            width: 45px; height: 45px; 
+            border-radius: 50%; 
+            background: var(--primary-color); 
+            color: white; border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
+            display: none; 
+            align-items: center; justify-content: center; 
+            z-index: 900; cursor: pointer; transition: transform 0.2s;
         }
 
 
@@ -418,13 +429,7 @@
 </div>
 
 <!-- BACK TO TOP -->
-<button id="back-to-top" onclick="scrollToTop()" style="
-    position: fixed; bottom: 25px; right: 25px; 
-    width: 45px; height: 45px; border-radius: 50%; 
-    background: var(--primary-color); color: white; border: none;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
-    display: none; align-items: center; justify-content: center; 
-    z-index: 900; cursor: pointer; transition: transform 0.2s;">
+<button id="back-to-top" onclick="scrollToTop()">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
 </button>
 
@@ -447,6 +452,7 @@
         <svg class="wifi-icon-large" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
         <h3>Wi-Fi Gratuito</h3>
         <p>Connettiti alla rete "La Lucciola"</p>
+        <!-- CAMBIA LA PASSWORD QUI SOTTO -->
         <div class="wifi-pass">Lucciola2025</div>
     </div>
 </div>
