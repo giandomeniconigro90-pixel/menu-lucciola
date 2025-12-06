@@ -80,7 +80,26 @@
         .logo-circle { width: 58px; height: 58px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); transition: all 0.4s ease; }
         .nav-mini-logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
 
-        .nav-pill-wrapper {display: flex; align-items: center;height: 58px;border-radius: 50px;flex-grow: 1; /* Questo è fondamentale: dice "occupa tutto lo spazio rimasto" */width: 100%;/* Forza la larghezza piena */overflow: hidden; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);box-shadow: 0 8px 20px rgba(0,0,0,0.15);border: 1px solid rgba(255,255,255,0.4);transition: all 0.4s ease;}        
+.nav-pill-wrapper {
+    display: inline-flex; /* Cambia da flex a inline-flex */
+    width: auto; /* IMPORTANTE: Non più 100%, ma si adatta al contenuto */
+    min-width: fit-content; /* Assicura che si stringa attorno ai bottoni */
+    padding: 0 10px; /* Un po' di margine ai lati interni per eleganza */
+    
+    /* ... Lascia tutto il resto uguale ... */
+    align-items: center;
+    height: 58px;
+    border-radius: 50px;
+    flex-grow: 0; /* Impedisce di crescere inutilmente */
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    border: 1px solid rgba(255,255,255,0.4);
+    transition: all 0.4s ease;
+}
+
         /* --- SEARCH BAR --- */
         .search-container { width: 94%; max-width: 1200px; margin: 10px auto 20px auto; opacity: 0; animation: fadeInUp 0.6s 0.3s forwards; position: relative; z-index: 5; }
         .search-input-wrapper { position: relative; display: flex; align-items: center; }
