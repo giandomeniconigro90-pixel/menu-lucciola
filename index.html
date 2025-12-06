@@ -62,7 +62,7 @@
 
         .header-content { 
             position: absolute; 
-            bottom: 90px; /* RIABBASSATO (era 100px) */
+            bottom: 70px; /* ABBASSATO ANCORA (era 90px) */
             left: 20px; 
             color: white; 
             z-index: 2; 
@@ -73,7 +73,7 @@
         }
         .header-content h1 { 
             font-family: 'Playfair Display', serif; 
-            font-size: 26px; /* RIMPICCIOLITO ANCORA (era 30px) */
+            font-size: 24px; /* RIMPICCIOLITO (era 26px) */
             margin-bottom: 2px; 
             font-weight: 700; 
             font-style: italic; 
@@ -81,7 +81,7 @@
         }
         .subtitle { 
             font-family: 'Inter', sans-serif; 
-            font-size: 11px; /* RIMPICCIOLITO ANCORA (era 12px) */
+            font-size: 10px; /* RIMPICCIOLITO (era 11px) */
             font-weight: 400; 
             opacity: 0.9; 
             text-transform: uppercase; 
@@ -102,7 +102,18 @@
         /* --- STICKY NAV --- */
         .sticky-nav-container { position: sticky; top: 10px; z-index: 100; margin-top: -40px; padding: 0; display: flex; flex-direction: column; align-items: center; pointer-events: none; transition: all 0.3s ease; }
         .sticky-nav-container.nav-hidden {transform: translateY(-200%); }
-        .nav-cluster {display: flex; align-items: center; gap: 10px; pointer-events: auto; width: 94%; justify-content: center; max-width: 1200px; /* IMPORTANTE: Assicurati che questo sia 1200px */margin-bottom: 10px;margin-left: auto; /* Centra il blocco orizzontalmente */margin-right: auto;}
+        .nav-cluster { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+            pointer-events: auto; 
+            width: fit-content; /* Shrink to content */
+            min-width: auto;
+            justify-content: center; 
+            margin: 0 auto 10px auto; /* Center the whole block */
+            position: relative;
+            max-width: 98%; /* Prevent overflow on small screens */
+        }
         .logo-circle { width: 58px; height: 58px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); transition: all 0.4s ease; }
         .nav-mini-logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
 
@@ -161,6 +172,38 @@
                /* --- DESKTOP & TABLET (Layout Distribuito) --- */
              /* --- DESKTOP & TABLET (Versione Compatta e Larga) --- */
         @media (min-width: 768px) {
+            .nav-scroll-area { 
+                padding: 0; 
+                scroll-snap-type: none; 
+                justify-content: center; 
+                width: 100%; 
+                overflow-x: hidden; 
+                gap: 10px; 
+            }
+            .tab-btn { 
+                flex: 0 1 auto; 
+                width: auto; 
+                margin: 0; 
+                min-width: 80px; 
+            }
+            .tab-btn-inner { 
+                width: 100%; 
+                padding: 0 15px; 
+                justify-content: center;
+            }
+            .nav-pill-wrapper {
+                display: inline-flex;
+                width: max-content;
+                min-width: 0;
+                flex-grow: 0;
+                padding: 0 5px;
+                justify-content: center;
+                margin: 0;
+                /* NO ABSOLUTE POSITIONING - Let it sit next to logo */
+                position: static; 
+                transform: none;
+            }
+        }edia (min-width: 768px) {
     .nav-pill-wrapper {
         display: inline-flex;
         width: max-content; /* <--- Questo è il trucco: forza la larghezza al contenuto esatto */
@@ -207,17 +250,17 @@
         @media (min-width: 900px) {
             header { height: 380px; }
             .header-content { 
-                bottom: 100px; /* RIABBASSATO (era 110px) */
+                bottom: 80px; /* ABBASSATO ANCORA (era 100px) */
                 left: 50px; 
                 max-width: 60%; 
             }
-            .header-content h1 { font-size: 38px; /* RIMPICCIOLITO (era 42px) */ }
-            .subtitle { font-size: 13px; /* RIMPICCIOLITO (era 14px) */ }
+            .header-content h1 { font-size: 36px; /* RIMPICCIOLITO (era 38px) */ }
+            .subtitle { font-size: 12px; /* RIMPICCIOLITO (era 13px) */ }
         }edia (min-width: 900px) {
             header { height: 380px; }
             .header-content { 
             position: absolute; 
-            bottom: 90px; /* RIABBASSATO (era 100px) */
+            bottom: 70px; /* ABBASSATO ANCORA (era 90px) */
             left: 20px; 
             color: white; 
             z-index: 2; 
@@ -228,7 +271,7 @@
         }
             .header-content h1 { 
             font-family: 'Playfair Display', serif; 
-            font-size: 26px; /* RIMPICCIOLITO ANCORA (era 30px) */
+            font-size: 24px; /* RIMPICCIOLITO (era 26px) */
             margin-bottom: 2px; 
             font-weight: 700; 
             font-style: italic; 
@@ -236,7 +279,7 @@
         }
             .subtitle { 
             font-family: 'Inter', sans-serif; 
-            font-size: 11px; /* RIMPICCIOLITO ANCORA (era 12px) */
+            font-size: 10px; /* RIMPICCIOLITO (era 11px) */
             font-weight: 400; 
             opacity: 0.9; 
             text-transform: uppercase; 
@@ -323,7 +366,7 @@
         body.lite-mode header::before { display: none; animation: none; }
         body.lite-mode .header-content { 
             position: absolute; 
-            bottom: 90px; /* RIABBASSATO (era 100px) */
+            bottom: 70px; /* ABBASSATO ANCORA (era 90px) */
             left: 20px; 
             color: white; 
             z-index: 2; 
@@ -336,7 +379,7 @@
         body.lite-mode .status-badge, body.lite-mode .weather-badge { background: rgba(0,0,0,0.1); border: none; color: white; }
         body.lite-mode .header-content h1 { 
             font-family: 'Playfair Display', serif; 
-            font-size: 26px; /* RIMPICCIOLITO ANCORA (era 30px) */
+            font-size: 24px; /* RIMPICCIOLITO (era 26px) */
             margin-bottom: 2px; 
             font-weight: 700; 
             font-style: italic; 
@@ -344,7 +387,7 @@
         }
         body.lite-mode .subtitle { 
             font-family: 'Inter', sans-serif; 
-            font-size: 11px; /* RIMPICCIOLITO ANCORA (era 12px) */
+            font-size: 10px; /* RIMPICCIOLITO (era 11px) */
             font-weight: 400; 
             opacity: 0.9; 
             text-transform: uppercase; 
@@ -353,7 +396,18 @@
             margin-bottom: 10px; 
         }
         body.lite-mode .sticky-nav-container { position: sticky; top: 0; z-index: 100; margin-top: 0; padding-top: 15px; background-color: #f9f7f2; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        body.lite-mode .nav-cluster { display: flex; }
+        body.lite-mode .nav-cluster { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+            pointer-events: auto; 
+            width: fit-content; /* Shrink to content */
+            min-width: auto;
+            justify-content: center; 
+            margin: 0 auto 10px auto; /* Center the whole block */
+            position: relative;
+            max-width: 98%; /* Prevent overflow on small screens */
+        }
         body.lite-mode .logo-circle, body.lite-mode .nav-pill-wrapper { background-color: #ffffff !important; border: 2px solid #e6e6e6; box-shadow: 0 2px 6px rgba(0,0,0,0.05); backdrop-filter: none !important; }
         body.lite-mode .menu-item { animation: none !important; opacity: 1 !important; box-shadow: none; border: 1px solid #e0dec0; background: #fff; margin-bottom: 10px; }
         body.lite-mode .item-price { background-color: var(--bg-accent-light); color: var(--primary-color); }
