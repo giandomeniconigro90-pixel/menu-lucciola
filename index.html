@@ -60,9 +60,35 @@
         header::before { content: ''; position: absolute; inset: 0; background-image: url('images/la-lucciola-fronte.png'); background-size: cover; background-position: center; z-index: 0; animation: kenBurns 20s infinite alternate ease-in-out; }
         header::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.8) 100%); z-index: 1; }
 
-        .header-content { position: absolute; bottom: 70px; left: 20px; color: white; z-index: 2; width: auto; max-width: 90%; transition: all 0.3s ease; }
-        .header-content h1 { font-family: 'Playfair Display', serif; font-size: 34px; margin-bottom: 2px; font-weight: 700; font-style: italic; text-shadow: 0 2px 10px rgba(0,0,0,0.6); }
-        .subtitle { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 400; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 1px 5px rgba(0,0,0,0.5); margin-bottom: 10px; }
+        .header-content { 
+            position: absolute; 
+            bottom: 100px; /* UPDATED: 100px */
+            left: 20px; 
+            color: white; 
+            z-index: 2; 
+            width: auto; 
+            max-width: 90%; 
+            transition: all 0.3s ease; 
+            pointer-events: none; 
+        }
+        .header-content h1 { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 30px; /* UPDATED: 30px */
+            margin-bottom: 2px; 
+            font-weight: 700; 
+            font-style: italic; 
+            text-shadow: 0 2px 10px rgba(0,0,0,0.6); 
+        }
+        .subtitle { 
+            font-family: 'Inter', sans-serif; 
+            font-size: 12px; /* UPDATED: 12px */
+            font-weight: 400; 
+            opacity: 0.9; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            text-shadow: 0 1px 5px rgba(0,0,0,0.5); 
+            margin-bottom: 10px; 
+        }
 
         .info-cluster { display: flex; gap: 8px; flex-wrap: wrap; }
         .status-badge, .weather-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(6px); padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); color: #e8f5e9; transition: all 0.3s ease; }
@@ -144,7 +170,6 @@
         
                /* --- DESKTOP & TABLET (Layout Distribuito) --- */
              /* --- DESKTOP & TABLET (Versione Compatta e Larga) --- */
-        
         @media (min-width: 768px) {
             .nav-scroll-area { 
                 padding: 0; 
@@ -173,9 +198,14 @@
                 padding: 0 5px;
                 justify-content: center;
                 margin: 0;
+
+                /* ABSOLUTE CENTER FIX */
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 10;
             }
-        }
-edia (min-width: 768px) {
+        }edia (min-width: 768px) {
     .nav-pill-wrapper {
         display: inline-flex;
         width: max-content; /* <--- Questo è il trucco: forza la larghezza al contenuto esatto */
@@ -221,9 +251,44 @@ edia (min-width: 768px) {
         /* HEADER SCALING (Manteniamo questa per il banner grande su schermi ampi) */
         @media (min-width: 900px) {
             header { height: 380px; }
-            .header-content { bottom: 30px; left: 50px; max-width: 40%; }
-            .header-content h1 { font-size: 48px; }
-            .subtitle { font-size: 15px; }
+            .header-content { 
+                bottom: 110px; /* UPDATED: 110px */
+                left: 50px; 
+                max-width: 60%; 
+            }
+            .header-content h1 { font-size: 42px; /* UPDATED: 42px */ }
+            .subtitle { font-size: 14px; /* UPDATED: 14px */ }
+        }edia (min-width: 900px) {
+            header { height: 380px; }
+            .header-content { 
+            position: absolute; 
+            bottom: 100px; /* UPDATED: 100px */
+            left: 20px; 
+            color: white; 
+            z-index: 2; 
+            width: auto; 
+            max-width: 90%; 
+            transition: all 0.3s ease; 
+            pointer-events: none; 
+        }
+            .header-content h1 { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 30px; /* UPDATED: 30px */
+            margin-bottom: 2px; 
+            font-weight: 700; 
+            font-style: italic; 
+            text-shadow: 0 2px 10px rgba(0,0,0,0.6); 
+        }
+            .subtitle { 
+            font-family: 'Inter', sans-serif; 
+            font-size: 12px; /* UPDATED: 12px */
+            font-weight: 400; 
+            opacity: 0.9; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            text-shadow: 0 1px 5px rgba(0,0,0,0.5); 
+            margin-bottom: 10px; 
+        }
         }
 
         /* RIMOSSO: @media (orientation: landscape) ... */
@@ -301,11 +366,37 @@ edia (min-width: 768px) {
         body.lite-mode { background-color: #f9f7f2; }
         body.lite-mode header { height: 130px; background: linear-gradient(135deg, #5D4037 0%, #8D6E63 100%); border-bottom: 4px solid #d4af37; display: flex; align-items: center; justify-content: center; }
         body.lite-mode header::before { display: none; animation: none; }
-        body.lite-mode .header-content { position: static; transform: none; margin-top: 10px; text-align: center; bottom: auto; left: auto; max-width: 100%; }
+        body.lite-mode .header-content { 
+            position: absolute; 
+            bottom: 100px; /* UPDATED: 100px */
+            left: 20px; 
+            color: white; 
+            z-index: 2; 
+            width: auto; 
+            max-width: 90%; 
+            transition: all 0.3s ease; 
+            pointer-events: none; 
+        }
         body.lite-mode .info-cluster { justify-content: center; }
         body.lite-mode .status-badge, body.lite-mode .weather-badge { background: rgba(0,0,0,0.1); border: none; color: white; }
-        body.lite-mode .header-content h1 { font-size: 28px; text-shadow: none; font-style: normal; }
-        body.lite-mode .subtitle { opacity: 0.8; font-size: 14px; text-shadow: none; }
+        body.lite-mode .header-content h1 { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 30px; /* UPDATED: 30px */
+            margin-bottom: 2px; 
+            font-weight: 700; 
+            font-style: italic; 
+            text-shadow: 0 2px 10px rgba(0,0,0,0.6); 
+        }
+        body.lite-mode .subtitle { 
+            font-family: 'Inter', sans-serif; 
+            font-size: 12px; /* UPDATED: 12px */
+            font-weight: 400; 
+            opacity: 0.9; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            text-shadow: 0 1px 5px rgba(0,0,0,0.5); 
+            margin-bottom: 10px; 
+        }
         body.lite-mode .sticky-nav-container { position: sticky; top: 0; z-index: 100; margin-top: 0; padding-top: 15px; background-color: #f9f7f2; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         body.lite-mode .nav-cluster { 
             display: flex; 
