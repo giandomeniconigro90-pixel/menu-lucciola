@@ -135,7 +135,6 @@
                /* --- DESKTOP & TABLET (Layout Distribuito) --- */
              /* --- DESKTOP & TABLET (Versione Compatta e Larga) --- */
         @media (min-width: 768px) {
-                /* Da inserire DENTRO @media (min-width: 768px) */
     .nav-pill-wrapper {
         display: inline-flex;
         width: max-content; /* <--- Questo è il trucco: forza la larghezza al contenuto esatto */
@@ -151,13 +150,13 @@
                 justify-content: center; /* CENTRA TUTTO: Rimuove i vuoti ai bordi estremi */
                 width: 100%; 
                 overflow-x: hidden; 
-                gap: 20px; /* Spazio fisso e pulito tra i pulsanti */
+                gap: 10px; /* Spazio fisso e pulito tra i pulsanti */
                 .nav-pill-wrapper {
         display: inline-flex;
         width: auto;
         min-width: fit-content;
         flex-grow: 0;
-        padding: 0 10px;
+        padding: 0;
         justify-content: center;
     }
             }
