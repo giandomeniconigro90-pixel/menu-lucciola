@@ -73,26 +73,142 @@
         .weather-badge svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
         .weather-badge.snow { background: rgba(200, 230, 255, 0.25); color: #fff; border-color: rgba(255,255,255,0.4); }
 
-        /* --- STICKY NAV (SMART HIDE) --- */
+        /* --- STICKY NAV & ANIMATION --- */
         .sticky-nav-container { 
             position: sticky; top: 10px; z-index: 100; 
             margin-top: -40px; padding: 0; 
             display: flex; flex-direction: column; align-items: center; 
             pointer-events: none; 
-            transition: transform 0.4s ease-in-out; /* Animazione sparizione */
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            width: 100%;
         }
         
-        /* Classe per nascondere la barra traslandola in alto */
-        .sticky-nav-container.hidden-nav {
-            transform: translateY(-150%); 
+        .nav-cluster { 
+            display: flex; align-items: center; gap: 10px; 
+            pointer-events: auto; width: 94%; justify-content: center; 
+            max-width: 800px; margin-bottom: 10px;
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        .nav-cluster { display: flex; align-items: center; gap: 10px; pointer-events: auto; width: 94%; justify-content: center; max-width: 800px; margin-bottom: 10px;}
-        .logo-circle { width: 58px; height: 58px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); transition: all 0.4s ease; }
-        .nav-mini-logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
+        .logo-circle { 
+            width: 58px; height: 58px; border-radius: 50%; flex-shrink: 0; 
+            display: flex; align-items: center; justify-content: center; 
+            background-color: rgba(255, 255, 255, 0.45); 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15); 
+            border: 1px solid rgba(255,255,255,0.4); 
+            transition: all 0.5s ease; 
+        }
+        .nav-mini-logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; transition: all 0.5s; }
 
-        .nav-pill-wrapper { display: flex; align-items: center; height: 58px; border-radius: 50px; flex-grow: 1; overflow: hidden; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); transition: all 0.4s ease; }
+        .nav-pill-wrapper { 
+            display: flex; align-items: center; height: 58px; 
+            border-radius: 50px; flex-grow: 1; overflow: hidden; 
+            background-color: rgba(255, 255, 255, 0.45); 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15); 
+            border: 1px solid rgba(255,255,255,0.4); 
+            transition: all 0.5s ease; 
+        }
+
+        /* --- FIX RESPONSIVO PER TABLET/DESKTOP --- */
+        @media (min-width: 768px) {
+            .nav-cluster {
+                max-width: 600px; /* Limita la larghezza su schermi grandi */
+            }
+            .search-container {
+                max-width: 600px; /* Allinea anche la ricerca */
+                margin-left: auto; margin-right: auto;
+            }
+            .menu-container {
+                max-width: 700px; /* Contenuto centrale leggermente più largo */
+            }
+            /* Su tablet l'header è più alto, aggiustiamo la sticky nav */
+            header { height: 320px; }
+            .sticky-nav-container { margin-top: -50px; } /* Più in alto per header più grande */
+        }
+
+        /* --- ANIMAZIONE VERTICALE PERFETTA --- */
+        .sticky-nav-container.scrolled-vertical {
+            top: 100px; 
+            width: auto;
+            right: 10px; 
+            position: fixed;
+            margin-top: 0;
+            align-items: flex-end; /* Mantiene tutto a destra */
+            transform: translateX(0);
+        }
         
+        .sticky-nav-container.scrolled-vertical .nav-cluster {
+            flex-direction: column; 
+            width: 50px; /* Larghezza fissa identica per logo e menu */
+            gap: 12px;
+            align-items: center; /* CENTRA TUTTO ORIZZONTALMENTE NELLA COLONNA */
+        }
+
+        .sticky-nav-container.scrolled-vertical .logo-circle {
+            width: 50px; height: 50px;
+            background-color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            margin: 0; /* Rimuove margini strani */
+        }
+
+        .sticky-nav-container.scrolled-vertical .nav-pill-wrapper {
+            height: auto; 
+            width: 50px; /* Larghezza fissa */
+            flex-direction: column;
+            background-color: white;
+            border-radius: 25px;
+            padding: 8px 0; /* Padding verticale uniforme */
+            border: 1px solid rgba(0,0,0,0.05);
+            align-items: center; /* Centra icone nella pillola */
+        }
+        
+        .sticky-nav-container.scrolled-vertical .nav-scroll-area {
+            flex-direction: column; 
+            height: auto;
+            width: 100%;
+            gap: 8px; /* Spazio tra icone */
+            align-items: center; /* Centra icone */
+        }
+
+        .sticky-nav-container.scrolled-vertical .tab-btn {
+            width: 100%; height: 40px;
+            margin: 0;
+            display: flex; 
+            justify-content: center; /* Centra il contenuto del bottone */
+        }
+
+        .sticky-nav-container.scrolled-vertical .tab-btn-inner {
+            width: 38px; height: 38px; /* Quadrato perfetto per il cerchio */
+            border-radius: 50%;
+            padding: 0; /* Rimuove padding laterale che spostava l'icona */
+            justify-content: center;
+            font-size: 0; /* Nasconde testo */
+        }
+        
+        .sticky-nav-container.scrolled-vertical .tab-btn-inner svg {
+             margin: 0;
+             width: 20px; height: 20px;
+        }
+        
+        /* BACK TO TOP ALLINEATO ALLA COLONNA */
+        #back-to-top {
+            position: fixed; 
+            bottom: 25px; 
+            /* Calcolo: right: 10px (nav) + 25px (metà nav) - 22.5px (metà bottone) = 12.5px */
+            right: 12.5px; 
+            width: 45px; height: 45px; 
+            border-radius: 50%; 
+            background: var(--primary-color); 
+            color: white; border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
+            display: none; 
+            align-items: center; justify-content: center; 
+            z-index: 900; cursor: pointer; transition: transform 0.2s;
+        }
+
+
         /* --- SEARCH BAR --- */
         .search-container { width: 94%; max-width: 800px; margin: 10px auto 20px auto; opacity: 0; animation: fadeInUp 0.6s 0.3s forwards; position: relative; z-index: 5; }
         .search-input-wrapper { position: relative; display: flex; align-items: center; }
@@ -104,6 +220,7 @@
         .nav-scroll-area {
             display: flex; align-items: center; overflow-x: auto; height: 100%; width: 100%;
             padding: 0; scroll-snap-type: x mandatory; scrollbar-width: none;
+            transition: all 0.3s;
         }
         .nav-scroll-area::-webkit-scrollbar { display: none; }
 
@@ -114,6 +231,7 @@
             cursor: pointer; 
             display: flex; align-items: center; justify-content: center;
             scroll-snap-align: start; 
+            transition: all 0.3s;
         }
 
         .tab-btn-inner {
@@ -133,7 +251,6 @@
         }
         
         @media (min-width: 900px) {
-            header { height: 380px; }
             .header-content { bottom: 30px; left: 50px; max-width: 40%; }
             .header-content h1 { font-size: 48px; }
             .subtitle { font-size: 15px; }
@@ -215,9 +332,19 @@
         body.lite-mode .status-badge, body.lite-mode .weather-badge { background: rgba(0,0,0,0.1); border: none; color: white; }
         body.lite-mode .header-content h1 { font-size: 28px; text-shadow: none; font-style: normal; }
         body.lite-mode .subtitle { opacity: 0.8; font-size: 14px; text-shadow: none; }
-        body.lite-mode .sticky-nav-container { position: sticky; top: 0; z-index: 100; margin-top: 0; padding-top: 15px; background-color: #f9f7f2; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        body.lite-mode .nav-cluster { display: flex; }
+        
+        /* In lite mode disattiviamo l'animazione laterale complessa */
+        body.lite-mode .sticky-nav-container { position: sticky; top: 0; z-index: 100; margin-top: 0; padding-top: 15px; background-color: #f9f7f2; box-shadow: 0 4px 10px rgba(0,0,0,0.05); width: 100%; }
+        body.lite-mode .nav-cluster { display: flex; width: 94%; flex-direction: row; }
         body.lite-mode .logo-circle, body.lite-mode .nav-pill-wrapper { background-color: #ffffff !important; border: 2px solid #e6e6e6; box-shadow: 0 2px 6px rgba(0,0,0,0.05); backdrop-filter: none !important; }
+        
+        body.lite-mode .sticky-nav-container.scrolled-vertical { position: sticky; top: 0; width: 100%; right: auto; transform: none; align-items: center; }
+        body.lite-mode .sticky-nav-container.scrolled-vertical .nav-cluster { flex-direction: row; width: 94%; gap: 10px; }
+        body.lite-mode .sticky-nav-container.scrolled-vertical .nav-pill-wrapper { flex-direction: row; width: 100%; height: 58px; }
+        body.lite-mode .sticky-nav-container.scrolled-vertical .nav-scroll-area { flex-direction: row; height: 100%; }
+        body.lite-mode .sticky-nav-container.scrolled-vertical .tab-btn { width: auto; height: 100%; }
+        body.lite-mode .sticky-nav-container.scrolled-vertical .tab-btn-inner { width: auto; height: 42px; font-size: 15px; border-radius: 30px; }
+
         body.lite-mode .menu-item { animation: none !important; opacity: 1 !important; box-shadow: none; border: 1px solid #e0dec0; background: #fff; margin-bottom: 10px; }
         body.lite-mode .item-price { background-color: var(--bg-accent-light); color: var(--primary-color); }
         body.lite-mode #lite-switch { background: #d4af37 !important; color: #000 !important; border: 2px solid white !important; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
@@ -318,13 +445,7 @@
 </div>
 
 <!-- BACK TO TOP -->
-<button id="back-to-top" onclick="scrollToTop()" style="
-    position: fixed; bottom: 25px; right: 25px; 
-    width: 45px; height: 45px; border-radius: 50%; 
-    background: var(--primary-color); color: white; border: none;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
-    display: none; align-items: center; justify-content: center; 
-    z-index: 900; cursor: pointer; transition: transform 0.2s;">
+<button id="back-to-top" onclick="scrollToTop()">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
 </button>
 
@@ -458,36 +579,19 @@
         }
     }
 
-    // --- GESTIONE SMART HIDE NAVBAR ---
-    let lastScrollTop = 0;
-    const nav = document.getElementById('sticky-nav');
-    const backToTop = document.getElementById('back-to-top');
-
+    // GESTIONE SCROLL ANIMATO NAVBAR (VERTICALE A DESTRA)
     window.onscroll = function() {
-        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const nav = document.getElementById('sticky-nav');
+        const backToTop = document.getElementById('back-to-top');
         
-        // Gestione Back to Top
-        if (scrollTop > 300) {
+        if (scrollTop > 280) {
+            nav.classList.add('scrolled-vertical');
             backToTop.style.display = "flex";
         } else {
+            nav.classList.remove('scrolled-vertical');
             backToTop.style.display = "none";
         }
-
-        // Gestione Nav Bar (Solo se siamo oltre l'header, es. 200px)
-        if (scrollTop > 200) {
-            if (scrollTop > lastScrollTop) {
-                // Scrollando GIÙ -> Nascondi
-                nav.classList.add('hidden-nav');
-            } else {
-                // Scrollando SU -> Mostra
-                nav.classList.remove('hidden-nav');
-            }
-        } else {
-            // Se siamo in cima, mostra sempre
-            nav.classList.remove('hidden-nav');
-        }
-        
-        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Per Mobile o rimbalzi negativi
     };
     
     function scrollToTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
@@ -610,12 +714,6 @@
                     <div class="item-price">€ ${price}</div>
                 </div>`;
         });
-    }
-
-    function toggleLiteMode() {
-        const body = document.body; const btn = document.getElementById('lite-switch');
-        body.classList.toggle('lite-mode'); 
-        btn.innerHTML = body.classList.contains('lite-mode') ? "🚀 Normal" : "⚡ Lite";
     }
 
     document.addEventListener('DOMContentLoaded', () => {
