@@ -113,7 +113,7 @@
             margin: 0 auto 10px auto;
             position: relative;
         }
-        .logo-circle { z-index: 20; position: relative;  width: 58px; height: 58px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); transition: all 0.4s ease; }
+        .logo-circle { z-index: 20; position: relative;  width: 58px; height: 58px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background-color: rgba(255, 255, 255, 0.98); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 12px 30px rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.4); transition: all 0.4s ease; }
         .nav-mini-logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
 
 .nav-pill-wrapper {
@@ -125,10 +125,10 @@
     width: 100%; /* Torna a occupare tutto lo spazio su mobile */
     overflow: hidden;
     /* ... resto (background, blur, etc) invariato ... */
-    background-color: rgba(255, 255, 255, 0.45);
+    background-color: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
     border: 1px solid rgba(255,255,255,0.4);
     transition: all 0.4s ease;
 }
@@ -513,34 +513,6 @@
             justify-content: center !important;
             width: 100% !important;
         }
-
-        /* --- PINNED STATE (Sfondo quando scorri) --- */
-        .sticky-nav-container.pinned {
-            background-color: rgba(248, 249, 250, 0.95); /* Quasi opaco */
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            margin-top: 0; /* Reset margin negativo per riempire bene */
-            padding-top: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            top: 0; /* Si attacca proprio al soffitto */
-            border-radius: 0 0 20px 20px; /* Un tocco di eleganza agli angoli sotto */
-        }
-        .sticky-nav-container.pinned .nav-cluster {
-            margin: 0 auto; /* Rimuovi margin extra */
-        }
-        .sticky-nav-container.pinned .nav-pill-wrapper {
-            background: transparent !important; /* Rimuovi lo sfondo della pillola, usa quello della barra */
-            box-shadow: none;
-            border: none;
-            backdrop-filter: none;
-        }
-        .sticky-nav-container.pinned .logo-circle {
-            /* Opzionale: Riduci logo o nascondilo per spazio */
-            transform: scale(0.9);
-        }
-
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
@@ -793,14 +765,7 @@ window.addEventListener('scroll', function() {
     let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
     // --- LOGICA BARRA DI NAVIGAZIONE ---
-    // Logica "Pinned" (Sfondo solido quando scorri)
-    // Se abbiamo superato l'header (circa 100px), attiviamo lo sfondo
-    if (scrollTop > 100) {
-        navContainer.classList.add('pinned');
-    } else {
-        navContainer.classList.remove('pinned');
-    }
-
+    // Navigazione fissa e sempre visibile (nessuna azione allo scroll)
     // --- LOGICA PULSANTE BACK-TO-TOP (Mantenuta) ---
     if (backToTopBtn) {
         if (scrollTop > 300) {
