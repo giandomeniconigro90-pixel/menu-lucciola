@@ -513,6 +513,34 @@
             justify-content: center !important;
             width: 100% !important;
         }
+
+        /* --- PINNED STATE (Sfondo quando scorri) --- */
+        .sticky-nav-container.pinned {
+            background-color: rgba(248, 249, 250, 0.95); /* Quasi opaco */
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            margin-top: 0; /* Reset margin negativo per riempire bene */
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            top: 0; /* Si attacca proprio al soffitto */
+            border-radius: 0 0 20px 20px; /* Un tocco di eleganza agli angoli sotto */
+        }
+        .sticky-nav-container.pinned .nav-cluster {
+            margin: 0 auto; /* Rimuovi margin extra */
+        }
+        .sticky-nav-container.pinned .nav-pill-wrapper {
+            background: transparent !important; /* Rimuovi lo sfondo della pillola, usa quello della barra */
+            box-shadow: none;
+            border: none;
+            backdrop-filter: none;
+        }
+        .sticky-nav-container.pinned .logo-circle {
+            /* Opzionale: Riduci logo o nascondilo per spazio */
+            transform: scale(0.9);
+        }
+
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
@@ -765,8 +793,13 @@ window.addEventListener('scroll', function() {
     let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
     // --- LOGICA BARRA DI NAVIGAZIONE ---
-    // Rimossa logica nascondimento su richiesta
-    navContainer.classList.remove("nav-hidden");
+    // Logica "Pinned" (Sfondo solido quando scorri)
+    // Se abbiamo superato l'header (circa 100px), attiviamo lo sfondo
+    if (scrollTop > 100) {
+        navContainer.classList.add('pinned');
+    } else {
+        navContainer.classList.remove('pinned');
+    }
 
     // --- LOGICA PULSANTE BACK-TO-TOP (Mantenuta) ---
     if (backToTopBtn) {
