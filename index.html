@@ -342,7 +342,17 @@
             text-shadow: 0 1px 5px rgba(0,0,0,0.5); 
             margin-bottom: 10px; 
         }
-        body.lite-mode .sticky-nav-container { position: sticky; top: 0; z-index: 100; margin-top: 0; padding-top: 15px; background-color: #f9f7f2; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        /* --- REGOLA SPECIALE PER LITE MODE --- */
+/* Quando sei in Lite Mode, la barra resta fissa in alto e non si muove mai */
+body.lite-mode .sticky-nav-container {
+    position: sticky !important;
+    top: 0 !important;
+    transform: none !important; /* Blocca ogni movimento */
+    opacity: 1 !important;      /* Sempre visibile */
+    background: var(--bg-warm); /* Sfondo pieno per coprire quello che scorre sotto */
+    z-index: 999;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Piccola ombra per staccarla */
+}
         body.lite-mode .nav-cluster { 
             display: flex; 
             align-items: center; 
@@ -641,43 +651,37 @@ const navContainer = document.querySelector('.sticky-nav-container');
 const backToTopBtn = document.getElementById('back-to-top');
 
 // --- NUOVA LOGICA SCROLL ---
-// --- NUOVA LOGICA SCROLL (CON SUPPORTO LITE MODE) ---
-const scrollDelta = 10; // Soglia minima per evitare sfarfallii
+ 
+ const scrollDelta = 10; 
 
 window.addEventListener('scroll', function() {
     let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
-    // Se è attiva la modalità Lite, assicurati che la barra sia visibile e FERMATI QUI.
-    // Non esegue calcoli di nascondimento/apparizione.
+    // 1. SEI IN LITE MODE? -> STOP. 
+    // Non fare nulla. Lascia che il CSS tenga la barra fissa.
     if (document.body.classList.contains('lite-mode')) {
-        navContainer.classList.remove('nav-hidden');
-        // Continuiamo solo per il pulsante Back-to-Top, se serve
-    } 
-    // ALTRIMENTI (Modalità Normale): Esegui la logica di scomparsa
-    else {
-        // Ignora rimbalzi su iOS e movimenti minimi
-        if (currentScroll >= 0 && Math.abs(lastScrollTop - currentScroll) > scrollDelta) {
-            
-            // Se scorri verso il BASSO e sei oltre i 100px -> NASCONDI
-            if (currentScroll > lastScrollTop && currentScroll > 100) {
-                navContainer.classList.add('nav-hidden');
-            } 
-            // Se scorri verso l'ALTO -> MOSTRA
-            else {
-                navContainer.classList.remove('nav-hidden');
-            }
-            
-            lastScrollTop = currentScroll;
-        }
+        navContainer.classList.remove('nav-hidden'); 
+        return; 
     }
 
-    // --- LOGICA PULSANTE BACK-TO-TOP (Funziona in entrambe le modalità) ---
-    if (backToTopBtn) {
-        if (currentScroll > 300) {
-            backToTopBtn.style.display = "flex";
-        } else {
-            backToTopBtn.style.display = "none";
+    // 2. MODALITÀ NORMALE -> Fai sparire/apparire la barra
+    if (currentScroll < 0) return; // Ignora rimbalzi su iPhone
+
+    if (Math.abs(lastScrollTop - currentScroll) > scrollDelta) {
+        // Se scorri in BASSO (>100px) -> Nascondi
+        if (currentScroll > lastScrollTop && currentScroll > 100) {
+            navContainer.classList.add('nav-hidden');
+        } 
+        // Se scorri in ALTO -> Mostra
+        else {
+            navContainer.classList.remove('nav-hidden');
         }
+        lastScrollTop = currentScroll;
+    }
+
+    // Gestione pulsante "Torna su"
+    if (backToTopBtn) {
+        backToTopBtn.style.display = currentScroll > 300 ? "flex" : "none";
     }
 }, { passive: true });
     
