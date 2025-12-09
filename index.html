@@ -641,31 +641,37 @@ const navContainer = document.querySelector('.sticky-nav-container');
 const backToTopBtn = document.getElementById('back-to-top');
 
 // --- NUOVA LOGICA SCROLL ---
+// --- NUOVA LOGICA SCROLL (CON SUPPORTO LITE MODE) ---
 const scrollDelta = 10; // Soglia minima per evitare sfarfallii
 
 window.addEventListener('scroll', function() {
-    // Ottieni la posizione attuale dello scroll
     let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
-    // Ignora rimbalzi su iOS (scroll negativo)
-    if (currentScroll < 0) return;
-
-    // Gestione barra navigazione con soglia (delta)
-    if (Math.abs(lastScrollTop - currentScroll) > scrollDelta) {
-        // Se scorri verso il BASSO e sei oltre i 100px -> NASCONDI
-        if (currentScroll > lastScrollTop && currentScroll > 100) {
-            navContainer.classList.add('nav-hidden');
-        } 
-        // Se scorri verso l'ALTO -> MOSTRA
-        else {
-            navContainer.classList.remove('nav-hidden');
+    // Se è attiva la modalità Lite, assicurati che la barra sia visibile e FERMATI QUI.
+    // Non esegue calcoli di nascondimento/apparizione.
+    if (document.body.classList.contains('lite-mode')) {
+        navContainer.classList.remove('nav-hidden');
+        // Continuiamo solo per il pulsante Back-to-Top, se serve
+    } 
+    // ALTRIMENTI (Modalità Normale): Esegui la logica di scomparsa
+    else {
+        // Ignora rimbalzi su iOS e movimenti minimi
+        if (currentScroll >= 0 && Math.abs(lastScrollTop - currentScroll) > scrollDelta) {
+            
+            // Se scorri verso il BASSO e sei oltre i 100px -> NASCONDI
+            if (currentScroll > lastScrollTop && currentScroll > 100) {
+                navContainer.classList.add('nav-hidden');
+            } 
+            // Se scorri verso l'ALTO -> MOSTRA
+            else {
+                navContainer.classList.remove('nav-hidden');
+            }
+            
+            lastScrollTop = currentScroll;
         }
-        
-        // Aggiorna lastScrollTop solo se il movimento è significativo
-        lastScrollTop = currentScroll;
     }
 
-    // --- LOGICA PULSANTE BACK-TO-TOP (Mantenuta) ---
+    // --- LOGICA PULSANTE BACK-TO-TOP (Funziona in entrambe le modalità) ---
     if (backToTopBtn) {
         if (currentScroll > 300) {
             backToTopBtn.style.display = "flex";
@@ -673,7 +679,7 @@ window.addEventListener('scroll', function() {
             backToTopBtn.style.display = "none";
         }
     }
-}, { passive: true });
+}, { passive: true }); });
 
     
     function scrollToTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
