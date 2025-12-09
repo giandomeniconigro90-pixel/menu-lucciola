@@ -402,6 +402,30 @@ body.lite-mode .sticky-nav-container {
             justify-content: center !important;
             width: 100% !important;
         }
+        
+        /* SOLO IN MODALITÀ LITE: niente rettangolo bianco lungo */
+body.lite-mode .search-container {
+    margin-top: 4px;           /* Avvicina un po' la ricerca alla barra categorie */
+    margin-bottom: 8px;        /* Meno spazio sotto */
+}
+
+/* Rende la card della ricerca meno “blocco bianco” in Lite */
+body.lite-mode .search-input-wrapper {
+    background: transparent;   /* Toglie il fondo bianco pieno */
+    box-shadow: none;          /* Toglie l’ombra pesante se presente */
+    border: 1px solid rgba(0,0,0,0.12); /* Bordo leggero */
+}
+
+/* SOLO IN MODALITÀ LITE: intestazione un po' più in alto */
+body.lite-mode header {
+    height: 230px;        /* Header un po' più basso = contenuto più vicino alla cima */
+}
+
+body.lite-mode .header-content {
+    bottom: 90px;         /* Aumentando bottom, il blocco si sposta visivamente più in alto */
+}
+        
+        
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
