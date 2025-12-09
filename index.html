@@ -100,8 +100,26 @@
         .weather-badge.snow { background: rgba(200, 230, 255, 0.25); color: #fff; border-color: rgba(255,255,255,0.4); }
 
         /* --- STICKY NAV --- */
-        .sticky-nav-container { position: sticky; top: 10px; z-index: 100; margin-top: -40px; padding: 0; display: flex; flex-direction: column; align-items: center; pointer-events: none; transition: all 0.3s ease; }
-        .sticky-nav-container.nav-hidden {transform: translateY(-200%); }
+        .sticky-nav-container { 
+    position: sticky; 
+    top: 10px; 
+    z-index: 100; 
+    margin-top: -40px; 
+    padding: 0; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    pointer-events: none; 
+    /* Modifica qui: aggiungiamo l'opacity alla transizione */
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.4s ease; 
+    opacity: 1;
+}
+
+.sticky-nav-container.nav-hidden {
+    transform: translateY(-150%); 
+    opacity: 0; /* Nasconde visivamente in modo fluido */
+    pointer-events: none;
+}
         .nav-cluster { 
             display: flex; 
             align-items: center; 
@@ -622,26 +640,34 @@ let lastScrollTop = 0;
 const navContainer = document.querySelector('.sticky-nav-container');
 const backToTopBtn = document.getElementById('back-to-top');
 
+// --- NUOVA LOGICA SCROLL ---
+const scrollDelta = 10; // Soglia minima per evitare sfarfallii
+
 window.addEventListener('scroll', function() {
     // Ottieni la posizione attuale dello scroll
-    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
-    // --- LOGICA BARRA DI NAVIGAZIONE ---
-    // Se scorri verso il BASSO e sei oltre i 50px dalla cima -> Nascondi
-    if (scrollTop > lastScrollTop && scrollTop > 50) {
-        navContainer.classList.add('nav-hidden');
-    } 
-    // Se scorri verso l'ALTO -> Mostra
-    else {
-        navContainer.classList.remove('nav-hidden');
+    // Ignora rimbalzi su iOS (scroll negativo)
+    if (currentScroll < 0) return;
+
+    // Gestione barra navigazione con soglia (delta)
+    if (Math.abs(lastScrollTop - currentScroll) > scrollDelta) {
+        // Se scorri verso il BASSO e sei oltre i 100px -> NASCONDI
+        if (currentScroll > lastScrollTop && currentScroll > 100) {
+            navContainer.classList.add('nav-hidden');
+        } 
+        // Se scorri verso l'ALTO -> MOSTRA
+        else {
+            navContainer.classList.remove('nav-hidden');
+        }
+        
+        // Aggiorna lastScrollTop solo se il movimento è significativo
+        lastScrollTop = currentScroll;
     }
-    
-    // Aggiorna l'ultima posizione conosciuta (evita valori negativi su mobile)
-    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
 
     // --- LOGICA PULSANTE BACK-TO-TOP (Mantenuta) ---
     if (backToTopBtn) {
-        if (scrollTop > 300) {
+        if (currentScroll > 300) {
             backToTopBtn.style.display = "flex";
         } else {
             backToTopBtn.style.display = "none";
