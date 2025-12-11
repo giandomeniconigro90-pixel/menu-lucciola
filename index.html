@@ -349,9 +349,9 @@ body.lite-mode .sticky-nav-container {
     top: 0 !important;
     transform: none !important; /* Blocca ogni movimento */
     opacity: 1 !important;      /* Sempre visibile */
-    background: var(--bg-warm); /* Sfondo pieno per coprire quello che scorre sotto */
+        background: transparent !important; /* Rende invisibile la striscia rettangolare */
     z-index: 999;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Piccola ombra per staccarla */
+    box-shadow: none !important; /* Rimuove l'ombra del rettangolo (lascia quella dei pulsanti) */
 }
         body.lite-mode .nav-cluster { 
             display: flex; 
