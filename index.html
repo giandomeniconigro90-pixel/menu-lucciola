@@ -440,80 +440,45 @@ body.lite-mode .header-content {
     bottom: 90px;         /* Aumentando bottom, il blocco si sposta visivamente più in alto */
 }
 
-                /* --- EFFETTO NEVE --- */
+                /* --- STILE UNICO NEVE (PULITO) --- */
         #snow-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; /* FONDAMENTALE: permette di cliccare attraverso la neve */
-            z-index: 9998; /* Sopra a tutto */
-            overflow: hidden;
+            pointer-events: none; z-index: 9998; overflow: hidden;
         }
-                .snowflake {
+
+        /* Il fiocco che cade */
+        .snowflake {
             position: absolute; top: -10px;
-            background-color: rgba(255, 255, 255, 0.9); /* Bianco puro, leggermente trasparente */
+            background-color: white; /* Bianco piatto, niente luci */
             border-radius: 50%;
-            /* NESSUNA OMBRA/BAGLIORE QUI */
+            opacity: 0.8; 
+            /* NESSUN BOX-SHADOW QUI */
         }
-        
-        /* Classe per la neve che si accumula (la useremo via JS) */
+
+        /* Il mucchietto che si accumula */
         .snow-pile {
             position: absolute;
-            background: white;
+            background-color: white; /* Bianco piatto */
             border-radius: 50%;
-            pointer-events: none; /* Non blocca i click */
+            pointer-events: none; 
             z-index: 50;
-            animation: landSoft 0.5s ease-out forwards; /* Effetto "atterraggio" */
+            animation: landSoft 0.4s ease-out forwards;
         }
-
-        @keyframes landSoft {
-            0% { transform: scale(0) translateY(-10px); opacity: 0; }
-            100% { transform: scale(1) translateY(0); opacity: 1; }
-        }
-
+        
+        /* Animazione caduta */
         @keyframes fall {
             0% { transform: translateY(-10px) translateX(0); opacity: 0; }
             10% { opacity: 1; }
-            100% { transform: translateY(110vh) translateX(20px); opacity: 0; }
+            100% { transform: translateY(105vh) translateX(20px); opacity: 0; }
         }
 
-                /* --- NEVE ACCUMULATA (Effetto grafico) --- */
+        /* Animazione atterraggio (semplice apparizione) */
+        @keyframes landSoft {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
         
-        /* 1. Accumulo sul LOGO (Cupoletta bianca) */
-        .logo-circle::after {
-            content: '';
-            position: absolute;
-            top: -2px; /* Poggia delicatamente sopra */
-            left: 50%;
-            transform: translateX(-50%);
-            width: 70%; 
-            height: 18px;
-            /* Sfumatura radiale per sembrare neve soffice */
-            background: radial-gradient(ellipse at top, #ffffff 50%, rgba(255,255,255,0) 80%);
-            border-radius: 50% 50% 0 0;
-            filter: drop-shadow(0 0 2px white);
-            z-index: 100;
-            pointer-events: none;
-        }
-
-        /* 2. Accumulo sulla BARRA (Striscia irregolare) */
-        /* Visibile solo in modalità Normale (non Lite) perché lì la barra è solida */
-        body:not(.lite-mode) .nav-pill-wrapper::before {
-            content: '';
-            position: absolute;
-            top: -4px;    /* Sborda leggermente in alto */
-            left: 10px;   /* Non copre il logo */
-            right: 10px;
-            height: 10px;
-            background: white;
-            /* Bordo irregolare per simulare mucchietti di neve */
-            border-radius: 40% 60% 10% 10% / 100% 80% 0 0;
-            filter: blur(2px); /* Effetto soffice */
-            opacity: 0.9;
-            z-index: 30;
-            pointer-events: none;
-            /* Aggiunge altri mucchietti laterali con le ombre */
-            box-shadow: 20px 2px 0 #fff, -20px 1px 0 #fff; 
-        }
-
         
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
