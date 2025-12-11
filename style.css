@@ -911,3 +911,12 @@ body.lite-mode header {
 body.lite-mode .header-content {
     bottom: 90px;
 }
+
+/* Badge aperitivo per menu */
+.tag-aperitivo {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+
+
