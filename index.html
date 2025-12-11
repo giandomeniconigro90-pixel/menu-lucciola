@@ -318,10 +318,6 @@
         .review-btn:active { transform: scale(0.95); }
 
         footer { background-color: white; padding: 30px 20px; margin-top: 20px; border-top-left-radius: 30px; border-top-right-radius: 30px; box-shadow: 0 -10px 40px rgba(0,0,0,0.03); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-        body.lite-mode footer {
-    background-color: #f6f0e5;           /* stesso beige di barra/logo/menu */
-    box-shadow: 0 -6px 20px rgba(0,0,0,0.02);
-}
         .footer-info { text-align: left; }
         .footer-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
         .footer-address { font-size: 0.85rem; color: var(--text-gray); margin-bottom: 8px; text-decoration: none; display: block; transition: color 0.2s; }
@@ -391,19 +387,12 @@ body.lite-mode .sticky-nav-container {
             position: relative;
         }
 body.lite-mode .nav-pill-wrapper {
-    background-color: #f6f0e5 !important;
-    border: 1px solid #e0d6c7;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+    background-color: #ffffff !important;
+    border: 1px solid rgba(0,0,0,0.08); /* Bordo molto più sottile/leggero */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06); 
     backdrop-filter: none !important;
 }
-body.lite-mode .menu-item {
-    animation: none !important;
-    opacity: 1 !important;
-    box-shadow: none;
-    border: 1px solid #e0dec0;
-    background: #f6f0e5;
-    margin-bottom: 10px;
-}
+        body.lite-mode .menu-item { animation: none !important; opacity: 1 !important; box-shadow: none; border: 1px solid #e0dec0; background: #fff; margin-bottom: 10px; }
         body.lite-mode .item-price { background-color: var(--bg-accent-light); color: var(--primary-color); }
         body.lite-mode #lite-switch { background: #d4af37 !important; color: #000 !important; border: 2px solid white !important; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
         body.lite-mode .search-input { background: #fff; border: none; box-shadow: none; }
@@ -507,13 +496,10 @@ body.lite-mode .header-content {
             0% { transform: scale(0); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
-        
 body.lite-mode .logo-circle {
-    background-color: #f6f0e5;
-    border: 1px solid #e0d6c7;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
 }
-
 
         
         
@@ -846,7 +832,7 @@ window.addEventListener('scroll', function() {
         } catch (e) { console.log("Meteo non disponibile"); }
     }
 
-       function toggleLiteMode() {
+     function toggleLiteMode() {
         const body = document.body; 
         const btn = document.getElementById('lite-switch');
         
@@ -855,11 +841,13 @@ window.addEventListener('scroll', function() {
         const isLite = body.classList.contains('lite-mode');
         btn.innerHTML = isLite ? "🚀 Normal" : "⚡ Lite";
 
+        // --- PULIZIA NEVE ---
         if (isLite) {
-            document.querySelectorAll('.snow-pile, .snowflake').forEach(p => p.remove());
+            // Se entri in Lite Mode, cancella TUTTA la neve accumulata
+            const piles = document.querySelectorAll('.snow-pile');
+            piles.forEach(p => p.remove());
         }
     }
-
 
     function showCategory(catId, btnElement) {
         const isLite = document.body.classList.contains('lite-mode');
@@ -944,25 +932,26 @@ window.addEventListener('scroll', function() {
         });
     }
 
-        // 1. NEVE DI SFONDO (solo modalità NORMAL)
-setInterval(() => {
-    if (document.hidden) return;
-    if (document.body.classList.contains('lite-mode')) return; // NIENTE neve in Lite
+        // --- FUNZIONE NEVE REALISTICA (CURVA SUL LOGO + MORBIDA) ---
+    function startSnow() {
+        const container = document.getElementById('snow-container');
+        
+        // 1. NEVE DI SFONDO
+        setInterval(() => {
+            if(document.hidden) return; 
+            const flake = document.createElement('div');
+            flake.classList.add('snowflake');
+            flake.style.left = Math.random() * 100 + 'vw';
+            const size = Math.random() * 3 + 3; // Un po' più grandi
+            flake.style.width = size + 'px';
+            flake.style.height = size + 'px';
+            flake.style.filter = 'blur(1px)'; // Soffici anche quelli che cadono
+            const duration = Math.random() * 3 + 4; 
+            flake.style.animation = `fall ${duration}s linear forwards`;
+            container.appendChild(flake);
+            setTimeout(() => { flake.remove(); }, duration * 1000);
+        }, 100);
 
-    const flake = document.createElement('div');
-    flake.classList.add('snowflake');
-
-    flake.style.left = Math.random() * 100 + 'vw';
-    const size = Math.random() * 3 + 3;
-    flake.style.width = size + 'px';
-    flake.style.height = size + 'px';
-    flake.style.filter = 'blur(1px)';
-    const duration = Math.random() * 3 + 4;
-    flake.style.animation = `fall ${duration}s linear forwards`;
-    container.appendChild(flake);
-    setTimeout(() => { flake.remove(); }, duration * 1000);
-}, 100);
-    
         // 2. ACCUMULO INTELLIGENTE
         setInterval(() => {
             if(document.hidden) return;
@@ -1020,78 +1009,6 @@ setInterval(() => {
 
 
         }, 150); // Velocità accumulo
-    }
-    // --- NEVE SOLO IN MODALITÀ NORMAL ---
-    function startSnow() {
-        const container = document.getElementById('snow-container');
-        if (!container) return;
-
-        // NEVE DI SFONDO
-        setInterval(() => {
-            if (document.hidden) return;
-            if (document.body.classList.contains('lite-mode')) return; // niente neve in Lite
-
-            const flake = document.createElement('div');
-            flake.classList.add('snowflake');
-            flake.style.left = Math.random() * 100 + 'vw';
-            const size = Math.random() * 3 + 3;
-            flake.style.width = size + 'px';
-            flake.style.height = size + 'px';
-            flake.style.filter = 'blur(1px)';
-            const duration = Math.random() * 3 + 4;
-            flake.style.animation = `fall ${duration}s linear forwards`;
-            container.appendChild(flake);
-            setTimeout(() => flake.remove(), duration * 1000);
-        }, 100);
-
-        // ACCUMULO (solo in Normal)
-        setInterval(() => {
-            if (document.hidden) return;
-            if (document.body.classList.contains('lite-mode')) return; // blocca in Lite
-
-            // LOGO
-            const logo = document.querySelector('.logo-circle');
-            if (logo && logo.querySelectorAll('.snow-pile').length < 60) {
-                const pile = document.createElement('div');
-                pile.classList.add('snow-pile');
-
-                const w = Math.random() * 10 + 6;
-                pile.style.width = w + 'px';
-                pile.style.height = (w * 0.6) + 'px';
-
-                const angleDeg = (Math.random() * 120) - 60;
-                const angleRad = angleDeg * (Math.PI / 180);
-                const radius = 29;
-
-                const x = 29 + (Math.sin(angleRad) * radius) - (w / 2);
-                const y = 29 - (Math.cos(angleRad) * radius) - (w / 2);
-
-                pile.style.left = x + 'px';
-                pile.style.top = (y - 2) + 'px';
-
-                logo.appendChild(pile);
-            }
-
-            // BARRA
-            const bar = document.querySelector('.nav-pill-wrapper');
-            if (bar && bar.querySelectorAll('.snow-pile').length < 150) {
-                for (let i = 0; i < 3; i++) {
-                    const pile = document.createElement('div');
-                    pile.classList.add('snow-pile');
-
-                    const w = Math.random() * 15 + 8;
-                    pile.style.width = w + 'px';
-                    pile.style.height = (w * 0.5) + 'px';
-
-                    const maxLeft = bar.offsetWidth;
-                    pile.style.left = (Math.random() * maxLeft - (w / 2)) + 'px';
-                    const verticalOffset = Math.random() * 4 - 2;
-                    pile.style.top = (-3 + verticalOffset) + 'px';
-
-                    bar.appendChild(pile);
-                }
-            }
-        }, 150);
     }
 
 
