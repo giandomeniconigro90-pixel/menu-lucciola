@@ -371,15 +371,16 @@ body.lite-mode .sticky-nav-container {
         body.lite-mode .search-input { background: #fff; border: 1px solid #ddd; box-shadow: none; }
     
         /* --- LITE MODE FIXES REINFORCED --- */
-        body.lite-mode header {
-            height: 160px !important;
-            padding-top: 40px;
+                body.lite-mode header {
+            height: 150px !important; /* Leggermente più basso per proporzione */
+            padding-top: 20px !important; /* Spazio dal bordo superiore del telefono */
             display: flex !important;
             flex-direction: column !important;
-            justify-content: center !important;
+            justify-content: flex-start !important; /* Allinea tutto in ALTO, non al centro */
             align-items: center !important;
             text-align: center !important;
         }
+
         body.lite-mode .header-content {
             position: static !important;
             transform: none !important;
