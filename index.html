@@ -4,266 +4,153 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bar La Lucciola - Menù</title>
-    <link rel="icon" type="image/png" href="images/iconapp.png">
-    <link rel="apple-touch-icon" href="images/iconapp.png">
+    
+    <link rel="icon" type="image/png" href="images/icon_app.png">
+    <link rel="apple-touch-icon" href="images/icon_app.png">
+    
     <meta name="theme-color" content="#2c2c2c">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
     <style>
         /* --- VARIABILI --- */
         :root {
-            --primary-color: #8B5A2B;
-            --bg-accent-light: #fdf5e6;
+            --primary-color: #8B5A2B; 
+            --bg-accent-light: #fdf5e6; 
             --accent-color: #d4af37;
             --bg-warm: #f8f9fa;
             --text-dark: #2c2c2c;
             --text-gray: #333333;
             --shadow-soft: 0 10px 25px rgba(0,0,0,0.06);
-            --status-open: #4caf50;
+            --status-open: #4caf50; 
             --status-closed: #ff5252;
             --allergen-bg: rgba(0,0,0,0.05);
             --google-blue: #4285F4;
-            /* Beige per modalità lite */
-            --beige-lite: #f5f5dc;
         }
 
         /* --- BASE --- */
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-warm);
             color: var(--text-dark);
-            margin: 0;
-            padding: 0;
-            overscroll-behavior-y: none;
+            margin: 0; padding: 0;
+            overscroll-behavior-y: none; 
             -webkit-tap-highlight-color: transparent;
             transition: background-color 0.3s ease;
         }
+        
+        @keyframes kenBurns { 0% { transform: scale(1); } 100% { transform: scale(1.15); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(76, 175, 80, 0); } 100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); } }
 
-        @keyframes kenBurns {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.15); }
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); }
-            70% { box-shadow: 0 0 0 6px rgba(76, 175, 80, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
-        }
-
-        /* --- ALERT BANNER Avvisi da CSV --- */
+        /* --- ALERT BANNER (Avvisi da CSV) --- */
         #alert-banner {
-            background: #ff9800;
-            color: white;
-            text-align: center;
-            padding: 12px 20px;
-            font-weight: 600;
-            display: none;
-            font-size: 14px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: relative;
-            z-index: 200;
+            background: #ff9800; color: white; text-align: center; 
+            padding: 12px 20px; font-weight: 600; display: none; 
+            font-size: 14px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative; z-index: 200;
         }
 
         /* --- HEADER --- */
-        header {
-            position: relative;
-            height: 260px;
-            overflow: hidden;
-            background-color: #2c2c2c;
-            transition: height 0.3s ease;
+        header { position: relative; height: 260px; overflow: hidden; background-color: #2c2c2c; transition: height 0.3s ease; }
+        header::before { content: ''; position: absolute; inset: 0; background-image: url('images/la-lucciola-neve.jpg'); background-size: cover; background-position: center; z-index: 0; animation: kenBurns 20s infinite alternate ease-in-out; }
+        header::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.8) 100%); z-index: 1; }
+
+        .header-content { 
+            position: absolute; 
+            bottom: 70px; 
+            left: 20px; 
+            color: white; 
+            z-index: 2; 
+            width: auto; 
+            max-width: 90%; 
+            transition: all 0.3s ease; 
+            pointer-events: none; 
+        }
+        .header-content h1 { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 24px; 
+            margin-bottom: 2px; 
+            font-weight: 700; 
+            font-style: italic; 
+            text-shadow: 0 2px 10px rgba(0,0,0,0.6); 
+        }
+        .subtitle { 
+            font-family: 'Inter', sans-serif; 
+            font-size: 10px; 
+            font-weight: 400; 
+            opacity: 0.9; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            text-shadow: 0 1px 5px rgba(0,0,0,0.5); 
+            margin-bottom: 10px; 
         }
 
-        header::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image: url('images/la-lucciola-neve.jpg');
-            background-size: cover;
-            background-position: center;
-            z-index: 0;
-            animation: kenBurns 20s infinite alternate ease-in-out;
-        }
-
-        header::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.8) 100%);
-            z-index: 1;
-        }
-
-        .header-content {
-            position: absolute;
-            bottom: 70px;
-            left: 20px;
-            color: white;
-            z-index: 2;
-            width: auto;
-            max-width: 90%;
-            transition: all 0.3s ease;
-            pointer-events: none;
-        }
-
-        .header-content h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 24px;
-            margin-bottom: 2px;
-            font-weight: 700;
-            font-style: italic;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.6);
-        }
-
-        .subtitle {
-            font-family: 'Inter', sans-serif;
-            font-size: 10px;
-            font-weight: 400;
-            opacity: 0.9;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-shadow: 0 1px 5px rgba(0,0,0,0.5);
-            margin-bottom: 10px;
-        }
-
-        .info-cluster {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .status-badge, .weather-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 12px;
-            font-weight: 600;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(6px);
-            padding: 5px 12px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.15);
-            color: #e8f5e9;
-            transition: all 0.3s ease;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: #ccc;
-        }
-
-        .status-badge.open .status-dot {
-            background-color: var(--status-open);
-            animation: pulse 2s infinite;
-        }
-
-        .status-badge.closed {
-            color: #ffebEE;
-            border-color: rgba(255, 82, 82, 0.3);
-        }
-
-        .status-badge.closed .status-dot {
-            background-color: var(--status-closed);
-        }
-
-        .weather-badge svg {
-            width: 18px;
-            height: 18px;
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .weather-badge.snow {
-            background: rgba(200, 230, 255, 0.25);
-            color: #fff;
-            border-color: rgba(255,255,255,0.4);
-        }
+        .info-cluster { display: flex; gap: 8px; flex-wrap: wrap; }
+        .status-badge, .weather-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(6px); padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); color: #e8f5e9; transition: all 0.3s ease; }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; background-color: #ccc; }
+        .status-badge.open .status-dot { background-color: var(--status-open); animation: pulse 2s infinite; }
+        .status-badge.closed { color: #ffebee; border-color: rgba(255, 82, 82, 0.3); }
+        .status-badge.closed .status-dot { background-color: var(--status-closed); }
+        .weather-badge svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        .weather-badge.snow { background: rgba(200, 230, 255, 0.25); color: #fff; border-color: rgba(255,255,255,0.4); }
 
         /* --- STICKY NAV --- */
-        .sticky-nav-container {
-            position: sticky;
-            top: 10px;
-            z-index: 100;
-            margin-top: -40px;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            pointer-events: none;
-            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.4s ease;
-            opacity: 1;
-        }
+        .sticky-nav-container { 
+    position: sticky; 
+    top: 10px; 
+    z-index: 100; 
+    margin-top: -40px; 
+    padding: 0; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    pointer-events: none; 
+    /* Modifica qui: aggiungiamo l'opacity alla transizione */
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.4s ease; 
+    opacity: 1;
+}
 
-        .sticky-nav-container.nav-hidden {
-            transform: translateY(-150%);
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .nav-cluster {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            pointer-events: auto;
-            width: auto;
-            justify-content: center;
-            max-width: 95%;
+.sticky-nav-container.nav-hidden {
+    transform: translateY(-150%); 
+    opacity: 0; /* Nasconde visivamente in modo fluido */
+    pointer-events: none;
+}
+        .nav-cluster { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+            pointer-events: auto; 
+            width: auto; 
+            justify-content: center; 
+            max-width: 95%; 
             margin: 0 auto 10px auto;
             position: relative;
         }
-
-        .logo-circle {
-            z-index: 20;
-            position: relative;
-            width: 58px;
-            height: 58px;
-            border-radius: 50%;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: rgba(255, 255, 255, 0.45);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            border: 1px solid rgba(255,255,255,0.4);
-            transition: all 0.4s ease;
-        }
-
+        .logo-circle { z-index: 20; position: relative;  width: 58px; height: 58px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background-color: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.4); transition: all 0.4s ease; }
         body.lite-mode .logo-circle {
-            background-color: var(--beige-lite) !important;
-            backdrop-filter: none;
-            -webkit-backdrop-filter: none;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-            border: 1px solid rgba(0,0,0,0.08);
-        }
+    background-color: #ffffff;        /* Sfondo pieno, niente trasparenze */
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.08);
+}
 
-        .nav-mini-logo {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
+        .nav-mini-logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
 
         .nav-pill-wrapper {
-            display: flex;
+            display: flex; /* Torna a Flex normale */
             align-items: center;
             height: 58px;
             border-radius: 50px;
             flex-grow: 1;
-            width: 100%;
+            width: 100%; /* Torna a occupare tutto lo spazio su mobile */
             overflow: hidden;
+            /* ... resto (background, blur, etc) invariato ... */
             background-color: rgba(255, 255, 255, 0.45);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -272,94 +159,33 @@
             transition: all 0.4s ease;
         }
 
-        body.lite-mode .nav-pill-wrapper {
-            background-color: var(--beige-lite) !important;
-            border: 1px solid rgba(0,0,0,0.08);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-            backdrop-filter: none !important;
-        }
 
         /* --- SEARCH BAR --- */
-        .search-container {
-            width: 94%;
-            max-width: 600px !important;
-            margin: 10px auto 20px auto;
-            opacity: 0;
-            animation: fadeInUp 0.6s 0.3s forwards;
-            position: relative;
-            z-index: 5;
+        .search-container { 
+            width: 94%; 
+            max-width: 600px !important; 
+            margin: 10px auto 20px auto; 
+            opacity: 0; 
+            animation: fadeInUp 0.6s 0.3s forwards; 
+            position: relative; 
+            z-index: 5; 
         }
-
-        body.lite-mode .search-container {
-            margin-top: 4px;
-            margin-bottom: 8px;
-        }
-
-        .search-input-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        body.lite-mode .search-input-wrapper {
-            background: transparent;
-            box-shadow: none;
-            border: none;
-        }
-
-        .search-input {
-            width: 100%;
-            height: 45px;
-            border-radius: 12px;
-            border: none;
-            padding-left: 45px;
-            padding-right: 15px;
-            font-family: 'Inter', sans-serif;
-            font-size: 15px;
-            background: rgba(255,255,255,0.9);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            outline: none;
-            transition: all 0.3s;
-        }
-
-        .search-input:focus {
-            background: white;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-            transform: translateY(-1px);
-        }
-
-        body.lite-mode .search-input {
-            background: #fff;
-            border: none;
-            box-shadow: none;
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 15px;
-            color: #999;
-            width: 18px;
-            height: 18px;
-        }
+        .search-input-wrapper { position: relative; display: flex; align-items: center; }
+        .search-input { width: 100%; height: 45px; border-radius: 12px; border: none; padding-left: 45px; padding-right: 15px; font-family: 'Inter', sans-serif; font-size: 15px; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0,0,0,0.05); outline: none; transition: all 0.3s; }
+        .search-input:focus { background: white; box-shadow: 0 6px 20px rgba(0,0,0,0.08); transform: translateY(-1px); }
+        .search-icon { position: absolute; left: 15px; color: #999; width: 18px; height: 18px; }
 
         /* --- LOGICA SCROLL --- */
         /* --- ANIMAZIONE SCROLL HINT --- */
         @keyframes scrollHintAnimation {
             0%, 100% { transform: translateX(0); }
-            30% { transform: translateX(-50px); }
-            60% { transform: translateX(0); }
+            30% { transform: translateX(-50px); } 
+            60% { transform: translateX(0); }     
         }
 
         .nav-scroll-area {
-            display: flex;
-            align-items: center;
-            overflow-x: auto;
-            height: 100%;
-            width: 100%;
-            padding: 0;
-            scroll-snap-type: x mandatory;
-            scrollbar-width: none;
+            display: flex; align-items: center; overflow-x: auto; height: 100%; width: 100%;
+            padding: 0; scroll-snap-type: x mandatory; scrollbar-width: none;
         }
 
         /* Applica animazione SOLO su mobile */
@@ -368,494 +194,221 @@
                 animation: scrollHintAnimation 1.5s ease-in-out 1.5s 1 forwards;
             }
         }
-
-        .nav-scroll-area::-webkit-scrollbar {
-            display: none;
-        }
+        .nav-scroll-area::-webkit-scrollbar { display: none; }
 
         .tab-btn {
-            background: transparent;
-            border: none;
-            height: 100%;
-            flex: 0 0 50%;
-            width: 50%;
-            margin: 0;
-            padding: 0;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            scroll-snap-align: start;
+            background: transparent; border: none; height: 100%; 
+            flex: 0 0 50%; width: 50%;
+            margin: 0; padding: 0;
+            cursor: pointer; 
+            display: flex; align-items: center; justify-content: center;
+            scroll-snap-align: start; 
         }
 
         .tab-btn-inner {
-            width: 90%;
-            height: 42px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            width: 90%; height: 42px;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
             border-radius: 30px;
-            font-size: 15px;
-            color: #333333;
-            font-weight: 600;
-            white-space: nowrap;
-            transition: all 0.2s ease;
-            border: 2px solid transparent;
+            font-size: 15px; color: #333333; font-weight: 600; 
+            white-space: nowrap; transition: all 0.2s ease;
+            border: 2px solid transparent; 
         }
 
         /* --- MEDIA QUERIES --- */
-        /* --- DESKTOP TABLET Pillola compatta da 700px in su --- */
+        
+        /* --- DESKTOP & TABLET (Pillola compatta da 700px in su) --- */
         @media (min-width: 700px) {
-            .nav-scroll-area {
-                padding: 0;
-                scroll-snap-type: none;
-                justify-content: center;
-                width: 100%;
-                overflow-x: hidden;
-                gap: 10px;
+            .nav-scroll-area { 
+                padding: 0; 
+                scroll-snap-type: none; 
+                justify-content: center; /* CENTRA TUTTO */
+                width: 100%; 
+                overflow-x: hidden; 
+                gap: 10px; /* Spazio fisso tra i pulsanti */
             }
-
-            .tab-btn {
-                flex: 0 1 auto;
-                width: auto;
-                margin: 0;
-                min-width: 80px;
+            .tab-btn { 
+                flex: 0 1 auto; /* Si adattano al contenuto */
+                width: auto; 
+                margin: 0; 
+                min-width: 80px; 
             }
-
-            .tab-btn-inner {
-                width: 100%;
-                padding: 0 15px;
+            .tab-btn-inner { 
+                width: 100%; 
+                padding: 0 15px; 
                 justify-content: center;
             }
-
             .nav-pill-wrapper {
                 display: inline-flex;
-                width: max-content;
+                width: max-content; /* Forza la larghezza al contenuto */
                 min-width: 0;
                 flex-grow: 0;
-                padding: 0 5px;
+                padding: 0 5px; 
                 justify-content: center;
                 margin: 0;
-                position: static;
+                position: static; 
                 transform: none;
             }
         }
 
-        /* HEADER SCALING Banner grande su schermi ampi */
+        /* HEADER SCALING (Banner grande su schermi ampi) */
         @media (min-width: 900px) {
-            header {
-                height: 380px;
+            header { height: 380px; }
+            .header-content { 
+                bottom: 80px; 
+                left: 50px; 
+                max-width: 60%; 
             }
-
-            .header-content {
-                bottom: 80px;
-                left: 50px;
-                max-width: 60%;
-            }
-
-            .header-content h1 {
-                font-size: 36px;
-            }
-
-            .subtitle {
-                font-size: 12px;
-            }
+            .header-content h1 { font-size: 36px; }
+            .subtitle { font-size: 12px; }
         }
 
         /* --- STILE SELEZIONE --- */
-        .tab-btn.active .tab-btn-inner {
+        .tab-btn.active .tab-btn-inner { 
             background-color: rgba(139, 90, 43, 0.08);
             border: 2px solid var(--primary-color);
             color: var(--primary-color);
-            font-weight: 700;
+            font-weight: 700; 
             box-shadow: none;
         }
-
-        .tab-btn svg {
-            width: 18px;
-            height: 18px;
-            stroke-width: 2;
-            opacity: 0.7;
-            stroke: currentColor;
-            fill: none;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            transition: transform 0.2s ease;
-        }
-
-        .tab-btn.active svg {
-            opacity: 1;
-            stroke-width: 2.5;
-            transform: scale(1.15);
-        }
+        
+        .tab-btn svg { width: 18px; height: 18px; stroke-width: 2; opacity: 0.7; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.2s ease; }
+        .tab-btn.active svg { opacity: 1; stroke-width: 2.5; transform: scale(1.15); }
 
         /* --- CONTENUTO --- */
-        .menu-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            padding-bottom: 50px;
-            min-height: 400px;
-        }
-
-        h3 {
-            color: var(--primary-color);
-            font-family: 'Playfair Display', serif;
-            margin: 10px 0 25px 0;
-            font-size: 24px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-        }
-
-        h3::after {
-            content: '';
-            flex-grow: 1;
-            height: 2px;
-            background: linear-gradient(to right, var(--primary-color), transparent);
-            opacity: 0.2;
-            margin-left: 15px;
-        }
-
-        /* SOTTOTITOLI Es. Cocktail, Birre... */
+        .menu-container { max-width: 800px; margin: 0 auto; padding: 20px; padding-bottom: 50px; min-height: 400px; }
+        h3 { color: var(--primary-color); font-family: 'Playfair Display', serif; margin: 10px 0 25px 0; font-size: 24px; font-weight: 700; display: flex; align-items: center; }
+        h3::after { content: ''; flex-grow: 1; height: 2px; background: linear-gradient(to right, var(--primary-color), transparent); opacity: 0.2; margin-left: 15px; }
+        
+        /* SOTTOTITOLI (Es. Cocktail, Birre...) */
         .subcategory-title {
-            color: var(--text-dark);
-            font-family: 'Playfair Display', serif;
-            font-size: 19px;
-            font-weight: 600;
-            margin: 25px 0 12px 5px;
-            padding-left: 12px;
-            border-left: 4px solid var(--primary-color);
-            opacity: 0;
-            animation: fadeInUp 0.5s forwards;
+            color: var(--text-dark); font-family: 'Playfair Display', serif;
+            font-size: 19px; font-weight: 600; margin: 25px 0 12px 5px;
+            padding-left: 12px; border-left: 4px solid var(--primary-color);
+            opacity: 0; animation: fadeInUp 0.5s forwards;
         }
 
-        .menu-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: white;
-            padding: 16px;
-            margin-bottom: 15px;
-            border-radius: 16px;
-            box-shadow: var(--shadow-soft);
-            border: 1px solid rgba(0,0,0,0.01);
-            opacity: 0;
-            animation: fadeInUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
+        .menu-item { display: flex; justify-content: space-between; align-items: center; background: white; padding: 16px; margin-bottom: 15px; border-radius: 16px; box-shadow: var(--shadow-soft); border: 1px solid rgba(0,0,0,0.01); opacity: 0; animation: fadeInUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        .item-info h4 { margin: 0; font-size: 17px; color: var(--text-dark); font-weight: 600; }
+        .item-info p { margin: 5px 0 0 0; font-size: 13px; color: #888; line-height: 1.4; }
+        .item-price { font-weight: 700; color: var(--primary-color); background-color: var(--bg-accent-light); padding: 8px 14px; border-radius: 10px; font-size: 15px; white-space: nowrap; margin-left: 15px; }
 
-        body.lite-mode .menu-item {
-            animation: none !important;
-            opacity: 1 !important;
-            box-shadow: none;
-            border: 1px solid #e0dec0;
-            background: #fff;
-            margin-bottom: 10px;
-        }
+        .tag-badge { font-size: 9px; font-weight: 700; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; margin-left: 8px; vertical-align: middle; display: inline-block; }
+        .tag-new { background-color: #e3f2fd; color: #1565c0; border: 1px solid #bbdefb; }
+        .tag-hot { background-color: #fff3e0; color: #ef6c00; border: 1px solid #ffe0b2; }
 
-        .item-info h4 {
-            margin: 0;
-            font-size: 17px;
-            color: var(--text-dark);
-            font-weight: 600;
-        }
+        .menu-item.sold-out { opacity: 0.6; pointer-events: none; grayscale: 100%; }
+        .menu-item.sold-out .item-price { text-decoration: line-through; color: #999; background: transparent; }
+        .menu-item.sold-out .item-info h4::after { content: ' • Terminato'; color: #ff5252; font-size: 0.8em; }
 
-        .item-info p {
-            margin: 5px 0 0 0;
-            font-size: 13px;
-            color: #888;
-            line-height: 1.4;
-        }
-
-        .item-price {
-            font-weight: 700;
-            color: var(--primary-color);
-            background-color: var(--bg-accent-light);
-            padding: 8px 14px;
-            border-radius: 10px;
-            font-size: 15px;
-            white-space: nowrap;
-            margin-left: 15px;
-        }
-
-        body.lite-mode .item-price {
-            background-color: var(--bg-accent-light);
-            color: var(--primary-color);
-        }
-
-        .tag-badge {
-            font-size: 9px;
-            font-weight: 700;
-            text-transform: uppercase;
-            padding: 2px 6px;
-            border-radius: 4px;
-            margin-left: 8px;
-            vertical-align: middle;
-            display: inline-block;
-        }
-
-        .tag-new {
-            background-color: #e3f2fd;
-            color: #1565c0;
-            border: 1px solid #bbdefb;
-        }
-
-        .tag-hot {
-            background-color: #fff3e0;
-            color: #ef6c00;
-            border: 1px solid #ffe0b2;
-        }
-
-        .menu-item.sold-out {
-            opacity: 0.6;
-            pointer-events: none;
-            grayscale: 100%;
-        }
-
-        .menu-item.sold-out .item-price {
-            text-decoration: line-through;
-            color: #999;
-            background: transparent;
-        }
-
-        .menu-item.sold-out .item-info h4::after {
-            content: ' Terminato';
-            color: #ff5252;
-            font-size: 0.8em;
-        }
-
-        .allergen-row {
-            display: flex;
-            gap: 4px;
-            margin-top: 6px;
-        }
-
-        .allergen-tag {
-            font-size: 10px;
-            background: var(--allergen-bg);
-            padding: 2px 6px;
-            border-radius: 4px;
-            color: #666;
-            display: inline-flex;
-            align-items: center;
-            gap: 3px;
-        }
+        .allergen-row { display: flex; gap: 4px; margin-top: 6px; }
+        .allergen-tag { font-size: 10px; background: var(--allergen-bg); padding: 2px 6px; border-radius: 4px; color: #666; display: inline-flex; align-items: center; gap: 3px; }
 
         /* --- MODALE WIFI --- */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 2000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(5px);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            max-width: 300px;
-            width: 90%;
-            transform: scale(0.8);
-            transition: transform 0.3s;
-            position: relative;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-        }
-
-        .modal-overlay.active .modal-content {
-            transform: scale(1);
-        }
-
-        .wifi-icon-large {
-            width: 60px;
-            height: 60px;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-        }
-
-        .wifi-pass {
-            font-size: 24px;
-            font-weight: 800;
-            color: #333;
-            background: #f0f0f0;
-            padding: 10px 20px;
-            border-radius: 10px;
-            margin: 15px 0;
-            display: inline-block;
-            letter-spacing: 1px;
-            border: 2px dashed #ccc;
-            user-select: all;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 24px;
-            cursor: pointer;
-            color: #999;
-            padding: 5px;
-        }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); opacity: 0; transition: opacity 0.3s; }
+        .modal-content { background: white; padding: 30px; border-radius: 20px; text-align: center; max-width: 300px; width: 90%; transform: scale(0.8); transition: transform 0.3s; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
+        .modal-overlay.active { opacity: 1; }
+        .modal-overlay.active .modal-content { transform: scale(1); }
+        .wifi-icon-large { width: 60px; height: 60px; color: var(--primary-color); margin-bottom: 15px; }
+        .wifi-pass { font-size: 24px; font-weight: 800; color: #333; background: #f0f0f0; padding: 10px 20px; border-radius: 10px; margin: 15px 0; display: inline-block; letter-spacing: 1px; border: 2px dashed #ccc; user-select: all; }
+        .close-modal { position: absolute; top: 10px; right: 15px; font-size: 24px; cursor: pointer; color: #999; padding: 5px; }
 
         /* --- BUTTON RECENSIONE --- */
-        .review-btn-container {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+        .review-btn-container { text-align: center; margin-bottom: 20px; }
+        .review-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--google-blue); color: white; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: 600; box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3); transition: transform 0.2s; font-size: 14px; }
+        .review-btn:active { transform: scale(0.95); }
 
-        .review-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--google-blue);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
-            transition: transform 0.2s;
-            font-size: 14px;
-        }
-
-        .review-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            background-color: white;
-            padding: 30px 20px;
-            margin-top: 20px;
-            border-top-left-radius: 30px;
-            border-top-right-radius: 30px;
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.03);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        body.lite-mode footer {
-            background-color: var(--beige-lite) !important;
-        }
-
-        .footer-info {
-            text-align: left;
-        }
-
-        .footer-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 4px;
-        }
-
-        .footer-address {
-            font-size: 0.85rem;
-            color: var(--text-gray);
-            margin-bottom: 8px;
-            text-decoration: none;
-            display: block;
-            transition: color 0.2s;
-        }
-
-        .footer-address:hover {
-            color: var(--primary-color);
-            text-decoration: underline;
-        }
-
-        .footer-phone {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--primary-color);
-            font-weight: 600;
-            font-size: 0.95rem;
-            text-decoration: none;
-            background-color: var(--bg-accent-light);
-            padding: 6px 12px;
-            border-radius: 8px;
-        }
-
-        .footer-social {
-            display: flex;
-            align-items: center;
-        }
-
-        .social-circle {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: white;
-            border: 1px solid rgba(0,0,0,0.08);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s ease;
-            color: #1877f2;
-            margin-left: 10px;
-        }
-
-        .social-circle:active {
-            transform: scale(0.95);
-        }
-
-        .social-circle svg {
-            width: 28px;
-            height: 28px;
-            fill: currentColor;
-            stroke: none;
-        }
-
-        .footer-bottom {
-            width: 100%;
-            text-align: center;
-            margin-top: 20px;
-            font-size: 0.7rem;
-            color: #999;
-            border-top: 1px solid #f0f0f0;
-            padding-top: 15px;
-        }
+        footer { background-color: white; padding: 30px 20px; margin-top: 20px; border-top-left-radius: 30px; border-top-right-radius: 30px; box-shadow: 0 -10px 40px rgba(0,0,0,0.03); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .footer-info { text-align: left; }
+        .footer-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
+        .footer-address { font-size: 0.85rem; color: var(--text-gray); margin-bottom: 8px; text-decoration: none; display: block; transition: color 0.2s; }
+        .footer-address:hover { color: var(--primary-color); text-decoration: underline; }
+        .footer-phone { display: inline-flex; align-items: center; gap: 6px; color: var(--primary-color); font-weight: 600; font-size: 0.95rem; text-decoration: none; background-color: var(--bg-accent-light); padding: 6px 12px; border-radius: 8px; }
+        .footer-social { display: flex; align-items: center; }
+        .social-circle { width: 50px; height: 50px; border-radius: 50%; background-color: white; border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 4px 15px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease; color: #1877f2; }
+        .social-circle:active { transform: scale(0.95); }
+        .social-circle svg { width: 28px; height: 28px; fill: currentColor; stroke: none; }
+        .footer-bottom { width: 100%; text-align: center; margin-top: 20px; font-size: 0.7rem; color: #999; border-top: 1px solid #f0f0f0; padding-top: 15px; }
 
         /* LITE MODE */
-        body.lite-mode {
-            background-color: #f9f7f2;
+        body.lite-mode { background-color: #f9f7f2; }
+        body.lite-mode header { height: 130px; background: linear-gradient(135deg, #5D4037 0%, #8D6E63 100%); border-bottom: 4px solid #d4af37; display: flex; align-items: center; justify-content: center; }
+        body.lite-mode header::before { display: none; animation: none; }
+        body.lite-mode .header-content { 
+            position: absolute; 
+            bottom: 70px; 
+            left: 20px; 
+            color: white; 
+            z-index: 2; 
+            width: auto; 
+            max-width: 90%; 
+            transition: all 0.3s ease; 
+            pointer-events: none; 
         }
-
-        body.lite-mode header {
-            height: 150px !important;
-            padding-top: 20px !important;
+        body.lite-mode .info-cluster { justify-content: center; }
+        body.lite-mode .status-badge, body.lite-mode .weather-badge { background: rgba(0,0,0,0.1); border: none; color: white; }
+        body.lite-mode .header-content h1 { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 24px; 
+            margin-bottom: 2px; 
+            font-weight: 700; 
+            font-style: italic; 
+            text-shadow: 0 2px 10px rgba(0,0,0,0.6); 
+        }
+        body.lite-mode .subtitle { 
+            font-family: 'Inter', sans-serif; 
+            font-size: 10px; 
+            font-weight: 400; 
+            opacity: 0.9; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            text-shadow: 0 1px 5px rgba(0,0,0,0.5); 
+            margin-bottom: 10px; 
+        }
+        /* --- REGOLA SPECIALE PER LITE MODE --- */
+/* Quando sei in Lite Mode, la barra resta fissa in alto e non si muove mai */
+body.lite-mode .sticky-nav-container {
+    position: sticky !important;
+    top: 0 !important;
+    transform: none !important; /* Blocca ogni movimento */
+    opacity: 1 !important;      /* Sempre visibile */
+        background: transparent !important; /* Rende invisibile la striscia rettangolare */
+    z-index: 999;
+    box-shadow: none !important; /* Rimuove l'ombra del rettangolo (lascia quella dei pulsanti) */
+}
+        body.lite-mode .nav-cluster { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+            pointer-events: auto; 
+            width: auto; 
+            justify-content: center; 
+            max-width: 95%; 
+            margin: 0 auto 10px auto;
+            position: relative;
+        }
+body.lite-mode .nav-pill-wrapper {
+    background-color: #ffffff !important;
+    border: 1px solid rgba(0,0,0,0.08); /* Bordo molto più sottile/leggero */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06); 
+    backdrop-filter: none !important;
+}
+        body.lite-mode .menu-item { animation: none !important; opacity: 1 !important; box-shadow: none; border: 1px solid #e0dec0; background: #fff; margin-bottom: 10px; }
+        body.lite-mode .item-price { background-color: var(--bg-accent-light); color: var(--primary-color); }
+        body.lite-mode #lite-switch { background: #d4af37 !important; color: #000 !important; border: 2px solid white !important; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        body.lite-mode .search-input { background: #fff; border: none; box-shadow: none; }
+    
+        /* --- LITE MODE FIXES REINFORCED --- */
+                body.lite-mode header {
+            height: 150px !important; /* Leggermente più basso per proporzione */
+            padding-top: 20px !important; /* Spazio dal bordo superiore del telefono */
             display: flex !important;
             flex-direction: column !important;
-            justify-content: flex-start !important;
+            justify-content: flex-start !important; /* Allinea tutto in ALTO, non al centro */
             align-items: center !important;
             text-align: center !important;
         }
 
-        body.lite-mode header::before {
-            display: none;
-            animation: none;
-        }
-
-        body.lite-mode .header-content {
+            body.lite-mode .header-content {
             position: static !important;
             transform: none !important;
             margin: 10px auto 0 auto !important;
@@ -866,121 +419,71 @@
             bottom: auto !important;
             display: block !important;
         }
-
-        body.lite-mode .header-content h1,
+        body.lite-mode .header-content h1, 
         body.lite-mode .header-content .subtitle {
             text-align: center !important;
             margin-left: auto !important;
             margin-right: auto !important;
         }
-
         body.lite-mode .info-cluster {
             display: flex !important;
             justify-content: center !important;
             width: 100% !important;
         }
+        
+        /* SOLO IN MODALITÀ LITE: niente rettangolo bianco lungo */
+body.lite-mode .search-container {
+    margin-top: 4px;           /* Avvicina un po' la ricerca alla barra categorie */
+    margin-bottom: 8px;        /* Meno spazio sotto */
+}
 
-        body.lite-mode .status-badge,
-        body.lite-mode .weather-badge {
-            background: rgba(0,0,0,0.1);
-            border: none;
-            color: white;
-        }
+/* Rende la card della ricerca meno “blocco bianco” in Lite */
+body.lite-mode .search-input-wrapper {
+    background: transparent;
+    box-shadow: none;
+    border: none; /* Niente bordo esterno */
+}
 
-        body.lite-mode .header-content h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 24px;
-            margin-bottom: 2px;
-            font-weight: 700;
-            font-style: italic;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.6);
-        }
+/* SOLO IN MODALITÀ LITE: intestazione un po' più in alto */
+body.lite-mode header {
+    height: 230px;        /* Header un po' più basso = contenuto più vicino alla cima */
+}
 
-        body.lite-mode .subtitle {
-            font-family: 'Inter', sans-serif;
-            font-size: 10px;
-            font-weight: 400;
-            opacity: 0.9;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-shadow: 0 1px 5px rgba(0,0,0,0.5);
-            margin-bottom: 10px;
-        }
+body.lite-mode .header-content {
+    bottom: 90px;         /* Aumentando bottom, il blocco si sposta visivamente più in alto */
+}
 
-        /* --- REGOLA SPECIALE PER LITE MODE --- Quando sei in Lite Mode, la barra resta fissa in alto e non si muove mai */
-        body.lite-mode .sticky-nav-container {
-            position: sticky !important;
-            top: 0 !important;
-            transform: none !important;
-            opacity: 1 !important;
-            background: transparent !important;
-            z-index: 999;
-            box-shadow: none !important;
-        }
-
-        body.lite-mode .nav-cluster {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            pointer-events: auto;
-            width: auto;
-            justify-content: center;
-            max-width: 95%;
-            margin: 0 auto 10px auto;
-            position: relative;
-        }
-
-        body.lite-mode #lite-switch {
-            background: #d4af37 !important;
-            color: #000 !important;
-            border: 2px solid white !important;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-        /* --- STILE UNICO NEVE PULITO --- */
+                /* --- STILE UNICO NEVE (PULITO) --- */
         #snow-container {
-            display: none !important;
-        }
-
-        body.lite-mode #snow-container {
-            display: none !important;
-        }
-
-        .snow-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9998;
-            overflow: hidden;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 9998; overflow: hidden;
         }
 
         /* Il fiocco che cade */
         .snowflake {
-            position: absolute;
-            top: -10px;
-            background-color: white;
+            position: absolute; top: -10px;
+            background-color: white; /* Bianco piatto, niente luci */
             border-radius: 50%;
-            opacity: 0.8;
+            opacity: 0.8; 
+            /* NESSUN BOX-SHADOW QUI */
         }
 
         /* Il mucchietto che si accumula */
-        .snow-pile {
+                .snow-pile {
             position: absolute;
             background: radial-gradient(circle, rgba(255,255,255,0.95) 20%, rgba(255,255,255,0.6) 60%, rgba(255,255,255,0) 100%);
             border-radius: 50%;
-            pointer-events: none;
+            pointer-events: none; 
             z-index: 50;
-            transform-origin: center bottom;
+            transform-origin: center bottom; /* Cresce dal basso */
+            animation: landReal 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
 
         @keyframes landReal {
             0% { transform: scale(0.2) translateY(-5px); opacity: 0; }
             100% { transform: scale(1) translateY(0); opacity: 1; }
         }
-
+         
         /* Animazione caduta */
         @keyframes fall {
             0% { transform: translateY(-10px) translateX(0); opacity: 0; }
@@ -988,586 +491,534 @@
             100% { transform: translateY(105vh) translateX(20px); opacity: 0; }
         }
 
-        /* Animazione atterraggio semplice apparizione */
+        /* Animazione atterraggio (semplice apparizione) */
         @keyframes landSoft {
             0% { transform: scale(0); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
+body.lite-mode .logo-circle {
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
 
-        body.lite-mode .logo-circle {
-            border: 1px solid rgba(0,0,0,0.08);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-        }
+        
+        
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
 <body>
     <!-- CONTENITORE NEVE -->
-    <div id="snow-container"></div>
+<div id="snow-container"></div>
 
-    <!-- BANNER AVVISI -->
-    <div id="alert-banner"></div>
 
-    <!-- LITE SWITCH Destra -->
-    <button id="lite-switch" onclick="toggleLiteMode()" style="position: absolute; top: 15px; right: 15px; z-index: 9999; background: rgba(0,0,0,0.6); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 8px 15px; border-radius: 20px; font-size: 12px; font-weight: bold; backdrop-filter: blur(5px); cursor: pointer; display: flex; align-items: center; gap: 5px;">
-        Lite
-    </button>
+<!-- BANNER AVVISI -->
+<div id="alert-banner"></div>
 
-    <!-- WIFI BUTTON Sinistra -->
-    <button onclick="openWifi()" style="position: absolute; top: 15px; left: 15px; z-index: 9999; background: rgba(0,0,0,0.6); color: white; border: 1px solid rgba(255,255,255,0.3); width: 36px; height: 36px; border-radius: 50%; backdrop-filter: blur(5px); cursor: pointer; display: flex; align-items: center; justify-content: center;">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
-            <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
-            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
-            <line x1="12" y1="20" x2="12.01" y2="20"></line>
-        </svg>
-    </button>
+<!-- LITE SWITCH (Destra) -->
+<button id="lite-switch" onclick="toggleLiteMode()" style="
+    position: absolute; top: 15px; right: 15px; z-index: 9999; 
+    background: rgba(0,0,0,0.6); color: white; 
+    border: 1px solid rgba(255,255,255,0.3); 
+    padding: 8px 15px; border-radius: 20px; 
+    font-size: 12px; font-weight: bold; 
+    backdrop-filter: blur(5px); cursor: pointer;
+    display: flex; align-items: center; gap: 5px;">
+    ⚡ Lite
+</button>
 
-    <header>
-        <div class="header-content">
-            <h1>Bar La Lucciola</h1>
-            <div class="subtitle">Laceno - Bagnoli Irpino</div>
-            <div class="info-cluster">
-                <div id="status-indicator" class="status-badge">
-                    <span class="status-dot"></span>
-                    ...
-                </div>
-                <div id="weather-indicator" class="weather-badge" style="display:none"></div>
-            </div>
+<!-- WIFI BUTTON (Sinistra) -->
+<button onclick="openWifi()" style="
+    position: absolute; top: 15px; left: 15px; z-index: 9999; 
+    background: rgba(0,0,0,0.6); color: white; 
+    border: 1px solid rgba(255,255,255,0.3); 
+    width: 36px; height: 36px; border-radius: 50%; 
+    backdrop-filter: blur(5px); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
+</button>
+
+<header>
+    <div class="header-content">
+        <h1>Bar La Lucciola</h1> 
+        <div class="subtitle">Laceno - Bagnoli Irpino</div>
+        <div class="info-cluster">
+            <div id="status-indicator" class="status-badge"><span class="status-dot"></span> ...</div>
+            <div id="weather-indicator" class="weather-badge" style="display:none;"></div>
         </div>
-    </header>
+    </div>
+</header>
 
-    <div class="sticky-nav-container">
-        <div class="nav-cluster">
-            <div class="logo-circle">
-                <img src="images/iconapp.png" alt="Logo" class="nav-mini-logo">
-            </div>
-            <div class="nav-pill-wrapper">
-                <div class="nav-scroll-area">
-                    <button class="tab-btn active" onclick="showCategory('calde', this)">
-                        <span class="tab-btn-inner">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
-                                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
-                                <line x1="16" y1="11" x2="26" y2="24"></line>
-                                <line x1="10" y1="11" x2="10" y2="24"></line>
-                                <line x1="14" y1="11" x2="14" y2="24"></line>
-                            </svg>
-                            Calde
-                        </span>
-                    </button>
-                    <button class="tab-btn" onclick="showCategory('fredde', this)">
-                        <span class="tab-btn-inner">
-                            <svg viewBox="0 0 24 24">
-                                <line x1="12" y1="12" x2="22" y2="12"></line>
-                                <line x1="12" y1="2" x2="12" y2="22"></line>
-                                <line x1="2" y1="12" x2="22" y2="12"></line>
-                                <path d="m20 16-4-4 4-4"></path>
-                                <path d="m4 8 4 4-4 4"></path>
-                                <path d="m16 4-4 4-4-4"></path>
-                                <path d="m8 20 4-4 4 4"></path>
-                            </svg>
-                            Fredde
-                        </span>
-                    </button>
-                    <button class="tab-btn" onclick="showCategory('alcolici', this)">
-                        <span class="tab-btn-inner">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M8 22h8"></path>
-                                <path d="M12 15v7"></path>
-                                <path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"></path>
-                            </svg>
-                            Alcolici
-                        </span>
-                    </button>
-                    <button class="tab-btn" onclick="showCategory('food', this)">
-                        <span class="tab-btn-inner">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1-2-2h4"></path>
-                                <path d="M9 3v2a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V3"></path>
-                                <circle cx="12" cy="12" r="1"></circle>
-                            </svg>
-                            Food
-                        </span>
-                    </button>
-                    <button class="tab-btn" onclick="showCategory('dolci', this)">
-                        <span class="tab-btn-inner">
-                            <svg viewBox="0 0 24 24">
-                                <path d="m4.5 13.5 3-3"></path>
-                                <path d="m19.5 13.5-3-3"></path>
-                                <path d="M12 9c-4.5-2-8 1-9.5 4.5 2.5 4 6 5 9.5 5s7-1 9.5-5c-1.5-3.5-5-6.5-9.5-4.5Z"></path>
-                            </svg>
-                            Dolci
-                        </span>
-                    </button>
-                </div>
+<div class="sticky-nav-container">
+    <div class="nav-cluster">
+        <div class="logo-circle"><img src="images/icon_app.png" alt="Logo" class="nav-mini-logo"></div>
+        <div class="nav-pill-wrapper">
+            <div class="nav-scroll-area">
+                <button class="tab-btn active" onclick="showCategory('calde', this)">
+                    <span class="tab-btn-inner">
+                        <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>Calde
+                    </span>
+                </button>
+                <button class="tab-btn" onclick="showCategory('fredde', this)">
+                    <span class="tab-btn-inner">
+                        <svg viewBox="0 0 24 24"><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><path d="m20 16-4-4 4-4"></path><path d="m4 8 4 4-4 4\"></path><path d="m16 4-4 4-4-4"></path><path d="m8 20 4-4 4 4"></path></svg>Fredde
+                    </span>
+                </button>
+                <button class="tab-btn" onclick="showCategory('alcolici', this)">
+                    <span class="tab-btn-inner">
+                        <svg viewBox="0 0 24 24"><path d="M8 22h8"></path><path d="M12 15v7"></path><path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"></path></svg>Alcolici
+                    </span>
+                </button>
+                <button class="tab-btn" onclick="showCategory('food', this)">
+                    <span class="tab-btn-inner">
+                        <svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1-2-2h4"></path><path d="M9 3v2a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V3"></path><circle cx="12" cy="12" r="1"></circle></svg>Food
+                    </span>
+                </button>
+                <button class="tab-btn" onclick="showCategory('dolci', this)">
+                    <span class="tab-btn-inner">
+                        <svg viewBox="0 0 24 24"><path d="m4.5 13.5 3-3"/><path d="m19.5 13.5-3-3"/><path d="M12 9c-4.5-2-8 1-9.5 4.5 2.5 4 6 5 9.5 5s7-1 9.5-5c-1.5-3.5-5-6.5-9.5-4.5Z"/></svg>Dolci
+                    </span>
+                </button>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="search-container">
-        <div class="search-input-wrapper">
-            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-            <input type="text" id="menu-search" class="search-input" placeholder="Cerca nel menù..." onkeyup="searchMenu()">
-        </div>
+<div class="search-container">
+    <div class="search-input-wrapper">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="menu-search" class="search-input" placeholder="Cerca nel menù..." onkeyup="searchMenu()">
     </div>
+</div>
 
-    <div id="menu-container" class="menu-container"></div>
+<div id="menu-container" class="menu-container"></div>
 
-    <!-- TASTO RECENSIONE -->
-    <div class="review-btn-container">
-        <a href="https://www.google.com/maps/search/?api=1&query=Bar+La+Lucciola+Laceno+Bagnoli+Irpino" target="_blank" class="review-btn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none">
-                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
-            </svg>
-            Lascia una Recensione
-        </a>
+<!-- TASTO RECENSIONE -->
+<div class="review-btn-container">
+    <a href="https://www.google.com/maps/search/?api=1&query=Bar+La+Lucciola+Laceno+Bagnoli+Irpino" target="_blank" class="review-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentcolor" stroke="none"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+        Lascia una Recensione
+    </a>
+</div>
+
+<!-- BACK TO TOP -->
+<button id="back-to-top" onclick="scrollToTop()" style="
+    position: fixed; bottom: 25px; right: 25px; 
+    width: 45px; height: 45px; border-radius: 50%; 
+    background: var(--primary-color); color: white; border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
+    display: none; align-items: center; justify-content: center; 
+    z-index: 900; cursor: pointer; transition: transform 0.2s;">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+
+<footer>
+    <div class="footer-info">
+        <div class="footer-title">Bar La Lucciola</div>
+        <a href="https://www.google.com/maps/search/?api=1&query=Bar+La+Lucciola+Laceno+Bagnoli+Irpino" target="_blank" class="footer-address">Via Dei Prati, 2 - Laceno 📍</a>
+        <a href="tel:082768069" class="footer-phone"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> 0827 68069</a>
+        <div class="footer-address" style="margin-top: 5px;">P.IVA 1.611810647e+09</div>
     </div>
-
-    <!-- BACK TO TOP -->
-    <button id="back-to-top" onclick="scrollToTop()" style="position: fixed; bottom: 25px; right: 25px; width: 45px; height: 45px; border-radius: 50%; background: var(--primary-color); color: white; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.3); display: none; align-items: center; justify-content: center; z-index: 900; cursor: pointer; transition: transform 0.2s;">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m18 15-6-6-6 6"></path>
-        </svg>
-    </button>
-
-    <footer>
-        <div class="footer-info">
-            <div class="footer-title">Bar La Lucciola</div>
-            <a href="https://www.google.com/maps/search/?api=1&query=Bar+La+Lucciola+Laceno+Bagnoli+Irpino" target="_blank" class="footer-address">Via Dei Prati, 2 - Laceno</a>
-            <a href="tel:082768069" class="footer-phone">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                </svg>
-                0827 68069
-            </a>
-            <div class="footer-address" style="margin-top: 5px;">P.IVA 01611810647</div>
-        </div>
-        <div class="footer-social">
-            <a href="https://www.facebook.com/barlalucciolaLACENO" target="_blank" class="social-circle" aria-label="Facebook">
-                <svg viewBox="0 0 24 24">
-                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                </svg>
-            </a>
-        </div>
-        <div class="footer-bottom">
-            Coperto e Servizio inclusi © 2025 Designed for Laceno
-        </div>
-    </footer>
-
-    <!-- MODALE WIFI -->
-    <div id="wifi-modal" class="modal-overlay" onclick="closeWifi(event)">
-        <div class="modal-content">
-            <div class="close-modal" onclick="closeWifi(event)">×</div>
-            <svg class="wifi-icon-large" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
-                <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
-                <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
-                <line x1="12" y1="20" x2="12.01" y2="20"></line>
-            </svg>
-            <h3>Wi-Fi Gratuito</h3>
-            <p>Connettiti alla rete La Lucciola</p>
-            <!-- CAMBIA LA PASSWORD QUI SOTTO -->
-            <div class="wifi-pass">Lucciola2025</div>
-        </div>
+    <div class="footer-social">
+        <a href="https://www.facebook.com/barlalucciolaLACENO" target="_blank" class="social-circle" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
     </div>
+    <div class="footer-bottom">Coperto e Servizio inclusi • © 2025 Designed for Laceno</div>
+</footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-    <script>
-        const allergenMap = {
-            'latte': { icon: '🥛', label: 'Latte' },
-            'glutine': { icon: '🌾', label: 'Glutine' },
-            'uova': { icon: '🥚', label: 'Uova' },
-            'guscio': { icon: '🥜', label: 'Frutta a guscio' },
-            'sedano': { icon: '🌿', label: 'Sedano' }
+<!-- MODALE WIFI -->
+<div id="wifi-modal" class="modal-overlay" onclick="closeWifi(event)">
+    <div class="modal-content">
+        <div class="close-modal" onclick="closeWifi(event)">&times;</div>
+        <svg class="wifi-icon-large" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
+        <h3>Wi-Fi Gratuito</h3>
+        <p>Connettiti alla rete "La Lucciola"</p>
+        <!-- CAMBIA LA PASSWORD QUI SOTTO -->
+        <div class="wifi-pass">Lucciola2025</div>
+    </div>
+</div>
+
+<script>
+    const allergenMap = {
+        'latte': { icon: '🥛', label: 'Latte' },
+        'glutine': { icon: '🌾', label: 'Glutine' },
+        'uova': { icon: '🥚', label: 'Uova' },
+        'guscio': { icon: '🥜', label: 'Frutta a guscio' },
+        'sedano': { icon: '🌿', label: 'Sedano' }
+    };
+
+    // --- CONFIGURAZIONE GOOGLE SHEETS ---
+    const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR0T1gIy-XDXJv_IYaOOOlgaJ4y7yidX2PF7RZjYp7BZEQZ4ttjHg-fbcFqLGyFVBzmeVT0W7zzJXyy/pub?output=csv'; 
+
+    let menuData = {};
+
+    function initDataFetch() {
+        Papa.parse(SHEET_URL, {
+            download: true,
+            header: true,
+            skipEmptyLines: true,
+            complete: function(results) {
+                transformCsvToMenu(results.data);
+                const firstBtn = document.querySelector('.tab-btn');
+                if(firstBtn) showCategory('calde', firstBtn); 
+            },
+            error: function(err) {
+                alert("Impossibile caricare il menù. Controlla la connessione.");
+            }
+        });
+    }
+
+    function transformCsvToMenu(csvData) {
+        menuData = {}; 
+        
+        // Reset Banner
+        const banner = document.getElementById('alert-banner');
+        banner.style.display = 'none';
+
+        const titles = {
+            'calde': 'Caffetteria',
+            'fredde': 'Bibite Fredde',
+            'alcolici': 'Alcolici', 
+            'food': 'Food & Snack',
+            'dolci': 'Dolci & Dessert',
+            'altro': 'Altro'
         };
 
-        /* --- CONFIGURAZIONE GOOGLE SHEETS --- */
-        const SHEET_URL = 'https://docs.google.com/spreadsheets/d/2PACX-1vR0T1gIy-XDXJvIYaOOOlgaJ4y7yidX2PF7RZjYp7BZEQZ4ttjHg-fbcFqLGyFVBzmeVT0W7zzJXyy/pub?output=csv';
+        csvData.forEach(row => {
+            if(!row.categoria || !row.nome) return;
 
-        let menuData = {};
+            // --- LOGICA AVVISI (Nuova) ---
+            // Se la categoria è AVVISO, mostra il banner e non aggiunge al menu
+            if(row.categoria.toUpperCase().includes('AVVISO')) {
+                if(row.disponibile && (row.disponibile.toLowerCase() === 'no' || row.disponibile.toLowerCase() === 'false')) return;
+                
+                const text = row.descrizione ? `${row.nome} - ${row.descrizione}` : row.nome;
+                banner.innerHTML = `🔔 ${text}`;
+                banner.style.display = 'block';
+                return; // Salta il resto per questa riga
+            }
+            // -----------------------------
 
-        function initDataFetch() {
-            Papa.parse(SHEET_URL, {
-                download: true,
-                header: true,
-                skipEmptyLines: true,
-                complete: function(results) {
-                    transformCsvToMenu(results.data);
-                    const firstBtn = document.querySelector('.tab-btn');
-                    if (firstBtn) showCategory('calde', firstBtn);
-                },
-                error: function(err) {
-                    alert('Impossibile caricare il menù. Controlla la connessione.');
-                }
+            if(row.disponibile && (row.disponibile.toLowerCase() === 'no' || row.disponibile.toLowerCase() === 'false')) return;
+
+            let catKey = normalizeCategory(row.categoria);
+
+            if(!menuData[catKey]) {
+                menuData[catKey] = { 
+                    title: titles[catKey] || row.categoria,
+                    items: [] 
+                };
+            }
+
+            let allergenesList = [];
+            if(row.allergeni) {
+                allergenesList = row.allergeni.split(',').map(s => s.trim().toLowerCase());
+            }
+
+            menuData[catKey].items.push({
+                name: row.nome,
+                price: parseFloat(row.prezzo.replace(',', '.')) || 0,
+                description: row.descrizione || "",
+                allergens: allergenesList,
+                tag: row.tag || "",
+                subcategory: row.categoria, 
+                soldOut: (row.disponibile === 'soldout')
             });
+        });
+    }
+
+    function normalizeCategory(catString) {
+        const c = catString.toLowerCase();
+        if(c.includes('caff') || c.includes('cald') || c.includes('tè') || c.includes('tisane')) return 'calde';
+        if(c.includes('fredd') || c.includes('bibit') || c.includes('succh') || c.includes('acqu')) return 'fredde';
+        if(c.includes('alcol') || c.includes('vin') || c.includes('birr') || c.includes('cocktail') || c.includes('amar') || c.includes('spritz') || c.includes('liquor') || c.includes('grap')) return 'alcolici';
+        if(c.includes('cib') || c.includes('food') || c.includes('panin') || c.includes('snack') || c.includes('taglier') || c.includes('focacc')) return 'food';
+        if(c.includes('dolc') || c.includes('dessert') || c.includes('gelat') || c.includes('tort')) return 'dolci';
+        return 'altro';
+    }
+
+    // --- FUNZIONI UI ---
+    function openWifi() {
+        const m = document.getElementById('wifi-modal');
+        m.style.display = 'flex';
+        setTimeout(() => m.classList.add('active'), 10);
+    }
+    function closeWifi(e) {
+        if(e.target === document.getElementById('wifi-modal') || e.target.classList.contains('close-modal')) {
+            document.getElementById('wifi-modal').classList.remove('active');
+            setTimeout(() => document.getElementById('wifi-modal').style.display = 'none', 300);
         }
+    }
 
-        function transformCsvToMenu(csvData) {
-            menuData = {}; // Reset
-            const banner = document.getElementById('alert-banner');
-            banner.style.display = 'none';
+  /* Sostituisci il vecchio window.onscroll con questo: */
 
-            const titles = {
-                'calde': 'Caffetteria',
-                'fredde': 'Bibite Fredde',
-                'alcolici': 'Alcolici',
-                'food': 'Food & Snack',
-                'dolci': 'Dolci & Dessert',
-                'altro': 'Altro'
-            };
+let lastScrollTop = 0;
+const navContainer = document.querySelector('.sticky-nav-container');
+const backToTopBtn = document.getElementById('back-to-top');
 
-            csvData.forEach(row => {
-                if (!row.categoria || !row.nome) return;
+// --- NUOVA LOGICA SCROLL ---
+ 
+ const scrollDelta = 10; 
 
-                /* --- LOGICA AVVISI Nuova --- */
-                // Se la categoria AVVISO, mostra il banner e non aggiunge al menu
-                if (row.categoria.toUpperCase().includes('AVVISO')) {
-                    if (row.disponibile && (row.disponibile.toLowerCase() === 'no' || row.disponibile.toLowerCase() === 'false')) return;
-                    const text = row.descrizione ? `${row.nome} - ${row.descrizione}` : row.nome;
-                    banner.innerHTML = text;
-                    banner.style.display = 'block';
-                    return; // Salta il resto per questa riga
-                }
+window.addEventListener('scroll', function() {
+    let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
-                /* ----------------------------- */
-                if (row.disponibile && (row.disponibile.toLowerCase() === 'no' || row.disponibile.toLowerCase() === 'false')) return;
+    // 1. SEI IN LITE MODE? -> STOP. 
+    // Non fare nulla. Lascia che il CSS tenga la barra fissa.
+    if (document.body.classList.contains('lite-mode')) {
+        navContainer.classList.remove('nav-hidden'); 
+        return; 
+    }
 
-                let catKey = normalizeCategory(row.categoria);
-                if (!menuData[catKey]) {
-                    menuData[catKey] = {
-                        title: titles[catKey] || row.categoria,
-                        items: []
-                    };
-                }
+    // 2. MODALITÀ NORMALE -> Fai sparire/apparire la barra
+    if (currentScroll < 0) return; // Ignora rimbalzi su iPhone
 
-                let allergensList = [];
-                if (row.allergeni) {
-                    allergensList = row.allergeni.split(',').map(s => s.trim().toLowerCase());
-                }
+    if (Math.abs(lastScrollTop - currentScroll) > scrollDelta) {
+        // Se scorri in BASSO (>100px) -> Nascondi
+        if (currentScroll > lastScrollTop && currentScroll > 100) {
+            navContainer.classList.add('nav-hidden');
+        } 
+        // Se scorri in ALTO -> Mostra
+        else {
+            navContainer.classList.remove('nav-hidden');
+        }
+        lastScrollTop = currentScroll;
+    }
 
-                menuData[catKey].items.push({
-                    name: row.nome,
-                    price: parseFloat(row.prezzo.replace(',', '.').replace('€', '')) || 0,
-                    description: row.descrizione,
-                    allergens: allergensList,
-                    tag: row.tag,
-                    subcategory: row.sottocategoria,
-                    soldOut: row.disponibile === 'soldout'
+    // Gestione pulsante "Torna su"
+    if (backToTopBtn) {
+        backToTopBtn.style.display = currentScroll > 300 ? "flex" : "none";
+    }
+}, { passive: true });
+    
+    function scrollToTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
+
+    function checkOpenStatus() {
+        const now = new Date(); 
+        const hour = now.getHours(); 
+        const el = document.getElementById('status-indicator');
+        const isOpen = hour >= 7 && hour < 24; 
+        
+        if(isOpen) { 
+            el.innerHTML = '<span class="status-dot"></span> Aperto'; 
+            el.classList.add('open'); 
+            el.classList.remove('closed'); 
+        } else { 
+            el.innerHTML = '<span class="status-dot"></span> Chiuso'; 
+            el.classList.add('closed'); 
+            el.classList.remove('open'); 
+        }
+    }
+
+    async function fetchWeather() {
+        const weatherEl = document.getElementById('weather-indicator');
+        const lat = 40.8106; 
+        const lon = 15.1127;
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
+        try {
+            const response = await fetch(url); 
+            const data = await response.json();
+            const temp = Math.round(data.current_weather.temperature); 
+            const code = data.current_weather.weathercode;
+            
+            let iconSvg = '';
+            if(code <= 1) iconSvg = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>'; 
+            else if (code <= 3) iconSvg = '<svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>';
+            else if (code >= 45 && code <= 48) iconSvg = '<svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M5 16h14"/><path d="M5 20h14"/><path d="M5 8h14"/></svg>';
+            else if (code >= 71 && code <= 77) { iconSvg = '<svg viewBox="0 0 24 24"><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><path d="m20 16-4-4 4-4"></path><path d="m4 8 4 4-4 4"></path><path d="m16 4-4 4-4-4"></path><path d="m8 20 4-4 4 4"></path></svg>'; weatherEl.classList.add('snow'); }
+            else if (code >= 95) iconSvg = '<svg viewBox="0 0 24 24"><path d="M19 16.9A5 5 0 0 0 18 7h-1.26a8 8 0 1 0-11.62 9"></path><polyline points="13 11 9 17 15 17 11 23"></polyline></svg>';
+            else iconSvg = '<svg viewBox="0 0 24 24"><line x1="16" y1="13" x2="16" y2="21"></line><line x1="8" y1="13" x2="8" y2="21"></line><line x1="12" y1="15" x2="12" y2="23"></line><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"></path></svg>';
+
+            weatherEl.innerHTML = `${iconSvg} ${temp}°C`; 
+            weatherEl.style.display = 'inline-flex'; 
+        } catch (e) { console.log("Meteo non disponibile"); }
+    }
+
+     function toggleLiteMode() {
+        const body = document.body; 
+        const btn = document.getElementById('lite-switch');
+        
+        body.classList.toggle('lite-mode'); 
+        
+        const isLite = body.classList.contains('lite-mode');
+        btn.innerHTML = isLite ? "🚀 Normal" : "⚡ Lite";
+
+        // --- PULIZIA NEVE ---
+        if (isLite) {
+            // Se entri in Lite Mode, cancella TUTTA la neve accumulata
+            const piles = document.querySelectorAll('.snow-pile');
+            piles.forEach(p => p.remove());
+        }
+    }
+
+    function showCategory(catId, btnElement) {
+        const isLite = document.body.classList.contains('lite-mode');
+        document.getElementById('menu-search').value = '';
+        if (!isLite && btnElement) window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        const container = document.getElementById('menu-container'); const data = menuData[catId];
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); if(btnElement) btnElement.classList.add('active');
+
+        if(data) {
+            container.innerHTML = `<h3>${data.title}</h3>`;
+
+            // LOGICA SOTTOCATEGORIE
+            const subcats = [...new Set(data.items.map(i => i.subcategory))].sort();
+            
+            if(subcats.length > 1) {
+                const preferredOrder = ['Aperitivi', 'Cocktail', 'Birre', 'Vini', 'Amari', 'Liquori', 'Grappe'];
+                subcats.sort((a,b) => {
+                    const idxA = preferredOrder.indexOf(a);
+                    const idxB = preferredOrder.indexOf(b);
+                    if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+                    if (idxA !== -1) return -1;
+                    if (idxB !== -1) return 1;
+                    return a.localeCompare(b);
                 });
-            });
-        }
 
-        function normalizeCategory(catString) {
-            const c = catString.toLowerCase();
-            if (c.includes('caff') || c.includes('cald') || c.includes('tè') || c.includes('tisane')) return 'calde';
-            if (c.includes('fredd') || c.includes('bibit') || c.includes('succ') || c.includes('acqu')) return 'fredde';
-            if (c.includes('alcol') || c.includes('vin') || c.includes('birr') || c.includes('cocktail') || c.includes('amar') || c.includes('spritz') || c.includes('liquor') || c.includes('grap')) return 'alcolici';
-            if (c.includes('cib') || c.includes('food') || c.includes('panin') || c.includes('snack') || c.includes('taglier') || c.includes('focacc')) return 'food';
-            if (c.includes('dolc') || c.includes('dessert') || c.includes('gelat') || c.includes('tort')) return 'dolci';
-            return 'altro';
-        }
-
-        /* --- FUNZIONI UI --- */
-        function openWifi() {
-            const m = document.getElementById('wifi-modal');
-            m.style.display = 'flex';
-            setTimeout(() => m.classList.add('active'), 10);
-        }
-
-        function closeWifi(e) {
-            if (e.target === document.getElementById('wifi-modal') || e.target.classList.contains('close-modal')) {
-                document.getElementById('wifi-modal').classList.remove('active');
-                setTimeout(() => document.getElementById('wifi-modal').style.display = 'none', 300);
-            }
-        }
-
-        // Sostituisci il vecchio window.onscroll con questo
-        let lastScrollTop = 0;
-        const navContainer = document.querySelector('.sticky-nav-container');
-        const backToTopBtn = document.getElementById('back-to-top');
-
-        /* --- NUOVA LOGICA SCROLL --- */
-        const scrollDelta = 10;
-        window.addEventListener('scroll', function() {
-            let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-
-            // 1. SEI IN LITE MODE? - STOP. Non fare nulla. Lascia che il CSS tenga la barra fissa.
-            if (document.body.classList.contains('lite-mode')) {
-                navContainer.classList.remove('nav-hidden');
-                return;
-            }
-
-            // 2. MODALITÀ NORMALE - Fai sparire/appa rire la barra
-            if (currentScroll === 0) return; // Ignora rimbalzi su iPhone
-
-            if (Math.abs(lastScrollTop - currentScroll) <= scrollDelta) return;
-
-            // Se scorri in BASSO 100px - Nascondi
-            if (currentScroll > lastScrollTop && currentScroll > 100) {
-                navContainer.classList.add('nav-hidden');
-            }
-            // Se scorri in ALTO - Mostra
-            else {
-                navContainer.classList.remove('nav-hidden');
-            }
-
-            lastScrollTop = currentScroll;
-
-            // Gestione pulsante Torna su
-            if (backToTopBtn) {
-                backToTopBtn.style.display = currentScroll > 300 ? 'flex' : 'none';
-            }
-        }, { passive: true });
-
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function checkOpenStatus() {
-            const now = new Date();
-            const hour = now.getHours();
-            const el = document.getElementById('status-indicator');
-            const isOpen = hour >= 7 && hour < 24;
-
-            if (isOpen) {
-                el.innerHTML = '<span class="status-dot"></span> Aperto';
-                el.classList.add('open');
-                el.classList.remove('closed');
+                subcats.forEach(sub => {
+                    container.innerHTML += `<h4 class="subcategory-title">${sub}</h4>`;
+                    const groupItems = data.items.filter(i => i.subcategory === sub);
+                    renderItems(groupItems, container, isLite);
+                });
             } else {
-                el.innerHTML = '<span class="status-dot"></span> Chiuso';
-                el.classList.add('closed');
-                el.classList.remove('open');
+                renderItems(data.items, container, isLite);
             }
         }
+    }
 
-        async function fetchWeather() {
-            const weatherEl = document.getElementById('weather-indicator');
-            const lat = 40.8106;
-            const lon = 15.1127;
-            const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
-
-            try {
-                const response = await fetch(url);
-                const data = await response.json();
-                const temp = Math.round(data.current_weather.temperature);
-                const code = data.current_weather.weathercode;
-
-                let iconSvg;
-                if (code === 1) {
-                    iconSvg = `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
-                } else if (code === 3) {
-                    iconSvg = `<svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>`;
-                } else if (code === 45 || code === 48) {
-                    iconSvg = `<svg viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="M5 16h14"></path><path d="M5 20h14"></path><path d="M5 8h14"></path></svg>`;
-                } else if (code >= 71 && code <= 77) {
-                    iconSvg = `<svg viewBox="0 0 24 24"><line x1="12" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><path d="m20 16-4-4 4-4"></path><path d="m4 8 4 4-4 4"></path><path d="m16 4-4 4-4-4"></path><path d="m8 20 4-4 4 4"></path></svg>`;
-                    weatherEl.classList.add('snow');
-                } else if (code === 95) {
-                    iconSvg = `<svg viewBox="0 0 24 24"><path d="M19 16.9A5 5 0 0 0 18 7h-1.26a8 8 0 1 0-11.62 9"></path><polyline points="13 11 9 17 15 17 11 23"></polyline></svg>`;
-                } else {
-                    iconSvg = `<svg viewBox="0 0 24 24"><line x1="16" y1="13" x2="16" y2="21"></line><line x1="8" y1="13" x2="8" y2="21"></line><line x1="12" y1="15" x2="12" y2="23"></line><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"></path></svg>`;
-                }
-
-                weatherEl.innerHTML = `${iconSvg} ${temp}°C`;
-                weatherEl.style.display = 'inline-flex';
-            } catch (e) {
-                console.log('Meteo non disponibile');
-            }
+    function searchMenu() {
+        const filter = document.getElementById('menu-search').value.toLowerCase();
+        const container = document.getElementById('menu-container');
+        if(filter.length === 0) {
+            const activeBtn = document.querySelector('.tab-btn.active');
+            if(activeBtn) showCategory(activeBtn.getAttribute('onclick').split("'")[1], activeBtn); 
+            return;
         }
-
-        function toggleLiteMode() {
-            const body = document.body;
-            const btn = document.getElementById('lite-switch');
-            body.classList.toggle('lite-mode');
-            const isLite = body.classList.contains('lite-mode');
-            btn.innerHTML = isLite ? 'Normal' : 'Lite';
-
-            /* --- PULIZIA NEVE --- */
-            if (isLite) {
-                // Se entri in Lite Mode, cancella TUTTA la neve accumulata
-                const piles = document.querySelectorAll('.snow-pile');
-                piles.forEach(p => p.remove());
-            }
+        let allMatches = [];
+        for (const [key, category] of Object.entries(menuData)) {
+            const matches = category.items.filter(item => item.name.toLowerCase().includes(filter));
+            allMatches = [...allMatches, ...matches];
         }
+        container.innerHTML = `<h3>Risultati ricerca (${allMatches.length})</h3>`;
+        renderItems(allMatches, container, document.body.classList.contains('lite-mode'));
+    }
 
-        function showCategory(catId, btnElement) {
-            const isLite = document.body.classList.contains('lite-mode');
-            document.getElementById('menu-search').value = '';
-
-            if (!isLite) {
-                btnElement.scrollIntoView({ block: 'nearest' });
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+    function renderItems(items, container, isLite) {
+        items.forEach((item, index) => {
+            const price = item.price.toFixed(2).replace('.', ',');
+            const descHTML = item.description ? `<p>${item.description}</p>` : '';
+            let tagHTML = '';
+            if(item.tag === 'new') tagHTML = '<span class="tag-badge tag-new">Novità</span>';
+            if(item.tag === 'hot') tagHTML = '<span class="tag-badge tag-hot">Top</span>';
+            
+            let allergensHTML = '';
+            if(item.allergens && item.allergens.length > 0) {
+                allergensHTML = '<div class="allergen-row">';
+                item.allergens.forEach(a => {
+                    const data = allergenMap[a];
+                    if(data) allergensHTML += `<span class="allergen-tag">${data.icon} ${data.label}</span>`;
+                });
+                allergensHTML += '</div>';
             }
 
-            const container = document.getElementById('menu-container');
-            const data = menuData[catId];
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            if (btnElement) btnElement.classList.add('active');
-
-            if (data) {
-                container.innerHTML = `<h3>${data.title}</h3>`;
-
-                /* LOGICA SOTTOCATEGORIE */
-                const subcats = [...new Set(data.items.map(i => i.subcategory))].sort();
-                if (subcats.length > 1) {
-                    const preferredOrder = ['Aperitivi', 'Cocktail', 'Birre', 'Vini', 'Amari', 'Liquori', 'Grappe'];
-                    subcats.sort((a, b) => {
-                        const idxA = preferredOrder.indexOf(a);
-                        const idxB = preferredOrder.indexOf(b);
-                        if (idxA !== -1 && idxB !== -1) return idxA - idxB;
-                        if (idxA !== -1) return -1;
-                        if (idxB !== -1) return 1;
-                        return a.localeCompare(b);
-                    });
-
-                    subcats.forEach(sub => {
-                        container.innerHTML += `<h4 class="subcategory-title">${sub}</h4>`;
-                        const groupItems = data.items.filter(i => i.subcategory === sub);
-                        renderItems(groupItems, container, isLite);
-                    });
-                } else {
-                    renderItems(data.items, container, isLite);
-                }
-            }
-        }
-
-        function searchMenu() {
-            const filter = document.getElementById('menu-search').value.toLowerCase();
-            const container = document.getElementById('menu-container');
-
-            if (filter.length === 0) {
-                const activeBtn = document.querySelector('.tab-btn.active');
-                if (activeBtn) showCategory(activeBtn.getAttribute('onclick').split(',')[1], activeBtn);
-                return;
-            }
-
-            let allMatches = [];
-            for (const [key, category] of Object.entries(menuData)) {
-                const matches = category.items.filter(item =>
-                    item.name.toLowerCase().includes(filter)
-                );
-                allMatches = [...allMatches, ...matches];
-            }
-
-            container.innerHTML = `<h3>Risultati ricerca (${allMatches.length})</h3>`;
-            renderItems(allMatches, container, document.body.classList.contains('lite-mode'));
-        }
-
-        function renderItems(items, container, isLite) {
-            items.forEach((item, index) => {
-                const price = item.price.toFixed(2).replace('.', ',') + '€';
-                const descHTML = item.description ? `<p>${item.description}</p>` : '';
-
-                let tagHTML = '';
-                if (item.tag === 'new') {
-                    tagHTML = '<span class="tag-badge tag-new">Novità</span>';
-                } else if (item.tag === 'hot') {
-                    tagHTML = '<span class="tag-badge tag-hot">Top</span>';
-                }
-
-                let allergensHTML = '';
-                if (item.allergens && item.allergens.length > 0) {
-                    allergensHTML = '<div class="allergen-row">';
-                    item.allergens.forEach(a => {
-                        const data = allergenMap[a];
-                        if (data) {
-                            allergensHTML += `<span class="allergen-tag">${data.icon} ${data.label}</span>`;
-                        }
-                    });
-                    allergensHTML += '</div>';
-                }
-
-                container.innerHTML += `
-                    <div class="menu-item ${item.soldOut ? 'sold-out' : ''}" style="animation-delay: ${isLite ? '0' : index * 0.05}s">
-                        <div class="item-info">
-                            <h4>${item.name} ${tagHTML}</h4>
-                            ${descHTML}
-                            ${allergensHTML}
-                        </div>
-                        <div class="item-price">${price}</div>
+            container.innerHTML += `
+                <div class="menu-item ${item.soldOut ? 'sold-out' : ''}" style="animation-delay: ${isLite ? 0 : index * 0.05}s">
+                    <div class="item-info">
+                        <h4>${item.name} ${tagHTML}</h4>
+                        ${descHTML}
+                        ${allergensHTML}
                     </div>
-                `;
-            });
+                    <div class="item-price">€ ${price}</div>
+                </div>`;
+        });
+    }
+
+        // --- FUNZIONE NEVE REALISTICA (CURVA SUL LOGO + MORBIDA) ---
+    function startSnow() {
+        const container = document.getElementById('snow-container');
+        
+        // 1. NEVE DI SFONDO
+        setInterval(() => {
+            if(document.hidden) return; 
+            const flake = document.createElement('div');
+            flake.classList.add('snowflake');
+            flake.style.left = Math.random() * 100 + 'vw';
+            const size = Math.random() * 3 + 3; // Un po' più grandi
+            flake.style.width = size + 'px';
+            flake.style.height = size + 'px';
+            flake.style.filter = 'blur(1px)'; // Soffici anche quelli che cadono
+            const duration = Math.random() * 3 + 4; 
+            flake.style.animation = `fall ${duration}s linear forwards`;
+            container.appendChild(flake);
+            setTimeout(() => { flake.remove(); }, duration * 1000);
+        }, 100);
+
+        // 2. ACCUMULO INTELLIGENTE
+        setInterval(() => {
+            if(document.hidden) return;
+            
+         // --- A) LOGO (Accumulo Curvo) ---
+        if (!document.body.classList.contains('lite-mode')) {   // <-- nuovo if
+            const logo = document.querySelector('.logo-circle');
+            if (logo && logo.querySelectorAll('.snow-pile').length < 60) {
+                const pile = document.createElement('div');
+                pile.classList.add('snow-pile');
+
+                const w = Math.random() * 10 + 6;
+                pile.style.width = w + 'px';
+                pile.style.height = (w * 0.6) + 'px';
+
+                const angleDeg = (Math.random() * 120) - 60;
+                const angleRad = angleDeg * (Math.PI / 180);
+                const radius = 29;
+
+                const x = 29 + (Math.sin(angleRad) * radius) - (w / 2);
+                const y = 29 - (Math.cos(angleRad) * radius) - (w / 2);
+
+                pile.style.left = x + 'px';
+                pile.style.top = (y - 2) + 'px';
+
+                logo.appendChild(pile);
+            }
         }
 
-        /* --- FUNZIONE NEVE REALISTICA (DISABILITATA IN LITE MODE) --- */
-        function startSnow() {
-            const container = document.getElementById('snow-container');
-
-            // 1. NEVE DI SFONDO
-            setInterval(() => {
-                if (document.hidden) return;
-                if (document.body.classList.contains('lite-mode')) return;
-
-                const flake = document.createElement('div');
-                flake.classList.add('snowflake');
-                flake.style.left = Math.random() * 100 + 'vw';
-                const size = Math.random() * 3 + 3; // Un po' più grandi
-                flake.style.width = size + 'px';
-                flake.style.height = size + 'px';
-                flake.style.filter = 'blur(1px)'; // Soffici anche quelli che cadono
-                const duration = Math.random() * 1 + 3;
-                flake.style.animation = `fall ${duration}s linear forwards`;
-                container.appendChild(flake);
-                setTimeout(() => flake.remove(), duration * 1000);
-            }, 100);
-
-            // 2. ACCUMULO INTELLIGENTE
-            setInterval(() => {
-                if (document.hidden) return;
-                if (document.body.classList.contains('lite-mode')) return;
-
-                /* --- A) LOGO Accumulo Curvo --- */
-                const logo = document.querySelector('.logo-circle');
-                if (logo && logo.querySelectorAll('.snow-pile').length < 60) {
-                    const pile = document.createElement('div');
-                    pile.classList.add('snow-pile');
-                    const w = Math.random() * 10 + 6;
-                    pile.style.width = w + 'px';
-                    pile.style.height = (w * 0.6) + 'px';
-                    const angleDeg = Math.random() * 120 - 60;
-                    const angleRad = angleDeg * Math.PI / 180;
-                    const radius = 29;
-                    const x = 29 + Math.sin(angleRad) * radius - w / 2;
-                    const y = 29 - Math.cos(angleRad) * radius - w / 2;
-                    pile.style.left = x + 'px';
-                    pile.style.top = (y - 2) + 'px';
-                    pile.style.animation = 'landReal 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards';
-                    logo.appendChild(pile);
-                }
-
-                /* --- B) BARRA Accumulo Volumetrico --- */
+                       // --- B) BARRA (Accumulo Volumetrico) ---
+            if(!document.body.classList.contains('lite-mode')) {
                 const bar = document.querySelector('.nav-pill-wrapper');
-                if (bar && bar.querySelectorAll('.snow-pile').length < 200) {
-                    for (let i = 0; i < 3; i++) { // Più veloce
+                // Aumentiamo il limite perché i fiocchi ora sono più trasparenti
+                if(bar && bar.querySelectorAll('.snow-pile').length < 200) {
+                    for(let i=0; i<3; i++) { // Più veloce
                         const pile = document.createElement('div');
                         pile.classList.add('snow-pile');
+                        
                         // Forme molto varie: alcune larghe e basse, altre piccole e alte
-                        const w = Math.random() * 15 + 8;
+                        const w = Math.random() * 15 + 8; 
                         pile.style.width = w + 'px';
-                        pile.style.height = (w * Math.random() * 0.4 + 0.3) + 'px';
+                        pile.style.height = (w * (Math.random() * 0.4 + 0.3)) + 'px'; 
+                        
                         const maxLeft = bar.offsetWidth;
-                        pile.style.left = (Math.random() * (maxLeft - w / 2)) + 'px';
-
-                        // PROFONDITÀ: Alcuni fiocchi scendono un po' più giù sulla barra colando, altri stanno sopra
-                        const verticalOffset = Math.random() * 4 - 2;
+                        pile.style.left = (Math.random() * maxLeft - (w/2)) + 'px';
+                        
+                        // PROFONDITÀ: Alcuni fiocchi scendono un po' più giù sulla barra (colando), altri stanno sopra
+                        const verticalOffset = Math.random() * 4 - 2; 
                         pile.style.top = (-3 + verticalOffset) + 'px';
-                        pile.style.animation = 'landSoft 0.5s ease-out forwards';
+
                         bar.appendChild(pile);
                     }
                 }
-            }, 150); // Velocità accumulo
-        }
+            }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            checkOpenStatus();
-            fetchWeather();
-            initDataFetch();
-            // startSnow(); // Disabilitato per lite mode
-        });
-    </script>
+
+        }, 150); // Velocità accumulo
+    }
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+        checkOpenStatus();
+        fetchWeather();
+        initDataFetch();
+        startSnow(); // <--- Avvia la neve qui
+    });
+</script>
+
 </body>
 </html>
