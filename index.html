@@ -857,6 +857,9 @@ window.addEventListener('scroll', function() {
 
         // --- PULIZIA NEVE ---
         if (isLite) {
+            if (isLite) {
+    document.querySelectorAll('.snow-pile, .snowflake').forEach(p => p.remove());
+}
             // Se entri in Lite Mode, cancella TUTTA la neve accumulata
             const piles = document.querySelectorAll('.snow-pile');
             piles.forEach(p => p.remove());
@@ -961,7 +964,6 @@ setInterval(() => {
     flake.style.filter = 'blur(1px)';
     const duration = Math.random() * 3 + 4;
     flake.style.animation = `fall ${duration}s linear forwards`;
-
     container.appendChild(flake);
     setTimeout(() => { flake.remove(); }, duration * 1000);
 }, 100);
