@@ -78,15 +78,17 @@ function transformCsvToMenu(csvData) {
             allergenesList = row.allergeni.split(',').map(s => s.trim().toLowerCase());
         }
 
-        menuData[catKey].items.push({
-            name: row.nome,
-            price: parseFloat(row.prezzo.replace(',', '.')),
-            description: row.descrizione || '',
-            allergens: allergenesList,
-            tag: row.tag || '',
-            subcategory: row.categoria, // Mantiene la capitalizzazione originale (es. "Bibite")
-            soldOut: row.disponibile === 'soldout'
-        });
+      menuData[catKey].items.push({
+    name: row.nome,
+    price: parseFloat(row.prezzo.replace(',', '.')),
+    description: row.descrizione || '',
+    allergens: allergenesList,
+    tag: row.tag || '',
+    subcategory: row.categoria,
+    tipo: (row.tipo || '').toLowerCase(),   // NUOVO
+    soldOut: row.disponibile === 'soldout'
+});
+
     });
 }
 
@@ -332,9 +334,22 @@ function renderItems(items, container, isLite) {
         const price = item.price.toFixed(2).replace('.', ',');
         const descHTML = item.description ? `<p>${item.description}</p>` : '';
         
-        let tagHTML = '';
-        if(item.tag === 'new') tagHTML = `<span class="tag-badge tag-new">Novità</span>`;
-        if(item.tag === 'hot') tagHTML = `<span class="tag-badge tag-hot">Top</span>`;
+                let tagHTML = '';
+        if (item.tag === 'new') {
+            tagHTML = `<span class="tag-badge tag-new">Novità</span>`;
+        }
+        if (item.tag === 'hot') {
+            tagHTML = `<span class="tag-badge tag-hot">Top</span>`;
+        }
+
+        // NUOVO: badge aperitivo / aperitivo analcolico
+        if (item.tag === 'aperitivo' && item.tipo === 'analcolico') {
+            tagHTML += `<span class="tag-badge tag-aperitivo">Aperitivo analcolico</span>`;
+        }
+        if (item.tag === 'aperitivo' && item.tipo === 'alcolico') {
+            tagHTML += `<span class="tag-badge tag-aperitivo">Aperitivo</span>`;
+        }
+
 
         let allergensHTML = '';
         if(item.allergens && item.allergens.length > 0) {
