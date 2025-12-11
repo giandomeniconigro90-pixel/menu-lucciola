@@ -378,7 +378,12 @@ body.lite-mode .sticky-nav-container {
             margin: 0 auto 10px auto;
             position: relative;
         }
-        body.lite-mode .logo-circle, body.lite-mode .nav-pill-wrapper { background-color: #ffffff !important; border: 2px solid #e6e6e6; box-shadow: 0 2px 6px rgba(0,0,0,0.05); backdrop-filter: none !important; }
+body.lite-mode .nav-pill-wrapper {
+    background-color: #ffffff !important;
+    border: 1px solid rgba(0,0,0,0.08); /* Bordo molto più sottile/leggero */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06); 
+    backdrop-filter: none !important;
+}
         body.lite-mode .menu-item { animation: none !important; opacity: 1 !important; box-shadow: none; border: 1px solid #e0dec0; background: #fff; margin-bottom: 10px; }
         body.lite-mode .item-price { background-color: var(--bg-accent-light); color: var(--primary-color); }
         body.lite-mode #lite-switch { background: #d4af37 !important; color: #000 !important; border: 2px solid white !important; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
@@ -483,6 +488,10 @@ body.lite-mode .header-content {
             0% { transform: scale(0); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
+body.lite-mode .logo-circle {
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
 
         
         
