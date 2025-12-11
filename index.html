@@ -447,13 +447,28 @@ body.lite-mode .header-content {
             z-index: 9998; /* Sopra a tutto */
             overflow: hidden;
         }
-        .snowflake {
+                .snowflake {
             position: absolute; top: -10px;
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.9); /* Bianco puro, leggermente trasparente */
             border-radius: 50%;
-            opacity: 0.8;
-            box-shadow: 0 0 5px rgba(255,255,255,0.8);
+            /* NESSUNA OMBRA/BAGLIORE QUI */
         }
+        
+        /* Classe per la neve che si accumula (la useremo via JS) */
+        .snow-pile {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none; /* Non blocca i click */
+            z-index: 50;
+            animation: landSoft 0.5s ease-out forwards; /* Effetto "atterraggio" */
+        }
+
+        @keyframes landSoft {
+            0% { transform: scale(0) translateY(-10px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
         @keyframes fall {
             0% { transform: translateY(-10px) translateX(0); opacity: 0; }
             10% { opacity: 1; }
@@ -918,38 +933,69 @@ window.addEventListener('scroll', function() {
         });
     }
 
-    // --- FUNZIONE NEVE ---
+    // --- FUNZIONE NEVE (CADUTA + ACCUMULO) ---
     function startSnow() {
         const container = document.getElementById('snow-container');
-        // Crea un fiocco ogni 300ms
+        
+        // 1. NEVE CHE CADE (Sfondo)
         setInterval(() => {
-            if(document.hidden) return; // Non creare neve se l'utente cambia scheda (risparmia batteria)
-            
+            if(document.hidden) return; 
             const flake = document.createElement('div');
             flake.classList.add('snowflake');
-            
-            // Posizione casuale
             flake.style.left = Math.random() * 100 + 'vw';
-            
-            // Dimensione casuale (piccoli e grandi)
-            const size = Math.random() * 5 + 3; 
+            const size = Math.random() * 4 + 2; // Più piccoli e realistici
             flake.style.width = size + 'px';
             flake.style.height = size + 'px';
-            
-            // Velocità casuale
             const duration = Math.random() * 5 + 5; 
             flake.style.animation = `fall ${duration}s linear forwards`;
-            
-            // Trasparenza casuale
-            flake.style.opacity = Math.random() * 0.5 + 0.3;
-
             container.appendChild(flake);
-
-            // Pulizia memoria: elimina il fiocco quando ha finito di cadere
             setTimeout(() => { flake.remove(); }, duration * 1000);
+        }, 200);
+
+        // 2. NEVE CHE SI ACCUMULA (Barra e Logo)
+        // Aggiunge un "fiocco posato" ogni tot secondi
+        setInterval(() => {
+            if(document.hidden) return;
+
+            // Dove accumulare?
+            const targets = [];
             
-        }, 300);
+            // Il Logo (sempre)
+            const logo = document.querySelector('.logo-circle');
+            if(logo) targets.push(logo);
+
+            // La Barra (solo se NON è Lite Mode)
+            if(!document.body.classList.contains('lite-mode')) {
+                const bar = document.querySelector('.nav-pill-wrapper');
+                if(bar) targets.push(bar);
+            }
+
+            targets.forEach(el => {
+                // Non esagerare: massimo 30 fiocchi per elemento
+                if(el.querySelectorAll('.snow-pile').length > 30) return;
+
+                const pile = document.createElement('div');
+                pile.classList.add('snow-pile');
+                
+                // Dimensione mucchietto
+                const s = Math.random() * 6 + 4; 
+                pile.style.width = s + 'px';
+                pile.style.height = (s/2) + 'px'; // Più schiacciati
+
+                // Posizione: Lungo tutto il bordo superiore
+                // (el.offsetWidth - 10) serve per non farli uscire dai bordi
+                const maxLeft = el.offsetWidth - 10;
+                const randomLeft = Math.random() * maxLeft;
+                
+                pile.style.left = randomLeft + 'px';
+                pile.style.top = '-2px'; // Si poggia proprio sopra il bordo
+
+                el.appendChild(pile);
+            });
+
+        }, 800); // Ogni 0.8 secondi si posa un fiocco
     }
+
 
     document.addEventListener('DOMContentLoaded', () => {
         checkOpenStatus();
