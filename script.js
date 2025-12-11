@@ -118,12 +118,12 @@ function closeWifi(e) {
 let lastScrollTop = 0;
 const navContainer = document.querySelector('.sticky-nav-container');
 const backToTopBtn = document.getElementById('back-to-top');
+// --- NUOVA LOGICA SCROLL (barra riappare solo in alto) ---
 const scrollDelta = 10;
-
 window.addEventListener('scroll', function() {
     let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-    
-    // 1. LITE MODE: Barra fissa
+
+    // 1. LITE MODE: barra sempre fissa
     if (document.body.classList.contains('lite-mode')) {
         navContainer.classList.remove('nav-hidden');
         if (backToTopBtn) backToTopBtn.style.display = currentScroll > 300 ? 'flex' : 'none';
@@ -131,22 +131,27 @@ window.addEventListener('scroll', function() {
     }
 
     // 2. MODALITÀ NORMALE
-    if (currentScroll <= 0) return;
-    
     if (Math.abs(lastScrollTop - currentScroll) <= scrollDelta) return;
-    
+
     if (currentScroll > lastScrollTop && currentScroll > 100) {
+        // Scorri in BASSO oltre 100px → NASCONDI
         navContainer.classList.add('nav-hidden');
     } else {
-        navContainer.classList.remove('nav-hidden');
+        // Scorri in ALTO: la barra riappare SOLO se sei quasi in cima
+        if (currentScroll < 80) {
+            navContainer.classList.remove('nav-hidden');
+        }
+        // altrimenti resta nascosta per non coprire il menù
     }
-    
+
     lastScrollTop = currentScroll;
 
+    // Pulsante "torna su"
     if (backToTopBtn) {
         backToTopBtn.style.display = currentScroll > 300 ? 'flex' : 'none';
     }
 }, { passive: true });
+
 
 function scrollToTop() {
     window.scrollTo({top: 0, behavior: 'smooth'});
