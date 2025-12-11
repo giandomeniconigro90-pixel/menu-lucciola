@@ -168,9 +168,23 @@
         .search-icon { position: absolute; left: 15px; color: #999; width: 18px; height: 18px; }
 
         /* --- LOGICA SCROLL --- */
+        /* --- ANIMAZIONE SCROLL HINT --- */
+        @keyframes scrollHintAnimation {
+            0%, 100% { transform: translateX(0); }
+            30% { transform: translateX(-50px); } 
+            60% { transform: translateX(0); }     
+        }
+
         .nav-scroll-area {
             display: flex; align-items: center; overflow-x: auto; height: 100%; width: 100%;
             padding: 0; scroll-snap-type: x mandatory; scrollbar-width: none;
+        }
+
+        /* Applica animazione SOLO su mobile */
+        @media (max-width: 699px) {
+            .nav-scroll-area {
+                animation: scrollHintAnimation 1.5s ease-in-out 1.5s 1 forwards;
+            }
         }
         .nav-scroll-area::-webkit-scrollbar { display: none; }
 
