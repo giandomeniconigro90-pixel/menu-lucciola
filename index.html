@@ -456,14 +456,15 @@ body.lite-mode .header-content {
         }
 
         /* Il mucchietto che si accumula */
-        .snow-pile {
+                .snow-pile {
             position: absolute;
-            background-color: white; /* Bianco piatto */
-            border-radius: 50%;
+            background-color: #ffffff; /* Bianco puro */
             pointer-events: none; 
             z-index: 50;
-            animation: landSoft 0.4s ease-out forwards;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.05); /* Leggerissima ombra sotto per dare volume 3D, non luce */
+            animation: landSoft 0.3s ease-out forwards;
         }
+
         
         /* Animazione caduta */
         @keyframes fall {
@@ -899,68 +900,71 @@ window.addEventListener('scroll', function() {
     }
 
     // --- FUNZIONE NEVE (CADUTA + ACCUMULO) ---
+        // --- FUNZIONE NEVE REALISTICA (ACCUMULO VELOCE) ---
     function startSnow() {
         const container = document.getElementById('snow-container');
         
-        // 1. NEVE CHE CADE (Sfondo)
+        // 1. NEVE DI SFONDO (Più fitta)
         setInterval(() => {
             if(document.hidden) return; 
             const flake = document.createElement('div');
             flake.classList.add('snowflake');
             flake.style.left = Math.random() * 100 + 'vw';
-            const size = Math.random() * 4 + 2; // Più piccoli e realistici
+            
+            // Varietà di dimensioni per profondità
+            const size = Math.random() * 3 + 2; 
             flake.style.width = size + 'px';
             flake.style.height = size + 'px';
-            const duration = Math.random() * 5 + 5; 
+            
+            const duration = Math.random() * 3 + 4; // Caduta più veloce
             flake.style.animation = `fall ${duration}s linear forwards`;
             container.appendChild(flake);
             setTimeout(() => { flake.remove(); }, duration * 1000);
-        }, 200);
+        }, 100); // Neve fitta (ogni 0.1s)
 
-        // 2. NEVE CHE SI ACCUMULA (Barra e Logo)
-        // Aggiunge un "fiocco posato" ogni tot secondi
+        // 2. ACCUMULO RAPIDO E "GRUMOSO"
         setInterval(() => {
             if(document.hidden) return;
 
-            // Dove accumulare?
             const targets = [];
-            
-            // Il Logo (sempre)
             const logo = document.querySelector('.logo-circle');
             if(logo) targets.push(logo);
 
-            // La Barra (solo se NON è Lite Mode)
             if(!document.body.classList.contains('lite-mode')) {
                 const bar = document.querySelector('.nav-pill-wrapper');
                 if(bar) targets.push(bar);
             }
 
             targets.forEach(el => {
-                // Non esagerare: massimo 30 fiocchi per elemento
-                if(el.querySelectorAll('.snow-pile').length > 30) return;
+                // Limite massimo aumentato per permettere accumulo denso
+                if(el.querySelectorAll('.snow-pile').length > 150) return;
 
-                const pile = document.createElement('div');
-                pile.classList.add('snow-pile');
-                
-                // Dimensione mucchietto
-                const s = Math.random() * 6 + 4; 
-                pile.style.width = s + 'px';
-                pile.style.height = (s/2) + 'px'; // Più schiacciati
+                // Creiamo 2-3 fiocchi per volta per velocizzare
+                for(let i=0; i<3; i++) {
+                    const pile = document.createElement('div');
+                    pile.classList.add('snow-pile');
+                    
+                    // Dimensioni irregolari per realismo (non cerchi perfetti)
+                    const w = Math.random() * 8 + 4; 
+                    const h = Math.random() * 5 + 3;
+                    pile.style.width = w + 'px';
+                    pile.style.height = h + 'px';
+                    pile.style.borderRadius = `${Math.random()*50+30}% ${Math.random()*50+30}% 0 0`; // Forma a "collinetta"
 
-                // Posizione: Lungo tutto il bordo superiore
-                // (el.offsetWidth - 10) serve per non farli uscire dai bordi
-                const maxLeft = el.offsetWidth - 10;
-                const randomLeft = Math.random() * maxLeft;
-                
-                pile.style.left = randomLeft + 'px';
-                pile.style.top = '-2px'; // Si poggia proprio sopra il bordo
+                    // Posizionamento: concentrato più in alto (accumulo naturale)
+                    // Usiamo una distribuzione che favorisce il centro ma copre tutto
+                    const maxLeft = el.offsetWidth - 5;
+                    pile.style.left = (Math.random() * maxLeft) + 'px';
+                    
+                    // Si impilano uno sull'altro leggermente (-2px a -5px)
+                    pile.style.top = -(Math.random() * 4 + 2) + 'px'; 
 
-                el.appendChild(pile);
+                    el.appendChild(pile);
+                }
             });
 
-        }, 800); // Ogni 0.8 secondi si posa un fiocco
+        }, 200); // Molto veloce: ogni 0.2s aggiunge 3 fiocchi per elemento
     }
-
 
     document.addEventListener('DOMContentLoaded', () => {
         checkOpenStatus();
