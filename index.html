@@ -815,11 +815,23 @@ window.addEventListener('scroll', function() {
         } catch (e) { console.log("Meteo non disponibile"); }
     }
 
-    function toggleLiteMode() {
-        const body = document.body; const btn = document.getElementById('lite-switch');
+     function toggleLiteMode() {
+        const body = document.body; 
+        const btn = document.getElementById('lite-switch');
+        
         body.classList.toggle('lite-mode'); 
-        btn.innerHTML = body.classList.contains('lite-mode') ? "🚀 Normal" : "⚡ Lite";
+        
+        const isLite = body.classList.contains('lite-mode');
+        btn.innerHTML = isLite ? "🚀 Normal" : "⚡ Lite";
+
+        // --- PULIZIA NEVE ---
+        if (isLite) {
+            // Se entri in Lite Mode, cancella TUTTA la neve accumulata
+            const piles = document.querySelectorAll('.snow-pile');
+            piles.forEach(p => p.remove());
+        }
     }
+
 
     function showCategory(catId, btnElement) {
         const isLite = document.body.classList.contains('lite-mode');
