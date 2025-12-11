@@ -307,124 +307,116 @@
         .social-circle svg { width: 28px; height: 28px; fill: currentColor; stroke: none; }
         .footer-bottom { width: 100%; text-align: center; margin-top: 20px; font-size: 0.7rem; color: #999; border-top: 1px solid #f0f0f0; padding-top: 15px; }
 
-        /* LITE MODE */
+                /* --- STILE MODALITÀ LITE (Corretto) --- */
         body.lite-mode { background-color: #f9f7f2; }
-        body.lite-mode header { height: 130px; background: linear-gradient(135deg, #5D4037 0%, #8D6E63 100%); border-bottom: 4px solid #d4af37; display: flex; align-items: center; justify-content: center; }
-        body.lite-mode header::before { display: none; animation: none; }
+        
+        /* HEADER: Più compatto e contenuti in alto */
+        body.lite-mode header { 
+            height: 140px !important; 
+            padding-top: 15px !important; 
+            background: linear-gradient(135deg, #5D4037 0%, #8D6E63 100%); 
+            border-bottom: 4px solid #d4af37; 
+            display: flex !important; 
+            align-items: flex-start !important; /* Allinea in alto */
+            justify-content: center !important; 
+        }
+        body.lite-mode header::before { display: none; }
+        
         body.lite-mode .header-content { 
-            position: absolute; 
-            bottom: 70px; 
-            left: 20px; 
-            color: white; 
-            z-index: 2; 
-            width: auto; 
-            max-width: 90%; 
-            transition: all 0.3s ease; 
-            pointer-events: none; 
-        }
-        body.lite-mode .info-cluster { justify-content: center; }
-        body.lite-mode .status-badge, body.lite-mode .weather-badge { background: rgba(0,0,0,0.1); border: none; color: white; }
-        body.lite-mode .header-content h1 { 
-            font-family: 'Playfair Display', serif; 
-            font-size: 24px; 
-            margin-bottom: 2px; 
-            font-weight: 700; 
-            font-style: italic; 
-            text-shadow: 0 2px 10px rgba(0,0,0,0.6); 
-        }
-        body.lite-mode .subtitle { 
-            font-family: 'Inter', sans-serif; 
-            font-size: 10px; 
-            font-weight: 400; 
-            opacity: 0.9; 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-            text-shadow: 0 1px 5px rgba(0,0,0,0.5); 
-            margin-bottom: 10px; 
-        }
-        /* --- REGOLA SPECIALE PER LITE MODE --- */
-/* Quando sei in Lite Mode, la barra resta fissa in alto e non si muove mai */
-body.lite-mode .sticky-nav-container {
-    position: sticky !important;
-    top: 0 !important;
-    transform: none !important; /* Blocca ogni movimento */
-    opacity: 1 !important;      /* Sempre visibile */
-    background: var(--bg-warm); /* Sfondo pieno per coprire quello che scorre sotto */
-    z-index: 999;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Piccola ombra per staccarla */
-}
-        body.lite-mode .nav-cluster { 
-            display: flex; 
-            align-items: center; 
-            gap: 15px; 
-            pointer-events: auto; 
-            width: auto; 
-            justify-content: center; 
-            max-width: 95%; 
-            margin: 0 auto 10px auto;
-            position: relative;
-        }
-        body.lite-mode .logo-circle, body.lite-mode .nav-pill-wrapper { background-color: #ffffff !important; border: 2px solid #e6e6e6; box-shadow: 0 2px 6px rgba(0,0,0,0.05); backdrop-filter: none !important; }
-        body.lite-mode .menu-item { animation: none !important; opacity: 1 !important; box-shadow: none; border: 1px solid #e0dec0; background: #fff; margin-bottom: 10px; }
-        body.lite-mode .item-price { background-color: var(--bg-accent-light); color: var(--primary-color); }
-        body.lite-mode #lite-switch { background: #d4af37 !important; color: #000 !important; border: 2px solid white !important; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        body.lite-mode .search-input { background: #fff; border: 1px solid #ddd; box-shadow: none; }
-    
-        /* --- LITE MODE FIXES REINFORCED --- */
-        body.lite-mode header {
-            height: 160px !important;
-            padding-top: 40px;
-            display: flex !important;
-            flex-direction: column !important;
-            justify-content: center !important;
-            align-items: center !important;
-            text-align: center !important;
-        }
-        body.lite-mode .header-content {
-            position: static !important;
+            position: static !important; /* Rimuove posizionamento assoluto */
             transform: none !important;
-            margin: 0 auto !important;
             text-align: center !important;
+            margin-top: 5px !important; /* Spazio dal bordo alto */
             width: 100% !important;
             max-width: 100% !important;
-            left: auto !important;
-            bottom: auto !important;
-            display: block !important;
-        }
-        body.lite-mode .header-content h1, 
-        body.lite-mode .header-content .subtitle {
-            text-align: center !important;
-            margin-left: auto !important;
-            margin-right: auto !important;
-        }
-        body.lite-mode .info-cluster {
-            display: flex !important;
-            justify-content: center !important;
-            width: 100% !important;
+            pointer-events: none; 
         }
         
-        /* SOLO IN MODALITÀ LITE: niente rettangolo bianco lungo */
-body.lite-mode .search-container {
-    margin-top: 4px;           /* Avvicina un po' la ricerca alla barra categorie */
-    margin-bottom: 8px;        /* Meno spazio sotto */
-}
-
-/* Rende la card della ricerca meno “blocco bianco” in Lite */
-body.lite-mode .search-input-wrapper {
-    background: transparent;   /* Toglie il fondo bianco pieno */
-    box-shadow: none;          /* Toglie l’ombra pesante se presente */
-    border: 1px solid rgba(0,0,0,0.12); /* Bordo leggero */
-}
-
-/* SOLO IN MODALITÀ LITE: intestazione un po' più in alto */
-body.lite-mode header {
-    height: 230px;        /* Header un po' più basso = contenuto più vicino alla cima */
-}
-
-body.lite-mode .header-content {
-    bottom: 90px;         /* Aumentando bottom, il blocco si sposta visivamente più in alto */
-}
+        body.lite-mode .header-content h1 { font-size: 28px !important; margin-bottom: 0 !important; text-shadow: none !important; }
+        body.lite-mode .subtitle { display: block; margin-bottom: 5px !important; opacity: 0.9; }
+        body.lite-mode .info-cluster { justify-content: center !important; margin-top: 2px !important; }
         
+        /* STATUS & METEO LITE */
+        body.lite-mode .status-badge, body.lite-mode .weather-badge { 
+            background: rgba(255,255,255,0.15); 
+            border: none; 
+            color: white; 
+        }
+
+        /* BARRA CATEGORIE STICKY (Senza riga bianca sotto) */
+        body.lite-mode .sticky-nav-container {
+            position: sticky !important;
+            top: 0 !important;
+            padding: 10px 0;
+            background: #f9f7f2 !important; /* Stesso colore dello sfondo = invisibile */
+            z-index: 999;
+            box-shadow: 0 4px 10px -2px rgba(0,0,0,0.05); /* Ombra solo sotto */
+        }
+
+        body.lite-mode .nav-cluster { margin-bottom: 0 !important; }
+
+        /* Rimuoviamo il box bianco che creava la riga */
+        body.lite-mode .nav-pill-wrapper { 
+            background: transparent !important; 
+            border: none !important; 
+            box-shadow: none !important; 
+            backdrop-filter: none !important;
+        }
+
+        /* Stile bottoni categorie */
+        body.lite-mode .tab-btn-inner {
+            background: white;
+            border: 1px solid #e6e6e6;
+            color: #555;
+        }
+        body.lite-mode .tab-btn.active .tab-btn-inner {
+            background: #fff8e1; /* Giallo chiarissimo */
+            border-color: #d4af37;
+            color: #8B5A2B;
+            font-weight: 700;
+        }
+
+        /* BARRA RICERCA (Senza contorno grigio) */
+        body.lite-mode .search-container {
+            margin-top: 5px !important;
+            margin-bottom: 10px !important;
+            background: transparent !important;
+            box-shadow: none !important;
+        }
+        
+        body.lite-mode .search-input-wrapper {
+            background: white !important;
+            border: none !important; /* VIA IL BORDO GRIGIO */
+            border-radius: 12px !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important; /* Ombra leggerissima */
+        }
+        
+        body.lite-mode .search-input {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        /* PULIZIA GENERALE */
+        body.lite-mode .logo-circle { display: none !important; }
+        body.lite-mode #menu-container { margin-top: 5px !important; }
+        
+        /* STILE LISTA MENU LITE */
+        body.lite-mode .menu-item { 
+            box-shadow: none; 
+            border: 1px solid #eee; 
+            background: white; 
+            margin-bottom: 10px; 
+            opacity: 1 !important;
+            animation: none !important;
+        }
+        body.lite-mode .item-price { background-color: #f5f5f5; color: #8B5A2B; }
+        body.lite-mode #lite-switch { 
+            background: #d4af37 !important; 
+            color: #2c2c2c !important; 
+            border: 2px solid white !important; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15); 
+        }
         
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
