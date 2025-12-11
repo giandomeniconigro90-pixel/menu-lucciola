@@ -382,7 +382,7 @@ body.lite-mode .sticky-nav-container {
         body.lite-mode .menu-item { animation: none !important; opacity: 1 !important; box-shadow: none; border: 1px solid #e0dec0; background: #fff; margin-bottom: 10px; }
         body.lite-mode .item-price { background-color: var(--bg-accent-light); color: var(--primary-color); }
         body.lite-mode #lite-switch { background: #d4af37 !important; color: #000 !important; border: 2px solid white !important; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        body.lite-mode .search-input { background: #fff; border: 1px solid #ddd; box-shadow: none; }
+        body.lite-mode .search-input { background: #fff; border: none; box-shadow: none; }
     
         /* --- LITE MODE FIXES REINFORCED --- */
                 body.lite-mode header {
@@ -426,9 +426,9 @@ body.lite-mode .search-container {
 
 /* Rende la card della ricerca meno “blocco bianco” in Lite */
 body.lite-mode .search-input-wrapper {
-    background: transparent;   /* Toglie il fondo bianco pieno */
-    box-shadow: none;          /* Toglie l’ombra pesante se presente */
-    border: 1px solid rgba(0,0,0,0.12); /* Bordo leggero */
+    background: transparent;
+    box-shadow: none;
+    border: none; /* Niente bordo esterno */
 }
 
 /* SOLO IN MODALITÀ LITE: intestazione un po' più in alto */
