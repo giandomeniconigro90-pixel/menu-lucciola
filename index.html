@@ -938,34 +938,31 @@ window.addEventListener('scroll', function() {
         // 2. ACCUMULO INTELLIGENTE
         setInterval(() => {
             if(document.hidden) return;
-
-            // --- A) LOGO (Accumulo Curvo) ---
+            
+         // --- A) LOGO (Accumulo Curvo) ---
+        if (!document.body.classList.contains('lite-mode')) {   // <-- nuovo if
             const logo = document.querySelector('.logo-circle');
-            if(logo && logo.querySelectorAll('.snow-pile').length < 60) {
+            if (logo && logo.querySelectorAll('.snow-pile').length < 60) {
                 const pile = document.createElement('div');
                 pile.classList.add('snow-pile');
-                
-                const w = Math.random() * 10 + 6; // Fiocchi grandi e morbidi
+
+                const w = Math.random() * 10 + 6;
                 pile.style.width = w + 'px';
                 pile.style.height = (w * 0.6) + 'px';
 
-                // Calcolo curva: Scegliamo un angolo casuale sulla parte alta (da -60 a +60 gradi)
-                // 0 gradi è il centro esatto in alto.
-                const angleDeg = (Math.random() * 120) - 60; 
+                const angleDeg = (Math.random() * 120) - 60;
                 const angleRad = angleDeg * (Math.PI / 180);
-                const radius = 29; // Raggio del logo (58px / 2)
-                
-                // Calcoliamo X e Y sulla circonferenza
-                // X: centro (29) + sin(angolo) * raggio
-                // Y: centro (29) - cos(angolo) * raggio (meno perché Y cresce verso il basso)
-                const x = 29 + (Math.sin(angleRad) * radius) - (w/2);
-                const y = 29 - (Math.cos(angleRad) * radius) - (w/2);
+                const radius = 29;
+
+                const x = 29 + (Math.sin(angleRad) * radius) - (w / 2);
+                const y = 29 - (Math.cos(angleRad) * radius) - (w / 2);
 
                 pile.style.left = x + 'px';
-                pile.style.top = (y - 2) + 'px'; // -2 per poggiarsi appena sopra
+                pile.style.top = (y - 2) + 'px';
 
                 logo.appendChild(pile);
             }
+        }
 
                        // --- B) BARRA (Accumulo Volumetrico) ---
             if(!document.body.classList.contains('lite-mode')) {
