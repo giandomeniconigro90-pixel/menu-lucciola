@@ -439,12 +439,36 @@ body.lite-mode header {
 body.lite-mode .header-content {
     bottom: 90px;         /* Aumentando bottom, il blocco si sposta visivamente più in alto */
 }
+
+                /* --- EFFETTO NEVE --- */
+        #snow-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; /* FONDAMENTALE: permette di cliccare attraverso la neve */
+            z-index: 9998; /* Sopra a tutto */
+            overflow: hidden;
+        }
+        .snowflake {
+            position: absolute; top: -10px;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            box-shadow: 0 0 5px rgba(255,255,255,0.8);
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10px) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(110vh) translateX(20px); opacity: 0; }
+        }
+
         
         
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
 <body>
+    <!-- CONTENITORE NEVE -->
+<div id="snow-container"></div>
+
 
 <!-- BANNER AVVISI -->
 <div id="alert-banner"></div>
@@ -856,11 +880,46 @@ window.addEventListener('scroll', function() {
         });
     }
 
+    // --- FUNZIONE NEVE ---
+    function startSnow() {
+        const container = document.getElementById('snow-container');
+        // Crea un fiocco ogni 300ms
+        setInterval(() => {
+            if(document.hidden) return; // Non creare neve se l'utente cambia scheda (risparmia batteria)
+            
+            const flake = document.createElement('div');
+            flake.classList.add('snowflake');
+            
+            // Posizione casuale
+            flake.style.left = Math.random() * 100 + 'vw';
+            
+            // Dimensione casuale (piccoli e grandi)
+            const size = Math.random() * 5 + 3; 
+            flake.style.width = size + 'px';
+            flake.style.height = size + 'px';
+            
+            // Velocità casuale
+            const duration = Math.random() * 5 + 5; 
+            flake.style.animation = `fall ${duration}s linear forwards`;
+            
+            // Trasparenza casuale
+            flake.style.opacity = Math.random() * 0.5 + 0.3;
+
+            container.appendChild(flake);
+
+            // Pulizia memoria: elimina il fiocco quando ha finito di cadere
+            setTimeout(() => { flake.remove(); }, duration * 1000);
+            
+        }, 300);
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         checkOpenStatus();
         fetchWeather();
         initDataFetch();
+        startSnow(); // <--- Avvia la neve qui
     });
 </script>
+
 </body>
 </html>
