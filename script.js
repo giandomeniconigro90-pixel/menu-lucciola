@@ -347,7 +347,7 @@ function renderItems(items, container, isLite) {
             tagHTML += `<span class="tag-badge tag-aperitivo">Aperitivo analcolico</span>`;
         }
         if (item.tag === 'aperitivo' && item.tipo === 'alcolico') {
-            tagHTML += `<span class="tag-badge tag-aperitivo">Aperitivo</span>`;
+            tagHTML += `<span class="tag-badge tag-aperitivo">Aperitivo alcolico</span>`;
         }
 
 
