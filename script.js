@@ -138,11 +138,12 @@ window.addEventListener('scroll', function() {
         navContainer.classList.add('nav-hidden');
     } else {
         // Scorri in ALTO: la barra riappare SOLO se sei quasi in cima
-        if (currentScroll < 80) {
+        if (currentScroll < 180) {   // prima era 80
             navContainer.classList.remove('nav-hidden');
         }
         // altrimenti resta nascosta per non coprire il menù
     }
+
 
     lastScrollTop = currentScroll;
 
