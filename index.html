@@ -456,21 +456,21 @@ body.lite-mode .header-content {
         }
 
         /* Il mucchietto che si accumula */
-                       /* Il mucchietto che si accumula */
-        .snow-pile {
+                .snow-pile {
             position: absolute;
-            background-color: #ffffff;
+            background: radial-gradient(circle, rgba(255,255,255,0.95) 20%, rgba(255,255,255,0.6) 60%, rgba(255,255,255,0) 100%);
             border-radius: 50%;
             pointer-events: none; 
             z-index: 50;
-            /* FONDAMENTALE: sfoca leggermente i bordi per fondere i fiocchi insieme */
-            filter: blur(1px); 
-            box-shadow: 0 0 2px rgba(255,255,255,0.8);
-            animation: landSoft 0.6s ease-out forwards;
+            transform-origin: center bottom; /* Cresce dal basso */
+            animation: landReal 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
 
-
-        
+        @keyframes landReal {
+            0% { transform: scale(0.2) translateY(-5px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+         
         /* Animazione caduta */
         @keyframes fall {
             0% { transform: translateY(-10px) translateX(0); opacity: 0; }
@@ -956,28 +956,32 @@ window.addEventListener('scroll', function() {
                 logo.appendChild(pile);
             }
 
-            // --- B) BARRA (Accumulo Lineare ma morbido) ---
+                       // --- B) BARRA (Accumulo Volumetrico) ---
             if(!document.body.classList.contains('lite-mode')) {
                 const bar = document.querySelector('.nav-pill-wrapper');
-                if(bar && bar.querySelectorAll('.snow-pile').length < 150) {
-                    // Creiamo 2 fiocchi alla volta
-                    for(let i=0; i<2; i++) {
+                // Aumentiamo il limite perché i fiocchi ora sono più trasparenti
+                if(bar && bar.querySelectorAll('.snow-pile').length < 200) {
+                    for(let i=0; i<3; i++) { // Più veloce
                         const pile = document.createElement('div');
                         pile.classList.add('snow-pile');
                         
-                        const w = Math.random() * 12 + 8; // Molto larghi per coprire bene
+                        // Forme molto varie: alcune larghe e basse, altre piccole e alte
+                        const w = Math.random() * 15 + 8; 
                         pile.style.width = w + 'px';
-                        pile.style.height = (w * 0.5) + 'px'; // Schiacciati
+                        pile.style.height = (w * (Math.random() * 0.4 + 0.3)) + 'px'; 
                         
-                        // Posizione casuale lungo la barra
-                        const maxLeft = bar.offsetWidth - 10;
-                        pile.style.left = (Math.random() * maxLeft) + 'px';
-                        pile.style.top = '-4px'; // Leggermente sopra il bordo
+                        const maxLeft = bar.offsetWidth;
+                        pile.style.left = (Math.random() * maxLeft - (w/2)) + 'px';
+                        
+                        // PROFONDITÀ: Alcuni fiocchi scendono un po' più giù sulla barra (colando), altri stanno sopra
+                        const verticalOffset = Math.random() * 4 - 2; 
+                        pile.style.top = (-3 + verticalOffset) + 'px';
 
                         bar.appendChild(pile);
                     }
                 }
             }
+
 
         }, 150); // Velocità accumulo
     }
