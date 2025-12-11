@@ -167,21 +167,11 @@
         .search-input:focus { background: white; box-shadow: 0 6px 20px rgba(0,0,0,0.08); transform: translateY(-1px); }
         .search-icon { position: absolute; left: 15px; color: #999; width: 18px; height: 18px; }
 
-                /* --- ANIMAZIONE SCROLL HINT --- */
-        @keyframes scrollHintAnimation {
-            0%, 100% { transform: translateX(0); }
-            30% { transform: translateX(-50px); } /* Si sposta a sinistra */
-            60% { transform: translateX(0); }     /* Torna indietro */
-        }
-
+        /* --- LOGICA SCROLL --- */
         .nav-scroll-area {
             display: flex; align-items: center; overflow-x: auto; height: 100%; width: 100%;
             padding: 0; scroll-snap-type: x mandatory; scrollbar-width: none;
-            
-            /* L'animazione parte dopo 1.5s, dura 1.5s e lo fa 1 volta sola */
-            animation: scrollHintAnimation 1.5s ease-in-out 1.5s 1 forwards;
         }
-
         .nav-scroll-area::-webkit-scrollbar { display: none; }
 
         .tab-btn {
