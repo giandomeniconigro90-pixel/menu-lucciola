@@ -305,15 +305,21 @@ function searchMenu() {
     const filter = document.getElementById('menu-search').value.toLowerCase();
     const container = document.getElementById('menu-container');
 
-    if(filter.length === 0) {
+    if (filter.length === 0) {
+        // Nessun testo: ricarica semplicemente la categoria attiva
         const activeBtn = document.querySelector('.tab-btn.active');
-        if(activeBtn) showCategory(activeBtn.getAttribute('onclick').split("'")[1], activeBtn);
+        if (activeBtn) {
+            const catId = activeBtn.dataset.cat;   // prende "calde", "fredde", ecc.
+            showCategory(catId, activeBtn);
+        }
         return;
     }
 
     let allMatches = [];
     for (const [key, category] of Object.entries(menuData)) {
-        const matches = category.items.filter(item => item.name.toLowerCase().includes(filter));
+        const matches = category.items.filter(item =>
+            item.name.toLowerCase().includes(filter)
+        );
         allMatches = [...allMatches, ...matches];
     }
 
