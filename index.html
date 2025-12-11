@@ -946,26 +946,26 @@ window.addEventListener('scroll', function() {
         });
     }
 
-        // --- FUNZIONE NEVE REALISTICA (CURVA SUL LOGO + MORBIDA) ---
-    function startSnow() {
-        const container = document.getElementById('snow-container');
-        
-        // 1. NEVE DI SFONDO
-        setInterval(() => {
-            if(document.hidden) return; 
-            const flake = document.createElement('div');
-            flake.classList.add('snowflake');
-            flake.style.left = Math.random() * 100 + 'vw';
-            const size = Math.random() * 3 + 3; // Un po' più grandi
-            flake.style.width = size + 'px';
-            flake.style.height = size + 'px';
-            flake.style.filter = 'blur(1px)'; // Soffici anche quelli che cadono
-            const duration = Math.random() * 3 + 4; 
-            flake.style.animation = `fall ${duration}s linear forwards`;
-            container.appendChild(flake);
-            setTimeout(() => { flake.remove(); }, duration * 1000);
-        }, 100);
+        // 1. NEVE DI SFONDO (solo modalità NORMAL)
+setInterval(() => {
+    if (document.hidden) return;
+    if (document.body.classList.contains('lite-mode')) return; // NIENTE neve in Lite
 
+    const flake = document.createElement('div');
+    flake.classList.add('snowflake');
+
+    flake.style.left = Math.random() * 100 + 'vw';
+    const size = Math.random() * 3 + 3;
+    flake.style.width = size + 'px';
+    flake.style.height = size + 'px';
+    flake.style.filter = 'blur(1px)';
+    const duration = Math.random() * 3 + 4;
+    flake.style.animation = `fall ${duration}s linear forwards`;
+
+    container.appendChild(flake);
+    setTimeout(() => { flake.remove(); }, duration * 1000);
+}, 100);
+    
         // 2. ACCUMULO INTELLIGENTE
         setInterval(() => {
             if(document.hidden) return;
