@@ -376,7 +376,7 @@ body.lite-mode .nav-cluster {
     position: relative;
 }
 body.lite-mode .nav-pill-wrapper {
-    background-color: #f7ecda !important;  /* Beige barra categorie */
+    background-color: #fbf2e4 !important;  /* Beige barra categorie */
     border: 1px solid rgba(0,0,0,0.08);
     box-shadow: 0 1px 3px rgba(0,0,0,0.06); 
     backdrop-filter: none !important;
@@ -386,7 +386,7 @@ body.lite-mode .menu-item {
     opacity: 1 !important; 
     box-shadow: none; 
     border: 1px solid #e0dec0; 
-    background: #f7ecda;          /* Card menù beige chiaro */
+    background: #fbf2e4;          /* Card menù beige chiaro */
     margin-bottom: 10px; 
 }
 
