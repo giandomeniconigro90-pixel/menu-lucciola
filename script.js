@@ -217,15 +217,32 @@ async function fetchWeather() {
 function toggleLiteMode() {
     const body = document.body;
     const btn = document.getElementById('lite-switch');
-    const labelSpan = btn.querySelector('.lite-label');
-    
+
     body.classList.toggle('lite-mode');
     const isLite = body.classList.contains('lite-mode');
 
-    // Testo chiaro per le due modalità
-    labelSpan.textContent = isLite ? 'Normal' : 'Lite';
+    if (!isLite) {
+        // MODALITÀ NORMALE → FULMINE + "Lite"
+        btn.innerHTML = `
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;">
+                <path d="M13 2L3 14h7l-1 8L21 10h-7l-1-8z"></path>
+            </svg>
+            <span>Lite</span>
+        `;
+    } else {
+        // MODALITÀ LITE → TAZZINA (icona stile Calde) + "Normal"
+        btn.innerHTML = `
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;">
+                <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                <line x1="6" y1="1" x2="6" y2="4"></line>
+                <line x1="10" y1="1" x2="10" y2="4"></line>
+                <line x1="14" y1="1" x2="14" y2="4"></line>
+            </svg>
+            <span>Normal</span>
+        `;
+    }
 }
-
 
 
 function showCategory(catId, btnElement) {
@@ -334,5 +351,6 @@ document.addEventListener('DOMContentLoaded', () => {
     checkOpenStatus();
     fetchWeather();
     initDataFetch();
-    // NEVE RIMOSSA
+    toggleLiteMode();      // imposta stato iniziale (lite attiva)
+    toggleLiteMode();      // subito dopo torna a normale → fulmine + "Lite"
 });
