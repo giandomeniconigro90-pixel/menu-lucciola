@@ -372,52 +372,37 @@ body.lite-mode .nav-pill-wrapper {
     border: 2px solid transparent;
 }
 
-/* --- MEDIA QUERIES (Tablet & Desktop) --- */
+/* --- MEDIA QUERIES --- */
 @media (min-width: 700px) {
-    .nav-pill-wrapper {
-        display: inline-flex;
-        width: auto;
-        max-width: 95%; /* Non sbordare */
-        min-width: 0;
-        flex-grow: 0;
-        
-        /* FIX: Più spazio ai lati per non tagliare la selezione */
-        padding: 5px 25px; 
-        
-        justify-content: center;
-        margin: 0;
-        position: static;
-        transform: none;
-        
-        /* FIX: Altezza sicura */
-        min-height: 60px;
-        
-        /* FIX: Mostra eventuali sbordature (es. ombra selezione) */
-        overflow: visible;
-    }
-
     .nav-scroll-area {
-        display: flex;
-        flex-wrap: nowrap; /* Forza riga singola */
         padding: 0;
         scroll-snap-type: none;
-        justify-content: center; /* Centra se possibile */
+        justify-content: center; 
         width: 100%;
-        overflow-x: auto; /* Scroll se serve */
+        overflow-x: hidden;
         gap: 10px;
     }
-    
     .tab-btn {
-        flex: 0 0 auto; /* Larghezza naturale */
+        flex: 0 1 auto; 
         width: auto;
         margin: 0;
         min-width: 80px;
     }
-    
     .tab-btn-inner {
         width: 100%;
         padding: 0 15px;
         justify-content: center;
+    }
+    .nav-pill-wrapper {
+        display: inline-flex;
+        width: max-content; 
+        min-width: 0;
+        flex-grow: 0;
+        padding: 0 5px;
+        justify-content: center;
+        margin: 0;
+        position: static;
+        transform: none;
     }
 }
 
