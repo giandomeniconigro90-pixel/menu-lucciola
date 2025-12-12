@@ -380,8 +380,9 @@ body.lite-mode .nav-pill-wrapper {
         scroll-snap-type: none;
         justify-content: center; 
         width: 100%;
-        overflow-x: hidden;
+        overflow-x: visible;
         gap: 10px;
+        flex-wrap: wrap;
     }
     .tab-btn {
         flex: 0 1 auto; 
@@ -399,11 +400,14 @@ body.lite-mode .nav-pill-wrapper {
         width: max-content; 
         min-width: 0;
         flex-grow: 0;
-        padding: 0 5px;
+        padding: 8 40px;
+        overflow: visible;
         justify-content: center;
         margin: 0;
         position: static;
         transform: none;
+        min-height: 64px; 
+        height: auto;
     }
 }
 
