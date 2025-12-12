@@ -185,7 +185,6 @@ header::after {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* pointer-events: none;  ← TOGLI questa riga */
     transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.4s ease;
     opacity: 1;
 }
@@ -380,9 +379,8 @@ body.lite-mode .nav-pill-wrapper {
         scroll-snap-type: none;
         justify-content: center; 
         width: 100%;
-        overflow-x: visible;
+        overflow-x: hidden;
         gap: 10px;
-        flex-wrap: wrap;
     }
     .tab-btn {
         flex: 0 1 auto; 
@@ -400,14 +398,11 @@ body.lite-mode .nav-pill-wrapper {
         width: max-content; 
         min-width: 0;
         flex-grow: 0;
-        padding: 8 40px;
-        overflow: visible;
+        padding: 0 5px;
         justify-content: center;
         margin: 0;
         position: static;
         transform: none;
-        min-height: 64px; 
-        height: auto;
     }
 }
 
@@ -922,5 +917,3 @@ body.lite-mode .header-content {
     color: #2e7d32;
     border: 1px solid #c8e6c9;
 }
-
-
