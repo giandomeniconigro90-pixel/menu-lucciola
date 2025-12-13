@@ -43,7 +43,8 @@ function transformCsvToMenu(csvData) {
     const titles = {
         'calde': 'Caffetteria',
         'fredde': 'Bibite Fredde',
-        'alcolici': 'Alcolici',
+        'aperitivi': 'Aperitivi & Cocktail',
+        'alcolici': 'Vini & Alcolici',
         'food': 'Food & Snack',
         'dolci': 'Dolci & Dessert',
         'altro': 'Altro'
@@ -92,9 +93,16 @@ function transformCsvToMenu(csvData) {
 
 function normalizeCategory(catString) {
     const c = catString.toLowerCase();
+    
+    // NUOVA LOGICA: Cerca prima Aperitivi
+    if(c.includes('aperitiv') || c.includes('spritz') || c.includes('cocktail') || c.includes('prosecco') || c.includes('long drink')) return 'aperitivi';
+
     if(c.includes('caff') || c.includes('cald') || c.includes('tè') || c.includes('tisane')) return 'calde';
     if(c.includes('fredd') || c.includes('bibit') || c.includes('succh') || c.includes('acqu')) return 'fredde';
-    if(c.includes('alcol') || c.includes('vin') || c.includes('birr') || c.includes('cocktail') || c.includes('amar') || c.includes('spritz') || c.includes('liquor') || c.includes('grap')) return 'alcolici';
+    
+    // Alcolici rimane per il resto
+    if(c.includes('alcol') || c.includes('vin') || c.includes('birr') || c.includes('amar') || c.includes('liquor') || c.includes('grap')) return 'alcolici';
+    
     if(c.includes('cib') || c.includes('food') || c.includes('panin') || c.includes('snack') || c.includes('taglier') || c.includes('focacc')) return 'food';
     if(c.includes('dolc') || c.includes('dessert') || c.includes('gelat') || c.includes('tort')) return 'dolci';
     return 'altro';
