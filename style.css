@@ -327,12 +327,18 @@ body.lite-mode .nav-pill-wrapper {
     overflow-x: auto;
     height: 100%;
     width: 100%;
-    
-    /* MODIFICA: Padding aumentato a 15px per più aria ai lati */
-    padding: 0 35px; 
-    
+    padding: 0; /* Rimosso padding, gestito con gli spacer */
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
+}
+
+/* MODIFICA: Aggiunti spacer per distanziare le tab dai bordi */
+.nav-scroll-area::before,
+.nav-scroll-area::after {
+    content: '';
+    display: block;
+    width: 10px; /* Spazio di 10px a inizio e fine */
+    flex-shrink: 0;
 }
 
 @media (max-width: 699px) {
@@ -386,6 +392,13 @@ body.lite-mode .nav-pill-wrapper {
         overflow-x: hidden;
         gap: 10px;
     }
+    
+    /* Disattivo gli spacer per la vista desktop */
+    .nav-scroll-area::before,
+    .nav-scroll-area::after {
+        display: none;
+    }
+
     .tab-btn {
         flex: 0 1 auto; 
         width: auto;
