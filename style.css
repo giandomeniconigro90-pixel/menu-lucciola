@@ -911,3 +911,34 @@ body.lite-mode header {
 body.lite-mode .header-content {
     bottom: 90px;
 }
+
+/* --- NUOVO LAYOUT: LOGO + RICERCA --- */
+.header-search-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 95%;
+    max-width: 600px;
+    margin: 10px auto 10px auto;
+    gap: 12px;
+    position: relative;
+    z-index: 20;
+}
+
+.header-search-row .logo-circle {
+    flex-shrink: 0;
+    margin: 0;
+}
+
+.header-search-row .search-container {
+    margin: 0 !important;
+    width: auto !important;
+    flex-grow: 1;
+    max-width: none !important;
+}
+
+/* Override per nav-cluster se necessario */
+.nav-cluster {
+    margin-top: 0;
+    width: 95%;
+}
