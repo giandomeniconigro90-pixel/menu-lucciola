@@ -78,17 +78,15 @@ function transformCsvToMenu(csvData) {
             allergenesList = row.allergeni.split(',').map(s => s.trim().toLowerCase());
         }
 
-      menuData[catKey].items.push({
-    name: row.nome,
-    price: parseFloat(row.prezzo.replace(',', '.')),
-    description: row.descrizione || '',
-    allergens: allergenesList,
-    tag: row.tag || '',
-    subcategory: row.categoria,
-    tipo: (row.tipo || '').toLowerCase(),   // NUOVO
-    soldOut: row.disponibile === 'soldout'
-});
-
+        menuData[catKey].items.push({
+            name: row.nome,
+            price: parseFloat(row.prezzo.replace(',', '.')),
+            description: row.descrizione || '',
+            allergens: allergenesList,
+            tag: row.tag || '',
+            subcategory: row.categoria, // Mantiene la capitalizzazione originale (es. "Bibite")
+            soldOut: row.disponibile === 'soldout'
+        });
     });
 }
 
@@ -307,21 +305,15 @@ function searchMenu() {
     const filter = document.getElementById('menu-search').value.toLowerCase();
     const container = document.getElementById('menu-container');
 
-    if (filter.length === 0) {
-        // Nessun testo: ricarica semplicemente la categoria attiva
+    if(filter.length === 0) {
         const activeBtn = document.querySelector('.tab-btn.active');
-        if (activeBtn) {
-            const catId = activeBtn.dataset.cat;   // prende "calde", "fredde", ecc.
-            showCategory(catId, activeBtn);
-        }
+        if(activeBtn) showCategory(activeBtn.getAttribute('onclick').split("'")[1], activeBtn);
         return;
     }
 
     let allMatches = [];
     for (const [key, category] of Object.entries(menuData)) {
-        const matches = category.items.filter(item =>
-            item.name.toLowerCase().includes(filter)
-        );
+        const matches = category.items.filter(item => item.name.toLowerCase().includes(filter));
         allMatches = [...allMatches, ...matches];
     }
 
@@ -334,22 +326,9 @@ function renderItems(items, container, isLite) {
         const price = item.price.toFixed(2).replace('.', ',');
         const descHTML = item.description ? `<p>${item.description}</p>` : '';
         
-                let tagHTML = '';
-        if (item.tag === 'new') {
-            tagHTML = `<span class="tag-badge tag-new">Novità</span>`;
-        }
-        if (item.tag === 'hot') {
-            tagHTML = `<span class="tag-badge tag-hot">Top</span>`;
-        }
-
-        // NUOVO: badge aperitivo / aperitivo analcolico
-        if (item.tag === 'aperitivo' && item.tipo === 'analcolico') {
-            tagHTML += `<span class="tag-badge tag-aperitivo">Aperitivo analcolico</span>`;
-        }
-        if (item.tag === 'aperitivo' && item.tipo === 'alcolico') {
-            tagHTML += `<span class="tag-badge tag-aperitivo">Aperitivo alcolico</span>`;
-        }
-
+        let tagHTML = '';
+        if(item.tag === 'new') tagHTML = `<span class="tag-badge tag-new">Novità</span>`;
+        if(item.tag === 'hot') tagHTML = `<span class="tag-badge tag-hot">Top</span>`;
 
         let allergensHTML = '';
         if(item.allergens && item.allergens.length > 0) {
