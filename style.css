@@ -257,7 +257,7 @@ body.lite-mode .logo-circle {
     transition: all 0.4s ease;
     
     /* MODIFICATO: padding ridotto a 2px per meno aria */
-    padding: 0 2px; 
+    padding: 0 3px; 
     overflow: visible; 
 }
 
@@ -380,7 +380,7 @@ body.lite-mode .nav-pill-wrapper {
 @media (min-width: 700px) {
     .nav-scroll-area {
         /* MODIFICATO: padding ridotto a 2px per meno aria */
-        padding: 0 2px;
+        padding: 0 5px;
         scroll-snap-type: none;
         justify-content: center; 
         width: 100%;
