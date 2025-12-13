@@ -201,7 +201,7 @@ header::after {
     align-items: center;
     gap: 15px;
     pointer-events: auto;
-    width: 95%;
+    width: auto;
     justify-content: center;
     max-width: 95%;
     margin: 0 auto 10px auto;
@@ -249,16 +249,13 @@ body.lite-mode .logo-circle {
     border-radius: 50px;
     flex-grow: 1;
     width: 100%;
+    overflow: hidden;
     background-color: rgba(255, 255, 255, 0.45);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     box-shadow: 0 8px 20px rgba(0,0,0,0.15);
     border: 1px solid rgba(255,255,255,0.4);
     transition: all 0.4s ease;
-    
-    /* MODIFICATO: padding ridotto a 2px per meno aria */
-    padding: 0 3px; 
-    overflow: visible; 
 }
 
 /* LITE MODE NAV PILL */
@@ -330,7 +327,10 @@ body.lite-mode .nav-pill-wrapper {
     overflow-x: auto;
     height: 100%;
     width: 100%;
-    padding: 0;
+    
+    /* MODIFICA: Padding aggiunto per evitare taglio selezione a sinistra */
+    padding: 0 10px; 
+    
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
 }
@@ -348,7 +348,7 @@ body.lite-mode .nav-pill-wrapper {
 .tab-btn {
     background: transparent;
     border: none;
-    height: 100%; 
+    height: 100%;
     flex: 0 0 50%;
     width: 50%;
     margin: 0;
@@ -362,7 +362,7 @@ body.lite-mode .nav-pill-wrapper {
 
 .tab-btn-inner {
     width: 90%;
-    height: 42px; 
+    height: 42px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -379,12 +379,11 @@ body.lite-mode .nav-pill-wrapper {
 /* --- MEDIA QUERIES --- */
 @media (min-width: 700px) {
     .nav-scroll-area {
-        /* MODIFICATO: padding ridotto a 2px per meno aria */
-        padding: 0 5px;
+        padding: 0;
         scroll-snap-type: none;
         justify-content: center; 
         width: 100%;
-        overflow-x: auto;
+        overflow-x: hidden;
         gap: 10px;
     }
     .tab-btn {
@@ -914,29 +913,4 @@ body.lite-mode header {
 
 body.lite-mode .header-content {
     bottom: 90px;
-}
-
-/* --- NUOVO LAYOUT: LOGO + RICERCA --- */
-.header-search-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 95%;
-    max-width: 600px;
-    margin: 0 auto 10px auto; /* Margin leggermente modificato */
-    gap: 12px;
-    position: relative;
-    z-index: 20;
-}
-
-.header-search-row .logo-circle {
-    flex-shrink: 0;
-    margin: 0;
-}
-
-.header-search-row .search-container {
-    margin: 0 !important;
-    width: auto !important;
-    flex-grow: 1;
-    max-width: none !important;
 }
