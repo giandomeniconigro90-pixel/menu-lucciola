@@ -47,8 +47,6 @@
         <div class="nav-cluster">
             <div class="nav-pill-wrapper">
                 <div class="nav-scroll-area">
-                    <!-- RIMOSSO SPACER -->
-                    
                     <!-- Primo bottone con margine sinistro -->
                     <button class="tab-btn active" onclick="showCategory('calde', this)" style="margin-left: 3px;">
                         <span class="tab-btn-inner">
@@ -83,14 +81,13 @@
                             <svg viewBox="0 0 24 24"><path d="m4.5 13.5 3-3"></path><path d="m19.5 13.5-3-3"></path><path d="M12 9c-4.5-2-8 1-9.5 4.5 2.5 4 6 5 9.5 5s7-1 9.5-5c-1.5-3.5-5-6.5-9.5-4.5Z"></path></svg>Dolci
                         </span>
                     </button>
-                    
-                    <!-- RIMOSSO SPACER -->
                 </div>
             </div>
         </div>
 
         <!-- RIGA 2 (SOTTO): Logo + Ricerca -->
-        <div class="header-search-row" style="display: flex; align-items: center; justify-content: space-between; width: 95%; max-width: 600px; margin: 5px auto 10px auto;">
+        <!-- AGGIUNTO pointer-events: auto; per abilitare il click -->
+        <div class="header-search-row" style="display: flex; align-items: center; justify-content: space-between; width: 95%; max-width: 600px; margin: 5px auto 10px auto; pointer-events: auto;">
             <div class="logo-circle"><img src="images/icon_app.png" alt="Logo" class="nav-mini-logo"></div>
             
             <div class="search-container" style="margin: 0 0 0 15px; width: 100%; max-width: none !important;">
