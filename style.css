@@ -204,42 +204,26 @@ header::after {
     width: auto;
     justify-content: center;
     max-width: 95%;
-    margin: 0 auto 5px auto; /* Ridotto margine inferiore per avvicinare la barra di ricerca */
-    position: relative;
-    z-index: 10;
-}
-
-/* Nuova riga secondaria per Logo + Search */
-.nav-secondary-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 94%;
-    max-width: 600px;
     margin: 0 auto 10px auto;
-    pointer-events: auto;
-    z-index: 5;
-    opacity: 0;
-    animation: fadeInUp 0.6s 0.2s forwards;
+    position: relative;
 }
 
 .logo-circle {
     z-index: 20;
     position: relative;
-    width: 50px; /* Ridotto leggermente per stare meglio in riga */
-    height: 50px;
+    width: 58px;
+    height: 58px;
     border-radius: 50%;
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.45);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
     border: 1px solid rgba(255,255,255,0.4);
     transition: all 0.4s ease;
-    cursor: pointer;
 }
 
 /* LITE MODE LOGO */
@@ -252,8 +236,8 @@ body.lite-mode .logo-circle {
 }
 
 .nav-mini-logo {
-    width: 38px;
-    height: 38px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -284,12 +268,13 @@ body.lite-mode .nav-pill-wrapper {
 
 /* --- SEARCH BAR --- */
 .search-container {
-    flex-grow: 1; /* Occupa tutto lo spazio rimanente */
-    margin: 0; /* Resetta i margini precedenti */
-    width: auto;
-    max-width: none !important;
-    opacity: 1; /* Gestito dall'animazione del padre */
-    animation: none;
+    width: 94%;
+    max-width: 600px !important;
+    margin: 10px auto 20px auto;
+    opacity: 0;
+    animation: fadeInUp 0.6s 0.3s forwards;
+    position: relative;
+    z-index: 5;
 }
 
 .search-input-wrapper {
@@ -300,8 +285,8 @@ body.lite-mode .nav-pill-wrapper {
 
 .search-input {
     width: 100%;
-    height: 50px; /* Altezza uguale al logo per allineamento */
-    border-radius: 25px; /* Più rotondo per matchare il logo */
+    height: 45px;
+    border-radius: 12px;
     border: none;
     padding-left: 45px;
     padding-right: 15px;
@@ -324,8 +309,8 @@ body.lite-mode .nav-pill-wrapper {
     position: absolute;
     left: 15px;
     color: #999;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
 }
 
 /* --- LOGICA SCROLL --- */
@@ -347,12 +332,12 @@ body.lite-mode .nav-pill-wrapper {
     scrollbar-width: none;
 }
 
-/* Spacer per scroll */
+/* MODIFICA: Spacer aumentati a 20px */
 .nav-scroll-area::before,
 .nav-scroll-area::after {
     content: '';
     display: block;
-    width: 20px; 
+    width: 20px; /* Spazio aumentato per più aria */
     flex-shrink: 0;
 }
 
@@ -408,6 +393,7 @@ body.lite-mode .nav-pill-wrapper {
         gap: 10px;
     }
     
+    /* Disattivo gli spacer per la vista desktop */
     .nav-scroll-area::before,
     .nav-scroll-area::after {
         display: none;
