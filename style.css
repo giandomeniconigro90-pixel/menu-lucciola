@@ -337,7 +337,7 @@ body.lite-mode .nav-pill-wrapper {
 .nav-scroll-area::after {
     content: '';
     display: block;
-    width: 10px; /* Spazio di 10px a inizio e fine */
+    width: 20px; /* Spazio di 10px a inizio e fine */
     flex-shrink: 0;
 }
 
