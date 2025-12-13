@@ -327,17 +327,17 @@ body.lite-mode .nav-pill-wrapper {
     overflow-x: auto;
     height: 100%;
     width: 100%;
-    padding: 0; /* Rimosso padding, gestito con gli spacer */
+    padding: 0;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
 }
 
-/* MODIFICA: Aggiunti spacer per distanziare le tab dai bordi */
+/* MODIFICA: Spacer aumentati a 20px */
 .nav-scroll-area::before,
 .nav-scroll-area::after {
     content: '';
     display: block;
-    width: 20px; /* Spazio di 10px a inizio e fine */
+    width: 20px; /* Spazio aumentato per più aria */
     flex-shrink: 0;
 }
 
