@@ -196,12 +196,13 @@ header::after {
     pointer-events: none;
 }
 
+/* MODIFICATO: Nav cluster ora contiene solo i tabs, width pieno se necessario */
 .nav-cluster {
     display: flex;
     align-items: center;
     gap: 15px;
     pointer-events: auto;
-    width: auto;
+    width: 95%; /* Modificato: occupa larghezza disponibile */
     justify-content: center;
     max-width: 95%;
     margin: 0 auto 10px auto;
@@ -919,7 +920,7 @@ body.lite-mode .header-content {
     justify-content: center;
     width: 95%;
     max-width: 600px;
-    margin: 10px auto 10px auto;
+    margin: 0 auto 10px auto; /* Margin leggermente modificato */
     gap: 12px;
     position: relative;
     z-index: 20;
@@ -935,10 +936,4 @@ body.lite-mode .header-content {
     width: auto !important;
     flex-grow: 1;
     max-width: none !important;
-}
-
-/* Override per nav-cluster se necessario */
-.nav-cluster {
-    margin-top: 0;
-    width: 95%;
 }
