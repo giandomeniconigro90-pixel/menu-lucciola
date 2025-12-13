@@ -185,6 +185,7 @@ header::after {
     display: flex;
     flex-direction: column;
     align-items: center;
+    pointer-events: none;
     transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.4s ease;
     opacity: 1;
 }
@@ -327,10 +328,7 @@ body.lite-mode .nav-pill-wrapper {
     height: 100%;
     width: 100%;
     padding: 0;
-    
-    /* MODIFICA 1: Scroll più morbido (proximity) */
-    scroll-snap-type: x proximity;
-    
+    scroll-snap-type: x mandatory;
     scrollbar-width: none;
 }
 
@@ -378,42 +376,34 @@ body.lite-mode .nav-pill-wrapper {
 /* --- MEDIA QUERIES --- */
 @media (min-width: 700px) {
     .nav-scroll-area {
-        /* MODIFICA 2: Fix tablet */
-        padding: 0 20px;       /* Cuscinetto laterale */
+        padding: 0;
         scroll-snap-type: none;
         justify-content: center; 
         width: 100%;
-        overflow-x: auto;
+        overflow-x: hidden;
         gap: 10px;
-        flex-wrap: wrap;       /* A capo se serve */
     }
-    
     .tab-btn {
         flex: 0 1 auto; 
         width: auto;
         margin: 0;
         min-width: 80px;
     }
-    
     .tab-btn-inner {
         width: 100%;
         padding: 0 15px;
         justify-content: center;
     }
-    
     .nav-pill-wrapper {
         display: inline-flex;
-        width: auto;          /* Adatta la larghezza */
-        max-width: 95%;       /* Non toccare i bordi */
+        width: max-content; 
         min-width: 0;
         flex-grow: 0;
-        padding: 5px;
+        padding: 0 5px;
         justify-content: center;
         margin: 0;
         position: static;
         transform: none;
-        height: auto;         
-        min-height: 58px;    
     }
 }
 
@@ -920,35 +910,4 @@ body.lite-mode header {
 
 body.lite-mode .header-content {
     bottom: 90px;
-}
-
-/* Badge aperitivo per menu */
-.tag-aperitivo {
-    background-color: #e8f5e9;
-    color: #2e7d32;
-    border: 1px solid #c8e6c9;
-}
-
-/* --- PATCH: Logo a sinistra della search + pill tab più larga --- */
-.search-row {
-  width: 94%;
-  max-width: 900px;
-  margin: 10px auto 20px auto;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  position: relative;
-  z-index: 5;
-}
-
-.search-row .search-container {
-  flex: 1;
-  max-width: none !important;
-  margin: 0;
-}
-
-/* Dai più spazio alla barra delle tab */
-.nav-cluster {
-  width: 94%;
-  max-width: 900px;
 }
