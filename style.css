@@ -329,7 +329,7 @@ body.lite-mode .nav-pill-wrapper {
     width: 100%;
     
     /* MODIFICA: Padding aggiunto per evitare taglio selezione a sinistra */
-    padding: 0 10px; 
+    padding: 0 15px; 
     
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
