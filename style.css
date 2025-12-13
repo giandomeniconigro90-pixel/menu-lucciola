@@ -329,7 +329,7 @@ body.lite-mode .nav-pill-wrapper {
     width: 100%;
     
     /* MODIFICA: Padding aumentato a 15px per più aria ai lati */
-    padding: 0 15px; 
+    padding: 0 25px; 
     
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
