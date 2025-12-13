@@ -47,6 +47,9 @@
         <div class="nav-cluster">
             <div class="nav-pill-wrapper">
                 <div class="nav-scroll-area">
+                    <!-- SPACER INIZIALE AGGIUNTO -->
+                    <div style="width: 20px; flex-shrink: 0;"></div>
+
                     <button class="tab-btn active" onclick="showCategory('calde', this)">
                         <span class="tab-btn-inner">
                             <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>Calde
@@ -78,16 +81,17 @@
                             <svg viewBox="0 0 24 24"><path d="m4.5 13.5 3-3"></path><path d="m19.5 13.5-3-3"></path><path d="M12 9c-4.5-2-8 1-9.5 4.5 2.5 4 6 5 9.5 5s7-1 9.5-5c-1.5-3.5-5-6.5-9.5-4.5Z"></path></svg>Dolci
                         </span>
                     </button>
+
+                    <!-- SPACER FINALE AGGIUNTO -->
+                    <div style="width: 20px; flex-shrink: 0;"></div>
                 </div>
             </div>
         </div>
 
         <!-- RIGA 2 (SOTTO): Logo + Ricerca -->
-        <!-- Applicato style flex per affiancare gli elementi: Logo SX, Ricerca DX -->
         <div class="header-search-row" style="display: flex; align-items: center; justify-content: space-between; width: 95%; max-width: 600px; margin: 5px auto 10px auto;">
             <div class="logo-circle"><img src="images/icon_app.png" alt="Logo" class="nav-mini-logo"></div>
             
-            <!-- Applicato style per rimuovere i margini di default e occupare lo spazio rimanente -->
             <div class="search-container" style="margin: 0 0 0 15px; width: 100%; max-width: none !important;">
                 <div class="search-input-wrapper">
                     <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
