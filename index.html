@@ -47,8 +47,8 @@
         <div class="nav-cluster">
             <div class="nav-pill-wrapper">
                 <div class="nav-scroll-area">
-                    <!-- SPACER INIZIALE RIMOSSO (0px) -->
-                    <!-- I bottoni iniziano direttamente per evitare spazio extra -->
+                    <!-- SPACER INIZIALE AGGIUNTO A 1px -->
+                    <div style="width: 1px; flex-shrink: 0;"></div>
 
                     <button class="tab-btn active" onclick="showCategory('calde', this)">
                         <span class="tab-btn-inner">
@@ -82,7 +82,8 @@
                         </span>
                     </button>
 
-                    <!-- SPACER FINALE RIMOSSO (0px) -->
+                    <!-- SPACER FINALE AGGIUNTO A 1px -->
+                    <div style="width: 1px; flex-shrink: 0;"></div>
                 </div>
             </div>
         </div>
