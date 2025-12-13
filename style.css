@@ -256,9 +256,9 @@ body.lite-mode .logo-circle {
     border: 1px solid rgba(255,255,255,0.4);
     transition: all 0.4s ease;
     
-    /* MODIFICATO: per centratura verticale */
-    padding: 0 5px; 
-    overflow: visible; /* Per evitare di tagliare ombre o contenuti */
+    /* MODIFICATO: padding ridotto a 2px per meno aria */
+    padding: 0 2px; 
+    overflow: visible; 
 }
 
 /* LITE MODE NAV PILL */
@@ -326,7 +326,7 @@ body.lite-mode .nav-pill-wrapper {
 
 .nav-scroll-area {
     display: flex;
-    align-items: center; /* FONDAMENTALE: centra verticalmente */
+    align-items: center;
     overflow-x: auto;
     height: 100%;
     width: 100%;
@@ -355,14 +355,14 @@ body.lite-mode .nav-pill-wrapper {
     padding: 0;
     cursor: pointer;
     display: flex;
-    align-items: center; /* Centra il contenuto (tab-btn-inner) verticalmente */
+    align-items: center;
     justify-content: center;
     scroll-snap-align: start;
 }
 
 .tab-btn-inner {
     width: 90%;
-    height: 42px; /* Altezza fissa della pillola */
+    height: 42px; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -379,7 +379,8 @@ body.lite-mode .nav-pill-wrapper {
 /* --- MEDIA QUERIES --- */
 @media (min-width: 700px) {
     .nav-scroll-area {
-        padding: 0 10px; /* Padding solo laterale, niente verticale */
+        /* MODIFICATO: padding ridotto a 2px per meno aria */
+        padding: 0 2px;
         scroll-snap-type: none;
         justify-content: center; 
         width: 100%;
