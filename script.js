@@ -360,87 +360,6 @@ function renderItems(items, container, isLite) {
     });
 }
 
-function initSnow() {
-  const canvas = document.getElementById('snow-canvas');
-  if (!canvas) return;
-
-  // Se l’utente preferisce meno animazioni, non partire
-  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  const ctx = canvas.getContext('2d');
-  let w = 0, h = 0, dpr = 1;
-  let flakes = [];
-  let rafId = null;
-
-  function resize() {
-    dpr = window.devicePixelRatio || 1;
-    w = Math.max(1, window.innerWidth);
-    h = Math.max(1, window.innerHeight);
-    canvas.width = Math.floor(w * dpr);
-    canvas.height = Math.floor(h * dpr);
-    canvas.style.width = w + 'px';
-    canvas.style.height = h + 'px';
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-    // densità proporzionale allo schermo (limite per performance)
-    const count = Math.min(220, Math.floor((w * h) / 14000));
-    flakes = Array.from({ length: count }, () => spawnFlake(true));
-  }
-
-  function spawnFlake(initial = false) {
-    const size = 1 + Math.random() * 3.2;
-    return {
-      x: Math.random() * w,
-      y: initial ? Math.random() * h : -10 - Math.random() * 60,
-      r: size,
-      vy: 0.7 + Math.random() * 1.8,
-      vx: -0.4 + Math.random() * 0.8,
-      a: 0.35 + Math.random() * 0.5
-    };
-  }
-
-  function step() {
-    ctx.clearRect(0, 0, w, h);
-
-    for (let i = 0; i < flakes.length; i++) {
-      const f = flakes[i];
-      f.y += f.vy;
-      f.x += f.vx + Math.sin((f.y / 60)) * 0.25;
-
-      if (f.y > h + 12) flakes[i] = spawnFlake(false);
-      if (f.x < -20) f.x = w + 20;
-      if (f.x > w + 20) f.x = -20;
-
-      ctx.beginPath();
-      ctx.fillStyle = `rgba(255,255,255,${f.a})`;
-      ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
-      ctx.fill();
-    }
-
-    rafId = requestAnimationFrame(step);
-  }
-
-  function start() {
-    if (rafId) return;
-    step();
-  }
-
-  function stop() {
-    if (!rafId) return;
-    cancelAnimationFrame(rafId);
-    rafId = null;
-  }
-
-  window.addEventListener('resize', resize, { passive: true });
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) stop();
-    else start();
-  });
-
-  resize();
-  start();
-}
-
 // Avvio
 document.addEventListener('DOMContentLoaded', () => {
     checkOpenStatus();
@@ -448,5 +367,4 @@ document.addEventListener('DOMContentLoaded', () => {
     initDataFetch();
     toggleLiteMode();      // imposta stato iniziale (lite attiva)
     toggleLiteMode();      // subito dopo torna a normale → fulmine + "Lite"
-    initSnow();
 });
