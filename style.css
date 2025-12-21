@@ -948,12 +948,13 @@ body.lite-mode header {
 .xmas-garland::before {
   content: "";
   position: absolute;
-  left: -10%;
-  top: 26px;
-  width: 120%;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.35);
-  box-shadow: 0 1px 6px rgba(0,0,0,0.35);
+  left: -12%;
+  top: 6px;                 /* più su, perché ora scende al centro */
+  width: 124%;
+  height: 54px;             /* stessa altezza della ghirlanda */
+  border-bottom: 2px solid rgba(255, 255, 255, 0.35);
+  border-radius: 0 0 120% 120%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.35);
 }
 
 .xmas-garland::after {
