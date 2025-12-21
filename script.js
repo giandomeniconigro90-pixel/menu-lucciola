@@ -43,8 +43,7 @@ function transformCsvToMenu(csvData) {
     const titles = {
         'calde': 'Caffetteria',
         'fredde': 'Bibite Fredde',
-        'aperitivi': 'Aperitivi & Cocktail',
-        'alcolici': 'Vini & Alcolici',
+        'alcolici': 'Alcolici',
         'food': 'Food & Snack',
         'dolci': 'Dolci & Dessert',
         'altro': 'Altro'
@@ -79,30 +78,25 @@ function transformCsvToMenu(csvData) {
             allergenesList = row.allergeni.split(',').map(s => s.trim().toLowerCase());
         }
 
-        menuData[catKey].items.push({
-            name: row.nome,
-            price: parseFloat(row.prezzo.replace(',', '.')),
-            description: row.descrizione || '',
-            allergens: allergenesList,
-            tag: row.tag || '',
-            subcategory: row.categoria, // Mantiene la capitalizzazione originale (es. "Bibite")
-            soldOut: row.disponibile === 'soldout'
-        });
+      menuData[catKey].items.push({
+    name: row.nome,
+    price: parseFloat(row.prezzo.replace(',', '.')),
+    description: row.descrizione || '',
+    allergens: allergenesList,
+    tag: row.tag || '',
+    subcategory: row.categoria,
+    tipo: (row.tipo || '').toLowerCase(),   // NUOVO
+    soldOut: row.disponibile === 'soldout'
+});
+
     });
 }
 
 function normalizeCategory(catString) {
     const c = catString.toLowerCase();
-    
-    // NUOVA LOGICA: Cerca prima Aperitivi
-    if(c.includes('aperitiv') || c.includes('spritz') || c.includes('cocktail') || c.includes('prosecco') || c.includes('long drink')) return 'aperitivi';
-
     if(c.includes('caff') || c.includes('cald') || c.includes('tè') || c.includes('tisane')) return 'calde';
     if(c.includes('fredd') || c.includes('bibit') || c.includes('succh') || c.includes('acqu')) return 'fredde';
-    
-    // Alcolici rimane per il resto
-    if(c.includes('alcol') || c.includes('vin') || c.includes('birr') || c.includes('amar') || c.includes('liquor') || c.includes('grap')) return 'alcolici';
-    
+    if(c.includes('alcol') || c.includes('vin') || c.includes('birr') || c.includes('cocktail') || c.includes('amar') || c.includes('spritz') || c.includes('liquor') || c.includes('grap')) return 'alcolici';
     if(c.includes('cib') || c.includes('food') || c.includes('panin') || c.includes('snack') || c.includes('taglier') || c.includes('focacc')) return 'food';
     if(c.includes('dolc') || c.includes('dessert') || c.includes('gelat') || c.includes('tort')) return 'dolci';
     return 'altro';
@@ -313,15 +307,21 @@ function searchMenu() {
     const filter = document.getElementById('menu-search').value.toLowerCase();
     const container = document.getElementById('menu-container');
 
-    if(filter.length === 0) {
+    if (filter.length === 0) {
+        // Nessun testo: ricarica semplicemente la categoria attiva
         const activeBtn = document.querySelector('.tab-btn.active');
-        if(activeBtn) showCategory(activeBtn.getAttribute('onclick').split("'")[1], activeBtn);
+        if (activeBtn) {
+            const catId = activeBtn.dataset.cat;   // prende "calde", "fredde", ecc.
+            showCategory(catId, activeBtn);
+        }
         return;
     }
 
     let allMatches = [];
     for (const [key, category] of Object.entries(menuData)) {
-        const matches = category.items.filter(item => item.name.toLowerCase().includes(filter));
+        const matches = category.items.filter(item =>
+            item.name.toLowerCase().includes(filter)
+        );
         allMatches = [...allMatches, ...matches];
     }
 
@@ -334,9 +334,22 @@ function renderItems(items, container, isLite) {
         const price = item.price.toFixed(2).replace('.', ',');
         const descHTML = item.description ? `<p>${item.description}</p>` : '';
         
-        let tagHTML = '';
-        if(item.tag === 'new') tagHTML = `<span class="tag-badge tag-new">Novità</span>`;
-        if(item.tag === 'hot') tagHTML = `<span class="tag-badge tag-hot">Top</span>`;
+                let tagHTML = '';
+        if (item.tag === 'new') {
+            tagHTML = `<span class="tag-badge tag-new">Novità</span>`;
+        }
+        if (item.tag === 'hot') {
+            tagHTML = `<span class="tag-badge tag-hot">Top</span>`;
+        }
+
+        // NUOVO: badge aperitivo / aperitivo analcolico
+        if (item.tag === 'aperitivo' && item.tipo === 'analcolico') {
+            tagHTML += `<span class="tag-badge tag-aperitivo">Aperitivo analcolico</span>`;
+        }
+        if (item.tag === 'aperitivo' && item.tipo === 'alcolico') {
+            tagHTML += `<span class="tag-badge tag-aperitivo">Aperitivo alcolico</span>`;
+        }
+
 
         let allergensHTML = '';
         if(item.allergens && item.allergens.length > 0) {
