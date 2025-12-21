@@ -923,6 +923,64 @@ body.lite-mode .search-input-wrapper {
 body.lite-mode header {
     height: 230px;
 }
+/* --- NATALE: NEVE (overlay) --- */
+#snow-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1500; /* sopra contenuti, sotto modali (2000) e bottoni (9999) */
+}
+
+/* --- NATALE: GHIRLANDA IN HEADER --- */
+.xmas-garland {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 54px;
+  z-index: 2;          /* header-content è già a z-index 2, ma sta in basso */
+  pointer-events: none;
+  opacity: 0.95;
+}
+
+.xmas-garland::before {
+  content: "";
+  position: absolute;
+  left: -10%;
+  top: 26px;
+  width: 120%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.35);
+}
+
+.xmas-garland::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 6%  34px, rgba(255, 77, 77, 0.95) 0 5px, transparent 6px),
+    radial-gradient(circle at 14% 36px, rgba(255, 209, 102,0.95) 0 5px, transparent 6px),
+    radial-gradient(circle at 22% 34px, rgba(76, 175, 80, 0.95) 0 5px, transparent 6px),
+    radial-gradient(circle at 30% 36px, rgba(74, 144, 226,0.95) 0 5px, transparent 6px),
+    radial-gradient(circle at 38% 34px, rgba(255, 77, 77, 0.95) 0 5px, transparent 6px),
+    radial-gradient(circle at 46% 36px, rgba(255, 209, 102,0.95) 0 5px, transparent 6px),
+    radial-gradient(circle at 54% 34px, rgba(76, 175, 80, 0.95) 0 5px, transparent 6px),
+    radial-gradient(circle at 62% 36px, rgba(74, 144, 226,0.95) 0 5px, transparent 6px),
+    radial-gradient(circle at 70% 34px, rgba(255, 77, 77, 0.95) 0 5px, transparent 6px),
+    radial-gradient(circle at 78% 36px, rgba(255, 209, 102,0.95) 0 5px, transparent 6px),
+    radial-gradient(circle at 86% 34px, rgba(76, 175, 80, 0.95) 0 5px, transparent 6px),
+    radial-gradient(circle at 94% 36px, rgba(74, 144, 226,0.95) 0 5px, transparent 6px);
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.35));
+}
+
+/* Rispetta accessibilità */
+@media (prefers-reduced-motion: reduce) {
+  #snow-canvas { display: none; }
+}
+
 
 body.lite-mode .header-content {
     bottom: 90px;
