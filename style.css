@@ -986,108 +986,112 @@ body.lite-mode .header-content {
 }
 
 /* =========================
-   NATALE: STICKERS (overlay)
+   NATALE: STICKERS (header-only, non ingombrano)
    ========================= */
-.xmas-stickers-layer {
-  position: fixed;
+
+/* Nota: ora che gli sticker sono dentro <header>, NON devono essere fixed */
+header .xmas-stickers-layer {
+  position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 1600; /* sopra contenuti (es. sticky-nav z=100), sotto modale (z=2000) */
+  z-index: 1;      /* sotto header-content (z-index: 2) */
+  overflow: hidden;
 }
 
-/* Base sticker */
-.xmas-sticker {
+/* Sticker più piccoli e discreti */
+header .xmas-sticker {
   position: absolute;
-  width: 92px;
-  height: 92px;
-  filter: drop-shadow(0 10px 18px rgba(0,0,0,0.25));
-  opacity: 0.95;
-  transform: rotate(-6deg);
+  width: clamp(36px, 6vw, 54px);
+  height: clamp(36px, 6vw, 54px);
+  opacity: 0.55;
+  filter: drop-shadow(0 8px 12px rgba(0,0,0,0.18));
+  transform: rotate(-8deg);
 }
 
-/* Posizioni (non coprono i tuoi bottoni top 15px) */
-.sticker-top-left    { top: 70px; left: 14px;  }
-.sticker-top-right   { top: 70px; right: 14px; transform: rotate(8deg); }
-.sticker-bottom-left { bottom: 110px; left: 14px; transform: rotate(10deg); }
+/* Posizioni “safe”: NON vicino ai bottoni top:15px */
+header .sticker-top-left  { top: 58px; left: 12px; }
+header .sticker-top-right { top: 58px; right: 12px; transform: rotate(8deg); }
 
-/* Sticker 1: “badge” fiocco di neve */
-.sticker-top-left {
-  border-radius: 22px;
+/* Sticker 1: fiocco minimal (badge) */
+header .sticker-top-left {
+  border-radius: 16px;
   background:
-    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95) 0 18%, transparent 19%),
-    radial-gradient(circle at 70% 40%, rgba(255,255,255,0.92) 0 14%, transparent 15%),
-    radial-gradient(circle at 45% 70%, rgba(255,255,255,0.88) 0 16%, transparent 17%),
-    radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.35) 0 55%, rgba(0,0,0,0) 56%),
-    linear-gradient(135deg, rgba(255,255,255,0.28), rgba(255,255,255,0.05));
-  border: 1px solid rgba(255,255,255,0.35);
+    radial-gradient(circle at 35% 35%, rgba(255,255,255,0.92) 0 9px, transparent 10px),
+    radial-gradient(circle at 65% 55%, rgba(255,255,255,0.88) 0 7px, transparent 8px),
+    linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.20);
   backdrop-filter: blur(6px);
 }
 
-/* Sticker 2: candy cane */
-.sticker-top-right {
-  width: 84px;
-  height: 120px;
+/* Sticker 2: agrifoglio minimal */
+header .sticker-top-right {
+  border-radius: 16px;
   background:
-    linear-gradient(135deg, rgba(255,255,255,0.95) 0 18%,
-                          rgba(220, 38, 38, 0.95) 18% 36%,
-                          rgba(255,255,255,0.95) 36% 54%,
-                          rgba(220, 38, 38, 0.95) 54% 72%,
-                          rgba(255,255,255,0.95) 72% 90%,
-                          rgba(220, 38, 38, 0.95) 90% 100%);
-  border-radius: 44px;
-  clip-path: polygon(
-    24% 0%, 76% 0%, 76% 62%, 86% 62%, 86% 78%, 76% 78%, 76% 100%,
-    24% 100%, 24% 42%, 14% 42%, 14% 20%, 24% 20%
-  );
-  border: 1px solid rgba(255,255,255,0.35);
+    radial-gradient(circle at 60% 46%, rgba(220,38,38,0.85) 0 6px, transparent 7px),
+    radial-gradient(circle at 48% 58%, rgba(220,38,38,0.80) 0 5px, transparent 6px),
+    radial-gradient(circle at 38% 48%, rgba(34,197,94,0.80) 0 11px, transparent 12px),
+    radial-gradient(circle at 58% 40%, rgba(34,197,94,0.80) 0 11px, transparent 12px),
+    linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.18);
+  backdrop-filter: blur(6px);
 }
 
-/* Sticker 3: agrifoglio (holly) */
-.sticker-bottom-left {
-  border-radius: 26px;
-  background:
-    radial-gradient(circle at 62% 44%, rgba(220,38,38,0.95) 0 9px, transparent 10px),
-    radial-gradient(circle at 48% 56%, rgba(220,38,38,0.95) 0 8px, transparent 9px),
-    radial-gradient(circle at 68% 62%, rgba(220,38,38,0.95) 0 7px, transparent 8px),
-    radial-gradient(circle at 30% 50%, rgba(34,197,94,0.95) 0 16px, transparent 17px),
-    radial-gradient(circle at 46% 38%, rgba(34,197,94,0.95) 0 18px, transparent 19px),
-    radial-gradient(circle at 56% 70%, rgba(34,197,94,0.95) 0 15px, transparent 16px),
-    linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.04));
-  border: 1px solid rgba(255,255,255,0.28);
-  backdrop-filter: blur(6px);
+/* In lite-mode l’header cambia: sposto leggermente in basso */
+body.lite-mode header .sticker-top-left,
+body.lite-mode header .sticker-top-right {
+  top: 70px;
 }
 
 /* =========================
-   NATALE: CAPPELLO SU LOGO
-   (non sposta nulla, solo overlay)
+   NATALE: CAPPELLO SU LOGO (aggiustato)
    ========================= */
+
+/* Mantieni il cappello SOLO come overlay, senza spostare nulla */
 .logo-circle {
-  overflow: visible; /* per far “uscire” il cappello fuori dal cerchio */
+  overflow: visible;
+  position: relative;
 }
 
+/* Fascia bianca */
+.logo-circle::before {
+  content: "";
+  position: absolute;
+  width: 46px;
+  height: 12px;
+  left: 7px;
+  top: -6px;
+  transform: rotate(-14deg);
+  background: rgba(255,255,255,0.95);
+  border-radius: 10px;
+  box-shadow: 0 6px 10px rgba(0,0,0,0.22);
+  pointer-events: none;
+  z-index: 6;
+}
+
+/* Cappello rosso + pon-pon */
 .logo-circle::after {
   content: "";
   position: absolute;
-  top: -18px;
-  left: 6px;
-  width: 52px;
+  width: 48px;
   height: 34px;
-  transform: rotate(-12deg);
-  pointer-events: none;
-  z-index: 5;
-
-  /* cappello: rosso + fascia bianca + pon pon */
+  left: 10px;
+  top: -26px;
+  transform: rotate(-18deg);
+  transform-origin: 20% 80%;
   background:
-    radial-gradient(circle at 86% 22%, rgba(255,255,255,0.98) 0 7px, transparent 8px),
-    linear-gradient(to bottom, rgba(255,255,255,0.98) 0 28%, rgba(235,235,235,0.98) 29% 40%, transparent 41%),
-    linear-gradient(135deg, rgba(220,38,38,0.98), rgba(185,28,28,0.98));
-  clip-path: polygon(8% 90%, 92% 90%, 78% 14%, 18% 34%);
-  filter: drop-shadow(0 6px 10px rgba(0,0,0,0.28));
+    radial-gradient(circle at 86% 26%, rgba(255,255,255,0.98) 0 7px, transparent 8px),
+    linear-gradient(135deg, rgba(220,38,38,0.98), rgba(153,27,27,0.98));
+  clip-path: polygon(12% 92%, 92% 92%, 76% 12%, 24% 36%);
   border-radius: 10px;
+  filter: drop-shadow(0 8px 12px rgba(0,0,0,0.24));
+  pointer-events: none;
+  z-index: 7;
 }
 
-/* Accessibilità: se l’utente riduce animazioni, teniamo gli sticker ma più discreti */
+/* Accessibilità */
 @media (prefers-reduced-motion: reduce) {
-  .xmas-sticker { opacity: 0.85; }
+  header .xmas-sticker { opacity: 0.45; }
 }
+
+
 
